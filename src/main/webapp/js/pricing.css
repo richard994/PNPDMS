@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.input-group {
+	margin-left: 165px;
+	margin-right: 15px;
+}
+
+input, select {
+	width: 224px !important;
+	height: 32px !important;
+}
+
+#searchqp {
+	background-color: #4D73FF;
+	color: white;
+}
+
+#resetqpsearch {
+	background-color: #E8E8E8;
+}
+
+#createqp {
+	background-color: #4D73FF;
+	color: white;
+	margin-left: 165px;
+}
+
+.table {
+	margin-left: 165px;
+}
