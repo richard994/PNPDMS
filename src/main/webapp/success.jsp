@@ -87,6 +87,7 @@
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing" style="color: #4D73FF">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
 		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
+		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker">Tracker</a></li>
           		<li class="nav-item dropdown mr-5">
 				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
 				    <ul class="dropdown-menu">

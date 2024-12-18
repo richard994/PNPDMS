@@ -20,8 +20,7 @@
 	<script src = "https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 	<script type="text/javascript" src="js/virtual-select.min.js"></script>
 	<link rel="stylesheet" href="js/virtual-select.min.css">
-	<link rel="stylesheet" href="js/shared.css">
-	<link rel="stylesheet" href="js/pricing.css">
+	<link rel="stylesheet" href="css/pricing.css">
 	<title>Pricing</title>
 	<style>
 		.bottom-wrapper {
@@ -136,6 +135,7 @@
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing" style="color: #4D73FF">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
 		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
+		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker">Tracker</a></li>
         		<li class="nav-item dropdown mr-5">
 				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
 				    <ul class="dropdown-menu">

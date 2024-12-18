@@ -18,6 +18,9 @@
 	<title>Editqp</title>
 	
 	<style>
+		body {
+			font-family: 'Inter', sans-serif !important;
+		}
 		#headbar {
 			font-size: calc( 12px + (20 - 16) * (100vw - 400px) / (800 - 400) );
 			font-weight: 300;
@@ -189,6 +192,7 @@
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing" style="color: #4D73FF">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
 		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
+		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker">Tracker</a></li>
            		<li class="nav-item dropdown mr-5">
 				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
 				    <ul class="dropdown-menu">
@@ -367,7 +371,7 @@
 				    	<option selected>Enter</option>
 				    	<option value="White Yarn">White Yarn</option>
 				    	<option value="Yarn Dyed">Yarn Dyed</option>
-				    	<option value="Fiber Dyed Yarn">Fiber Dyed Yarn</option>
+				    	<option value="Fiber Dyed Yarn">Piece Dyed Yarn</option>
 				    	<option value="Space Dyed Yarn">Space Dyed Yarn</option>
 				  	</select>
 				  </td>

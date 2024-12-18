@@ -13,65 +13,12 @@
 	<script src="js/jquery-3.7.0.min.js"></script>
 	<script type="text/javascript" src="js/virtual-select.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="js/createqp.css">
+	<link rel="stylesheet" href="css/createqp.css">
 
 	<title>Createqp</title>
-	
 	<style>
-		#headbar {
-			font-size: calc( 12px + (20 - 16) * (100vw - 400px) / (800 - 400) );
-			font-weight: 300;
-		}
-		#home::before {
-			content: url(home.png) !important;
-		}
-		.breadcrumb-item::before {
-			content: url(discount.png) !important;
-			padding-right: 5px !important;
-		}
-		
-		.breadcrumb-item::after {
-			content: ">";
-			padding-left: 10px;
-		}
-		
-		.breadcrumb-item:last-child::after {
-			content: "";
-		}
-		
-		.breadcrumb-item:last-child {
-			opacity: 1.0;
-		}
-		
-		.breadcrumb-item {
-			opacity: 0.5;
-		}
-		.nav-link {
-			color: black;
-		}
-		.dropdown-menu {
-		  display: none;
-		  position: absolute;
-		  background-color: #f9f9f9;
-		  min-width: 160px;
-		  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-		  z-index: 1;
-		}
-		
-		.dropdown-menu li a {
-		  float: none;
-		  color: black;
-		  text-decoration: none;
-		  display: block;
-		  text-align: left;
-		}
-		
-		.dropdown-menu li a:hover {
-		  background-color: #ddd;
-		}
-		
-		.dropdown:hover .dropdown-menu {
-		  display: block;
+		body {
+			font-family: 'Inter', sans-serif !important;
 		}
 	</style>
 	
@@ -199,6 +146,7 @@
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing" style="color: #4D73FF">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
 		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
+		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker">Tracker</a></li>
            		<li class="nav-item dropdown mr-5">
 				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
 				    <ul class="dropdown-menu">
@@ -396,7 +344,7 @@
 				    	<option value="" selected>Enter</option>
 				    	<option value="White Yarn">White Yarn</option>
 				    	<option value="Yarn Dyed">Yarn Dyed</option>
-				    	<option value="Fiber Dyed Yarn">Fiber Dyed Yarn</option>
+				    	<option value="Fiber Dyed Yarn">Piece Dyed Yarn</option>
 				    	<option value="Space Dyed Yarn">Space Dyed Yarn</option>
 				    	<option value="Jet Dyed Yarn">Jet Dyed Yarn</option>
 				  	</select>

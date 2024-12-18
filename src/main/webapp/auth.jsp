@@ -7,43 +7,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link rel="stylesheet" href="js/auth.css">
-	<link rel="stylesheet" href="js/shared.css">
+	<link rel="stylesheet" href="css/auth.css">
 	<title>AUTH</title>
-	<style>
-		#headbar {
-			font-size: calc( 12px + (20 - 16) * (100vw - 400px) / (800 - 400) );
-			font-weight: 300;
-		}
-		#home::before {
-			content: url(home.png) !important;
-		}
-		.breadcrumb-item::before {
-			content: url(discount.png) !important;
-			padding-right: 5px !important;
-		}
-		
-		.breadcrumb-item::after {
-			content: ">";
-			padding-left: 10px;
-		}
-		
-		.breadcrumb-item:last-child::after {
-			content: "";
-		}
-		
-		.breadcrumb-item:last-child {
-			opacity: 1.0;
-		}
-		
-		.breadcrumb-item {
-			opacity: 0.5;
-		}
-		.nav-link {
-			color: black;
-		}
-	</style>
 </head>
+
 <body>
 	<section class="bg-white">
 		<div class="container">
@@ -57,6 +24,7 @@
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
 		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
+		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker">Tracker</a></li>
 		        <li class="nav-item mr-5"><a href="auth.jsp" class="nav-link" id="Account" style="color: #4D73FF">Account</a></li>
 		      </ul>
 		    </div>
@@ -86,16 +54,6 @@
 	            <input type="password" id="password" name="password" class="form-control form-control-lg"
 	              placeholder="Enter password" />
 	          </div>
-	
-<!-- 	      <div class="d-flex justify-content-between align-items-center">
-	            Checkbox
-	            <div class="form-check mb-0">
-	              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-	              <label class="form-check-label" for="form2Example3">
-	                Remember me
-	              </label>
-	            </div>
-	          </div> -->
 	
 	          <div class="text-center text-lg-start mt-4 pt-2">
 	            <button type="submit" class="btn btn-lg"

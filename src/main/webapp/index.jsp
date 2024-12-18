@@ -4,65 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link rel="stylesheet" href="js/index.css">
+	<link rel="stylesheet" href="css/index.css">
 	<title>Miju</title>
-	<style>
-		#headbar {
-			font-size: calc( 12px + (20 - 16) * (100vw - 400px) / (800 - 400) );
-			font-weight: 300;
-		}
-		#home::before {
-			content: url(home.png) !important;
-		}
-		.breadcrumb-item::before {
-			content: url(discount.png) !important;
-			padding-right: 5px !important;
-		}
-		
-		.breadcrumb-item::after {
-			content: ">";
-			padding-left: 10px;
-		}
-		
-		.breadcrumb-item:last-child::after {
-			content: "";
-		}
-		
-		.breadcrumb-item:last-child {
-			opacity: 1.0;
-		}
-		
-		.breadcrumb-item {
-			opacity: 0.5;
-		}
-		.nav-link {
-			color: black;
-		}
-		.dropdown-menu {
-		  display: none;
-		  position: absolute;
-		  background-color: #f9f9f9;
-		  min-width: 160px;
-		  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-		  z-index: 1;
-		}
-		
-		.dropdown-menu li a {
-		  float: none;
-		  color: black;
-		  text-decoration: none;
-		  display: block;
-		  text-align: left;
-		}
-		
-		.dropdown-menu li a:hover {
-		  background-color: #ddd;
-		}
-		
-		.dropdown:hover .dropdown-menu {
-		  display: block;
-		}
-	</style>
 </head>
 
 <body>
@@ -78,6 +21,7 @@
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
 		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
+		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker">Tracker</a></li>
 		        <li class="nav-item mr-5" id="goToLogin"><a href="auth.jsp" class="nav-link" id="Account">Account</a></li>
            		<li class="nav-item dropdown mr-5" id="AccountSetting" style="display: none">
 				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
@@ -105,13 +49,6 @@
 				 <div class="row align-items-end">
 				 	<a href="CreateService" class="btn btn-primary btn-lg rounded-0" id="startbtn" style="width: 50%; margin-top: 80px">Calculate Sale Price &#8594</a>
 				 </div>
-				 <script>
-				 	var btn = document.getElementById("startbtn");
-				 	btn.addEventListener('click', function onClick(){
-				 		sessionStorage.setItem("qp", " Create Quoted Price");
-				 		sessionStorage.setItem("curr", " Create Quoted Price");
-				 	});
-				 </script>
             </div>
             <div class="col-md">
            		<div class="row justify-content-start">
@@ -123,13 +60,14 @@
        </div>
   </section>
   
-  <script>
+   <script>
 	var loggedin = "${login}";
 	if (loggedin === "yes") {
 		document.getElementById("goToLogin").style.display = "none";
 		document.getElementById("AccountSetting").style.display = "block";
 	}
   </script>
+  <script src="js/index.js"></script>
 </body>
 
 </html>
