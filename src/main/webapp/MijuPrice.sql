@@ -64,3 +64,13 @@ CREATE TABLE `materials` (
   KEY `quote_id_idx` (`quote_id`),
   CONSTRAINT `quote_id` FOREIGN KEY (`quote_id`) REFERENCES `quotes` (`quote_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `developments` (
+  `development_id` int NOT NULL AUTO_INCREMENT,
+  `development_title` varchar(500) NOT NULL,
+  `development_color` varchar(500) NOT NULL,
+  `NeedFeedback` BOOLEAN DEFAULT false,
+  `development_status` varchar(500) NOT NULL,
+  `development_cost` int NOT NULL,
+  PRIMARY KEY (`development_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -227,7 +227,7 @@
 		
 		<div class="container d-flex flex-column" style="gap: 20px">
 			<div class="container" id="catalogBtnContainer">
-				<button class="btn border-0" type="button" id="AddNewDevBtn">
+				<button class="btn border-0" type="button" id="AddNewDevBtn" onclick="window.location.href='NewDevService'">
 			  		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 					  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 					</svg>
@@ -242,9 +242,9 @@
 		  				<div class="card p-3">
 		  					<img src="img/TestFabric.png" alt="image"/>
 		  					<div class="container p-0" id="CardDescription">
-		  						<div class="row">
+		  						<div class="row mt-2">
 		  							<div class="col">
-		  								<span id="CardCode">ZYG3814-8</span>
+		  								<span id="CardCode" style="font-size: 15px">ZYG3814-8</span>
 		  							</div>
 		  							<div class="col">
 		  								<span style="float: right" id="CardNameAndColor">Crete Mocha</span>
