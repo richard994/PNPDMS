@@ -65,12 +65,53 @@ CREATE TABLE `materials` (
   CONSTRAINT `quote_id` FOREIGN KEY (`quote_id`) REFERENCES `quotes` (`quote_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `developments` (
+CREATE TABLE `development` (
   `development_id` int NOT NULL AUTO_INCREMENT,
-  `development_title` varchar(500) NOT NULL,
-  `development_color` varchar(500) NOT NULL,
+  `title` varchar(500) NOT NULL,
+  `code` varchar(500) NOT NULL,
+  `color` varchar(500) NOT NULL,
+  `cost` double DEFAULT 0.0,
+  `IsParagonClean` BOOLEAN DEFAULT false,
+  `Is400hrFCL` BOOLEAN DEFAULT false,
+  `IsPieceDyed` BOOLEAN DEFAULT false,
   `NeedFeedback` BOOLEAN DEFAULT false,
-  `development_status` varchar(500) NOT NULL,
-  `development_cost` int NOT NULL,
+  `IsSDY` BOOLEAN DEFAULT false,
+  `fabric_type` varchar(50) NOT NULL,
+  `design_type` varchar(50) NOT NULL,
+  `colorist` varchar(50) NOT NULL,
+  `finishing_used` varchar(50) NOT NULL,
+  `season` varchar(50) NOT NULL,
+  `yarn_type` varchar(50) NOT NULL,
+  `warp_type` varchar(50) NOT NULL,
+  `content` varchar(50) NOT NULL,
+  `strike_off_status` varchar(50) NOT NULL,
+  `blanket_status` varchar(50),
+  `colorline_status` varchar(50),
+  `colorline_datestamp` varchar(50),
+  `rollsample_status` varchar(50),
+  `rollsample_datestamp` varchar(50),
+  `test_status` varchar(50),
+  `test_datestamp` varchar(50),
+  `customs` varchar(50),
+  `moq` double DEFAULT 0.0,
+  `weight` double DEFAULT 0.0,
+  `nickname` varchar(50),
+  `numColorline` int DEFAULT 0,
+  `ppcm` double DEFAULT 0.0,
+  `note` varchar(1000),
+  `fabric_img_path` varchar(500),
+  `pid_path` varchar(500),
+  `test_report_path` varchar(500),
   PRIMARY KEY (`development_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `comment` (
+  `development_id` int NOT NULL,
+  `comment_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `date_stamp` varchar(50) NOT NULL,
+  `content` varchar(1000) NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  KEY `development_id_idx` (`development_id`),
+  CONSTRAINT `development_id` FOREIGN KEY (`development_id`) REFERENCES `development` (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -178,6 +178,7 @@
 			    	</div>
 			    </div>
 			    
+			    <form id="NDform" action="SaveNewDevService" method="get" onsubmit="return validate()">
 			    <div class="d-flex mt-5" id="MainContent">
 		            <div style="flex: 1; padding-right: 20px" id="FabricImage">
 		            	<div id="carouselImages" class="carousel slide">
@@ -188,20 +189,20 @@
 						  </div>
 						  <div class="carousel-inner">
 						    <div class="carousel-item active">
-						      <img class="d-block w-100" src="img/TestFabric.png" alt="img/placeholder-image.png">
+						      <img class="d-block w-100" src="img/TestFabric.png" alt="img/placeholder-image.png" id="FabricPic">
 						      <div class="carousel-caption d-none d-md-block">
 							      <h5>Fabric Picture</h5>
 							      <p>Note: This will show as front image.</p>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.png" alt="img/placeholder-image.png">
+						      <img class="d-block w-100" src="img/placeholder-image.png" alt="img/placeholder-image.png" id="PidPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>PID</h5>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.png" alt="img/placeholder-image.png">
+						      <img class="d-block w-100" src="img/placeholder-image.png" alt="img/placeholder-image.png" id="TestPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>Test Report</h5>
 						      </div>
@@ -221,12 +222,17 @@
 							<button class="btn border-2 imgbtn" type="button" id="FabricPicBtn">
 						  		Fabric Picture
 						  	</button>
+						  	<input type="file" id="FabricPicInput" accept="image/*" style="display: none"/>
+						  	
 						  	<button class="btn border-2 imgbtn" type="button" id="PidBtn">
 						  		PID
 						  	</button>
+						  	<input type="file" id="PidInput" accept="image/*" style="display: none"/>
+						  	
 						  	<button class="btn border-2 imgbtn" type="button" id="TestReportBtn">
 						  		Test Report
 						  	</button>
+						  	<input type="file" id="TestReportInput" accept="image/*" style="display: none"/>
 						</div>
 		            </div>
 		
@@ -234,26 +240,31 @@
 		            	<div class="d-flex" style="gap: 5px; font-size: 18px">
             				<div style="flex: 1">
 	            				<label for="Title" class="control-label opacity-75">Title:</label>
-		    					<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="Title" name="Title" size="1" style="width: 70%; height: 36px" placeholder="Enter">
+		    					<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Title" name="Title" size="1" style="width: 70%; height: 36px" placeholder="Enter">
 	    					</div>
 	    					<div style="flex: 1">
 	            				<label for="Code" class="control-label opacity-75">Code:</label>
-		    					<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="Code" name="Code" size="1" style="width: 70%; height: 36px" placeholder="Enter">
+		    					<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Code" name="Code" size="1" style="width: 70%; height: 36px" placeholder="Enter">
 	    					</div>
 	    					<div style="flex: 1">
 	            				<label for="Color" class="control-label opacity-75">Color:</label>
-		    					<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="Color" name="Color" size="1" style="width: 70%; height: 36px" placeholder="Enter">
+		    					<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Color" name="Color" size="1" style="width: 70%; height: 36px" placeholder="Enter">
 	    					</div>
 		            	</div>
 		            	<div class="d-flex mt-3">
 		            		<div style="flex: 1" id="ParagonCost">
 		            			<div style="display: flex; flex-direction: column; align-items: center; width: 115px">
 			            			<span class="rounded p-2" style="background: #4D73FF; color: #FFF; width: 100%; white-space: nowrap">Paragon Cost</span>
-			            			<span style="font-size: 38px; float: center">$3.60</span>
+			            			<div class="d-flex" style="width: 100%">
+			            				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="48" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+										  <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
+										</svg>
+										<input type="text" id="Cost" class="border-0" style="font-size: 38px; width: 100%" placeholder="0.0">
+			            			</div>
 		            			</div>
 		            		</div>
 		            		<div class="mt-5" style="flex: 2">
-		            			<span class="mt-3" style="float: right; font-size: 20px">Time spent in the current phase: <span style="color: red" id="CurrDaySpent">16</span> days</span>
+		            			<span class="mt-3" style="float: right; font-size: 20px">Time spent in the current phase: <span style="color: red" id="CurrDaySpent">0</span> days</span>
 		            		</div>
 		            	</div>
 		            	<div class="d-flex mt-4" id="CheckBoxes" style="white-space: nowrap; gap: 30px">
@@ -369,85 +380,95 @@
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
-			    				<label for="Content" class="control-label opacity-75">Content</label>
+			    				<label for="Content" class="control-label opacity-75">Content<span style="font-size: 12px">(%Mix)</span></label>
 			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="Content" name="Content" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 						  	</div>
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 15px">
 		                	<div style="flex: 2">
 		                		<div class="d-flex" style="gap: 15px">
-		                			<div class="flex: 1">
-					    				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="Submitted">Submitted</option>
-									    	<option value="Woven">Woven</option>
-									    	<option value="Shipped">Shipped</option>
-									    	<option value="Confirmed">Confirmed</option>
-									    	<option value="Revision">Revision Submitted</option>
-									  	</select>
+		                			<div style="flex: 1">
+		                				<div id="StrikeBlock">
+						    				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
+						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
+										    	<option value="" selected>Enter</option>
+										    	<option value="Submitted">Submitted</option>
+										    	<option value="Woven">Woven</option>
+										    	<option value="Shipped">Shipped</option>
+										    	<option value="Confirmed">Confirmed</option>
+										    	<option value="Revision">Revision Submitted</option>
+										  	</select>
+									  	</div>
 								  	</div>
-								  	<div class="flex: 1">
-					    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="Ready">Ready to Blanket</option>
-									    	<option value="Submitted">Blanket Submitted</option>
-									    	<option value="Woven">Blanket Woven</option>
-									    	<option value="Shipped">Blanket Shipped</option>
-									    	<option value="ColorSubmitted">Color Proposal Submitted</option>
-									  	</select>
+								  	<div style="flex: 1">
+								  		<div id="BlanketBlock" style="display: none">
+						    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
+						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
+										    	<option value="" selected>Enter</option>
+										    	<option value="Ready">Ready to Blanket</option>
+										    	<option value="Submitted">Blanket Submitted</option>
+										    	<option value="Woven">Blanket Woven</option>
+										    	<option value="Shipped">Blanket Shipped</option>
+										    	<option value="ColorSubmitted">Color Proposal Submitted</option>
+										  	</select>
+									  	</div>
 								  	</div>
 							  	</div>
 						  	</div>
 						  	<div style="flex: 2">
-						  		<span class="control-label opacity-75">Color Line Progress and Est. Ready Date</span>
-						  		<div class="d-flex" style="gap: 5px">
-						  			<div style="flex: 2">
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ColorLineProgress" name="ColorLineProgress" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="Submitted">Proposal Submitted</option>
-									    	<option value="Revision">Revision Submitted</option>
-									    	<option value="Final">Final Version</option>
-									  	</select>
-								  	</div>
-								  	<div style="flex: 1">
-								  		<input type="date" class="custom-select border border-light border-2 rounded-0 bg-white" size="1" style="width: 100%; height: 36px">
+						  		<div id="ColorlineBlock" style="display: none">
+						  			<span class="control-label opacity-75">Color Line Progress and Est. Ready Date</span>
+							  		<div class="d-flex" style="gap: 5px">
+							  			<div style="flex: 2">
+						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ColorLineProgress" name="ColorLineProgress" size="1" style="width: 100%; height: 36px">
+										    	<option value="" selected>Enter</option>
+										    	<option value="Submitted">Proposal Submitted</option>
+										    	<option value="Revision">Revision Submitted</option>
+										    	<option value="Final">Final Version</option>
+										  	</select>
+									  	</div>
+									  	<div style="flex: 1">
+									  		<input type="date" id="ColorlineDatestamp" name="ColorlineDatestamp" class="custom-select border border-light border-2 rounded-0 bg-white" size="1" style="width: 100%; height: 36px">
+									  	</div>
 								  	</div>
 							  	</div>
 						  	</div>
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 15px">
 		            		<div style="flex: 2">
-						  		<span class="control-label opacity-75">Roll Sample Progress and Est. Ready Date</span>
-						  		<div class="d-flex" style="gap: 5px">
-						  			<div style="flex: 2">
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="RollSampleProgress" name="RollSampleProgress" size="1" style="width: 100%; height: 36px">
-									    	<option style="opacity: 0.5" value="" selected>Enter</option>
-									    	<option value="GotRotation">Got Colorline Rotation</option>
-									    	<option value="Arranged">Roll Sample Arranged</option>
-									    	<option value="Finished">Colorline Production Finished</option>
-									    	<option value="Shipped">Colorline Shipped</option>
-									  	</select>
-								  	</div>
-								  	<div style="flex: 1">
-								  		<input type="date" class="custom-select border border-light border-2 rounded-0 bg-white" size="1" style="width: 100%; height: 36px">
+		            			<div id="RollSampleBlock" style="display: none">
+							  		<span class="control-label opacity-75">Roll Sample Progress and Est. Ready Date</span>
+							  		<div class="d-flex" style="gap: 5px">
+							  			<div style="flex: 2">
+						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="RollSampleProgress" name="RollSampleProgress" size="1" style="width: 100%; height: 36px">
+										    	<option style="opacity: 0.5" value="" selected>Enter</option>
+										    	<option value="GotRotation">Got Colorline Rotation</option>
+										    	<option value="Arranged">Roll Sample Arranged</option>
+										    	<option value="Finished">Colorline Production Finished</option>
+										    	<option value="Shipped">Colorline Shipped</option>
+										  	</select>
+									  	</div>
+									  	<div style="flex: 1">
+									  		<input type="date" id="RollSampleDatestamp" name="RollSampleDatestamp" class="custom-select border border-light border-2 rounded-0 bg-white" size="1" style="width: 100%; height: 36px">
+									  	</div>
 								  	</div>
 							  	</div>
 						  	</div>
 						  	<div style="flex: 2">
-						  		<span class="control-label opacity-75">Testing Progress and Est. Ready Date</span>
-						  		<div class="d-flex" style="gap: 5px">
-						  			<div style="flex: 2">
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="Process">Testing In Process</option>
-									    	<option value="Passed">Passed</option>
-									    	<option value="Failed">Failed</option>
-									  	</select>
-								  	</div>
-								  	<div style="flex: 1">
-								  		<input type="date" class="custom-select border border-light border-2 rounded-0 bg-white" size="1" style="width: 100%; height: 36px">
+						  		<div id="TestBlock" style="display: none">
+						  			<span class="control-label opacity-75">Testing Progress and Est. Ready Date</span>
+							  		<div class="d-flex" style="gap: 5px">
+							  			<div style="flex: 2">
+						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px">
+										    	<option value="" selected>Enter</option>
+										    	<option value="Process">Testing In Process</option>
+										    	<option value="Passed">Passed</option>
+										    	<option value="Failed">Failed</option>
+										  	</select>
+									  	</div>
+									  	<div style="flex: 1">
+									  		<input type="date" id="TestingDatestamp" name="TestingDatestamp" class="custom-select border border-light border-2 rounded-0 bg-white" size="1" style="width: 100%; height: 36px">
+									  	</div>
 								  	</div>
 							  	</div>
 						  	</div>
@@ -458,11 +479,11 @@
 			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="CustomsCat" name="CustomsCat" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            		<div style="flex: 1">
-			            		<label for="MOQ" class="control-label opacity-75">MOQ</label>
+			            		<label for="MOQ" class="control-label opacity-75">MOQ in meters</label>
 			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="MOQ" name="MOQ" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            		<div style="flex: 1">
-			            		<label for="Weight" class="control-label opacity-75">Weight</label>
+			            		<label for="Weight" class="control-label opacity-75">Weight in grams</label>
 			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="Weight" name="Weight" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            	</div>
@@ -481,7 +502,7 @@
 		            		</div>
 		            	</div>
 		            	<div class="mt-2">
-		            		<label for="Note" class="control-label opacity-75">Note</label>
+		            		<label for="Note" class="control-label opacity-75">Note (maximum 1000 characters)</label>
 		    				<textarea class="custom-select border border-light border-2 rounded-0 bg-white" id="Note" name="Note" size="1" style="width: 100%; height: 90px" placeholder="Enter"></textarea>
 		            	</div>
 		        	</div>
@@ -493,6 +514,7 @@
 			   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="button" id="deletebtn">DELETE</button>
 		   			</div>
 		   		</div>
+		   		</form>
 		   		
 			</div>
 			
@@ -716,6 +738,7 @@
 		
 	</div>
         
+    <script src="js/addnewdev.js"></script>
    	<script type="text/javascript">
 		VirtualSelect.init({
 			ele: '#Backing'
