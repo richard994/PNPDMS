@@ -8,41 +8,50 @@ const Phase = Object.freeze({
 var currentPhase = Phase.ONE;
 
 function validate() {
-	if (document.getElementById("Title") == "") {
+	if (document.getElementById("Title").value == "") {
 		alert("Please enter title!");
 		return false;
-	} else if (document.getElementById("Code") == "") {
+	} else if (document.getElementById("Code").value == "") {
 		alert("Please enter fabric code!");
 		return false;
-	} else if (document.getElementById("Color") == "") {
+	} else if (document.getElementById("Color").value == "") {
 		alert("Please enter fabric color!");
 		return false;
-	} else if (document.getElementById("FabricType") == "") {
+	} else if (document.getElementById("FabricType").value == "") {
 		alert("Please enter fabric type!");
 		return false;
-	} else if (document.getElementById("DesignType") == "") {
+	} else if (document.getElementById("DesignType").value == "") {
 		alert("Please enter design type!");
 		return false;
-	} else if (document.getElementById("Colorist") == "") {
+	} else if (document.getElementById("Colorist").value == "") {
 		alert("Please enter fabric colorist!");
 		return false;
-	} else if (document.getElementById("Backing") == "") {
+	} else if (document.getElementById("Backing").value == "") {
 		alert("Please enter finishing used!");
 		return false;
-	} else if (document.getElementById("Season") == "") {
+	} else if (document.getElementById("Season").value == "") {
 		alert("Please enter season!");
 		return false;
-	} else if (document.getElementById("YarnType") == "") {
+	} else if (document.getElementById("YarnType").value == "") {
 		alert("Please enter yarn type!");
 		return false;
-	} else if (document.getElementById("WarpType") == "") {
+	} else if (document.getElementById("WarpType").value == "") {
 		alert("Please enter warp type!");
 		return false;
-	} else if (document.getElementById("Content") == "") {
+	} else if (document.getElementById("Content").value == "") {
 		alert("Please enter content! Example: 1% acrylic 99% polyester");
 		return false;
+	}  else if (document.getElementById("MOQ").value == "") {
+		alert("Please enter MOQ!");
+		return false;
+	} else if (document.getElementById("Weight").value == "") {
+		alert("Please enter Weight!");
+		return false;
+	} else if (document.getElementById("PPCM").value == "") {
+		alert("Please enter PPCM!");
+		return false;
 	} else {
-		if (document.getElementById("StrikeProgress") == "") {
+		if (document.getElementById("StrikeProgress").value == "") {
 			alert("Please enter strike progress!");
 			return false;
 		}
@@ -50,33 +59,33 @@ function validate() {
 		checkPhase();
 		if (currentPhase == Phase.TWO || currentPhase == Phase.THREE || currentPhase == Phase.FOUR)
 		{
-			if (document.getElementById("BlanketStatus") == "") {
+			if (document.getElementById("BlanketStatus").value == "") {
 				alert("Please enter blanket progress!");
 				return false;
 			}
 		}
 		
 		if (currentPhase == Phase.THREE || currentPhase == Phase.FOUR) {
-			if (document.getElementById("RollSampleProgress") == "") {
+			if (document.getElementById("RollSampleProgress").value == "") {
 				alert("Please enter roll sample progress!");
 				return false;
-			} else if (document.getElementById("RollSampleDatestamp") == "") {
+			} else if (document.getElementById("RollSampleDatestamp").value == "") {
 				alert("Please enter roll sample expected ready date!");
 				return false;
-			} else if (document.getElementById("ColorLineProgress") == "") {
+			} else if (document.getElementById("ColorLineProgress").value == "") {
 				alert("Please enter colorline progress!");
 				return false;
-			} else if (document.getElementById("ColorlineDatestamp") == "") {
+			} else if (document.getElementById("ColorlineDatestamp").value == "") {
 				alert("Please enter colorline expected ready date!");
 				return false;
 			}
 		}
 		
 		if (currentPhase == Phase.FOUR) {
-			if (document.getElementById("TestingProgress") == "") {
+			if (document.getElementById("TestingProgress").value == "") {
 				alert("Please enter testing progress!");
 				return false;
-			} else if (document.getElementById("TestingDatestamp") == "") {
+			} else if (document.getElementById("TestingDatestamp").value == "") {
 				alert("Please enter testing expected ready date!");
 				return false;
 			}
@@ -260,3 +269,28 @@ function triggerFileInput(buttonId, fileInputId) {
 triggerFileInput("FabricPicBtn", "FabricPicInput");
 triggerFileInput("PidBtn", "PidInput");
 triggerFileInput("TestReportBtn", "TestReportInput");
+
+const leahcmt = document.getElementById("LeahCommentBtn");
+const uscmt = document.getElementById("USCommentBtn");
+const millcmt = document.getElementById("MillCommentBtn");
+const georgecmt = document.getElementById("GeorgeCommentBtn");
+
+leahcmt.addEventListener("click", function(){
+	document.getElementById("placeholder-comment-Leah").style.display = "none";
+	document.getElementById("Leah-comment-input-block").style.display = "block";
+});
+
+uscmt.addEventListener("click", function(){
+	document.getElementById("placeholder-comment-US").style.display = "none";
+	document.getElementById("US-comment-input-block").style.display = "block";
+});
+
+millcmt.addEventListener("click", function(){
+	document.getElementById("placeholder-comment-Mill").style.display = "none";
+	document.getElementById("Mill-comment-input-block").style.display = "block";
+});
+
+georgecmt.addEventListener("click", function(){
+	document.getElementById("placeholder-comment-George").style.display = "none";
+	document.getElementById("George-comment-input-block").style.display = "block";
+});

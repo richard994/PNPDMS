@@ -7,11 +7,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="js/virtual-select.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="css/addnewdev.css" />
 	<script src="js/jquery-3.7.0.min.js"></script>
 	<script type="text/javascript" src="js/virtual-select.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<title>AddNewDev</title>
 	<style>
@@ -69,6 +67,7 @@
 	  	</div>
 	</div>
 	
+	<form id="NDform" action="SaveNewDevService" method="post" enctype="multipart/form-data" onsubmit="return validate()">
 	<div class="d-flex justify-content-start" style="gap: 20px; width: 98%; margin-left: 15px">
 		<div class="d-flex flex-column" style="gap: 25px">
 			
@@ -178,10 +177,9 @@
 			    	</div>
 			    </div>
 			    
-			    <form id="NDform" action="SaveNewDevService" method="get" onsubmit="return validate()">
-			    <div class="d-flex mt-5" id="MainContent">
+			    <div class="d-flex mt-5 mb-3" id="MainContent">
 		            <div style="flex: 1; padding-right: 20px" id="FabricImage">
-		            	<div id="carouselImages" class="carousel slide">
+		            	<div id="carouselImages" class="carousel carousel-dark slide">
 						  <div class="carousel-indicators">
 						    <button type="button" data-bs-target="#carouselImages" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 						    <button type="button" data-bs-target="#carouselImages" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -189,20 +187,20 @@
 						  </div>
 						  <div class="carousel-inner">
 						    <div class="carousel-item active">
-						      <img class="d-block w-100" src="img/TestFabric.png" alt="img/placeholder-image.png" id="FabricPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg"" alt="img/placeholder-image.jpg"" id="FabricPic">
 						      <div class="carousel-caption d-none d-md-block">
 							      <h5>Fabric Picture</h5>
-							      <p>Note: This will show as front image.</p>
+							      <p>Note: This will show as front image</p>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.png" alt="img/placeholder-image.png" id="PidPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="img/placeholder-image.jpg"" id="PidPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>PID</h5>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.png" alt="img/placeholder-image.png" id="TestPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg"" alt="img/placeholder-image.jpg"" id="TestPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>Test Report</h5>
 						      </div>
@@ -210,11 +208,9 @@
 						  </div>
 						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages" data-bs-slide="prev">
 						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span class="visually-hidden">Previous</span>
 						  </button>
 						  <button class="carousel-control-next" type="button" data-bs-target="#carouselImages" data-bs-slide="next">
 						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="visually-hidden">Next</span>
 						  </button>
 						</div>
 						<span style="font-size: 20px">Upload: </span>
@@ -222,17 +218,17 @@
 							<button class="btn border-2 imgbtn" type="button" id="FabricPicBtn">
 						  		Fabric Picture
 						  	</button>
-						  	<input type="file" id="FabricPicInput" accept="image/*" style="display: none"/>
+						  	<input type="file" name="FabricPicInput" id="FabricPicInput" accept="image/*" style="display: none"/>
 						  	
 						  	<button class="btn border-2 imgbtn" type="button" id="PidBtn">
 						  		PID
 						  	</button>
-						  	<input type="file" id="PidInput" accept="image/*" style="display: none"/>
+						  	<input type="file" name="PidInput" id="PidInput" accept="image/*" style="display: none"/>
 						  	
 						  	<button class="btn border-2 imgbtn" type="button" id="TestReportBtn">
 						  		Test Report
 						  	</button>
-						  	<input type="file" id="TestReportInput" accept="image/*" style="display: none"/>
+						  	<input type="file" name="TestReportInput" id="TestReportInput" accept="image/*" style="display: none"/>
 						</div>
 		            </div>
 		
@@ -269,31 +265,31 @@
 		            	</div>
 		            	<div class="d-flex mt-4" id="CheckBoxes" style="white-space: nowrap; gap: 30px">
 		            		<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" value="" id="ParagonCleanCB">
+								<input class="form-check-input" type="checkbox" value="checked" id="ParagonCleanCB" name="ParagonCleanCB">
 								<label class="form-check-label" for="ParagonCleanCB">
 								  Paragon Clean
 								</label>
 							</div>
-		            		<div class="form-check" style="flex: 2">
-								<input class="form-check-input" type="checkbox" value="" id="FCLCB">
+		            		<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" value="checked" id="FCLCB" name="FCLCB">
 								<label class="form-check-label" for="FCLCB">
 								  400hr FCL
 								</label>
 							</div>
-		            		<div class="form-check" style="flex: 3">
-								<input class="form-check-input" type="checkbox" value="" id="PDCB">
+		            		<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" value="checked" id="PDCB" name="PDCB">
 								<label class="form-check-label" for="PDCB">
 								  Piece Dyed
 								</label>
 							</div>
-		            		<div class="form-check" style="flex: 4">
-								<input class="form-check-input" type="checkbox" value="" id="FeedbackCB">
+		            		<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" value="checked" id="FeedbackCB" name="FeedbackCB">
 								<label class="form-check-label" for="FeedbackCB">
 								  Need US Feedback?
 								</label>
 							</div>
-		            		<div class="form-check" style="flex: 5">
-								<input class="form-check-input" type="checkbox" value="" id="SDYCB">
+		            		<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" value="checked" id="SDYCB" name="SDYCB">
 								<label class="form-check-label" for="SDYCB">
 								  SDY
 								</label>
@@ -404,7 +400,7 @@
 								  		<div id="BlanketBlock" style="display: none">
 						    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
-										    	<option value="" selected>Enter</option>
+										    	<option value="DNE" selected>Enter</option>
 										    	<option value="Ready">Ready to Blanket</option>
 										    	<option value="Submitted">Blanket Submitted</option>
 										    	<option value="Woven">Blanket Woven</option>
@@ -441,7 +437,7 @@
 							  		<div class="d-flex" style="gap: 5px">
 							  			<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="RollSampleProgress" name="RollSampleProgress" size="1" style="width: 100%; height: 36px">
-										    	<option style="opacity: 0.5" value="" selected>Enter</option>
+										    	<option value="DNE" selected>Enter</option>
 										    	<option value="GotRotation">Got Colorline Rotation</option>
 										    	<option value="Arranged">Roll Sample Arranged</option>
 										    	<option value="Finished">Colorline Production Finished</option>
@@ -460,7 +456,7 @@
 							  		<div class="d-flex" style="gap: 5px">
 							  			<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px">
-										    	<option value="" selected>Enter</option>
+										    	<option value="DNE" selected>Enter</option>
 										    	<option value="Process">Testing In Process</option>
 										    	<option value="Passed">Passed</option>
 										    	<option value="Failed">Failed</option>
@@ -476,29 +472,29 @@
 		            	<div class="d-flex mt-2" style="gap: 20px">
 		            		<div style="flex: 1">
 			            		<label for="CustomsCat" class="control-label opacity-75">Customs Category</label>
-			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="CustomsCat" name="CustomsCat" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="CustomsCat" name="CustomsCat" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            		<div style="flex: 1">
 			            		<label for="MOQ" class="control-label opacity-75">MOQ in meters</label>
-			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="MOQ" name="MOQ" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="MOQ" name="MOQ" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            		<div style="flex: 1">
 			            		<label for="Weight" class="control-label opacity-75">Weight in grams</label>
-			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="Weight" name="Weight" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Weight" name="Weight" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 20px">
 		            		<div style="flex: 1">
 			            		<label for="FabricNickname" class="control-label opacity-75">Fabric Nickname</label>
-			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="FabricNickname" name="FabricNickname" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="FabricNickname" name="FabricNickname" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            		<div style="flex: 1">
 			            		<label for="NumColorLine" class="control-label opacity-75">Requested # of Colorline</label>
-			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="NumColorLine" name="NumColorLine" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="NumColorLine" name="NumColorLine" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            		<div style="flex: 1">
 			            		<label for="PPCM" class="control-label opacity-75">PPCM</label>
-			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="PPCM" name="PPCM" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="PPCM" name="PPCM" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            	</div>
 		            	<div class="mt-2">
@@ -507,14 +503,6 @@
 		            	</div>
 		        	</div>
 			    </div>
-			    
-			    <div class="container-fluid text-center mx-auto mt-2" style="width: 260px" id="savecontainer">
-			    	<div class="d-flex" style="gap: 10px">
-			   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="submit" id="savebtn">SAVE</button>
-			   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="button" id="deletebtn">DELETE</button>
-		   			</div>
-		   		</div>
-		   		</form>
 		   		
 			</div>
 			
@@ -560,6 +548,20 @@
 							<div class="d-flex bg-light p-2 flex-column" id="LeahCommentBlock">
 								<span style="font-size: 30px">Leah Comments</span>
 								<div class="d-flex flex-column mt-2 mb-3" style="gap: 5px" id="LeahComments">
+									<div class="comment p-2" id="Leah-comment-input-block" style="display: none">
+										<div class="d-flex" style="gap: 5px">
+											<div style="flex: 4">
+												<input type="text" class="border-0 rounded-0 bg-white" id="LeahCommentInput" name="LeahCommentInput" size="1" style="width: 100%; height: 100%" placeholder="Enter">
+											</div>
+											<div style="flex: 1">
+												<input type="date" id="LeahCommentDatestamp" name="LeahCommentDatestamp" class="border-0 rounded-0 bg-white" size="1" style="width: 100%; height: 100%">
+											</div>
+										</div>
+									</div>
+									<div class="comment p-2" id="placeholder-comment-Leah">
+										<span style="opacity: 0.5">Nothing Yet</span>
+									</div>
+									<!--  
 									<div class="comment p-2 d-flex" style="background: #4D73FF; color: white">
 										<div class="commentTexts" style="flex: 3">
 											<span>CommentComment</span>
@@ -580,26 +582,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-12 14:02</span>
-											</div>
-										</div>
-									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-12 14:02</span>
-											</div>
-										</div>
-									</div>
+									-->
 								</div>
 							</div>
 						</div>
@@ -607,6 +590,22 @@
 							<div class="d-flex bg-light p-2 flex-column" id="USCommentBlock">
 								<span style="font-size: 30px">US Comments</span>
 								<div class="d-flex flex-column mt-2 mb-3" style="gap: 5px" id="USComments">
+									<div class="comment p-2" id="US-comment-input-block" style="display: none">
+										<div class="d-flex" style="gap: 5px">
+											<div style="flex: 4">
+												<input type="text" class="border-0 rounded-0 bg-white" id="USCommentInput" name="USCommentInput" size="1" style="width: 100%; height: 100%" placeholder="Enter">
+											</div>
+											<div style="flex: 1">
+												<input type="date" id="USCommentDatestamp" name="USCommentDatestamp" class="border-0 rounded-0 bg-white" size="1" style="width: 100%; height: 100%">
+											</div>
+										</div>
+									</div>
+									<div class="comment p-2" id="placeholder-comment-US">
+										<div class="commentTexts" style="flex: 3">
+											<span style="opacity: 0.5">Nothing Yet</span>
+										</div>
+									</div>
+									<!--  
 									<div class="comment p-2 d-flex" style="background: #4D73FF; color: white">
 										<div class="commentTexts" style="flex: 3">
 											<span>CommentComment</span>
@@ -627,16 +626,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-12 14:02</span>
-											</div>
-										</div>
-									</div>
+									-->
 								</div>
 							</div>
 						</div>
@@ -647,6 +637,22 @@
 							<div class="d-flex bg-light p-2 flex-column" id="MillCommentBlock">
 								<span style="font-size: 30px">Mill Comments</span>
 								<div class="d-flex flex-column mt-2 mb-3" style="gap: 5px" id="MillComments">
+									<div class="comment p-2" id="Mill-comment-input-block" style="display: none">
+										<div class="d-flex" style="gap: 5px">
+											<div style="flex: 4">
+												<input type="text" class="border-0 rounded-0 bg-white" id="MillCommentInput" name="MillCommentInput" size="1" style="width: 100%; height: 100%" placeholder="Enter">
+											</div>
+											<div style="flex: 1">
+												<input type="date" id="MillCommentDatestamp" name="MillCommentDatestamp" class="border-0 rounded-0 bg-white" size="1" style="width: 100%; height: 100%">
+											</div>
+										</div>
+									</div>
+									<div class="comment p-2" id="placeholder-comment-Mill">
+										<div class="commentTexts" style="flex: 3">
+											<span style="opacity: 0.5">Nothing Yet</span>
+										</div>
+									</div>
+									<!--  
 									<div class="comment p-2 d-flex" style="background: #4D73FF; color: white">
 										<div class="commentTexts" style="flex: 3">
 											<span>CommentComment</span>
@@ -667,16 +673,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-12 14:02</span>
-											</div>
-										</div>
-									</div>
+									-->
 								</div>
 							</div>
 						</div>
@@ -684,6 +681,22 @@
 							<div class="d-flex bg-light p-2 flex-column" id="GeorgeCommentBlock">
 								<span style="font-size: 30px">George Comments</span>
 								<div class="d-flex flex-column mt-2 mb-3" style="gap: 5px" id="GeorgeComments">
+									<div class="comment p-2" id="George-comment-input-block" style="display: none">
+										<div class="d-flex" style="gap: 5px">
+											<div style="flex: 4">
+												<input type="text" class="border-0 rounded-0 bg-white" id="GeorgeCommentInput" name="GeorgeCommentInput" size="1" style="width: 100%; height: 100%" placeholder="Enter">
+											</div>
+											<div style="flex: 1">
+												<input type="date" id="GeorgeCommentDatestamp" name="GeorgeCommentDatestamp" class="border-0 rounded-0 bg-white" size="1" style="width: 100%; height: 100%">
+											</div>
+										</div>
+									</div>
+									<div class="comment p-2" id="placeholder-comment-George">
+										<div class="commentTexts" style="flex: 3">
+											<span style="opacity: 0.5">Nothing Yet</span>
+										</div>
+									</div>
+									<!--  
 									<div class="comment p-2 d-flex" style="background: #4D73FF; color: white">
 										<div class="commentTexts" style="flex: 3">
 											<span>CommentComment</span>
@@ -704,20 +717,18 @@
 											</div>
 										</div>
 									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-12 14:02</span>
-											</div>
-										</div>
-									</div>
+									-->
 								</div>
 							</div>
 						</div>
 					</div>
+					
+					<div class="container-fluid text-center mx-auto mt-2" style="width: 260px" id="savecontainer">
+				    	<div class="d-flex" style="gap: 10px">
+				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="submit" id="savebtn">SAVE</button>
+				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="button" id="deletebtn">DELETE</button>
+			   			</div>
+			   		</div>
 					
 				</div>
 			</div>
@@ -737,6 +748,7 @@
 		</div>
 		
 	</div>
+	</form>
         
     <script src="js/addnewdev.js"></script>
    	<script type="text/javascript">

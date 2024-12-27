@@ -31,15 +31,15 @@ public class DevData {
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, String customs, double moq, double weight, 
 			String nickname, int numColorline, double ppcm, String note, String fabric_img_path, 
-			String pid_path, String test_report_path) {
+			String pid_path, String test_report_path, String currentPhase, String DateTime) {
 		try {
 			getConn();
 			String sql = "INSERT INTO MijuPrice.development(title, code, color, cost, IsParagonClean, Is400hrFCL, "
 					+ "IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, "
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, "
-					+ "nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, title);
 			stmt.setString(2, code);
@@ -76,6 +76,8 @@ public class DevData {
 			stmt.setString(33, fabric_img_path);
 			stmt.setString(34, pid_path);
 			stmt.setString(35, test_report_path);
+			stmt.setString(36, currentPhase);
+			stmt.setString(37, DateTime);
 			stmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -92,6 +94,27 @@ public class DevData {
 		try {
 			getConn();
 			String sql = "INSERT INTO MijuPrice.comment(development_id, name, date_stamp, content) VALUES (?,?,?,?);";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, development_id);
+			stmt.setString(2, name);
+			stmt.setString(3, date_stamp);
+			stmt.setString(4, content);
+			stmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void insertLog(int development_id, String name, String date_stamp, String content) {
+		try {
+			getConn();
+			String sql = "INSERT INTO MijuPrice.log(development_id, name, date_stamp, content) VALUES (?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, development_id);
 			stmt.setString(2, name);

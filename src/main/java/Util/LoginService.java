@@ -27,7 +27,7 @@ public class LoginService extends HttpServlet{
 		password = passwordBuffer[0];
 		
 		UserData ud = new UserData();
-		boolean exist = ud.CheckExist(email, password);
+		boolean exist = ud.CheckExist(email, password, session);
 		session.setAttribute("loggedin", exist);
 		session.setMaxInactiveInterval(1200);
 		

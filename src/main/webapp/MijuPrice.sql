@@ -5,6 +5,7 @@ USE `MijuPrice`;
 
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(1000) NOT NULL,
   PRIMARY KEY (`user_id`)
@@ -67,9 +68,9 @@ CREATE TABLE `materials` (
 
 CREATE TABLE `development` (
   `development_id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(500) NOT NULL,
-  `code` varchar(500) NOT NULL,
-  `color` varchar(500) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `color` varchar(50) NOT NULL,
   `cost` double DEFAULT 0.0,
   `IsParagonClean` BOOLEAN DEFAULT false,
   `Is400hrFCL` BOOLEAN DEFAULT false,
@@ -102,6 +103,8 @@ CREATE TABLE `development` (
   `fabric_img_path` varchar(500),
   `pid_path` varchar(500),
   `test_report_path` varchar(500),
+  `currentPhase` varchar(50) NOT NULL,
+  `DateTime` varchar(50) NOT NULL,
   PRIMARY KEY (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -113,5 +116,16 @@ CREATE TABLE `comment` (
   `content` varchar(1000) NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `development_id_idx` (`development_id`),
-  CONSTRAINT `development_id` FOREIGN KEY (`development_id`) REFERENCES `development` (`development_id`)
+  FOREIGN KEY (`development_id`) REFERENCES `development` (`development_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `log` (
+  `development_id` int NOT NULL,
+  `log_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `date_stamp` varchar(50) NOT NULL,
+  `content` varchar(1000) NOT NULL,
+  PRIMARY KEY (`log_id`),
+  KEY `development_id_idx` (`development_id`),
+  FOREIGN KEY (`development_id`) REFERENCES `development` (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

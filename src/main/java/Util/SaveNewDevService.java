@@ -1,16 +1,17 @@
 package Util;
 
-import java.io.IOException;
+import java.io.*;
+import java.time.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
 
 @WebServlet("/SaveNewDevService")
+@MultipartConfig
 public class SaveNewDevService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
+	private static final String UPLOAD_DIRECTORY = "uploads";
 	private static String title; 
 	private static String code;
 	private static String color;
@@ -43,14 +44,29 @@ public class SaveNewDevService extends HttpServlet{
 	private static int numColorline;
 	private static double ppcm;
 	private static String note;
-	private static String fabric_img_path;
-	private static String pid_path;
-	private static String test_report_path;
+	private static String fabric_img_path = "";
+	private static String pid_path = "";
+	private static String test_report_path = "";
+	private static String currentPhase;
+	private static String DateTime;
+	private static String LeahComment;
+	private static String LeahComment_datestamp;
+	private static String USComment;
+	private static String USComment_datestamp;
+	private static String MillComment;
+	private static String MillComment_datestamp;
+	private static String GeorgeComment;
+	private static String GeorgeComment_datestamp;
 	
 	public SaveNewDevService() {}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse
 			response) throws ServletException, IOException{
+		doPost(request, response);
+	}
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse 
+			response) throws ServletException, IOException {
 		String temp[];
 
 		temp = request.getParameterValues("Title");
@@ -84,10 +100,12 @@ public class SaveNewDevService extends HttpServlet{
 				System.out.println("Successfully retrieved cost: " + cost + "\n");
 			}
 			catch (Exception e) {
+				cost = 0.0f;
 				System.out.println("Exception: " + e);
 			}
 		} else {
-			System.out.println("Fail to retrieve cost.");
+			cost = 0.0f;
+			System.out.println("Fail to retrieve cost, default to 0.0.\n");
 		}
 		
 		temp = request.getParameterValues("ParagonCleanCB");
@@ -95,7 +113,7 @@ public class SaveNewDevService extends HttpServlet{
 			IsParagonClean = true;
 			System.out.println("IsParagonClean checked.\n");
 		} else {
-			System.out.println("IsParagonClean unchecked.");
+			System.out.println("IsParagonClean unchecked.\n");
 		}
 		
 		temp = request.getParameterValues("FCLCB");
@@ -103,7 +121,7 @@ public class SaveNewDevService extends HttpServlet{
 			Is400hrFCL = true;
 			System.out.println("Is400hrFCL checked.\n");
 		} else {
-			System.out.println("Is400hrFCL unchecked.");
+			System.out.println("Is400hrFCL unchecked.\n");
 		}
 		
 		temp = request.getParameterValues("PDCB");
@@ -111,7 +129,7 @@ public class SaveNewDevService extends HttpServlet{
 			IsPieceDyed = true;
 			System.out.println("IsPieceDyed checked.\n");
 		} else {
-			System.out.println("IsPieceDyed unchecked.");
+			System.out.println("IsPieceDyed unchecked.\n");
 		}
 		
 		temp = request.getParameterValues("FeedbackCB");
@@ -119,7 +137,7 @@ public class SaveNewDevService extends HttpServlet{
 			NeedFeedback = true;
 			System.out.println("NeedFeedback checked.\n");
 		} else {
-			System.out.println("NeedFeedback unchecked.");
+			System.out.println("NeedFeedback unchecked.\n");
 		}
 		
 		temp = request.getParameterValues("SDYCB");
@@ -127,7 +145,7 @@ public class SaveNewDevService extends HttpServlet{
 			IsSDY = true;
 			System.out.println("IsSDY checked.\n");
 		} else {
-			System.out.println("IsSDY unchecked.");
+			System.out.println("IsSDY unchecked.\n");
 		}
 		
 		temp = request.getParameterValues("FabricType");
@@ -154,7 +172,7 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve colorist.");
 		}
 		
-		temp = request.getParameterValues("Finishing");
+		temp = request.getParameterValues("Backing");
 		if (temp != null) {
 			finishing_used = temp[0];
 			System.out.println("Successfully retrieved finishing: " + finishing_used + "\n");
@@ -307,10 +325,12 @@ public class SaveNewDevService extends HttpServlet{
 				System.out.println("Successfully retrieved num colorline required: " + numColorline + "\n");
 			}
 			catch (Exception e) {
+				numColorline = 0;
 				System.out.println("Exception: " + e);
 			}
 		} else {
-			System.out.println("Fail to retrieve num colorline required.");
+			numColorline = 0;
+			System.out.println("Fail to retrieve num colorline required, default to 0.\n");
 		}
 		
 		temp = request.getParameterValues("PPCM");
@@ -334,10 +354,168 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve note.");
 		}
 		
+		if (test_status.equals("DNE") && rollsample_status.equals("DNE") && blanket_status.equals("DNE")) {
+			currentPhase = "Strike-off";
+		} else if (test_status.equals("DNE") && rollsample_status.equals("DNE")) {
+			currentPhase =  "Blanket";
+		} else if (test_status.equals("DNE")) {
+			currentPhase = "Roll Sample";
+		} else {
+			currentPhase = "Testing";
+			if (test_status.equals("Passed")) {
+				currentPhase = "Testing Passed";
+			}
+		}
+		System.out.println("Current Phase: " + currentPhase + "\n");
+		
+		Part fabricPicPart = request.getPart("FabricPicInput");
+        System.out.println("fabricPicPart: " + fabricPicPart);
+        if (fabricPicPart != null && fabricPicPart.getSize() > 0) {
+        	System.out.println("Size of file: " + fabricPicPart.getSize());
+        	fabric_img_path = saveFile(fabricPicPart);
+        	System.out.println("FabricPic stored at: " + fabric_img_path + "\n");
+        } else {
+        	System.out.println("FabricPic not uploaded.\n");
+        }
+        
+        Part pidPicPart = request.getPart("PidInput");
+        System.out.println("pidPicPart: " + pidPicPart);
+        if (pidPicPart != null && pidPicPart.getSize() > 0) {
+        	System.out.println("Size of file: " + pidPicPart.getSize());
+        	pid_path = saveFile(pidPicPart);
+            System.out.println("PidPic stored at: " + pid_path + "\n");
+        } else {
+        	System.out.println("PidPic not uploaded.\n");
+        }
+        
+        Part testReportPicPart = request.getPart("TestReportInput");
+        System.out.println("testReportPicPart: " + testReportPicPart);
+        if (testReportPicPart != null && testReportPicPart.getSize() > 0) {
+        	System.out.println("Size of file: " + testReportPicPart.getSize());
+        	test_report_path = saveFile(testReportPicPart);
+            System.out.println("TestReportPic stored at: " + test_report_path + "\n");
+        } else {
+        	System.out.println("TestReportPic not uploaded.\n");
+        }
+        
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTime = currentDateTime.toString();
+        System.out.println("Current date & time: " + DateTime + "\n");
+		
+		DevData devdata = new DevData();
+		devdata.insertQuote(title, code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime);
+		
+		int devid = devdata.getDevID(title);
+		
+		temp = request.getParameterValues("LeahCommentInput");
+		if (temp != null) {
+			LeahComment = temp[0];
+			System.out.println("Successfully retrieved comment from Leah: " + LeahComment + "\n");
+		} else {
+			System.out.println("Fail to retrieve comment from Leah.");
+		}
+		
+		temp = request.getParameterValues("LeahCommentDatestamp");
+		if (temp != null) {
+			LeahComment_datestamp = temp[0];
+			System.out.println("Successfully retrieved datestamp of Leah comment: " + LeahComment_datestamp + "\n");
+		} else {
+			System.out.println("Fail to retrieve datestamp of Leah comment.");
+		}
+		
+		if (LeahComment != "" && LeahComment_datestamp != "") {
+			devdata.insertComment(devid, "Leah", LeahComment_datestamp, LeahComment);
+		}
+		
+		temp = request.getParameterValues("USCommentInput");
+		if (temp != null) {
+			USComment = temp[0];
+			System.out.println("Successfully retrieved comment from US: " + USComment + "\n");
+		} else {
+			System.out.println("Fail to retrieve comment from US.");
+		}
+		
+		temp = request.getParameterValues("USCommentDatestamp");
+		if (temp != null) {
+			USComment_datestamp = temp[0];
+			System.out.println("Successfully retrieved datestamp of US comment: " + USComment_datestamp + "\n");
+		} else {
+			System.out.println("Fail to retrieve datestamp of US comment.");
+		}
+		
+		if (USComment != "" && USComment_datestamp != "") {
+			devdata.insertComment(devid, "US", USComment_datestamp, USComment);
+		}
+		
+		temp = request.getParameterValues("MillCommentInput");
+		if (temp != null) {
+			MillComment = temp[0];
+			System.out.println("Successfully retrieved comment from Mill: " + MillComment + "\n");
+		} else {
+			System.out.println("Fail to retrieve comment from Mill.");
+		}
+		
+		temp = request.getParameterValues("MillCommentDatestamp");
+		if (temp != null) {
+			MillComment_datestamp = temp[0];
+			System.out.println("Successfully retrieved datestamp of Mill comment: " + MillComment_datestamp + "\n");
+		} else {
+			System.out.println("Fail to retrieve datestamp of Mill comment.");
+		}
+		
+		if (MillComment != "" && MillComment_datestamp != "") {
+			devdata.insertComment(devid, "Mill", MillComment_datestamp, MillComment);
+		}
+		
+		temp = request.getParameterValues("GeorgeCommentInput");
+		if (temp != null) {
+			GeorgeComment = temp[0];
+			System.out.println("Successfully retrieved comment from George: " + GeorgeComment + "\n");
+		} else {
+			System.out.println("Fail to retrieve comment from George.");
+		}
+		
+		temp = request.getParameterValues("GeorgeCommentDatestamp");
+		if (temp != null) {
+			GeorgeComment_datestamp = temp[0];
+			System.out.println("Successfully retrieved datestamp of George comment: " + GeorgeComment_datestamp + "\n");
+		} else {
+			System.out.println("Fail to retrieve datestamp of George comment.");
+		}
+		
+		if (GeorgeComment != "" && GeorgeComment_datestamp != "") {
+			devdata.insertComment(devid, "George", GeorgeComment_datestamp, GeorgeComment);
+		}
+		
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("userName");
+		devdata.insertLog(devid, userName, DateTime, "Created New Development");
+		
+		request.getRequestDispatcher("/DevSuccess.jsp").forward(request, response);
+	}
+
+
+	private String saveFile(Part part) throws IOException {
+	    if (part != null && part.getSize() > 0) {
+	        String fileName = getFileName(part);
+	        String filePath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
+	        File storeFile = new File(filePath);
+	        if (!storeFile.exists()) {
+	        	storeFile.mkdirs();
+	        }
+	        part.write(storeFile.getAbsolutePath());
+	        return filePath;
+	    }
+	    return null;
 	}
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse 
-			response) throws ServletException, IOException {
-		doGet(request, response);
+	private String getFileName(Part part) {
+	    for (String content : part.getHeader("content-disposition").split(";")) {
+	        if (content.trim().startsWith("filename")) {
+	            return content.substring(content.indexOf("=") + 2, content.length() - 1);
+	        }
+	    }
+	    return null;
 	}
+
 }
