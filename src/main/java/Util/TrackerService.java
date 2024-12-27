@@ -1,6 +1,7 @@
 package Util;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +26,12 @@ public class TrackerService extends HttpServlet{
 			if (!loggedin) {
 				request.getRequestDispatcher("/auth.jsp").forward(request, response);
 			} else {
+				// Create an instance of DevData to fetch the developments
+		        DevData devData = new DevData();
+		        ArrayList<Developments> developments = devData.getDevelopments();
+
+		        // Store the developments list in the request scope
+		        request.setAttribute("developmentsList", developments);
 				request.getRequestDispatcher("/tracker.jsp").forward(request, response);
 			}
 		}

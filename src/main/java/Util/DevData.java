@@ -1,6 +1,7 @@
 package Util;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DevData {
 	private String driver = "com.mysql.cj.jdbc.Driver";
@@ -23,7 +24,7 @@ public class DevData {
 		}
 	}
 	
-	public void insertQuote(String title, String code, String color, double cost, 
+	public void insertDevelopment(String title, String code, String color, double cost, 
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback, 
 			boolean IsSDY, String fabric_type, String design_type, String colorist, String finishing_used, 
 			String season, String yarn_type, String warp_type, String content, String strike_off_status,
@@ -153,5 +154,143 @@ public class DevData {
 			}
 		}
 		return devID;
+	}
+	
+	public ArrayList<Developments> getDevelopments() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		ArrayList<Developments> developments = new ArrayList<Developments>();
+		
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String devQuery = "SELECT * FROM development";
+			PreparedStatement devStmt = con.prepareStatement(devQuery);
+			ResultSet rs = devStmt.executeQuery();
+			while (rs.next()) {
+				String title = rs.getString("title");
+				String code = rs.getString("code");
+				String color = rs.getString("color"); 
+				double cost = rs.getDouble("cost");
+				boolean IsParagonClean = rs.getBoolean("IsParagonClean");
+				boolean Is400hrFCL = rs.getBoolean("Is400hrFCL");
+				boolean IsPieceDyed = rs.getBoolean("IsPieceDyed");
+				boolean NeedFeedback = rs.getBoolean("NeedFeedback");
+				boolean IsSDY = rs.getBoolean("IsSDY");
+				String fabric_type = rs.getString("fabric_type");
+				String design_type = rs.getString("design_type");
+				String colorist = rs.getString("colorist");
+				String finishing_used = rs.getString("finishing_used");
+				String season = rs.getString("season");
+				String yarn_type = rs.getString("yarn_type");
+				String warp_type = rs.getString("warp_type");
+				String content = rs.getString("content");
+				String strike_off_status = rs.getString("strike_off_status");
+				String blanket_status = rs.getString("blanket_status");
+				String colorline_status = rs.getString("colorline_status");
+				String colorline_datestamp = rs.getString("colorline_datestamp");
+				String rollsample_status = rs.getString("rollsample_status");
+				String rollsample_datestamp = rs.getString("rollsample_datestamp");
+				String test_status = rs.getString("test_status");
+				String test_datestamp = rs.getString("test_datestamp");
+				String customs = rs.getString("customs");
+				double moq = rs.getDouble("moq");
+				double weight = rs.getDouble("weight");
+				String nickname = rs.getString("nickname");
+				int numColorline = rs.getInt("numColorline");
+				double ppcm = rs.getDouble("ppcm");
+				String note = rs.getString("note");
+				String fabric_img_path = rs.getString("fabric_img_path");
+				String pid_path = rs.getString("pid_path");
+				String test_report_path = rs.getString("test_report_path");
+				String currentPhase = rs.getString("currentPhase");
+				String DateTime = rs.getString("DateTime");
+				int dev_id = rs.getInt("development_id");
+				Developments development = new Developments(dev_id, title, code, color, cost, 
+										IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
+										IsSDY, fabric_type, design_type, colorist, finishing_used, 
+										season, yarn_type, warp_type, content, strike_off_status,
+										blanket_status, colorline_status, colorline_datestamp,
+										rollsample_status, rollsample_datestamp, test_status,
+										test_datestamp, customs, moq, weight, 
+										nickname, numColorline, ppcm, note, fabric_img_path, 
+										pid_path, test_report_path, currentPhase, DateTime);
+				developments.add(development);
+			}
+			return developments;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return developments;
+		}
+	}
+	
+	public Developments getDevelopmentById(int id) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		Developments development = new Developments();
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String devQuery = "SELECT * FROM development WHERE development_id = ?";
+			PreparedStatement devStmt = con.prepareStatement(devQuery);
+			devStmt.setInt(1, id);
+			ResultSet rs = devStmt.executeQuery();
+			if (rs.next()) {
+				String title = rs.getString("title");
+				String code = rs.getString("code");
+				String color = rs.getString("color"); 
+				double cost = rs.getDouble("cost");
+				boolean IsParagonClean = rs.getBoolean("IsParagonClean");
+				boolean Is400hrFCL = rs.getBoolean("Is400hrFCL");
+				boolean IsPieceDyed = rs.getBoolean("IsPieceDyed");
+				boolean NeedFeedback = rs.getBoolean("NeedFeedback");
+				boolean IsSDY = rs.getBoolean("IsSDY");
+				String fabric_type = rs.getString("fabric_type");
+				String design_type = rs.getString("design_type");
+				String colorist = rs.getString("colorist");
+				String finishing_used = rs.getString("finishing_used");
+				String season = rs.getString("season");
+				String yarn_type = rs.getString("yarn_type");
+				String warp_type = rs.getString("warp_type");
+				String content = rs.getString("content");
+				String strike_off_status = rs.getString("strike_off_status");
+				String blanket_status = rs.getString("blanket_status");
+				String colorline_status = rs.getString("colorline_status");
+				String colorline_datestamp = rs.getString("colorline_datestamp");
+				String rollsample_status = rs.getString("rollsample_status");
+				String rollsample_datestamp = rs.getString("rollsample_datestamp");
+				String test_status = rs.getString("test_status");
+				String test_datestamp = rs.getString("test_datestamp");
+				String customs = rs.getString("customs");
+				double moq = rs.getDouble("moq");
+				double weight = rs.getDouble("weight");
+				String nickname = rs.getString("nickname");
+				int numColorline = rs.getInt("numColorline");
+				double ppcm = rs.getDouble("ppcm");
+				String note = rs.getString("note");
+				String fabric_img_path = rs.getString("fabric_img_path");
+				String pid_path = rs.getString("pid_path");
+				String test_report_path = rs.getString("test_report_path");
+				String currentPhase = rs.getString("currentPhase");
+				String DateTime = rs.getString("DateTime");
+				development.setAll(id, title, code, color, cost, 
+									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
+									IsSDY, fabric_type, design_type, colorist, finishing_used, 
+									season, yarn_type, warp_type, content, strike_off_status,
+									blanket_status, colorline_status, colorline_datestamp,
+									rollsample_status, rollsample_datestamp, test_status,
+									test_datestamp, customs, moq, weight, 
+									nickname, numColorline, ppcm, note, fabric_img_path, 
+									pid_path, test_report_path, currentPhase, DateTime);
+			}
+			return development;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return development;
+		}
 	}
 }

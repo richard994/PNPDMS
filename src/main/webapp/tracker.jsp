@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -227,7 +228,7 @@
 		
 		<div class="container d-flex flex-column" style="gap: 20px">
 			<div class="container" id="catalogBtnContainer">
-				<button class="btn border-0" type="button" id="AddNewDevBtn" onclick="window.location.href='NewDevService'">
+				<button class="btn border-0" type="button" id="AddNewDevBtn" onclick="window.location.href='NewDevService?action=create'">
 			  		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 					  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 					</svg>
@@ -238,41 +239,52 @@
 		  	<div class="container" id="DevListingContainer">
 		  		
 		  		<div class="row" style="margin-bottom: 25px">
+		  			<!-- Loop through developmentsList -->
+		  			<c:forEach var="dev" items="${developmentsList}" varStatus="status">
+		                <!-- Start a new row every 3 developments -->
+		                <c:if test="${status.index % 3 == 0 && status.index != 0}">
+		                    </div> <!-- Close the previous row -->
+		                    <div class="row"> <!-- Start a new row -->
+		                </c:if>
 		  			<div class="col-4">
 		  				<div class="card p-3">
-		  					<img src="img/TestFabric.png" alt="image"/>
+		  					<div class="imgblock">
+		  						<a href="NewDevService?action=view&devId=${dev.dev_id}">
+		  							<img src="${dev.fabric_img_path}" alt="img/placeholder-image.jpg" onerror="this.onerror=null; this.src='img/placeholder-image.jpg';"/>
+		  						</a>
+		  					</div>
 		  					<div class="container p-0" id="CardDescription">
 		  						<div class="row mt-2">
 		  							<div class="col">
-		  								<span id="CardCode" style="font-size: 15px">ZYG3814-8</span>
+		  								<span id="CardCode" style="font-size: 15px">${dev.code}</span>
 		  							</div>
 		  							<div class="col">
-		  								<span style="float: right" id="CardNameAndColor">Crete Mocha</span>
+		  								<span style="float: right" id="CardNameAndColor">${dev.title}</span>
 		  							</div>
 		  						</div>
 		  						<div class="row">
 		  							<div class="col">
 		  								<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="CardFeedBackCB" disabled>
+											<input class="form-check-input" type="checkbox" ${dev.needFeedback ? 'checked' : ''} id="CardFeedBackCB" disabled>
 											<label class="form-check-label" for="CardFeedBackCB" style="white-space: nowrap">
 											  Need Feedback
 											</label>
 										</div>
 		  							</div>
 		  							<div class="col">
-		  								<span style="float: right" id="CardCurrStatus" class="cardcurrstatus">In Strike-Off</span>
+		  								<span style="float: right" id="CardCurrStatus" class="cardcurrstatus">${dev.currentPhase}</span>
 		  							</div>
 		  						</div>
 		  						<div class="row">
 		  							<div class="col">
-		  								<span id="CardPrice" class="cardprice">$2.3</span>
+		  								<span id="CardPrice" class="cardprice">$${dev.cost}</span>
 		  							</div>
 		  							<div class="col">
 		  								<div id="CardBtnGroup" style="display: flex; gap: 10px">
 			  								<button class="btn border-2 cardbtn" type="button" id="DuplicateBtn">
 										  		Duplicate
 										  	</button>
-										  	<button class="btn border-2 cardbtn" type="button" id="EditBtn">
+										  	<button class="btn border-2 cardbtn" type="button" id="EditBtn" onclick="window.location.href='NewDevService?action=edit&devId=${dev.dev_id}'">
 										  		Edit
 										  	</button>
 		  								</div>
@@ -281,141 +293,14 @@
 		  					</div>
 		  				</div>
 		  			</div>
-		  			<div class="col-4">
-		  				<div class="card p-3">
-		  					<img src="img/TestFabric.png" alt="image"/>
-		  					<div class="container p-0" id="CardDescription">
-		  						<div class="row">
-		  							<div class="col">
-		  								<span id="CardCode">ZYG3814-8</span>
-		  							</div>
-		  							<div class="col">
-		  								<span style="float: right" id="CardNameAndColor">Crete Mocha</span>
-		  							</div>
-		  						</div>
-		  						<div class="row">
-		  							<div class="col">
-		  								<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="CardFeedBackCB" disabled>
-											<label class="form-check-label" for="CardFeedBackCB" style="white-space: nowrap">
-											  Need Feedback
-											</label>
-										</div>
-		  							</div>
-		  							<div class="col">
-		  								<span style="float: right" id="CardCurrStatus" class="cardcurrstatus">In Strike-Off</span>
-		  							</div>
-		  						</div>
-		  						<div class="row">
-		  							<div class="col">
-		  								<span id="CardPrice" class="cardprice">$2.3</span>
-		  							</div>
-		  							<div class="col">
-		  								<div id="CardBtnGroup" style="display: flex; gap: 10px">
-			  								<button class="btn border-2 cardbtn" type="button" id="DuplicateBtn">
-										  		Duplicate
-										  	</button>
-										  	<button class="btn border-2 cardbtn" type="button" id="EditBtn">
-										  		Edit
-										  	</button>
-		  								</div>
-		  							</div>
-		  						</div>
-		  					</div>
-		  				</div>
-		  			</div>
-		  			<div class="col-4">
-		  				<div class="card p-3">
-		  					<img src="img/TestFabric.png" alt="image"/>
-		  					<div class="container p-0" id="CardDescription">
-		  						<div class="row">
-		  							<div class="col">
-		  								<span id="CardCode">ZYG3814-8</span>
-		  							</div>
-		  							<div class="col">
-		  								<span style="float: right" id="CardNameAndColor">Crete Mocha</span>
-		  							</div>
-		  						</div>
-		  						<div class="row">
-		  							<div class="col">
-		  								<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="CardFeedBackCB" disabled>
-											<label class="form-check-label" for="CardFeedBackCB" style="white-space: nowrap">
-											  Need Feedback
-											</label>
-										</div>
-		  							</div>
-		  							<div class="col">
-		  								<span style="float: right" id="CardCurrStatus" class="cardcurrstatus">In Strike-Off</span>
-		  							</div>
-		  						</div>
-		  						<div class="row">
-		  							<div class="col">
-		  								<span id="CardPrice" class="cardprice">$2.3</span>
-		  							</div>
-		  							<div class="col">
-		  								<div id="CardBtnGroup" style="display: flex; gap: 10px">
-			  								<button class="btn border-2 cardbtn" type="button" id="DuplicateBtn">
-										  		Duplicate
-										  	</button>
-										  	<button class="btn border-2 cardbtn" type="button" id="EditBtn">
-										  		Edit
-										  	</button>
-		  								</div>
-		  							</div>
-		  						</div>
-		  					</div>
-		  				</div>
-		  			</div>
-		  		</div>
+		  				<!-- Handle the last row if it has fewer than 3 items -->
+		                <c:if test="${status.index == developmentsList.size() - 1}">
+		                    </div> <!-- Close the last row -->
+		                </c:if>
+		
+		            </c:forEach>
 		  		
-		  		<div class="row" style="margin-bottom: 25px">
-		  			<div class="col-4">
-		  				<div class="card p-3">
-		  					<img src="img/TestFabric.png" alt="image"/>
-		  					<div class="container p-0" id="CardDescription">
-		  						<div class="row">
-		  							<div class="col">
-		  								<span id="CardCode">ZYG3814-8</span>
-		  							</div>
-		  							<div class="col">
-		  								<span style="float: right" id="CardNameAndColor">Crete Mocha</span>
-		  							</div>
-		  						</div>
-		  						<div class="row">
-		  							<div class="col">
-		  								<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="CardFeedBackCB" disabled>
-											<label class="form-check-label" for="CardFeedBackCB" style="white-space: nowrap">
-											  Need Feedback
-											</label>
-										</div>
-		  							</div>
-		  							<div class="col">
-		  								<span style="float: right" id="CardCurrStatus" class="cardcurrstatus">In Strike-Off</span>
-		  							</div>
-		  						</div>
-		  						<div class="row">
-		  							<div class="col">
-		  								<span id="CardPrice" class="cardprice">$2.3</span>
-		  							</div>
-		  							<div class="col">
-		  								<div id="CardBtnGroup" style="display: flex; gap: 10px">
-			  								<button class="btn border-2 cardbtn" type="button" id="DuplicateBtn">
-										  		Duplicate
-										  	</button>
-										  	<button class="btn border-2 cardbtn" type="button" id="EditBtn">
-										  		Edit
-										  	</button>
-		  								</div>
-		  							</div>
-		  						</div>
-		  					</div>
-		  				</div>
-		  			</div>
 		  		</div>
-		  		
-		  	</div>
 		</div>
 	</div>
 	

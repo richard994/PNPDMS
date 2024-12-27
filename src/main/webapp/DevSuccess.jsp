@@ -19,7 +19,7 @@
 		}
 	</style>
 	<script type="text/javascript">		
-		function clickPricing() {
+		function clickTracker() {
 			document.getElementById("Tracker").click();
 		}
 	</script>

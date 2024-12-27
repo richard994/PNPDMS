@@ -92,6 +92,40 @@ function validate() {
 		}
 	}
 	
+	if (window.getComputedStyle(document.getElementById("Leah-comment-input-block")).display == "block") {
+		if (document.getElementById("LeahCommentInput").value == "") {
+			alert("Please enter Leah comment!");
+			return false;
+		} else if (document.getElementById("LeahCommentDatestamp").value == "") {
+			alert("Please enter datastamp for Leah comment!");
+			return false;
+		}
+	} else if (window.getComputedStyle(getElementById("US-comment-input-block")).display == "block") {
+		if (document.getElementById("USCommentInput").value == "") {
+			alert("Please enter US comment!");
+			return false;
+		} else if (document.getElementById("USCommentDatestamp").value == "") {
+			alert("Please enter datastamp for US comment!");
+			return false;
+		}
+	} else if (window.getComputedStyle(document.getElementById("Mill-comment-input-block")).display == "block") {
+		if (document.getElementById("MillCommentInput").value == "") {
+			alert("Please enter Mill comment!");
+			return false;
+		} else if (document.getElementById("MillCommentDatestamp").value == "") {
+			alert("Please enter datastamp for Mill comment!");
+			return false;
+		}
+	} else if (window.getComputedStyle(document.getElementById("George-comment-input-block")).display == "block") {
+		if (document.getElementById("GeorgeCommentInput").value == "") {
+			alert("Please enter George comment!");
+			return false;
+		} else if (document.getElementById("GeorgeCommentDatestamp").value == "") {
+			alert("Please enter datastamp for George comment!");
+			return false;
+		}
+	}
+	
 	return true;
 }
 
@@ -294,3 +328,23 @@ georgecmt.addEventListener("click", function(){
 	document.getElementById("placeholder-comment-George").style.display = "none";
 	document.getElementById("George-comment-input-block").style.display = "block";
 });
+
+function disableAllInputs() {
+    // Get all input, textarea, select elements and disable them
+    var inputs = document.querySelectorAll('input, select, textarea, button'); 
+    inputs.forEach(function(input) {
+        if (!input.closest('.carousel')) {  
+            input.disabled = true;  
+        }
+    });
+}
+
+function populateAllInputs() {
+	document.getElementById("FabricPic").src = dev.fabric_img_path;
+	if (typeof dev.pid_path !== 'undefined') {
+		document.getElementById("PidPic").src = dev.pid_path;
+	}
+	if (typeof dev.test_report_path !== 'undefined') {
+		document.getElementById("TestPic").src = dev.test_report_path;
+	}
+}

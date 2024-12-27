@@ -201,3 +201,14 @@ input[type="range"]::-moz-range-thumb {
 	border-color: #4D73FF;
 	flex: 1;
 }
+
+.imgblock {
+	height: 240px;
+	min-height: 240px;
+}
+
+.imgblock img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

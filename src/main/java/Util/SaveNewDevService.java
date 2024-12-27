@@ -113,6 +113,7 @@ public class SaveNewDevService extends HttpServlet{
 			IsParagonClean = true;
 			System.out.println("IsParagonClean checked.\n");
 		} else {
+			IsParagonClean = false;
 			System.out.println("IsParagonClean unchecked.\n");
 		}
 		
@@ -121,6 +122,7 @@ public class SaveNewDevService extends HttpServlet{
 			Is400hrFCL = true;
 			System.out.println("Is400hrFCL checked.\n");
 		} else {
+			Is400hrFCL = false;
 			System.out.println("Is400hrFCL unchecked.\n");
 		}
 		
@@ -129,6 +131,7 @@ public class SaveNewDevService extends HttpServlet{
 			IsPieceDyed = true;
 			System.out.println("IsPieceDyed checked.\n");
 		} else {
+			IsPieceDyed = false;
 			System.out.println("IsPieceDyed unchecked.\n");
 		}
 		
@@ -137,6 +140,7 @@ public class SaveNewDevService extends HttpServlet{
 			NeedFeedback = true;
 			System.out.println("NeedFeedback checked.\n");
 		} else {
+			NeedFeedback = false;
 			System.out.println("NeedFeedback unchecked.\n");
 		}
 		
@@ -145,6 +149,7 @@ public class SaveNewDevService extends HttpServlet{
 			IsSDY = true;
 			System.out.println("IsSDY checked.\n");
 		} else {
+			IsSDY = false;
 			System.out.println("IsSDY unchecked.\n");
 		}
 		
@@ -372,7 +377,8 @@ public class SaveNewDevService extends HttpServlet{
         System.out.println("fabricPicPart: " + fabricPicPart);
         if (fabricPicPart != null && fabricPicPart.getSize() > 0) {
         	System.out.println("Size of file: " + fabricPicPart.getSize());
-        	fabric_img_path = saveFile(fabricPicPart);
+        	String full_fabric_img_path = saveFile(fabricPicPart);
+        	fabric_img_path = full_fabric_img_path.substring(full_fabric_img_path.indexOf(UPLOAD_DIRECTORY));
         	System.out.println("FabricPic stored at: " + fabric_img_path + "\n");
         } else {
         	System.out.println("FabricPic not uploaded.\n");
@@ -382,7 +388,8 @@ public class SaveNewDevService extends HttpServlet{
         System.out.println("pidPicPart: " + pidPicPart);
         if (pidPicPart != null && pidPicPart.getSize() > 0) {
         	System.out.println("Size of file: " + pidPicPart.getSize());
-        	pid_path = saveFile(pidPicPart);
+        	String full_pid_path = saveFile(pidPicPart);
+        	pid_path = full_pid_path.substring(full_pid_path.indexOf(UPLOAD_DIRECTORY));
             System.out.println("PidPic stored at: " + pid_path + "\n");
         } else {
         	System.out.println("PidPic not uploaded.\n");
@@ -392,7 +399,8 @@ public class SaveNewDevService extends HttpServlet{
         System.out.println("testReportPicPart: " + testReportPicPart);
         if (testReportPicPart != null && testReportPicPart.getSize() > 0) {
         	System.out.println("Size of file: " + testReportPicPart.getSize());
-        	test_report_path = saveFile(testReportPicPart);
+        	String full_test_report_path = saveFile(testReportPicPart);
+        	test_report_path = full_test_report_path.substring(full_test_report_path.indexOf(UPLOAD_DIRECTORY));
             System.out.println("TestReportPic stored at: " + test_report_path + "\n");
         } else {
         	System.out.println("TestReportPic not uploaded.\n");
@@ -403,7 +411,7 @@ public class SaveNewDevService extends HttpServlet{
         System.out.println("Current date & time: " + DateTime + "\n");
 		
 		DevData devdata = new DevData();
-		devdata.insertQuote(title, code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime);
+		devdata.insertDevelopment(title, code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime);
 		
 		int devid = devdata.getDevID(title);
 		
@@ -423,7 +431,7 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve datestamp of Leah comment.");
 		}
 		
-		if (LeahComment != "" && LeahComment_datestamp != "") {
+		if (!LeahComment.equals("")) {
 			devdata.insertComment(devid, "Leah", LeahComment_datestamp, LeahComment);
 		}
 		
@@ -443,7 +451,7 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve datestamp of US comment.");
 		}
 		
-		if (USComment != "" && USComment_datestamp != "") {
+		if (!USComment.equals("")) {
 			devdata.insertComment(devid, "US", USComment_datestamp, USComment);
 		}
 		
@@ -463,7 +471,7 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve datestamp of Mill comment.");
 		}
 		
-		if (MillComment != "" && MillComment_datestamp != "") {
+		if (!MillComment.equals("")) {
 			devdata.insertComment(devid, "Mill", MillComment_datestamp, MillComment);
 		}
 		
@@ -483,7 +491,7 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve datestamp of George comment.");
 		}
 		
-		if (GeorgeComment != "" && GeorgeComment_datestamp != "") {
+		if (!GeorgeComment.equals("")) {
 			devdata.insertComment(devid, "George", GeorgeComment_datestamp, GeorgeComment);
 		}
 		

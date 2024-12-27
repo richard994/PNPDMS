@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,12 @@
 			color: black;
 		}
 	</style>
+	<script>
+		var view = ${view};
+		var edit = ${edit};
+		var create = ${create};
+		var dev = JSON.parse('${dev}');
+	</script>
 </head>
 <body class="bg-light">
 	<div id="empty" style="display: hidden"></div>
@@ -187,20 +194,20 @@
 						  </div>
 						  <div class="carousel-inner">
 						    <div class="carousel-item active">
-						      <img class="d-block w-100" src="img/placeholder-image.jpg"" alt="img/placeholder-image.jpg"" id="FabricPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="img/placeholder-image.jpg" id="FabricPic" name="FabricPic">
 						      <div class="carousel-caption d-none d-md-block">
 							      <h5>Fabric Picture</h5>
 							      <p>Note: This will show as front image</p>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="img/placeholder-image.jpg"" id="PidPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="img/placeholder-image.jpg" id="PidPic" name="PidPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>PID</h5>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.jpg"" alt="img/placeholder-image.jpg"" id="TestPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="img/placeholder-image.jpg" id="TestPic" name="TestPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>Test Report</h5>
 						      </div>
@@ -255,7 +262,7 @@
 			            				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="48" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
 										  <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
 										</svg>
-										<input type="text" id="Cost" class="border-0" style="font-size: 38px; width: 100%" placeholder="0.0">
+										<input type="text" id="Cost" name="Cost" class="border-0" style="font-size: 38px; width: 100%" placeholder="0.0">
 			            			</div>
 		            			</div>
 		            		</div>
@@ -265,31 +272,31 @@
 		            	</div>
 		            	<div class="d-flex mt-4" id="CheckBoxes" style="white-space: nowrap; gap: 30px">
 		            		<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" value="checked" id="ParagonCleanCB" name="ParagonCleanCB">
+								<input class="form-check-input" type="checkbox" id="ParagonCleanCB" name="ParagonCleanCB">
 								<label class="form-check-label" for="ParagonCleanCB">
 								  Paragon Clean
 								</label>
 							</div>
 		            		<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" value="checked" id="FCLCB" name="FCLCB">
+								<input class="form-check-input" type="checkbox" id="FCLCB" name="FCLCB">
 								<label class="form-check-label" for="FCLCB">
 								  400hr FCL
 								</label>
 							</div>
 		            		<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" value="checked" id="PDCB" name="PDCB">
+								<input class="form-check-input" type="checkbox" id="PDCB" name="PDCB">
 								<label class="form-check-label" for="PDCB">
 								  Piece Dyed
 								</label>
 							</div>
 		            		<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" value="checked" id="FeedbackCB" name="FeedbackCB">
+								<input class="form-check-input" type="checkbox" id="FeedbackCB" name="FeedbackCB">
 								<label class="form-check-label" for="FeedbackCB">
 								  Need US Feedback?
 								</label>
 							</div>
 		            		<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" value="checked" id="SDYCB" name="SDYCB">
+								<input class="form-check-input" type="checkbox" id="SDYCB" name="SDYCB">
 								<label class="form-check-label" for="SDYCB">
 								  SDY
 								</label>
@@ -761,6 +768,13 @@
 		      interval: false  // Disables auto-sliding
 		    });
 		  });
+		
+		window.onload = function() {
+			if (view) {
+				disableAllInputs(); 
+				populateAllInputs();
+			}
+	    }
 	</script>
 </body>
 </html>

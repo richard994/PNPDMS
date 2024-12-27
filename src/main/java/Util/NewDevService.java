@@ -1,5 +1,6 @@
 package Util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -25,7 +26,35 @@ public class NewDevService extends HttpServlet{
 			if (!loggedin) {
 				request.getRequestDispatcher("/auth.jsp").forward(request, response);
 			} else {
-				request.getRequestDispatcher("/AddNewDev.jsp").forward(request, response);
+				String action = request.getParameter("action");
+				if ("view".equals(action)) {
+					DevData devdata = new DevData();
+					int devId = Integer.parseInt(request.getParameter("devId"));
+					Developments dev = devdata.getDevelopmentById(devId);
+					ObjectMapper objectMapper = new ObjectMapper();
+					String devJson = objectMapper.writeValueAsString(dev);
+					request.setAttribute("dev", devJson);
+					request.setAttribute("view", true);
+					request.setAttribute("edit", false);
+					request.setAttribute("create", false);
+					request.getRequestDispatcher("/AddNewDev.jsp").forward(request, response);
+				} else if ("edit".equals(action)) {
+					DevData devdata = new DevData();
+					int devId = Integer.parseInt(request.getParameter("devId"));
+					Developments dev = devdata.getDevelopmentById(devId);
+					ObjectMapper objectMapper = new ObjectMapper();
+					String devJson = objectMapper.writeValueAsString(dev);
+					request.setAttribute("dev", devJson);
+					request.setAttribute("view", false);
+					request.setAttribute("edit", true);
+					request.setAttribute("create", false);
+					request.getRequestDispatcher("/AddNewDev.jsp").forward(request, response);
+				} else {
+					request.setAttribute("view", false);
+					request.setAttribute("edit", false);
+					request.setAttribute("create", true);
+					request.getRequestDispatcher("/AddNewDev.jsp").forward(request, response);
+				}
 			}
 		}
 	}

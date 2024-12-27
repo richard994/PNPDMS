@@ -43,3 +43,7 @@ function setArea() {
     ((maxVal.value - sliderMinValue) / (sliderMaxValue - sliderMinValue)) * 100
   }%`;
 }
+
+function refresh() {
+  window.location.reload();
+}
