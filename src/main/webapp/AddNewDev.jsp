@@ -27,6 +27,8 @@
 		var edit = ${edit};
 		var create = ${create};
 		var dev = JSON.parse('${dev}');
+		var comments = JSON.parse('${comments}');
+		var logs = JSON.parse('${logs}');
 	</script>
 </head>
 <body class="bg-light">
@@ -194,20 +196,20 @@
 						  </div>
 						  <div class="carousel-inner">
 						    <div class="carousel-item active">
-						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="img/placeholder-image.jpg" id="FabricPic" name="FabricPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="Fabric Image" onerror="this.onerror=null; this.src='img/placeholder-img.jpg'" id="FabricPic" name="FabricPic">
 						      <div class="carousel-caption d-none d-md-block">
 							      <h5>Fabric Picture</h5>
 							      <p>Note: This will show as front image</p>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="img/placeholder-image.jpg" id="PidPic" name="PidPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="PID Image" onerror="this.onerror=null; this.src='img/placeholder-img.jpg';" id="PidPic" name="PidPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>PID</h5>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="img/placeholder-image.jpg" id="TestPic" name="TestPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="Test Report Image" onerror="this.onerror=null; this.src='img/placeholder-img.jpg';" id="TestPic" name="TestPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>Test Report</h5>
 						      </div>
@@ -267,7 +269,7 @@
 		            			</div>
 		            		</div>
 		            		<div class="mt-5" style="flex: 2">
-		            			<span class="mt-3" style="float: right; font-size: 20px">Time spent in the current phase: <span style="color: red" id="CurrDaySpent">0</span> days</span>
+		            			<span class="mt-3" style="float: right; font-size: 20px">Time spent in the current phase: <span style="color: red" id="CurrDaySpent" name="CurrDaySpent">0</span> days</span>
 		            		</div>
 		            	</div>
 		            	<div class="d-flex mt-4" id="CheckBoxes" style="white-space: nowrap; gap: 30px">
@@ -568,28 +570,6 @@
 									<div class="comment p-2" id="placeholder-comment-Leah">
 										<span style="opacity: 0.5">Nothing Yet</span>
 									</div>
-									<!--  
-									<div class="comment p-2 d-flex" style="background: #4D73FF; color: white">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-14 14:02</span>
-											</div>
-										</div>
-									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-13 14:02</span>
-											</div>
-										</div>
-									</div>
-									-->
 								</div>
 							</div>
 						</div>
@@ -612,28 +592,6 @@
 											<span style="opacity: 0.5">Nothing Yet</span>
 										</div>
 									</div>
-									<!--  
-									<div class="comment p-2 d-flex" style="background: #4D73FF; color: white">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-14 14:02</span>
-											</div>
-										</div>
-									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-13 14:02</span>
-											</div>
-										</div>
-									</div>
-									-->
 								</div>
 							</div>
 						</div>
@@ -659,28 +617,6 @@
 											<span style="opacity: 0.5">Nothing Yet</span>
 										</div>
 									</div>
-									<!--  
-									<div class="comment p-2 d-flex" style="background: #4D73FF; color: white">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-14 14:02</span>
-											</div>
-										</div>
-									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-13 14:02</span>
-											</div>
-										</div>
-									</div>
-									-->
 								</div>
 							</div>
 						</div>
@@ -703,28 +639,6 @@
 											<span style="opacity: 0.5">Nothing Yet</span>
 										</div>
 									</div>
-									<!--  
-									<div class="comment p-2 d-flex" style="background: #4D73FF; color: white">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-14 14:02</span>
-											</div>
-										</div>
-									</div>
-									<div class="comment p-2 d-flex">
-										<div class="commentTexts" style="flex: 3">
-											<span>CommentComment</span>
-										</div>
-										<div class="commentDateStamp" style="flex: 2">
-											<div style="float: right">
-												<span>24-12-13 14:02</span>
-											</div>
-										</div>
-									</div>
-									-->
 								</div>
 							</div>
 						</div>
@@ -742,16 +656,8 @@
 			
 		</div>
 		 
-		<div class="d-flex flex-column gap-3" id="log" style="width: 160px">
-			<div class="logcontainer d-flex flex-column bg-white rounded-3" id="log2" style="padding: 9px">
-				<span><span id="log2name" style="color: #4D73FF">Kellena</span> <span id="log2datestamp" style="font-size: 12px">11/24, 11:20pm:</span></span>
-				<span id="log2content" style="font-size: 14px">Updated Strike-Off Progress to Confirmed</span>
-			</div>
-			<div class="logcontainer d-flex flex-column bg-white rounded-3" id="log1" style="padding: 9px">
-				<span><span id="log1name" style="color: #4D73FF">June</span> <span id="log1datestamp" style="font-size: 12px">11/23, 11:20pm:</span></span>
-				<span id="log1content" style="font-size: 14px">Created New Dev</span>
-			</div>
-			<a id="ShowFullLogHistoryLink" href="" style="padding-left: 10px; color: #999999; font-size: 14px; text-decoration: underline">Show full log history</a>
+		<div class="d-flex flex-column gap-3" id="logBlock" name="logBlock" style="width: 160px; display: none">
+			<a id="ShowFullLogHistoryLink" name="ShowFullLogHistoryLink" href="" style="padding-left: 10px; color: #999999; font-size: 14px; text-decoration: underline">Show full log history</a>
 		</div>
 		
 	</div>

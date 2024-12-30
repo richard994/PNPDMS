@@ -340,11 +340,195 @@ function disableAllInputs() {
 }
 
 function populateAllInputs() {
-	document.getElementById("FabricPic").src = dev.fabric_img_path;
+	if (typeof dev.fabric_img_path !== 'undefined') {
+		document.getElementById("FabricPic").src = dev.fabric_img_path;
+	}
 	if (typeof dev.pid_path !== 'undefined') {
 		document.getElementById("PidPic").src = dev.pid_path;
 	}
 	if (typeof dev.test_report_path !== 'undefined') {
 		document.getElementById("TestPic").src = dev.test_report_path;
 	}
+	document.getElementById("Title").value = dev.title;
+	document.getElementById("Code").value = dev.code;
+	document.getElementById("Color").value = dev.color;
+	document.getElementById("Cost").value = dev.cost;
+	document.getElementById("ParagonCleanCB").checked = dev.paragonClean;
+	document.getElementById("FCLCB").checked = dev.is400hrFCL;
+	document.getElementById("PDCB").checked = dev.pieceDyed;
+	document.getElementById("FeedbackCB").checked = dev.needFeedback;
+	document.getElementById("SDYCB").checked = dev.sDY;
+	document.getElementById("FabricType").value = dev.fabric_type;
+	document.getElementById("DesignType").value = dev.design_type;
+	document.getElementById("Colorist").value = dev.colorist;
+	const selectedFinArr = dev.finishing_used.split(",");
+	document.querySelector('#Backing').setValue(selectedFinArr, false);
+	document.getElementById("Season").value = dev.season;
+	document.getElementById("YarnType").value = dev.yarn_type;
+	document.getElementById("WarpType").value = dev.warp_type;
+	document.getElementById("Content").value = dev.content;
+	document.getElementById("StrikeProgress").value = dev.strike_off_status;
+	document.getElementById("StrikeProgress").dispatchEvent(new Event('change'));
+	document.getElementById("BlanketStatus").value = dev.blanket_status;
+	document.getElementById("BlanketStatus").dispatchEvent(new Event('change'));
+	document.getElementById("ColorLineProgress").value = dev.colorline_status;
+	document.getElementById("ColorlineDatestamp").value = dev.colorline_datestamp;
+	document.getElementById("RollSampleProgress").value = dev.rollsample_status;
+	document.getElementById("RollSampleProgress").dispatchEvent(new Event('change'));
+	document.getElementById("RollSampleDatestamp").value = dev.rollsample_datestamp;
+	document.getElementById("TestingProgress").value = dev.test_status;
+	document.getElementById("TestingProgress").dispatchEvent(new Event('change'));
+	document.getElementById("TestingDatestamp").value = dev.test_datestamp;
+	document.getElementById("CustomsCat").value = dev.customs;
+	document.getElementById("MOQ").value = dev.moq;
+	document.getElementById("Weight").value = dev.weight;
+	document.getElementById("FabricNickname").value = dev.nickname;
+	document.getElementById("NumColorLine").value = dev.numColorline;
+	document.getElementById("PPCM").value = dev.ppcm;
+	document.getElementById("Note").value = dev.note;
+	var devDate = new Date(dev.dateTime);
+	var currentDate = new Date();
+	var difference = currentDate - devDate;
+	var daysPassed = difference / (1000 * 60 * 60 * 24);
+	daysPassed = Math.floor(daysPassed);
+	document.getElementById("CurrDaySpent").textContent = daysPassed;
+	parseComments();
+	parseLogs();
+}
+
+function parseComments() {
+	// Initialize an object to store comments categorized by name
+	var categorizedComments = {
+	    Leah: [],
+	    US: [],
+	    Mill: [],
+	    George: []
+	};
+	
+	
+	// Loop through each comment in the `comments` array
+	comments.forEach(function(comment) {
+	    // Check if the content is not an empty string or null
+	    var content = comment.content.trim();  // Trim to remove spaces
+	    if (content !== "") {
+	        var commentText = content + "," + comment.datestamp;
+	        // Add the formatted comment to the appropriate list based on name
+	        if (categorizedComments[comment.name]) {
+	            categorizedComments[comment.name].push(commentText);
+	        }
+	    }
+	});
+	
+	for (var name in categorizedComments) {
+	    if (categorizedComments.hasOwnProperty(name)) {
+	        var commentsList = categorizedComments[name]; // Array of comments for this name
+	
+	        // Loop through the comments array for each name
+	        if (commentsList.length > 0) {
+				document.getElementById("placeholder-comment-" + name).style.display = "none";
+				var index = 0;
+	            commentsList.forEach(function(comment) {
+	                var conDateArr = comment.split(',');
+	                
+	                // Create the comment div element
+				    var commentDiv = document.createElement('div');
+				    commentDiv.classList.add('comment', 'p-2', 'd-flex');
+				
+				    // Create the comment texts div
+				    var commentTextsDiv = document.createElement('div');
+				    commentTextsDiv.classList.add('commentTexts');
+				    commentTextsDiv.style.flex = "3";
+				    var commentText = document.createElement('span');
+				    commentText.textContent = conDateArr[0]; 
+				    commentTextsDiv.appendChild(commentText);
+				
+				    // Create the comment date div
+				    var commentDateDiv = document.createElement('div');
+				    commentDateDiv.classList.add('commentDateStamp');
+				    commentDateDiv.style.flex = "2";
+				    var commentDateSpanHdrDiv = document.createElement('div');
+				    commentDateSpanHdrDiv.style.float = "right";
+				    var commentDate = document.createElement('span');
+				    commentDate.textContent = conDateArr[1]; 
+				    commentDateSpanHdrDiv.appendChild(commentDate);
+				    commentDateDiv.appendChild(commentDateSpanHdrDiv);
+				
+				    // Append the comment texts and date divs to the comment div
+				    commentDiv.appendChild(commentTextsDiv);
+				    commentDiv.appendChild(commentDateDiv);
+				
+				    // Append the comment div to LeahComments
+				    document.getElementById(name + "Comments").appendChild(commentDiv);
+				
+				    // Apply special styles to the first comment (first child)
+				    if (index === 0) {
+				        commentDiv.style.background = '#4D73FF';
+				        commentDiv.style.color = 'white';
+				    }
+	                index += 1;
+	            });
+	        } 
+	    }
+	}
+}
+
+function parseLogs() {
+	if (Array.isArray(logs) && logs.length !== 0) {
+		document.getElementById("logBlock").style.display = "block";
+	}
+	logs.forEach(function(log) {
+		var name = log.name;
+		var date = formatDate(log.datestamp);
+		var content = log.content;
+		var logDiv = document.createElement('div');
+		logDiv.classList.add('logcontainer','d-flex','flex-column','bg-white','rounded-3');
+		logDiv.style.padding = "9px";
+		// Create the outer <span> element
+		var outerSpan = document.createElement('span');
+		
+		// Create the inner <span> for the name
+		var nameSpan = document.createElement('span');
+		nameSpan.style.color = '#4D73FF';  // Set color to #4D73FF
+		nameSpan.textContent = name;  // Set the text content
+		
+		// Create the inner <span> for the timestamp
+		var datestampSpan = document.createElement('span');
+		datestampSpan.style.fontSize = '11px';  // Set font size
+		datestampSpan.textContent = ' ' + date + ':';  // Set the text content
+		
+		// Append the name and datestamp spans to the outer span
+		outerSpan.appendChild(nameSpan);
+		outerSpan.appendChild(datestampSpan);
+		logDiv.appendChild(outerSpan);
+		
+		var contentSpan = document.createElement('span');
+		contentSpan.style.fontSize = "14px";
+		contentSpan.textContent = content;
+		logDiv.appendChild(contentSpan);
+		document.getElementById("logBlock").insertBefore(logDiv, document.getElementById("ShowFullLogHistoryLink"));
+	});
+}
+
+function formatDate(datestamp) {
+    // Create a Date object from the given ISO 8601 string
+    var date = new Date(datestamp);
+
+    // Extract the parts of the date (month, day, hours, minutes)
+    var month = date.getMonth() + 1;  // getMonth() returns 0-11, so we add 1
+    var day = date.getDate();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+
+    // Format minutes to always show two digits (e.g., 7 -> 07)
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    // Determine if it's AM or PM
+    var ampm = hours >= 12 ? 'pm' : 'am';
+
+    // Convert hours to 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 12-hour format fix (12 should be displayed as 12, not 0)
+
+    // Return the formatted string as "MM/DD, hh:mm am/pm"
+    return month + '/' + day + ', ' + hours + ':' + minutes + ampm;
 }

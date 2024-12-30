@@ -2,6 +2,7 @@ package Util;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DevData {
 	private String driver = "com.mysql.cj.jdbc.Driver";
@@ -277,6 +278,7 @@ public class DevData {
 				String test_report_path = rs.getString("test_report_path");
 				String currentPhase = rs.getString("currentPhase");
 				String DateTime = rs.getString("DateTime");
+				
 				development.setAll(id, title, code, color, cost, 
 									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
 									IsSDY, fabric_type, design_type, colorist, finishing_used, 
@@ -292,5 +294,66 @@ public class DevData {
 			e.printStackTrace();
 			return development;
 		}
+	}
+	
+	public ArrayList<Comment> getCommentsById(int id) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Comment> comments = new ArrayList<Comment>();
+		
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String commentQuery = "SELECT * FROM comment WHERE development_id = ?";
+			PreparedStatement commentStmt = con.prepareStatement(commentQuery);
+			commentStmt.setInt(1, id);
+			ResultSet rs = commentStmt.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("name");
+				String datestamp = rs.getString("date_stamp");
+				String content = rs.getString("content");
+				Comment comment = new Comment(name, datestamp, content);
+				comments.add(comment);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return comments;
+		}
+		Collections.reverse(comments);
+		return comments;
+	}
+	
+	public ArrayList<Log> getLogsById(int id) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Log> logs = new ArrayList<Log>();
+		
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String logQuery = "SELECT * FROM log WHERE development_id = ?";
+			PreparedStatement logStmt = con.prepareStatement(logQuery);
+			logStmt.setInt(1, id);
+			ResultSet rs = logStmt.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("name");
+				String datestamp = rs.getString("date_stamp");
+				String content = rs.getString("content");
+				Log log = new Log(name, datestamp, content);
+				logs.add(log);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return logs;
+		}
+		Collections.reverse(logs);
+		return logs;
 	}
 }
