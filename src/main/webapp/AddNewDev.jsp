@@ -14,6 +14,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<title>AddNewDev</title>
 	<style>
+		#home::before {
+			content: url(home.png) !important;
+		}
 		.breadcrumb-item::before {
 			content: url(discount.png) !important;
 			padding-right: 5px !important;
@@ -22,7 +25,7 @@
 			color: black;
 		}
 	</style>
-	<script>
+	<script defer>
 		var view = ${view};
 		var edit = ${edit};
 		var create = ${create};
@@ -76,7 +79,7 @@
 	  	</div>
 	</div>
 	
-	<form id="NDform" action="SaveNewDevService" method="post" enctype="multipart/form-data" onsubmit="return validate()">
+	<form id="NDform" name="NDform" action="SaveNewDevService" method="post" enctype="multipart/form-data" onsubmit="return validate()">
 	<div class="d-flex justify-content-start" style="gap: 20px; width: 98%; margin-left: 15px">
 		<div class="d-flex flex-column" style="gap: 25px">
 			
@@ -647,7 +650,8 @@
 					<div class="container-fluid text-center mx-auto mt-2" style="width: 260px" id="savecontainer">
 				    	<div class="d-flex" style="gap: 10px">
 				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="submit" id="savebtn">SAVE</button>
-				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="button" id="deletebtn">DELETE</button>
+				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px; display: none" type="submit" onclick="setFormAction('SaveNewDevService?action=edit&devId=${devid}')" id="editbtn">EDIT</button>
+				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="button" onclick="redirect('SaveNewDevService?action=delete&devId=${devid}')" id="deletebtn">DELETE</button>
 			   			</div>
 			   		</div>
 					
@@ -675,12 +679,14 @@
 		    });
 		  });
 		
-		window.onload = function() {
-			if (view) {
-				disableAllInputs(); 
-				populateAllInputs();
-			}
-	    }
+		if (view) {
+			disableAllInputs(); 
+			populateAllInputs();
+		} else if (edit) {
+			populateAllInputs();
+			document.getElementById("savebtn").style.display = "none";
+			document.getElementById("editbtn").style.display = "block";
+		}
 	</script>
 </body>
 </html>

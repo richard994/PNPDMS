@@ -11,6 +11,9 @@
 	<title>Tracker</title>
 	
 	<style>
+		#home::before {
+			content: url(home.png) !important;
+		}
 		.breadcrumb-item::before {
 			content: url(discount.png) !important;
 			padding-right: 5px !important;
@@ -281,7 +284,7 @@
 		  							</div>
 		  							<div class="col">
 		  								<div id="CardBtnGroup" style="display: flex; gap: 10px">
-			  								<button class="btn border-2 cardbtn" type="button" id="DuplicateBtn">
+			  								<button class="btn border-2 cardbtn" type="button" onclick="redirect('SaveNewDevService?action=duplicate&devId=${dev.dev_id}')" id="DuplicateBtn">
 										  		Duplicate
 										  	</button>
 										  	<button class="btn border-2 cardbtn" type="button" id="EditBtn" onclick="window.location.href='NewDevService?action=edit&devId=${dev.dev_id}'">

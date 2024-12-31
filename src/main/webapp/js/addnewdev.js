@@ -334,7 +334,9 @@ function disableAllInputs() {
     var inputs = document.querySelectorAll('input, select, textarea, button'); 
     inputs.forEach(function(input) {
         if (!input.closest('.carousel')) {  
-            input.disabled = true;  
+            input.style.pointerEvents = 'none';  // Disable mouse interaction
+            input.setAttribute('readonly', true);  // For inputs, textarea (optional)
+            input.disabled = false;  // Don't set disabled to true to avoid style changes
         }
     });
 }
@@ -532,3 +534,14 @@ function formatDate(datestamp) {
     // Return the formatted string as "MM/DD, hh:mm am/pm"
     return month + '/' + day + ', ' + hours + ':' + minutes + ampm;
 }
+
+// Function to change the form action based on the clicked button
+function setFormAction(action) {
+    var form = document.getElementById('NDform');  // Get the form element
+    form.action = action;  // Set the action to the specified URL
+}
+
+function redirect(url) {
+    window.location.replace(url);
+}
+

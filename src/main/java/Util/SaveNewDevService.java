@@ -2,6 +2,10 @@ package Util;
 
 import java.io.*;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.nio.file.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.*;
@@ -68,6 +72,60 @@ public class SaveNewDevService extends HttpServlet{
 	public void doPost(HttpServletRequest request, HttpServletResponse 
 			response) throws ServletException, IOException {
 		String temp[];
+		String action = request.getParameter("action");
+		
+		if ("delete".equals(action)) {
+			int dev_id = Integer.parseInt(request.getParameter("devId"));
+			DevData devdata = new DevData();
+			Developments dev = devdata.getDevelopmentById(dev_id);
+			devdata.deleteDev(dev_id);
+			deleteFile(dev.getFabric_img_path());
+			deleteFile(dev.getPid_path());
+			deleteFile(dev.getTest_report_path());
+			System.out.println("Deleted development " + dev_id + ".\n");
+			ArrayList<Developments> developments = devdata.getDevelopments();
+	        request.setAttribute("developmentsList", developments);
+			request.getRequestDispatcher("/tracker.jsp").forward(request, response);
+			return;
+		}
+		
+		if ("duplicate".equals(action)) {
+			int dev_id = Integer.parseInt(request.getParameter("devId"));
+			DevData devdata = new DevData();
+			Developments dev = devdata.getDevelopmentById(dev_id);
+			LocalDateTime currentDateTime = LocalDateTime.now();
+	        DateTime = currentDateTime.toString();
+	        dev.setDateTime(DateTime);
+	        
+	        String fabric_img_path = dev.getFabric_img_path();
+	        String pid_path = dev.getPid_path();
+	        String test_report_path = dev.getTest_report_path();
+	        if (!fabric_img_path.equals("")) {
+	        	fabric_img_path = copyFile(fabric_img_path);
+	        	fabric_img_path = fabric_img_path.substring(fabric_img_path.indexOf(UPLOAD_DIRECTORY));
+	        	dev.setFabric_img_path(fabric_img_path);
+	        }
+	        if (!pid_path.equals("")) {
+	        	pid_path = copyFile(pid_path);
+	        	pid_path = pid_path.substring(pid_path.indexOf(UPLOAD_DIRECTORY));
+	        	dev.setPid_path(pid_path);
+	        }
+	        if (!test_report_path.equals("")) {
+	        	test_report_path = copyFile(test_report_path);
+	        	test_report_path = test_report_path.substring(test_report_path.indexOf(UPLOAD_DIRECTORY));
+	        	dev.setTest_report_path(test_report_path);
+	        }
+	        
+	        int new_id = devdata.duplicateDev(dev);
+	        HttpSession session = request.getSession();
+			String userName = (String) session.getAttribute("userName");
+	        devdata.insertLog(new_id, userName, DateTime, "Duplicated this development.");
+	        System.out.println("Duplicate development " + dev_id + ".\n");
+	        ArrayList<Developments> developments = devdata.getDevelopments();
+	        request.setAttribute("developmentsList", developments);
+			request.getRequestDispatcher("/tracker.jsp").forward(request, response);
+			return;
+		}
 
 		temp = request.getParameterValues("Title");
 		if (temp != null) {
@@ -411,9 +469,25 @@ public class SaveNewDevService extends HttpServlet{
         System.out.println("Current date & time: " + DateTime + "\n");
 		
 		DevData devdata = new DevData();
-		devdata.insertDevelopment(title, code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime);
-		
-		int devid = devdata.getDevID(title);
+		if ("edit".equals(action)) {
+			int old_dev_id = Integer.parseInt(request.getParameter("devId"));
+			Developments old_development = devdata.getDevelopmentById(old_dev_id);
+			if (fabric_img_path.equals("")) {
+				fabric_img_path = old_development.getFabric_img_path();
+			}
+			if (pid_path.equals("")) {
+				pid_path = old_development.getPid_path();
+			}
+			if (test_report_path.equals("")) {
+				test_report_path = old_development.getTest_report_path();
+			}
+			String old_phase = old_development.getCurrentPhase();
+			if (old_phase.equals(currentPhase)) {
+				DateTime = old_development.getDateTime();
+			}
+		}
+		int devid = devdata.insertDevelopment(title, code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime);
+		ArrayList<Comment> comments = new ArrayList<Comment>();
 		
 		temp = request.getParameterValues("LeahCommentInput");
 		if (temp != null) {
@@ -431,7 +505,10 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve datestamp of Leah comment.");
 		}
 		
-		if (!LeahComment.equals("")) {
+		if ("edit".equals(action) && !LeahComment.equals("")) {
+			Comment comment = new Comment("Leah", LeahComment_datestamp, LeahComment);
+			comments.add(comment);
+		} else if (!LeahComment.equals("")) {
 			devdata.insertComment(devid, "Leah", LeahComment_datestamp, LeahComment);
 		}
 		
@@ -450,8 +527,10 @@ public class SaveNewDevService extends HttpServlet{
 		} else {
 			System.out.println("Fail to retrieve datestamp of US comment.");
 		}
-		
-		if (!USComment.equals("")) {
+		if ("edit".equals(action) && !USComment.equals("")) {
+			Comment comment = new Comment("US", USComment_datestamp, USComment);
+			comments.add(comment);
+		} else if (!USComment.equals("")) {
 			devdata.insertComment(devid, "US", USComment_datestamp, USComment);
 		}
 		
@@ -471,7 +550,10 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve datestamp of Mill comment.");
 		}
 		
-		if (!MillComment.equals("")) {
+		if ("edit".equals(action) && !MillComment.equals("")) {
+			Comment comment = new Comment("Mill", MillComment_datestamp, MillComment);
+			comments.add(comment);
+		} else if (!MillComment.equals("")) {
 			devdata.insertComment(devid, "Mill", MillComment_datestamp, MillComment);
 		}
 		
@@ -491,15 +573,49 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve datestamp of George comment.");
 		}
 		
-		if (!GeorgeComment.equals("")) {
+		if ("edit".equals(action) && !GeorgeComment.equals("")) {
+			Comment comment = new Comment("George", GeorgeComment_datestamp, GeorgeComment);
+			comments.add(comment);
+		} else if (!GeorgeComment.equals("")) {
 			devdata.insertComment(devid, "George", GeorgeComment_datestamp, GeorgeComment);
 		}
 		
 		HttpSession session = request.getSession();
 		String userName = (String) session.getAttribute("userName");
-		devdata.insertLog(devid, userName, DateTime, "Created New Development");
-		
-		request.getRequestDispatcher("/DevSuccess.jsp").forward(request, response);
+		if ("edit".equals(action)) {
+			System.out.println("Editing.\n");
+			int old_dev_id = Integer.parseInt(request.getParameter("devId"));
+			Developments old_development = devdata.getDevelopmentById(old_dev_id);
+			Developments new_development = devdata.getDevelopmentById(devid);
+			ArrayList<Log> logs = devdata.getLogsById(old_dev_id);
+			logs.addAll(old_development.compare(new_development, userName));
+			if (!comments.isEmpty()) {
+				ArrayList<Log> comment_logs = getCommentLogs(devdata, comments, old_dev_id, devid, userName, DateTime);
+				logs.addAll(comment_logs);
+			}
+			if (!logs.isEmpty()) {
+				for (Log log: logs) {
+					devdata.insertLog(devid, log.getName(), log.getDatestamp(), log.getContent());
+				}
+				devdata.deleteDev(old_dev_id);
+				deleteFile(old_development.getFabric_img_path());
+				deleteFile(old_development.getPid_path());
+				deleteFile(old_development.getTest_report_path());
+				System.out.println("Deleted old development " + old_dev_id + ".\n");
+			} else {
+				devdata.deleteDev(devid);
+				deleteFile(new_development.getFabric_img_path());
+				deleteFile(new_development.getPid_path());
+				deleteFile(new_development.getTest_report_path());
+				System.out.println("No change, deleting new development " + devid + ".\n");
+			}
+			ArrayList<Developments> developments = devdata.getDevelopments();
+	        request.setAttribute("developmentsList", developments);
+			request.getRequestDispatcher("/tracker.jsp").forward(request, response);
+		} else {
+			devdata.insertLog(devid, userName, DateTime, "Created New Development");
+			request.getRequestDispatcher("/DevSuccess.jsp").forward(request, response);
+		}
 	}
 
 
@@ -525,5 +641,83 @@ public class SaveNewDevService extends HttpServlet{
 	    }
 	    return null;
 	}
+	
+	private void deleteFile(String filename) {
+		// Construct the full file path using the relative path stored in the database
+	    String filePath = getServletContext().getRealPath("") + File.separator + filename;
+	    System.out.println("Deleting file at file path: " + filePath + ".\n");
+	    
+		File file = new File(filePath);
 
+        // Check if the file exists and delete it
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("File deleted successfully.");
+            } else {
+                System.out.println("Failed to delete the file.");
+            }
+        } else {
+            System.out.println("File does not exist.");
+        }
+	}
+	
+	private String copyFile(String filename) {
+		// Construct the full file path using the relative path stored in the database
+	    String filePath = getServletContext().getRealPath("") + File.separator + filename;
+	    String stripped_filename = filename.substring(filename.indexOf("uploads/") + "uploads/".length());
+	    String destPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + "duplicated_" + stripped_filename;
+	    System.out.println("Copying file at file path: " + filePath + " to " + destPath + ".\n");
+	    
+	    // Specify the source image file and the destination file
+        Path sourcePath = Paths.get(filePath);
+        Path destinationPath = Paths.get(destPath);
+
+        try {
+            // Copy the file
+        	while (Files.exists(destinationPath)) {
+        		stripped_filename = destPath.substring(destPath.indexOf("uploads/") + "uploads/".length());
+        		destPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + "duplicated_" + stripped_filename;
+        		destinationPath = Paths.get(destPath);
+        	}
+            Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File copied successfully.");
+            return destPath;
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error occurred while copying the file.");
+        }
+        return "";
+	}
+	
+	private ArrayList<Log> getCommentLogs(DevData devdata, ArrayList<Comment> new_comments, int old_dev_id, int new_dev_id, String username, String dateTime) {
+		System.out.println("Getting Added Comments.\n");
+		ArrayList<Log> logs = new ArrayList<Log>();
+		ArrayList<Comment> added_comments = new ArrayList<Comment>();
+		ArrayList<Comment> old_comments = devdata.getCommentsById(old_dev_id);
+		
+		for (Comment oldComment : old_comments) {
+			devdata.insertComment(new_dev_id, oldComment.getName(), oldComment.getDatestamp(), oldComment.getContent());
+			System.out.println("Saving old comments from dev_id " + old_dev_id + ": " + oldComment.getName() + " " + oldComment.getDatestamp() + " " + oldComment.getContent() + ".\n");
+		}
+		
+		// Create a set for fast look-up
+        Set<Comment> oldCommentSet = new HashSet<>(old_comments);
+        
+        // Check for added comments (those in new_comments but not in old_comments)
+        for (Comment newComment : new_comments) {
+            if (!oldCommentSet.contains(newComment)) {
+                added_comments.add(newComment);
+            }
+            devdata.insertComment(new_dev_id, newComment.getName(), newComment.getDatestamp(), newComment.getContent());
+        }
+        
+        if (!added_comments.isEmpty()) {
+        	for (Comment comment : added_comments) {
+        		Log log = new Log(username, dateTime, "Added " + comment.getName() + " Comment.");
+        		logs.add(log);
+        	}
+        }
+		
+		return logs;
+	}
 }

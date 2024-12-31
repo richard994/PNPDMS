@@ -55,6 +55,7 @@ public class NewDevService extends HttpServlet{
 					String devJson = objectMapper.writeValueAsString(dev);
 					String commentJson = objectMapper.writeValueAsString(comments);
 					String logJson = objectMapper.writeValueAsString(logs);
+					request.setAttribute("devid", devId);
 					request.setAttribute("dev", devJson);
 					request.setAttribute("comments", commentJson);
 					request.setAttribute("logs", logJson);

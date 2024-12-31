@@ -47,3 +47,7 @@ function setArea() {
 function refresh() {
   window.location.reload();
 }
+
+function redirect(url) {
+    window.location.replace(url);
+}

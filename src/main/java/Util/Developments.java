@@ -1,4 +1,7 @@
 package Util;
+import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 
 public class Developments {
 	private int dev_id;
@@ -138,6 +141,50 @@ public class Developments {
 		setTest_report_path(test_report_path);
 		setCurrentPhase(currentPhase);
 		setDateTime(DateTime);
+	}
+	
+	public ArrayList<Log> compare(Developments otherDev, String username) {
+		ArrayList<Log> logs = new ArrayList<>();
+		
+		try {
+			// Get all fields of the Development class (including private ones)
+            Field[] fields = Developments.class.getDeclaredFields();
+            
+            for (Field field : fields) {
+                field.setAccessible(true); // Make private fields accessible
+                String attributeName = field.getName();
+                
+                // Skip comparison for the 'dateTime' field
+                if (attributeName.equals("dateTime") || attributeName.equals("dev_id")) {
+                    continue;  // Skip this field and move to the next one
+                }
+
+                Object oldValue = field.get(this); // Get value from the current object
+                Object newValue = field.get(otherDev); // Get value from the other object
+                // If the values are different, create a Log object
+                if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null)) {
+                	String oldval = oldValue.toString();
+                	String newval = newValue.toString();
+                	if (attributeName.equals("Fabric_img_path") || attributeName.equals("Pid_path") || attributeName.equals("Test_report_path")) {
+                		if (oldval.equals("")) {
+                			oldval = "None";
+                		} else {
+                			oldval = oldval.substring(oldval.indexOf("uploads/") + "uploads/".length());
+                		}
+                		newval = newval.substring(newval.indexOf("uploads/") + "uploads/".length());
+                	}
+                	LocalDateTime currentDateTime = LocalDateTime.now();
+                    String datestamp = currentDateTime.toString();
+                	Log log = new Log(username, datestamp, "Updated " + attributeName + " from " + oldval + " to " + newval);
+                	logs.add(log);
+                }
+            }
+		} catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return logs;
+        }
+		
+		return logs;
 	}
 
 	public String getTitle() {

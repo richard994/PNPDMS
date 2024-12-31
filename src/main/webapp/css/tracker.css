@@ -25,9 +25,6 @@ body {
 	font-size: calc( 12px + (20 - 16) * (100vw - 400px) / (800 - 400) );
 	font-weight: 300;
 }
-#home::before {
-	content: url(home.png) !important;
-}
 .breadcrumb-item::before {
 	content: url(discount.png) !important;
 	padding-right: 5px !important;

@@ -3,6 +3,9 @@ package Util;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DevData {
 	private String driver = "com.mysql.cj.jdbc.Driver";
@@ -25,7 +28,7 @@ public class DevData {
 		}
 	}
 	
-	public void insertDevelopment(String title, String code, String color, double cost, 
+	public int insertDevelopment(String title, String code, String color, double cost, 
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback, 
 			boolean IsSDY, String fabric_type, String design_type, String colorist, String finishing_used, 
 			String season, String yarn_type, String warp_type, String content, String strike_off_status,
@@ -42,7 +45,7 @@ public class DevData {
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, "
 					+ "nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime) "
 					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, title);
 			stmt.setString(2, code);
 			stmt.setString(3, color);
@@ -80,7 +83,18 @@ public class DevData {
 			stmt.setString(35, test_report_path);
 			stmt.setString(36, currentPhase);
 			stmt.setString(37, DateTime);
-			stmt.executeUpdate();
+			int affectedRows = stmt.executeUpdate();
+			ResultSet generatedKeys = null;
+			// Check if the insert was successful and retrieve the generated keys
+            if (affectedRows > 0) {
+                // Get the generated keys (auto-incremented ID)
+                generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    // Retrieve the generated ID (assuming it's the first column in the ResultSet)
+                    int generatedID = generatedKeys.getInt(1);
+                    return generatedID;
+                }
+            }
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -90,6 +104,7 @@ public class DevData {
 				e.printStackTrace();
 			}
 		}
+		return 0;
 	}
 	
 	public void insertComment(int development_id, String name, String date_stamp, String content) {
@@ -132,29 +147,6 @@ public class DevData {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	public int getDevID(String title) {
-		int devID = 1;
-		try {
-			getConn();
-			String sql = "SELECT * FROM MijuPrice.development WHERE title = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, title);
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
-				devID = rs.getInt("development_id");
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return devID;
 	}
 	
 	public ArrayList<Developments> getDevelopments() {
@@ -353,7 +345,118 @@ public class DevData {
 			e.printStackTrace();
 			return logs;
 		}
-		Collections.reverse(logs);
+		// Sort the list by date_stamp (ascending order)
+        Collections.sort(logs, new Comparator<Log>() {
+            @Override
+            public int compare(Log log1, Log log2) {
+            	// Convert the date_stamp string to LocalDateTime
+                DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+                LocalDateTime dateTime1 = LocalDateTime.parse(log1.getDatestamp(), formatter);
+                LocalDateTime dateTime2 = LocalDateTime.parse(log2.getDatestamp(), formatter);
+
+                // Compare the two LocalDateTime objects
+                return dateTime1.compareTo(dateTime2);
+            }
+        });
+        Collections.reverse(logs);
 		return logs;
+	}
+	
+	public int duplicateDev(Developments dev) {
+		try {
+			getConn();
+			String sql = "INSERT INTO MijuPrice.development(title, code, color, cost, IsParagonClean, Is400hrFCL, "
+					+ "IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, "
+					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
+					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, "
+					+ "nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, dev.getTitle());
+			stmt.setString(2, dev.getCode());
+			stmt.setString(3, dev.getColor());
+			stmt.setDouble(4, dev.getCost());
+			stmt.setBoolean(5, dev.isParagonClean());
+			stmt.setBoolean(6, dev.isIs400hrFCL());
+			stmt.setBoolean(7, dev.isPieceDyed());
+			stmt.setBoolean(8, dev.isNeedFeedback());
+			stmt.setBoolean(9, dev.isSDY());
+			stmt.setString(10, dev.getFabric_type());
+			stmt.setString(11, dev.getDesign_type());
+			stmt.setString(12, dev.getColorist());
+			stmt.setString(13, dev.getFinishing_used());
+			stmt.setString(14, dev.getSeason());
+			stmt.setString(15, dev.getYarn_type());
+			stmt.setString(16, dev.getWarp_type());
+			stmt.setString(17, dev.getContent());
+			stmt.setString(18, dev.getStrike_off_status());
+			stmt.setString(19, dev.getBlanket_status());
+			stmt.setString(20, dev.getColorline_status());
+			stmt.setString(21, dev.getColorline_datestamp());
+			stmt.setString(22, dev.getRollsample_status());
+			stmt.setString(23, dev.getRollsample_datestamp());
+			stmt.setString(24, dev.getTest_status());
+			stmt.setString(25, dev.getTest_datestamp());
+			stmt.setString(26, dev.getCustoms());
+			stmt.setDouble(27, dev.getMoq());
+			stmt.setDouble(28, dev.getWeight());
+			stmt.setString(29, dev.getNickname());
+			stmt.setInt(30, dev.getNumColorline());
+			stmt.setDouble(31, dev.getPpcm());
+			stmt.setString(32, dev.getNote());
+			stmt.setString(33, dev.getFabric_img_path());
+			stmt.setString(34, dev.getPid_path());
+			stmt.setString(35, dev.getTest_report_path());
+			stmt.setString(36, dev.getCurrentPhase());
+			stmt.setString(37, dev.getDateTime());
+			int affectedRows = stmt.executeUpdate();
+			ResultSet generatedKeys = null;
+			// Check if the insert was successful and retrieve the generated keys
+            if (affectedRows > 0) {
+                // Get the generated keys (auto-incremented ID)
+                generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    // Retrieve the generated ID (assuming it's the first column in the ResultSet)
+                    int generatedID = generatedKeys.getInt(1);
+                    return generatedID;
+                }
+            }
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+	
+	public void deleteDev(int id) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String logUpdate = "DELETE FROM log WHERE development_id = ?";
+			String commentUpdate = "DELETE FROM comment WHERE development_id = ?";
+			String developmentUpdate = "DELETE FROM development WHERE development_id = ?";
+			PreparedStatement logStmt = con.prepareStatement(logUpdate);
+			PreparedStatement commentStmt = con.prepareStatement(commentUpdate);
+			PreparedStatement developmentStmt = con.prepareStatement(developmentUpdate);
+			logStmt.setInt(1, id);
+			logStmt.executeUpdate();
+			commentStmt.setInt(1, id);
+			commentStmt.executeUpdate();
+			developmentStmt.setInt(1, id);
+			developmentStmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
