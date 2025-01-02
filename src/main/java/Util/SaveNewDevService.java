@@ -48,11 +48,13 @@ public class SaveNewDevService extends HttpServlet{
 	private static int numColorline;
 	private static double ppcm;
 	private static String note;
-	private static String fabric_img_path = "";
-	private static String pid_path = "";
-	private static String test_report_path = "";
+	private static String fabric_img_path;
+	private static String pid_path;
+	private static String test_report_path;
 	private static String currentPhase;
 	private static String DateTime;
+	private static String LastModified;
+	private static String DateCurrentPhase;
 	private static String LeahComment;
 	private static String LeahComment_datestamp;
 	private static String USComment;
@@ -95,7 +97,11 @@ public class SaveNewDevService extends HttpServlet{
 			Developments dev = devdata.getDevelopmentById(dev_id);
 			LocalDateTime currentDateTime = LocalDateTime.now();
 	        DateTime = currentDateTime.toString();
+	        LastModified = currentDateTime.toString();
+	        DateCurrentPhase = currentDateTime.toString();
 	        dev.setDateTime(DateTime);
+	        dev.setLastModified(LastModified);
+	        dev.setDateCurrentPhase(DateCurrentPhase);
 	        
 	        String fabric_img_path = dev.getFabric_img_path();
 	        String pid_path = dev.getPid_path();
@@ -439,6 +445,7 @@ public class SaveNewDevService extends HttpServlet{
         	fabric_img_path = full_fabric_img_path.substring(full_fabric_img_path.indexOf(UPLOAD_DIRECTORY));
         	System.out.println("FabricPic stored at: " + fabric_img_path + "\n");
         } else {
+        	fabric_img_path = "none";
         	System.out.println("FabricPic not uploaded.\n");
         }
         
@@ -450,6 +457,7 @@ public class SaveNewDevService extends HttpServlet{
         	pid_path = full_pid_path.substring(full_pid_path.indexOf(UPLOAD_DIRECTORY));
             System.out.println("PidPic stored at: " + pid_path + "\n");
         } else {
+        	pid_path = "none";
         	System.out.println("PidPic not uploaded.\n");
         }
         
@@ -461,32 +469,42 @@ public class SaveNewDevService extends HttpServlet{
         	test_report_path = full_test_report_path.substring(full_test_report_path.indexOf(UPLOAD_DIRECTORY));
             System.out.println("TestReportPic stored at: " + test_report_path + "\n");
         } else {
+        	test_report_path = "none";
         	System.out.println("TestReportPic not uploaded.\n");
         }
         
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTime = currentDateTime.toString();
+        LastModified = currentDateTime.toString();
+        DateCurrentPhase = currentDateTime.toString();
         System.out.println("Current date & time: " + DateTime + "\n");
 		
 		DevData devdata = new DevData();
 		if ("edit".equals(action)) {
 			int old_dev_id = Integer.parseInt(request.getParameter("devId"));
 			Developments old_development = devdata.getDevelopmentById(old_dev_id);
-			if (fabric_img_path.equals("")) {
+			DateTime = old_development.getDateTime();
+			if (fabric_img_path.equals("none")) {
 				fabric_img_path = old_development.getFabric_img_path();
+			} else {
+				deleteFile(old_development.getFabric_img_path());
 			}
-			if (pid_path.equals("")) {
+			if (pid_path.equals("none")) {
 				pid_path = old_development.getPid_path();
+			} else {
+				deleteFile(old_development.getPid_path());
 			}
-			if (test_report_path.equals("")) {
+			if (test_report_path.equals("none")) {
 				test_report_path = old_development.getTest_report_path();
+			} else {
+				deleteFile(old_development.getTest_report_path());
 			}
 			String old_phase = old_development.getCurrentPhase();
 			if (old_phase.equals(currentPhase)) {
-				DateTime = old_development.getDateTime();
+				DateCurrentPhase = old_development.getDateCurrentPhase();
 			}
 		}
-		int devid = devdata.insertDevelopment(title, code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime);
+		int devid = devdata.insertDevelopment(title, code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase);
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		
 		temp = request.getParameterValues("LeahCommentInput");
@@ -598,15 +616,9 @@ public class SaveNewDevService extends HttpServlet{
 					devdata.insertLog(devid, log.getName(), log.getDatestamp(), log.getContent());
 				}
 				devdata.deleteDev(old_dev_id);
-				deleteFile(old_development.getFabric_img_path());
-				deleteFile(old_development.getPid_path());
-				deleteFile(old_development.getTest_report_path());
 				System.out.println("Deleted old development " + old_dev_id + ".\n");
 			} else {
 				devdata.deleteDev(devid);
-				deleteFile(new_development.getFabric_img_path());
-				deleteFile(new_development.getPid_path());
-				deleteFile(new_development.getTest_report_path());
 				System.out.println("No change, deleting new development " + devid + ".\n");
 			}
 			ArrayList<Developments> developments = devdata.getDevelopments();
@@ -624,6 +636,12 @@ public class SaveNewDevService extends HttpServlet{
 	        String fileName = getFileName(part);
 	        String filePath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
 	        File storeFile = new File(filePath);
+	        
+	        // Check if the file exists and modify the name if necessary
+	        fileName = getUniqueFileName(fileName, filePath);  // Get a unique file name if needed
+	        filePath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
+	        storeFile = new File(filePath);
+	        
 	        if (!storeFile.exists()) {
 	        	storeFile.mkdirs();
 	        }
@@ -719,5 +737,28 @@ public class SaveNewDevService extends HttpServlet{
         }
 		
 		return logs;
+	}
+	
+	// Function to generate a unique file name if the file already exists
+	private String getUniqueFileName(String fileName, String filePath) {
+	    String filename = fileName;
+	    int counter = 1;
+	    
+	    Path destinationPath = Paths.get(filePath);
+
+	    // Loop to check if the file already exists and increment the name if it does
+	    while (Files.exists(destinationPath)) {
+	        // Split the file name and extension
+	        String baseName = filename.substring(0, filename.lastIndexOf("."));
+	        String extension = filename.substring(filename.lastIndexOf("."));
+	        
+	        // Create a new file name by adding the counter
+	        fileName = baseName + "(" + counter + ")" + extension;
+	        filePath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
+	        destinationPath = Paths.get(filePath);
+	        counter++;  // Increment the counter for the next potential duplicate
+	    }
+
+	    return fileName;  // Return the unique file name
 	}
 }

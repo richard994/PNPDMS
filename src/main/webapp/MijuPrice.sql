@@ -105,6 +105,8 @@ CREATE TABLE `development` (
   `test_report_path` varchar(500),
   `currentPhase` varchar(50) NOT NULL,
   `DateTime` varchar(50) NOT NULL,
+  `LastModified` varchar(50) NOT NULL,
+  `DateCurrentPhase` varchar(50) NOT NULL,
   PRIMARY KEY (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

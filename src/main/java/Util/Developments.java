@@ -42,6 +42,8 @@ public class Developments {
 	private String Test_report_path = "";
 	private String CurrentPhase;
 	private String dateTime;
+	private String LastModified;
+	private String DateCurrentPhase;
 	
 	public Developments() {}
 	
@@ -53,7 +55,7 @@ public class Developments {
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, String customs, double moq, double weight, 
 			String nickname, int numColorline, double ppcm, String note, String fabric_img_path, 
-			String pid_path, String test_report_path, String currentPhase, String DateTime) {
+			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
 		setDev_id(id);
 		setTitle(title);
 		setCode(code);
@@ -92,6 +94,8 @@ public class Developments {
 		setTest_report_path(test_report_path);
 		setCurrentPhase(currentPhase);
 		setDateTime(DateTime);
+		setLastModified(LastModified);
+		setDateCurrentPhase(DateCurrentPhase);
 	}
 	
 	public void setAll(int id, String title, String code, String color, double cost, 
@@ -102,7 +106,7 @@ public class Developments {
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, String customs, double moq, double weight, 
 			String nickname, int numColorline, double ppcm, String note, String fabric_img_path, 
-			String pid_path, String test_report_path, String currentPhase, String DateTime) {
+			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
 		setDev_id(id);
 		setTitle(title);
 		setCode(code);
@@ -141,6 +145,8 @@ public class Developments {
 		setTest_report_path(test_report_path);
 		setCurrentPhase(currentPhase);
 		setDateTime(DateTime);
+		setLastModified(LastModified);
+		setDateCurrentPhase(DateCurrentPhase);
 	}
 	
 	public ArrayList<Log> compare(Developments otherDev, String username) {
@@ -155,7 +161,7 @@ public class Developments {
                 String attributeName = field.getName();
                 
                 // Skip comparison for the 'dateTime' field
-                if (attributeName.equals("dateTime") || attributeName.equals("dev_id")) {
+                if (attributeName.equals("dateTime") || attributeName.equals("dev_id") || attributeName.equals("LastModified") || attributeName.equals("DateCurrentPhase")) {
                     continue;  // Skip this field and move to the next one
                 }
 
@@ -489,5 +495,21 @@ public class Developments {
 
 	public void setDev_id(int dev_id) {
 		this.dev_id = dev_id;
+	}
+
+	public String getLastModified() {
+		return LastModified;
+	}
+
+	public void setLastModified(String lastModified) {
+		LastModified = lastModified;
+	}
+
+	public String getDateCurrentPhase() {
+		return DateCurrentPhase;
+	}
+
+	public void setDateCurrentPhase(String dateCurrentPhase) {
+		DateCurrentPhase = dateCurrentPhase;
 	}
 }

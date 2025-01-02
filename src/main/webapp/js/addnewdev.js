@@ -371,16 +371,22 @@ function populateAllInputs() {
 	document.getElementById("Content").value = dev.content;
 	document.getElementById("StrikeProgress").value = dev.strike_off_status;
 	document.getElementById("StrikeProgress").dispatchEvent(new Event('change'));
-	document.getElementById("BlanketStatus").value = dev.blanket_status;
-	document.getElementById("BlanketStatus").dispatchEvent(new Event('change'));
-	document.getElementById("ColorLineProgress").value = dev.colorline_status;
-	document.getElementById("ColorlineDatestamp").value = dev.colorline_datestamp;
-	document.getElementById("RollSampleProgress").value = dev.rollsample_status;
-	document.getElementById("RollSampleProgress").dispatchEvent(new Event('change'));
-	document.getElementById("RollSampleDatestamp").value = dev.rollsample_datestamp;
-	document.getElementById("TestingProgress").value = dev.test_status;
-	document.getElementById("TestingProgress").dispatchEvent(new Event('change'));
-	document.getElementById("TestingDatestamp").value = dev.test_datestamp;
+	if (dev.blanket_status !== "DNE") {
+		document.getElementById("BlanketStatus").value = dev.blanket_status;
+		document.getElementById("BlanketStatus").dispatchEvent(new Event('change'));
+	}
+	if (dev.rollsample_status !== "DNE") {
+		document.getElementById("ColorLineProgress").value = dev.colorline_status;
+		document.getElementById("ColorlineDatestamp").value = dev.colorline_datestamp;
+		document.getElementById("RollSampleProgress").value = dev.rollsample_status;
+		document.getElementById("RollSampleDatestamp").value = dev.rollsample_datestamp;
+		document.getElementById("RollSampleProgress").dispatchEvent(new Event('change'));
+	}
+	if (dev.test_status !== "DNE") {
+		document.getElementById("TestingProgress").value = dev.test_status;
+		document.getElementById("TestingDatestamp").value = dev.test_datestamp;
+		document.getElementById("TestingProgress").dispatchEvent(new Event('change'));
+	}
 	document.getElementById("CustomsCat").value = dev.customs;
 	document.getElementById("MOQ").value = dev.moq;
 	document.getElementById("Weight").value = dev.weight;
@@ -388,7 +394,7 @@ function populateAllInputs() {
 	document.getElementById("NumColorLine").value = dev.numColorline;
 	document.getElementById("PPCM").value = dev.ppcm;
 	document.getElementById("Note").value = dev.note;
-	var devDate = new Date(dev.dateTime);
+	var devDate = new Date(dev.dateCurrentPhase);
 	var currentDate = new Date();
 	var difference = currentDate - devDate;
 	var daysPassed = difference / (1000 * 60 * 60 * 24);
