@@ -85,9 +85,7 @@ public class SaveNewDevService extends HttpServlet{
 			deleteFile(dev.getPid_path());
 			deleteFile(dev.getTest_report_path());
 			System.out.println("Deleted development " + dev_id + ".\n");
-			ArrayList<Developments> developments = devdata.getDevelopments();
-	        request.setAttribute("developmentsList", developments);
-			request.getRequestDispatcher("/tracker.jsp").forward(request, response);
+			request.getRequestDispatcher("/TrackerService").forward(request, response);
 			return;
 		}
 		
@@ -106,17 +104,17 @@ public class SaveNewDevService extends HttpServlet{
 	        String fabric_img_path = dev.getFabric_img_path();
 	        String pid_path = dev.getPid_path();
 	        String test_report_path = dev.getTest_report_path();
-	        if (!fabric_img_path.equals("")) {
+	        if (!fabric_img_path.equals("none")) {
 	        	fabric_img_path = copyFile(fabric_img_path);
 	        	fabric_img_path = fabric_img_path.substring(fabric_img_path.indexOf(UPLOAD_DIRECTORY));
 	        	dev.setFabric_img_path(fabric_img_path);
 	        }
-	        if (!pid_path.equals("")) {
+	        if (!pid_path.equals("none")) {
 	        	pid_path = copyFile(pid_path);
 	        	pid_path = pid_path.substring(pid_path.indexOf(UPLOAD_DIRECTORY));
 	        	dev.setPid_path(pid_path);
 	        }
-	        if (!test_report_path.equals("")) {
+	        if (!test_report_path.equals("none")) {
 	        	test_report_path = copyFile(test_report_path);
 	        	test_report_path = test_report_path.substring(test_report_path.indexOf(UPLOAD_DIRECTORY));
 	        	dev.setTest_report_path(test_report_path);
@@ -127,9 +125,7 @@ public class SaveNewDevService extends HttpServlet{
 			String userName = (String) session.getAttribute("userName");
 	        devdata.insertLog(new_id, userName, DateTime, "Duplicated this development.");
 	        System.out.println("Duplicate development " + dev_id + ".\n");
-	        ArrayList<Developments> developments = devdata.getDevelopments();
-	        request.setAttribute("developmentsList", developments);
-			request.getRequestDispatcher("/tracker.jsp").forward(request, response);
+			request.getRequestDispatcher("/TrackerService").forward(request, response);
 			return;
 		}
 
@@ -621,9 +617,7 @@ public class SaveNewDevService extends HttpServlet{
 				devdata.deleteDev(devid);
 				System.out.println("No change, deleting new development " + devid + ".\n");
 			}
-			ArrayList<Developments> developments = devdata.getDevelopments();
-	        request.setAttribute("developmentsList", developments);
-			request.getRequestDispatcher("/tracker.jsp").forward(request, response);
+			request.getRequestDispatcher("/TrackerService").forward(request, response);
 		} else {
 			devdata.insertLog(devid, userName, DateTime, "Created New Development");
 			request.getRequestDispatcher("/DevSuccess.jsp").forward(request, response);

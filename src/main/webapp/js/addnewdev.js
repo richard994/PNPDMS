@@ -511,8 +511,32 @@ function parseLogs() {
 		
 		var contentSpan = document.createElement('span');
 		contentSpan.style.fontSize = "14px";
+		contentSpan.style.whiteSpace = "nowrap";
+		contentSpan.style.overflow = "hidden";
+		contentSpan.style.textOverflow = "ellipsis";
 		contentSpan.textContent = content;
+		contentSpan.setAttribute("title", content);
+		// Create the show more button
+	    var showMoreBtn = document.createElement('span');
+	    showMoreBtn.textContent = "Show more";
+	    showMoreBtn.style.fontSize = "14px";
+	    showMoreBtn.style.opacity = "0.5";
+	    showMoreBtn.style.cursor = "pointer";
+	    showMoreBtn.classList.add("show-more-btn");
+	
+	    // Add event listener to toggle the content display
+	    showMoreBtn.addEventListener("click", function() {
+	        logDiv.classList.toggle("expanded");
+	        if (logDiv.classList.contains("expanded")) {
+	            showMoreBtn.textContent = "Show less";
+	            contentSpan.style.whiteSpace = "normal";
+	        } else {
+	            showMoreBtn.textContent = "Show more";
+	            contentSpan.style.whiteSpace = "nowrap";
+	        }
+	    });
 		logDiv.appendChild(contentSpan);
+		logDiv.appendChild(showMoreBtn);
 		document.getElementById("logBlock").insertBefore(logDiv, document.getElementById("ShowFullLogHistoryLink"));
 	});
 }
@@ -549,5 +573,9 @@ function setFormAction(action) {
 
 function redirect(url) {
     window.location.replace(url);
+}
+
+function showModal() {
+	$('#dlModal').modal("show");
 }
 

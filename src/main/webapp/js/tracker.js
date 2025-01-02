@@ -51,3 +51,7 @@ function refresh() {
 function redirect(url) {
     window.location.replace(url);
 }
+
+function showModal() {
+	$('#expModal').modal("show");
+}

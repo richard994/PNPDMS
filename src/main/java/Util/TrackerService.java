@@ -2,6 +2,8 @@ package Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,9 +31,24 @@ public class TrackerService extends HttpServlet{
 				// Create an instance of DevData to fetch the developments
 		        DevData devData = new DevData();
 		        ArrayList<Developments> developments = devData.getDevelopments();
+		        Collections.reverse(developments);
+		        int itemsPerPage = 9;
+		        int totalItems = developments.size();
+		        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
 
-		        // Store the developments list in the request scope
-		        request.setAttribute("developmentsList", developments);
+		        // Get the current page from request (default to 1 if not set)
+		        int currentPage = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
+
+		        // Calculate the starting index for the sublist
+		        int startIndex = (currentPage - 1) * itemsPerPage;
+		        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+		        // Get the sublist for the current page
+		        List<Developments> currentPageList = developments.subList(startIndex, endIndex);
+		        request.setAttribute("currentPageList", currentPageList);
+		        request.setAttribute("totalPages", totalPages);
+		        request.setAttribute("currentPage", currentPage);
+
 				request.getRequestDispatcher("/tracker.jsp").forward(request, response);
 			}
 		}

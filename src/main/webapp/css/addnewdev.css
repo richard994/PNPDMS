@@ -128,3 +128,7 @@ body {
 	color: white; 
 	flex: 1;
 }
+
+.expanded .contentSpan {
+    white-space: normal;  /* Allow wrapping of text */
+}

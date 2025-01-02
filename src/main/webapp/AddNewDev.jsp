@@ -651,7 +651,7 @@
 				    	<div class="d-flex" style="gap: 10px">
 				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="submit" id="savebtn">SAVE</button>
 				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px; display: none" type="submit" onclick="setFormAction('SaveNewDevService?action=edit&devId=${devid}')" id="editbtn">EDIT</button>
-				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="button" onclick="redirect('SaveNewDevService?action=delete&devId=${devid}')" id="deletebtn">DELETE</button>
+				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="button" onclick="showModal()" id="deletebtn">DELETE</button>
 			   			</div>
 			   		</div>
 					
@@ -662,6 +662,28 @@
 		 
 		<div class="d-flex flex-column gap-3" id="logBlock" name="logBlock" style="width: 160px; display: none">
 			<a id="ShowFullLogHistoryLink" name="ShowFullLogHistoryLink" href="" style="padding-left: 10px; color: #999999; font-size: 14px; text-decoration: underline">Show full log history</a>
+		</div>
+		
+		<div class="modal fade" id="dlModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dlModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				    <div class="modal-header">
+				    	<h5 class="modal-title" id="staticBackdropLabel">Attention</h5>
+				    		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	    			</div>
+				    <div class="modal-body">
+				    	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16" style="color: red">
+							<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+							<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+						</svg>
+						&nbsp&nbspPlease confirm deletion of the development.
+				    </div>
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				    	<button type="button" class="btn btn-primary" id="confirmDelete" data-bs-dismiss="modal" onclick="redirect('SaveNewDevService?action=delete&devId=${devid}')">Confirm</button>
+				    </div>
+			 	</div>
+			</div>
 		</div>
 		
 	</div>

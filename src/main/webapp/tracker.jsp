@@ -8,6 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/tracker.css" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="js/jquery-3.7.0.min.js"></script>
 	<title>Tracker</title>
 	
 	<style>
@@ -87,13 +89,167 @@
 				</svg>
 	    		Reset
 	    	</button>
-	    	<button class="btn border-0" type="button" id="export" onclick="export()" style="background-color: #4D73FF; color: white; width: 180px">
+	    	<button class="btn border-0" type="button" id="export" onclick="showModal()" style="background-color: #4D73FF; color: white; width: 180px">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
 				  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
 				  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
 				</svg>
 	    		Export
 	    	</button>
+		</div>
+		
+		<div class="modal fade" id="expModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="expModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				    <div class="modal-header">
+				    	<h5 class="modal-title" id="staticBackdropLabel">Export to Excel</h5>
+				    		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	    			</div>
+				    <div class="modal-body">
+				    	<div class="container">
+				    		<div class="row mb-3">
+				    			<span style="color: red">*Filter by selected field; if not selected, it will not be filtered.</span>
+				    		</div>
+				    		<div class="row mb-3">
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="ModalFeedbackCB">
+										<label class="form-check-label" for="ModalFeedbackCB">
+										  Need US Feedback
+										</label>
+									</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="ModalParagonCleanCB">
+										<label class="form-check-label" for="ModalParagonCleanCB">
+										  Paragon Clean
+										</label>
+									</div>
+				    			</div>
+				    		</div>
+				    		<div class="row mb-3">
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="ModalFCLCB">
+										<label class="form-check-label" for="ModalFCLCB">
+										  400hr FCL
+										</label>
+									</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="ModalPDCB">
+										<label class="form-check-label" for="ModalPDCB">
+										  Piece Dyed
+										</label>
+									</div>
+				    			</div>
+				    		</div>
+				    		<div class="row mb-3">
+				    			<div class="col-6">
+					    			<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="ModalStrikeCB">
+										<label class="form-check-label" for="ModalStrikeCB">
+										  In Strike-off Phase
+										</label>
+									</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="ModalBlanketCB">
+										<label class="form-check-label" for="ModalBlanketCB">
+										  In Blanket Phase
+										</label>
+									</div>
+				    			</div>
+			    			</div>
+			    			<div class="row mb-3">
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="ModalRollSampleCB">
+										<label class="form-check-label" for="ModalRollSampleCB">
+										  In Roll Sample Phase
+										</label>
+									</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="ModalTestingCB">
+										<label class="form-check-label" for="ModalTestingCB">
+										  In Testing Phase
+										</label>
+									</div>
+				    			</div>
+			    			</div>
+			    			<div class="row mb-3">
+				    			<div class="col-6">
+				    				<div class="d-flex flex-column">
+					    				<label for="ModalSeason" class="control-label opacity-75">Season</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalSeason" name="ModalSeason" size="1" style="width: 100%; height: 36px">
+									    	<option value="" selected>Enter</option>
+									    	<option value="23Fall">23Fall</option>
+									    	<option value="24Spring">24Spring</option>
+									    	<option value="24Fall">24Fall</option>
+									    	<option value="25Spring">25Spring</option>
+									    	<option value="25Fall">25Fall</option>
+									    	<option value="26Spring">26Spring</option>
+									    	<option value="26Fall">26Fall</option>
+									    	<option value="27Spring">27Spring</option>
+									    	<option value="27Fall">27Fall</option>
+									  	</select>
+					    			</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="d-flex flex-column">
+					    				<label for="ModalWarpType" class="control-label opacity-75">Warp Type</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalWarpType" name="ModalWarpType" size="1" style="width: 100%; height: 36px">
+									    	<option value="" selected>Enter</option>
+									    	<option value="chenille">Chenille</option>
+									    	<option value="fancy">Fancy Yarn</option>
+									    	<option value="filament">Filament Yarn</option>
+									    	<option value="cotton">Cotton</option>
+									    	<option value="poly">Polyester</option>
+									    	<option value="rayon">Rayon</option>
+									    	<option value="slub">Slub Yarn</option>
+									  	</select>
+					    			</div>
+				    			</div>
+			    			</div>
+			    			<div class="row mb-3">
+				    			<div class="col-6">
+				    				<div class="d-flex flex-column">
+					    				<label for="ModalYarnType" class="control-label opacity-75">Yarn Type</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalYarnType" name="ModalYarnType" size="1" style="width: 100%; height: 36px">
+									    	<option value="" selected>Enter</option>
+									    	<option value="YarnDyed">Yarn Dyed</option>
+									    	<option value="Piece">Piece Dyed</option>
+									    	<option value="Space">Space Dyed</option>
+									    	<option value="Jet">Jet Dyed</option>
+									  	</select>
+    								</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="d-flex flex-column">
+					    				<label for="ModalColorist" class="control-label opacity-75">Colorist</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalColorist" name="ModalColorist" size="1" style="width: 100%; height: 36px">
+									    	<option value="" selected>Enter</option>
+									    	<option value="house">House</option>
+									    	<option value="marteen">Marteen</option>
+									    	<option value="crowder">Crowder</option>
+									    	<option value="derocher">Derocher</option>
+									  	</select>
+					    			</div>
+				    			</div>
+			    			</div>
+				    	</div>
+				    </div>
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				    	<button type="button" class="btn btn-primary" id="confirmDelete" data-bs-dismiss="modal">Export</button>
+				    </div>
+			 	</div>
+			</div>
 		</div>
 	</form>
 	
@@ -182,17 +338,6 @@
 				    	<option value="27Fall">27Fall</option>
 				  	</select>
     			</div>
-    			<div class="d-flex flex-column mt-4">
-    				<label for="TimeInDev" class="control-label opacity-75">Time in Development</label>
-    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TimeInDev" name="TimeInDev" size="1" style="width: 100%; height: 36px">
-				    	<option value="" selected>Enter</option>
-				    	<option value="LTOW">Less Than One Week</option>
-				    	<option value="OTTW">One to Two Weeks</option>
-				    	<option value="TWTOM">Two Weeks to One Month</option>
-				    	<option value="MTOM">More Than One Month</option>
-				    	<option value="MTSM">More Than Six Months</option>
-				  	</select>
-    			</div>
  			    <div class="d-flex flex-column mt-4">
     				<label for="WarpType" class="control-label opacity-75">Warp Type</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="WarpType" name="WarpType" size="1" style="width: 100%; height: 36px">
@@ -243,11 +388,11 @@
 		  		
 		  		<div class="row" style="margin-bottom: 25px">
 		  			<!-- Loop through developmentsList -->
-		  			<c:forEach var="dev" items="${developmentsList}" varStatus="status">
+		  			<c:forEach var="dev" items="${currentPageList}" varStatus="status">
 		                <!-- Start a new row every 3 developments -->
 		                <c:if test="${status.index % 3 == 0 && status.index != 0}">
 		                    </div> <!-- Close the previous row -->
-		                    <div class="row"> <!-- Start a new row -->
+		                    <div class="row" style="margin-bottom: 25px"> <!-- Start a new row -->
 		                </c:if>
 		  			<div class="col-4">
 		  				<div class="card p-3">
@@ -259,10 +404,10 @@
 		  					<div class="container p-0" id="CardDescription">
 		  						<div class="row mt-2">
 		  							<div class="col">
-		  								<span id="CardCode" style="font-size: 15px">${dev.code}</span>
+		  								<span id="CardCode" style="font-size: 15px">${dev.title}</span>
 		  							</div>
 		  							<div class="col">
-		  								<span style="float: right" id="CardNameAndColor">${dev.title}</span>
+		  								<span style="float: right" id="CardNameAndColor">${dev.code}</span>
 		  							</div>
 		  						</div>
 		  						<div class="row">
@@ -297,13 +442,37 @@
 		  				</div>
 		  			</div>
 		  				<!-- Handle the last row if it has fewer than 3 items -->
-		                <c:if test="${status.index == developmentsList.size() - 1}">
+		                <c:if test="${status.index == currentPageList.size() - 1}">
 		                    </div> <!-- Close the last row -->
 		                </c:if>
 		
 		            </c:forEach>
 		  		
 		  		</div>
+		  		
+	  			<nav aria-label="Page navigation">
+				  <ul class="pagination justify-content-center">
+				    <c:if test="${currentPage > 1}">
+					    <li class="page-item">
+					      <a class="page-link" href="TrackerService?page=${currentPage-1}" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+				    </c:if>
+				    
+				    <c:forEach var="i" begin="1" end="${totalPages}">
+				    	<li class="page-item"><a class="page-link" href="TrackerService?page=${i}">${i}</a></li>
+				    </c:forEach>
+				    
+				    <c:if test="${currentPage < totalPages}">
+					    <li class="page-item">
+					      <a class="page-link" href="TrackerService?page=${currentPage + 1}" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+				    </c:if>
+				  </ul>
+				</nav>
 		</div>
 	</div>
 	
