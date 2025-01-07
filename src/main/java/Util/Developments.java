@@ -172,8 +172,8 @@ public class Developments {
                 	String oldval = oldValue.toString();
                 	String newval = newValue.toString();
                 	if (attributeName.equals("Fabric_img_path") || attributeName.equals("Pid_path") || attributeName.equals("Test_report_path")) {
-                		if (oldval.equals("")) {
-                			oldval = "None";
+                		if (oldval.equals("") || oldval.equals("none")) {
+                			oldval = "none";
                 		} else {
                 			oldval = oldval.substring(oldval.indexOf("uploads/") + "uploads/".length());
                 		}

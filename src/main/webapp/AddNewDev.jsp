@@ -29,6 +29,7 @@
 		var view = ${view};
 		var edit = ${edit};
 		var create = ${create};
+		var user = '${user}';
 		var dev = JSON.parse('${dev}');
 		var comments = JSON.parse('${comments}');
 		var logs = JSON.parse('${logs}');
@@ -708,6 +709,14 @@
 			populateAllInputs();
 			document.getElementById("savebtn").style.display = "none";
 			document.getElementById("editbtn").style.display = "block";
+		}
+		
+		if (user == "June") {
+			document.getElementById("USCommentBtn").disabled = true;
+		} else if (user == "Kellena") {
+			document.getElementById("LeahCommentBtn").disabled = true;
+			document.getElementById("MillCommentBtn").disabled = true;
+			document.getElementById("GeorgeCommentBtn").disabled = true;
 		}
 	</script>
 </body>

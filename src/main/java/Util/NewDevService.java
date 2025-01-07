@@ -28,6 +28,8 @@ public class NewDevService extends HttpServlet{
 				request.getRequestDispatcher("/auth.jsp").forward(request, response);
 			} else {
 				String action = request.getParameter("action");
+				String username = (String) session.getAttribute("userName");
+				request.setAttribute("user", username);
 				if ("view".equals(action)) {
 					DevData devdata = new DevData();
 					int devId = Integer.parseInt(request.getParameter("devId"));

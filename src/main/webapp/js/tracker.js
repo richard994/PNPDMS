@@ -45,7 +45,13 @@ function setArea() {
 }
 
 function refresh() {
-  window.location.reload();
+	// Get the element with the id "Tracker"
+	var trackerLink = document.getElementById("Tracker");
+	
+	// Dispatch a click event if the element is found
+	if (trackerLink) {
+	    trackerLink.click();
+	}
 }
 
 function redirect(url) {

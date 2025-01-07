@@ -47,7 +47,10 @@
  				  </div>
 				 </div>
 				 <div class="row align-items-end">
-				 	<a href="CreateService" class="btn btn-primary btn-lg rounded-0" id="startbtn" style="width: 50%; margin-top: 80px">Calculate Sale Price &#8594</a>
+				 	<a href="CreateService" class="btn btn-primary btn-lg rounded-0 mt-5" id="startbtn" style="width: 50%; margin-top: 80px">Calculate Sale Price &#8594</a>
+				 </div>
+				 <div class="row align-items-end">
+				 	<a href="NewDevService" class="btn btn-primary btn-lg rounded-0 mt-3" id="devbtn" style="width: 50%; margin-top: 80px; background-color: #4D73FF">Add New Development &#8594</a>
 				 </div>
             </div>
             <div class="col-md">

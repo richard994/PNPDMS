@@ -28,7 +28,13 @@ public class TrackerService extends HttpServlet{
 			if (!loggedin) {
 				request.getRequestDispatcher("/auth.jsp").forward(request, response);
 			} else {
-				// Create an instance of DevData to fetch the developments
+				session.removeAttribute("filteredList");
+				session.setAttribute("filtered", false);
+				request.setAttribute("filtered", false);
+				
+				String username = (String) session.getAttribute("userName");
+				request.setAttribute("user", username);
+				
 		        DevData devData = new DevData();
 		        ArrayList<Developments> developments = devData.getDevelopments();
 		        Collections.reverse(developments);
