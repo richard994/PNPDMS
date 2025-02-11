@@ -260,10 +260,10 @@
 		  					<div class="container p-0" id="CardDescription">
 		  						<div class="row mt-2">
 		  							<div class="col">
-		  								<span id="CardCode${status.index}" style="font-size: 15px">${dev.title}</span>
+		  								<span id="CardCode${status.index}" style="font-size: 15px">${dev.code}</span>
 		  							</div>
 		  							<div class="col">
-		  								<span style="float: right" id="CardNameAndColor${status.index}">${dev.code}</span>
+		  								<span style="float: right" id="CardNameAndColor${status.index}">${dev.color}</span>
 		  							</div>
 		  						</div>
 		  						<div class="row">
@@ -281,7 +281,7 @@
 		  						</div>
 		  						<div class="row">
 		  							<div class="col">
-		  								<span id="CardPrice${status.index}" class="cardprice">$${dev.cost}</span>
+		  								<span id="CardPrice${status.index}" class="cardprice">¥${dev.cost}</span>
 		  							</div>
 		  							<div class="col">
 		  								<div id="CardBtnGroup" style="display: flex; gap: 10px">

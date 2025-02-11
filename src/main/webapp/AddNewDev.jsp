@@ -94,7 +94,7 @@
 				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle-fill" viewBox="0 0 16 16">
 								  		<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"/>
 									</svg>
-									<span>&nbsp&nbspStrike-off Phase</span>
+									<span>&nbsp&nbspStrike-off</span>
 								</div>
 			    			</div>
 			    			<div class="col" style="margin-left: 120px; display: none" id="StrikeProgressed">
@@ -103,16 +103,15 @@
 									  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 									  <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
 									</svg>
-									<span>&nbsp&nbspStrike-off Phase</span>
+									<span>&nbsp&nbspStrike-off</span>
 								</div>
 			    			</div>
-			    			<div class="col barcontainer opacity-50 bg-light" id="bar1"><div class="card" style="height:1%; width:80%"></div></div>
 			    			<div class="col" id="BlanketNoProgress">
 			    				<div class="d-flex align-items-center justify-content-center opacity-50">
 				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-circle" viewBox="0 0 16 16">
 								  		<path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306Z"/>
 									</svg>
-				    				<span>&nbsp&nbspBlanket Phase</span>
+				    				<span>&nbsp&nbspBlanket</span>
 			    				</div>
 			    			</div>
 			    			<div class="col" id="BlanketProgressing" style="display: none">
@@ -120,7 +119,7 @@
 				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-circle-fill" viewBox="0 0 16 16">
 								  		<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24c0-.691.493-1.306 1.336-1.306.756 0 1.313.492 1.313 1.236 0 .697-.469 1.23-.902 1.705l-2.971 3.293V12h5.344v-1.107H7.268v-.077l1.974-2.22.096-.107c.688-.763 1.287-1.428 1.287-2.43 0-1.266-1.031-2.215-2.613-2.215-1.758 0-2.637 1.19-2.637 2.402v.065h1.271v-.07Z"/></svg>
 									</svg>
-				    				<span>&nbsp&nbspBlanket Phase</span>
+				    				<span>&nbsp&nbspBlanket</span>
 			    				</div>
 			    			</div>
 			    			<div class="col" id="BlanketProgressed" style="display: none">
@@ -129,17 +128,16 @@
 									  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 									  <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
 									</svg>
-									<span>&nbsp&nbspBlanket Phase</span>
+									<span>&nbsp&nbspBlanket</span>
 								</div>
 			    			</div>
-			    			<div class="col barcontainer opacity-50 bg-light" id="bar2"><div class="card" style="height:1%; width:80%"></div></div>
 			    			<div class="col" id="RollNoProgress">
 			    				<div class="d-flex align-items-center justify-content-center opacity-50">
 				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-3-circle" viewBox="0 0 16 16">
 									  <path d="M7.918 8.414h-.879V7.342h.838c.78 0 1.348-.522 1.342-1.237 0-.709-.563-1.195-1.348-1.195-.79 0-1.312.498-1.348 1.055H5.275c.036-1.137.95-2.115 2.625-2.121 1.594-.012 2.608.885 2.637 2.062.023 1.137-.885 1.776-1.482 1.875v.07c.703.07 1.71.64 1.734 1.917.024 1.459-1.277 2.396-2.93 2.396-1.705 0-2.707-.967-2.754-2.144H6.33c.059.597.68 1.06 1.541 1.066.973.006 1.6-.563 1.588-1.354-.006-.779-.621-1.318-1.541-1.318Z"/>
 									  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Z"/>
 									</svg>
-				    				<span>&nbsp&nbspRoll Sample Phase</span>
+				    				<span>&nbsp&nbspRoll Sample</span>
 			    				</div>
 			    			</div>
 			    			<div class="col" id="RollProgressing" style="display: none">
@@ -147,7 +145,7 @@
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-3-circle-fill" viewBox="0 0 16 16">
 									  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-8.082.414c.92 0 1.535.54 1.541 1.318.012.791-.615 1.36-1.588 1.354-.861-.006-1.482-.469-1.54-1.066H5.104c.047 1.177 1.05 2.144 2.754 2.144 1.653 0 2.954-.937 2.93-2.396-.023-1.278-1.031-1.846-1.734-1.916v-.07c.597-.1 1.505-.739 1.482-1.876-.03-1.177-1.043-2.074-2.637-2.062-1.675.006-2.59.984-2.625 2.12h1.248c.036-.556.557-1.054 1.348-1.054.785 0 1.348.486 1.348 1.195.006.715-.563 1.237-1.342 1.237h-.838v1.072h.879Z"/>
 									</svg>
-				    				<span>&nbsp&nbspRoll Sample Phase</span>
+				    				<span>&nbsp&nbspRoll Sample</span>
 			    				</div>
 			    			</div>
 			    			<div class="col" id="RollProgressed" style="display: none">
@@ -156,17 +154,16 @@
 									  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 									  <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
 									</svg>
-									<span>&nbsp&nbspRoll Sample Phase</span>
+									<span>&nbsp&nbspRoll Sample</span>
 								</div>
 			    			</div>
-			    			<div class="col barcontainer opacity-50 bg-light" id="bar3"><div class="card" style="height:1%; width:80%"></div></div>
 			    			<div class="col" style="margin-right: 120px" id="TestNoProgress">
 			    				<div class="d-flex align-items-center justify-content-center opacity-50">
 				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-3-circle" viewBox="0 0 16 16">
 									  <path d="M7.918 8.414h-.879V7.342h.838c.78 0 1.348-.522 1.342-1.237 0-.709-.563-1.195-1.348-1.195-.79 0-1.312.498-1.348 1.055H5.275c.036-1.137.95-2.115 2.625-2.121 1.594-.012 2.608.885 2.637 2.062.023 1.137-.885 1.776-1.482 1.875v.07c.703.07 1.71.64 1.734 1.917.024 1.459-1.277 2.396-2.93 2.396-1.705 0-2.707-.967-2.754-2.144H6.33c.059.597.68 1.06 1.541 1.066.973.006 1.6-.563 1.588-1.354-.006-.779-.621-1.318-1.541-1.318Z"/>
 									  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Z"/>
 									</svg>
-				    				<span>&nbsp&nbspTesting Phase</span>
+				    				<span>&nbsp&nbspTesting</span>
 			    				</div>
 			    			</div>
 			    			<div class="col" style="margin-right: 120px; display: none" id="TestProgressing">
@@ -174,7 +171,7 @@
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-3-circle-fill" viewBox="0 0 16 16">
 									  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-8.082.414c.92 0 1.535.54 1.541 1.318.012.791-.615 1.36-1.588 1.354-.861-.006-1.482-.469-1.54-1.066H5.104c.047 1.177 1.05 2.144 2.754 2.144 1.653 0 2.954-.937 2.93-2.396-.023-1.278-1.031-1.846-1.734-1.916v-.07c.597-.1 1.505-.739 1.482-1.876-.03-1.177-1.043-2.074-2.637-2.062-1.675.006-2.59.984-2.625 2.12h1.248c.036-.556.557-1.054 1.348-1.054.785 0 1.348.486 1.348 1.195.006.715-.563 1.237-1.342 1.237h-.838v1.072h.879Z"/>
 									</svg>
-				    				<span>&nbsp&nbspTesting Phase</span>
+				    				<span>&nbsp&nbspTesting</span>
 			    				</div>
 			    			</div>
 			    			<div class="col" id="TestProgressed" style="margin-right: 120px; display:none">
@@ -183,7 +180,7 @@
 									  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 									  <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
 									</svg>
-									<span>&nbsp&nbspTesting Phase</span>
+									<span>&nbsp&nbspTesting</span>
 								</div>
 			    			</div>
 			    		</div>
@@ -247,16 +244,12 @@
 		
 		            <div style="flex: 2" id="InputFields">
 		            	<div class="d-flex" style="gap: 5px; font-size: 18px">
-            				<div style="flex: 1">
-	            				<label for="Title" class="control-label opacity-75">Title:</label>
-		    					<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Title" name="Title" size="1" style="width: 70%; height: 36px" placeholder="Enter">
-	    					</div>
 	    					<div style="flex: 1">
 	            				<label for="Code" class="control-label opacity-75">Code:</label>
 		    					<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Code" name="Code" size="1" style="width: 70%; height: 36px" placeholder="Enter">
 	    					</div>
 	    					<div style="flex: 1">
-	            				<label for="Color" class="control-label opacity-75">Color:</label>
+	            				<label for="Color" class="control-label opacity-75">Colorline:</label>
 		    					<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Color" name="Color" size="1" style="width: 70%; height: 36px" placeholder="Enter">
 	    					</div>
 		            	</div>
@@ -265,8 +258,8 @@
 		            			<div style="display: flex; flex-direction: column; align-items: center; width: 115px">
 			            			<span class="rounded p-2" style="background: #4D73FF; color: #FFF; width: 100%; white-space: nowrap">Paragon Cost</span>
 			            			<div class="d-flex" style="width: 100%">
-			            				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="48" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
-										  <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
+			            				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="48" fill="currentColor" class="bi bi-currency-yen" viewBox="0 0 16 16">
+										  <path d="M8.75 14v-2.629h2.446v-.967H8.75v-1.31h2.445v-.967H9.128L12.5 2h-1.699L8.047 7.327h-.086L5.207 2H3.5l3.363 6.127H4.778v.968H7.25v1.31H4.78v.966h2.47V14h1.502z"/>
 										</svg>
 										<input type="text" id="Cost" name="Cost" class="border-0" style="font-size: 38px; width: 100%" placeholder="0.0">
 			            			</div>
@@ -293,6 +286,12 @@
 								<input class="form-check-input" type="checkbox" id="PDCB" name="PDCB">
 								<label class="form-check-label" for="PDCB">
 								  Piece Dyed
+								</label>
+							</div>
+							<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" id="ChenilleCB" name="ChenilleCB">
+								<label class="form-check-label" for="ChenilleCB">
+								  Chenille
 								</label>
 							</div>
 		            		<div class="form-check" style="flex: 1">
@@ -410,7 +409,7 @@
 									  	</div>
 								  	</div>
 								  	<div style="flex: 1">
-								  		<div id="BlanketBlock" style="display: none">
+								  		<div id="BlanketBlock">
 						    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
 										    	<option value="DNE" selected>Enter</option>
@@ -425,7 +424,7 @@
 							  	</div>
 						  	</div>
 						  	<div style="flex: 2">
-						  		<div id="ColorlineBlock" style="display: none">
+						  		<div id="ColorlineBlock">
 						  			<span class="control-label opacity-75">Color Line Progress and Est. Ready Date</span>
 							  		<div class="d-flex" style="gap: 5px">
 							  			<div style="flex: 2">
@@ -445,7 +444,7 @@
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 15px">
 		            		<div style="flex: 2">
-		            			<div id="RollSampleBlock" style="display: none">
+		            			<div id="RollSampleBlock">
 							  		<span class="control-label opacity-75">Roll Sample Progress and Est. Ready Date</span>
 							  		<div class="d-flex" style="gap: 5px">
 							  			<div style="flex: 2">
@@ -464,7 +463,7 @@
 							  	</div>
 						  	</div>
 						  	<div style="flex: 2">
-						  		<div id="TestBlock" style="display: none">
+						  		<div id="TestBlock">
 						  			<span class="control-label opacity-75">Testing Progress and Est. Ready Date</span>
 							  		<div class="d-flex" style="gap: 5px">
 							  			<div style="flex: 2">
@@ -484,10 +483,6 @@
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 20px">
 		            		<div style="flex: 1">
-			            		<label for="CustomsCat" class="control-label opacity-75">Customs Category</label>
-			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="CustomsCat" name="CustomsCat" size="1" style="width: 100%; height: 36px" placeholder="Enter">
-		            		</div>
-		            		<div style="flex: 1">
 			            		<label for="MOQ" class="control-label opacity-75">MOQ in meters</label>
 			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="MOQ" name="MOQ" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
@@ -497,10 +492,6 @@
 		            		</div>
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 20px">
-		            		<div style="flex: 1">
-			            		<label for="FabricNickname" class="control-label opacity-75">Fabric Nickname</label>
-			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="FabricNickname" name="FabricNickname" size="1" style="width: 100%; height: 36px" placeholder="Enter">
-		            		</div>
 		            		<div style="flex: 1">
 			            		<label for="NumColorLine" class="control-label opacity-75">Requested # of Colorline</label>
 			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="NumColorLine" name="NumColorLine" size="1" style="width: 100%; height: 36px" placeholder="Enter">
@@ -713,7 +704,7 @@
 		
 		if (user == "June") {
 			document.getElementById("USCommentBtn").disabled = true;
-		} else if (user == "Kellena") {
+		} else if (user == "Kellena" || user == "Nellie" || user == "David") {
 			document.getElementById("LeahCommentBtn").disabled = true;
 			document.getElementById("MillCommentBtn").disabled = true;
 			document.getElementById("GeorgeCommentBtn").disabled = true;

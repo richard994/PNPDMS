@@ -28,33 +28,33 @@ public class DevData {
 		}
 	}
 	
-	public int insertDevelopment(String title, String code, String color, double cost, 
+	public int insertDevelopment(String code, String color, double cost, 
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback, 
-			boolean IsSDY, String fabric_type, String design_type, String colorist, String finishing_used, 
+			boolean IsSDY, boolean IsChenille, String fabric_type, String design_type, String colorist, String finishing_used, 
 			String season, String yarn_type, String warp_type, String content, String strike_off_status,
 			String blanket_status, String colorline_status, String colorline_datestamp,
 			String rollsample_status, String rollsample_datestamp, String test_status,
-			String test_datestamp, String customs, double moq, double weight, 
-			String nickname, int numColorline, double ppcm, String note, String fabric_img_path, 
+			String test_datestamp, double moq, double weight, 
+			int numColorline, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
 		try {
 			getConn();
-			String sql = "INSERT INTO MijuPrice.development(title, code, color, cost, IsParagonClean, Is400hrFCL, "
-					+ "IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, "
+			String sql = "INSERT INTO MijuPrice.development(code, color, cost, IsParagonClean, Is400hrFCL, "
+					+ "IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, "
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
-					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, "
-					+ "nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
+					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, title);
-			stmt.setString(2, code);
-			stmt.setString(3, color);
-			stmt.setDouble(4, cost);
-			stmt.setBoolean(5, IsParagonClean);
-			stmt.setBoolean(6, Is400hrFCL);
-			stmt.setBoolean(7, IsPieceDyed);
-			stmt.setBoolean(8, NeedFeedback);
-			stmt.setBoolean(9, IsSDY);
+			stmt.setString(1, code);
+			stmt.setString(2, color);
+			stmt.setDouble(3, cost);
+			stmt.setBoolean(4, IsParagonClean);
+			stmt.setBoolean(5, Is400hrFCL);
+			stmt.setBoolean(6, IsPieceDyed);
+			stmt.setBoolean(7, NeedFeedback);
+			stmt.setBoolean(8, IsSDY);
+			stmt.setBoolean(9, IsChenille);
 			stmt.setString(10, fabric_type);
 			stmt.setString(11, design_type);
 			stmt.setString(12, colorist);
@@ -71,20 +71,18 @@ public class DevData {
 			stmt.setString(23, rollsample_datestamp);
 			stmt.setString(24, test_status);
 			stmt.setString(25, test_datestamp);
-			stmt.setString(26, customs);
-			stmt.setDouble(27, moq);
-			stmt.setDouble(28, weight);
-			stmt.setString(29, nickname);
-			stmt.setInt(30, numColorline);
-			stmt.setDouble(31, ppcm);
-			stmt.setString(32, note);
-			stmt.setString(33, fabric_img_path);
-			stmt.setString(34, pid_path);
-			stmt.setString(35, test_report_path);
-			stmt.setString(36, currentPhase);
-			stmt.setString(37, DateTime);
-			stmt.setString(38, LastModified);
-			stmt.setString(39, DateCurrentPhase);
+			stmt.setDouble(26, moq);
+			stmt.setDouble(27, weight);
+			stmt.setInt(28, numColorline);
+			stmt.setDouble(29, ppcm);
+			stmt.setString(30, note);
+			stmt.setString(31, fabric_img_path);
+			stmt.setString(32, pid_path);
+			stmt.setString(33, test_report_path);
+			stmt.setString(34, currentPhase);
+			stmt.setString(35, DateTime);
+			stmt.setString(36, LastModified);
+			stmt.setString(37, DateCurrentPhase);
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys
@@ -165,7 +163,6 @@ public class DevData {
 			PreparedStatement devStmt = con.prepareStatement(devQuery);
 			ResultSet rs = devStmt.executeQuery();
 			while (rs.next()) {
-				String title = rs.getString("title");
 				String code = rs.getString("code");
 				String color = rs.getString("color"); 
 				double cost = rs.getDouble("cost");
@@ -174,6 +171,7 @@ public class DevData {
 				boolean IsPieceDyed = rs.getBoolean("IsPieceDyed");
 				boolean NeedFeedback = rs.getBoolean("NeedFeedback");
 				boolean IsSDY = rs.getBoolean("IsSDY");
+				boolean IsChenille = rs.getBoolean("IsChenille");
 				String fabric_type = rs.getString("fabric_type");
 				String design_type = rs.getString("design_type");
 				String colorist = rs.getString("colorist");
@@ -190,10 +188,8 @@ public class DevData {
 				String rollsample_datestamp = rs.getString("rollsample_datestamp");
 				String test_status = rs.getString("test_status");
 				String test_datestamp = rs.getString("test_datestamp");
-				String customs = rs.getString("customs");
 				double moq = rs.getDouble("moq");
 				double weight = rs.getDouble("weight");
-				String nickname = rs.getString("nickname");
 				int numColorline = rs.getInt("numColorline");
 				double ppcm = rs.getDouble("ppcm");
 				String note = rs.getString("note");
@@ -205,14 +201,14 @@ public class DevData {
 				String LastModified = rs.getString("LastModified");
 				String DateCurrentPhase = rs.getString("DateCurrentPhase");
 				int dev_id = rs.getInt("development_id");
-				Developments development = new Developments(dev_id, title, code, color, cost, 
+				Developments development = new Developments(dev_id, code, color, cost, 
 										IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
-										IsSDY, fabric_type, design_type, colorist, finishing_used, 
+										IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, 
 										season, yarn_type, warp_type, content, strike_off_status,
 										blanket_status, colorline_status, colorline_datestamp,
 										rollsample_status, rollsample_datestamp, test_status,
-										test_datestamp, customs, moq, weight, 
-										nickname, numColorline, ppcm, note, fabric_img_path, 
+										test_datestamp, moq, weight, 
+										numColorline, ppcm, note, fabric_img_path, 
 										pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase);
 				developments.add(development);
 			}
@@ -237,7 +233,6 @@ public class DevData {
 			devStmt.setInt(1, id);
 			ResultSet rs = devStmt.executeQuery();
 			if (rs.next()) {
-				String title = rs.getString("title");
 				String code = rs.getString("code");
 				String color = rs.getString("color"); 
 				double cost = rs.getDouble("cost");
@@ -246,6 +241,7 @@ public class DevData {
 				boolean IsPieceDyed = rs.getBoolean("IsPieceDyed");
 				boolean NeedFeedback = rs.getBoolean("NeedFeedback");
 				boolean IsSDY = rs.getBoolean("IsSDY");
+				boolean IsChenille = rs.getBoolean("IsChenille");
 				String fabric_type = rs.getString("fabric_type");
 				String design_type = rs.getString("design_type");
 				String colorist = rs.getString("colorist");
@@ -262,10 +258,8 @@ public class DevData {
 				String rollsample_datestamp = rs.getString("rollsample_datestamp");
 				String test_status = rs.getString("test_status");
 				String test_datestamp = rs.getString("test_datestamp");
-				String customs = rs.getString("customs");
 				double moq = rs.getDouble("moq");
 				double weight = rs.getDouble("weight");
-				String nickname = rs.getString("nickname");
 				int numColorline = rs.getInt("numColorline");
 				double ppcm = rs.getDouble("ppcm");
 				String note = rs.getString("note");
@@ -277,14 +271,14 @@ public class DevData {
 				String LastModified = rs.getString("LastModified");
 				String DateCurrentPhase = rs.getString("DateCurrentPhase");
 				
-				development.setAll(id, title, code, color, cost, 
+				development.setAll(id, code, color, cost, 
 									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
-									IsSDY, fabric_type, design_type, colorist, finishing_used, 
+									IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, 
 									season, yarn_type, warp_type, content, strike_off_status,
 									blanket_status, colorline_status, colorline_datestamp,
 									rollsample_status, rollsample_datestamp, test_status,
-									test_datestamp, customs, moq, weight, 
-									nickname, numColorline, ppcm, note, fabric_img_path, 
+									test_datestamp, moq, weight, 
+									numColorline, ppcm, note, fabric_img_path, 
 									pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase);
 			}
 			return development;
@@ -371,22 +365,22 @@ public class DevData {
 	public int duplicateDev(Developments dev) {
 		try {
 			getConn();
-			String sql = "INSERT INTO MijuPrice.development(title, code, color, cost, IsParagonClean, Is400hrFCL, "
-					+ "IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, "
+			String sql = "INSERT INTO MijuPrice.development(code, color, cost, IsParagonClean, Is400hrFCL, "
+					+ "IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, "
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
-					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, "
-					+ "nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
+					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, dev.getTitle());
-			stmt.setString(2, dev.getCode());
-			stmt.setString(3, dev.getColor());
-			stmt.setDouble(4, dev.getCost());
-			stmt.setBoolean(5, dev.isParagonClean());
-			stmt.setBoolean(6, dev.isIs400hrFCL());
-			stmt.setBoolean(7, dev.isPieceDyed());
-			stmt.setBoolean(8, dev.isNeedFeedback());
-			stmt.setBoolean(9, dev.isSDY());
+			stmt.setString(1, dev.getCode());
+			stmt.setString(2, dev.getColor());
+			stmt.setDouble(3, dev.getCost());
+			stmt.setBoolean(4, dev.isParagonClean());
+			stmt.setBoolean(5, dev.isIs400hrFCL());
+			stmt.setBoolean(6, dev.isPieceDyed());
+			stmt.setBoolean(7, dev.isNeedFeedback());
+			stmt.setBoolean(8, dev.isSDY());
+			stmt.setBoolean(9, dev.isChenille());
 			stmt.setString(10, dev.getFabric_type());
 			stmt.setString(11, dev.getDesign_type());
 			stmt.setString(12, dev.getColorist());
@@ -403,20 +397,18 @@ public class DevData {
 			stmt.setString(23, dev.getRollsample_datestamp());
 			stmt.setString(24, dev.getTest_status());
 			stmt.setString(25, dev.getTest_datestamp());
-			stmt.setString(26, dev.getCustoms());
-			stmt.setDouble(27, dev.getMoq());
-			stmt.setDouble(28, dev.getWeight());
-			stmt.setString(29, dev.getNickname());
-			stmt.setInt(30, dev.getNumColorline());
-			stmt.setDouble(31, dev.getPpcm());
-			stmt.setString(32, dev.getNote());
-			stmt.setString(33, dev.getFabric_img_path());
-			stmt.setString(34, dev.getPid_path());
-			stmt.setString(35, dev.getTest_report_path());
-			stmt.setString(36, dev.getCurrentPhase());
-			stmt.setString(37, dev.getDateTime());
-			stmt.setString(38, dev.getLastModified());
-			stmt.setString(39, dev.getDateCurrentPhase());
+			stmt.setDouble(26, dev.getMoq());
+			stmt.setDouble(27, dev.getWeight());
+			stmt.setInt(28, dev.getNumColorline());
+			stmt.setDouble(29, dev.getPpcm());
+			stmt.setString(30, dev.getNote());
+			stmt.setString(31, dev.getFabric_img_path());
+			stmt.setString(32, dev.getPid_path());
+			stmt.setString(33, dev.getTest_report_path());
+			stmt.setString(34, dev.getCurrentPhase());
+			stmt.setString(35, dev.getDateTime());
+			stmt.setString(36, dev.getLastModified());
+			stmt.setString(37, dev.getDateCurrentPhase());
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys

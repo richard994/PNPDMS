@@ -1,17 +1,5 @@
-const Phase = Object.freeze({
-  ONE: "Stike-off",
-  TWO: "Blanket",
-  THREE: "RollSample",
-  FOUR: "Test"
-});
-
-var currentPhase = Phase.ONE;
-
 function validate() {
-	if (document.getElementById("Title").value == "") {
-		alert("Please enter title!");
-		return false;
-	} else if (document.getElementById("Code").value == "") {
+	if (document.getElementById("Code").value == "") {
 		alert("Please enter fabric code!");
 		return false;
 	} else if (document.getElementById("Color").value == "") {
@@ -22,9 +10,6 @@ function validate() {
 		return false;
 	} else if (document.getElementById("DesignType").value == "") {
 		alert("Please enter design type!");
-		return false;
-	} else if (document.getElementById("Colorist").value == "") {
-		alert("Please enter fabric colorist!");
 		return false;
 	} else if (document.getElementById("Backing").value == "") {
 		alert("Please enter finishing used!");
@@ -50,46 +35,6 @@ function validate() {
 	} else if (document.getElementById("PPCM").value == "") {
 		alert("Please enter PPCM!");
 		return false;
-	} else {
-		if (document.getElementById("StrikeProgress").value == "") {
-			alert("Please enter strike progress!");
-			return false;
-		}
-		
-		checkPhase();
-		if (currentPhase == Phase.TWO || currentPhase == Phase.THREE || currentPhase == Phase.FOUR)
-		{
-			if (document.getElementById("BlanketStatus").value == "") {
-				alert("Please enter blanket progress!");
-				return false;
-			}
-		}
-		
-		if (currentPhase == Phase.THREE || currentPhase == Phase.FOUR) {
-			if (document.getElementById("RollSampleProgress").value == "") {
-				alert("Please enter roll sample progress!");
-				return false;
-			} else if (document.getElementById("RollSampleDatestamp").value == "") {
-				alert("Please enter roll sample expected ready date!");
-				return false;
-			} else if (document.getElementById("ColorLineProgress").value == "") {
-				alert("Please enter colorline progress!");
-				return false;
-			} else if (document.getElementById("ColorlineDatestamp").value == "") {
-				alert("Please enter colorline expected ready date!");
-				return false;
-			}
-		}
-		
-		if (currentPhase == Phase.FOUR) {
-			if (document.getElementById("TestingProgress").value == "") {
-				alert("Please enter testing progress!");
-				return false;
-			} else if (document.getElementById("TestingDatestamp").value == "") {
-				alert("Please enter testing expected ready date!");
-				return false;
-			}
-		}
 	}
 	
 	if (window.getComputedStyle(document.getElementById("Leah-comment-input-block")).display == "block") {
@@ -129,96 +74,6 @@ function validate() {
 	return true;
 }
 
-function checkPhase(selectedValue) {
-	if (currentPhase == Phase.ONE && (selectedValue == "Confirmed" || selectedValue == "Revision")) {
-		currentPhase = Phase.TWO;
-	} else if (currentPhase == Phase.TWO && selectedValue == "ColorSubmitted") {
-		currentPhase = Phase.THREE;
-	} else if (currentPhase == Phase.THREE && selectedValue == "Shipped") {
-		currentPhase = Phase.FOUR;
-	}
-}
-
-function changePhase(selectedValue) {
-	checkPhase(selectedValue);
-	if (currentPhase == Phase.TWO) {
-		document.getElementById("StrikeProgressing").style.display = "none";
-		document.getElementById("StrikeProgressed").style.display = "block";
-		document.getElementById("BlanketNoProgress").style.display = "none";
-		document.getElementById("BlanketProgressing").style.display = "block";
-		document.getElementById("BlanketBlock").style.display = "block";
-	} else if (currentPhase == Phase.THREE) {
-		document.getElementById("BlanketProgressing").style.display = "none";
-		document.getElementById("BlanketProgressed").style.display = "block";
-		document.getElementById("RollNoProgress").style.display = "none";
-		document.getElementById("RollProgressing").style.display = "block";
-		document.getElementById("ColorlineBlock").style.display = "block";
-		document.getElementById("RollSampleBlock").style.display = "block";
-	} else if (currentPhase == Phase.FOUR) {
-		document.getElementById("RollProgressing").style.display = "none";
-		document.getElementById("RollProgressed").style.display = "block";
-		document.getElementById("TestNoProgress").style.display = "none";
-		document.getElementById("TestProgressing").style.display = "block";
-		document.getElementById("TestBlock").style.display = "block";
-		if (selectedValue == "Passed") {
-			document.getElementById("TestProgressing").style.display = "none";
-			document.getElementById("TestProgressed").style.display = "block";
-		} 
-	}
-}
-
-function revertPhase(phase) {
-	if (phase == Phase.ONE) {
-		document.getElementById("StrikeProgressing").style.display = "block";
-		document.getElementById("StrikeProgressed").style.display = "none";
-		document.getElementById("BlanketNoProgress").style.display = "block";
-		document.getElementById("BlanketProgressing").style.display = "none";
-		document.getElementById("BlanketProgressed").style.display = "none";
-		document.getElementById("RollNoProgress").style.display = "block";
-		document.getElementById("RollProgressing").style.display = "none";
-		document.getElementById("RollProgressed").style.display = "none";
-		document.getElementById("TestNoProgress").style.display = "block";
-		document.getElementById("TestProgressing").style.display = "none";
-		document.getElementById("TestProgressed").style.display = "none";
-		document.getElementById("BlanketBlock").style.display = "none";
-		document.getElementById("ColorlineBlock").style.display = "none";
-		document.getElementById("RollSampleBlock").style.display = "none";
-		document.getElementById("TestBlock").style.display = "none";
-	} else if (phase == Phase.TWO) {
-		document.getElementById("StrikeProgressing").style.display = "none";
-		document.getElementById("StrikeProgressed").style.display = "block";
-		document.getElementById("BlanketNoProgress").style.display = "none";
-		document.getElementById("BlanketProgressing").style.display = "block";
-		document.getElementById("BlanketProgressed").style.display = "none";
-		document.getElementById("RollNoProgress").style.display = "block";
-		document.getElementById("RollProgressing").style.display = "none";
-		document.getElementById("RollProgressed").style.display = "none";
-		document.getElementById("TestNoProgress").style.display = "block";
-		document.getElementById("TestProgressing").style.display = "none";
-		document.getElementById("TestProgressed").style.display = "none";
-		document.getElementById("BlanketBlock").style.display = "block";
-		document.getElementById("ColorlineBlock").style.display = "none";
-		document.getElementById("RollSampleBlock").style.display = "none";
-		document.getElementById("TestBlock").style.display = "none";
-	} else if (phase == Phase.THREE) {
-		document.getElementById("BlanketProgressing").style.display = "none";
-		document.getElementById("BlanketProgressed").style.display = "block";
-		document.getElementById("RollNoProgress").style.display = "none";
-		document.getElementById("RollProgressing").style.display = "block";
-		document.getElementById("RollProgressed").style.display = "none";
-		document.getElementById("TestNoProgress").style.display = "block";
-		document.getElementById("TestProgressing").style.display = "none";
-		document.getElementById("TestProgressed").style.display = "none";
-		document.getElementById("ColorlineBlock").style.display = "block";
-		document.getElementById("RollSampleBlock").style.display = "block";
-		document.getElementById("TestBlock").style.display = "none";
-	} else if (phase == Phase.FOUR) {
-		document.getElementById("TestProgressing").style.display = "block";
-		document.getElementById("TestProgressed").style.display = "none";
-	}
-	currentPhase = phase;
-}
-
 const strike = document.getElementById("StrikeProgress");
 const blanket = document.getElementById("BlanketStatus");
 const roll = document.getElementById("RollSampleProgress");
@@ -226,37 +81,64 @@ const test = document.getElementById("TestingProgress");
 
 strike.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (currentPhase != Phase.ONE && (selectedValue != "Confirmed" && selectedValue != "Revision")) {
-		revertPhase(Phase.ONE);
+	if (selectedValue == "Confirmed") {
+		document.getElementById("StrikeProgressing").style.display = "none";
+		document.getElementById("StrikeProgressed").style.display = "block";
 	} else {
-		changePhase(selectedValue);
+		document.getElementById("StrikeProgressing").style.display = "block";
+		document.getElementById("StrikeProgressed").style.display = "none";
 	}
 });
 
 blanket.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (currentPhase != Phase.TWO && selectedValue != "ColorSubmitted") {
-		revertPhase(Phase.TWO);
+	if (selectedValue == "Shipped" || selectedValue == "ColorSubmitted") {
+		document.getElementById("BlanketNoProgress").style.display = "none";
+		document.getElementById("BlanketProgressing").style.display = "none";
+		document.getElementById("BlanketProgressed").style.display = "block";
+	} else if (selectedValue == "DNE"){
+		document.getElementById("BlanketNoProgress").style.display = "block";
+		document.getElementById("BlanketProgressing").style.display = "none";
+		document.getElementById("BlanketProgressed").style.display = "none";
 	} else {
-		changePhase(selectedValue);
+		document.getElementById("BlanketNoProgress").style.display = "none";
+		document.getElementById("BlanketProgressing").style.display = "block";
+		document.getElementById("BlanketProgressed").style.display = "none";
 	}
 });
 
 roll.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (currentPhase != Phase.THREE && selectedValue != "Shipped") {
-		revertPhase(Phase.THREE);
+	if (selectedValue == "Shipped" || selectedValue == "Finished") {
+		document.getElementById("RollNoProgress").style.display = "none";
+		document.getElementById("RollProgressing").style.display = "none";
+		document.getElementById("RollProgressed").style.display = "block";
+	} else if (selectedValue == "DNE"){
+		document.getElementById("RollNoProgress").style.display = "block";
+		document.getElementById("RollProgressing").style.display = "none";
+		document.getElementById("RollProgressed").style.display = "none";
 	} else {
-		changePhase(selectedValue);
+		document.getElementById("RollNoProgress").style.display = "none";
+		document.getElementById("RollProgressing").style.display = "block";
+		document.getElementById("RollProgressed").style.display = "none";
 	}
 });
 
 test.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (selectedValue != "Passed") {
-		revertPhase(Phase.FOUR);
+	if (selectedValue == "Passed") {
+		document.getElementById("TestNoProgress").style.display = "none";
+		document.getElementById("TestProgressing").style.display = "none";
+		document.getElementById("TestProgressed").style.display = "block";
+	} else if (selectedValue == "DNE"){
+		document.getElementById("TestNoProgress").style.display = "block";
+		document.getElementById("TestProgressing").style.display = "none";
+		document.getElementById("TestProgressed").style.display = "none";
+	} else {
+		document.getElementById("TestNoProgress").style.display = "none";
+		document.getElementById("TestProgressing").style.display = "block";
+		document.getElementById("TestProgressed").style.display = "none";
 	}
-	changePhase(selectedValue);
 });
 
 // Function to trigger file input dialog on button click
@@ -351,13 +233,13 @@ function populateAllInputs() {
 	if (typeof dev.test_report_path !== 'undefined') {
 		document.getElementById("TestPic").src = dev.test_report_path;
 	}
-	document.getElementById("Title").value = dev.title;
 	document.getElementById("Code").value = dev.code;
 	document.getElementById("Color").value = dev.color;
 	document.getElementById("Cost").value = dev.cost;
 	document.getElementById("ParagonCleanCB").checked = dev.paragonClean;
 	document.getElementById("FCLCB").checked = dev.is400hrFCL;
 	document.getElementById("PDCB").checked = dev.pieceDyed;
+	document.getElementById("ChenilleCB").checked = dev.chenille;
 	document.getElementById("FeedbackCB").checked = dev.needFeedback;
 	document.getElementById("SDYCB").checked = dev.sDY;
 	document.getElementById("FabricType").value = dev.fabric_type;
@@ -387,10 +269,8 @@ function populateAllInputs() {
 		document.getElementById("TestingDatestamp").value = dev.test_datestamp;
 		document.getElementById("TestingProgress").dispatchEvent(new Event('change'));
 	}
-	document.getElementById("CustomsCat").value = dev.customs;
 	document.getElementById("MOQ").value = dev.moq;
 	document.getElementById("Weight").value = dev.weight;
-	document.getElementById("FabricNickname").value = dev.nickname;
 	document.getElementById("NumColorLine").value = dev.numColorline;
 	document.getElementById("PPCM").value = dev.ppcm;
 	document.getElementById("Note").value = dev.note;

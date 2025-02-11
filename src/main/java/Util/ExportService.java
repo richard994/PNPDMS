@@ -191,15 +191,15 @@ public class ExportService extends HttpServlet{
         for (Developments dev : developments) {
         	if (filter(dev)) {
         		Row row = sheet.createRow(numRows);
-        		row.createCell(0).setCellValue(dev.getTitle());
-        		row.createCell(1).setCellValue(dev.getCode());
-        		row.createCell(2).setCellValue(dev.getColor());
-        		row.createCell(3).setCellValue(dev.getCost());
-        		row.createCell(4).setCellValue(dev.isParagonClean());
-        		row.createCell(5).setCellValue(dev.isIs400hrFCL());
-        		row.createCell(6).setCellValue(dev.isPieceDyed());
-        		row.createCell(7).setCellValue(dev.isNeedFeedback());
-        		row.createCell(8).setCellValue(dev.isSDY());
+        		row.createCell(0).setCellValue(dev.getCode());
+        		row.createCell(1).setCellValue(dev.getColor());
+        		row.createCell(2).setCellValue(dev.getCost());
+        		row.createCell(3).setCellValue(dev.isParagonClean());
+        		row.createCell(4).setCellValue(dev.isIs400hrFCL());
+        		row.createCell(5).setCellValue(dev.isPieceDyed());
+        		row.createCell(6).setCellValue(dev.isNeedFeedback());
+        		row.createCell(7).setCellValue(dev.isSDY());
+        		row.createCell(8).setCellValue(dev.isChenille());
         		row.createCell(9).setCellValue(dev.getFabric_type());
         		row.createCell(10).setCellValue(dev.getDesign_type());
         		row.createCell(11).setCellValue(dev.getColorist());
@@ -216,18 +216,16 @@ public class ExportService extends HttpServlet{
         		row.createCell(22).setCellValue(dev.getRollsample_datestamp());
         		row.createCell(23).setCellValue(dev.getTest_status());
         		row.createCell(24).setCellValue(dev.getTest_datestamp());
-        		row.createCell(25).setCellValue(dev.getCustoms());
-        		row.createCell(26).setCellValue(dev.getMoq());
-        		row.createCell(27).setCellValue(dev.getWeight());
-        		row.createCell(28).setCellValue(dev.getNickname());
-        		row.createCell(29).setCellValue(dev.getNumColorline());
-        		row.createCell(30).setCellValue(dev.getPpcm());
-        		row.createCell(31).setCellValue(dev.getNote());
+        		row.createCell(25).setCellValue(dev.getMoq());
+        		row.createCell(26).setCellValue(dev.getWeight());
+        		row.createCell(27).setCellValue(dev.getNumColorline());
+        		row.createCell(28).setCellValue(dev.getPpcm());
+        		row.createCell(29).setCellValue(dev.getNote());
         		String fabric_img_path = dev.getFabric_img_path();
         		String pid_path = dev.getPid_path();
         		String test_report_path = dev.getTest_report_path();
         		if (fabric_img_path.equals("none")) {
-        			row.createCell(32).setCellValue(fabric_img_path);
+        			row.createCell(30).setCellValue(fabric_img_path);
         		} else {
         			try {
             			String filePath = getServletContext().getRealPath("") + File.separator + fabric_img_path;
@@ -238,7 +236,7 @@ public class ExportService extends HttpServlet{
             		}
         		}
         		if (pid_path.equals("none")) {
-        			row.createCell(33).setCellValue(pid_path);
+        			row.createCell(31).setCellValue(pid_path);
         		} else {
         			try {
             			String filePath = getServletContext().getRealPath("") + File.separator + pid_path;
@@ -249,7 +247,7 @@ public class ExportService extends HttpServlet{
             		}
         		}
         		if (test_report_path.equals("none")) {
-        			row.createCell(34).setCellValue(test_report_path);
+        			row.createCell(32).setCellValue(test_report_path);
         		} else {
         			try {
             			String filePath = getServletContext().getRealPath("") + File.separator + test_report_path;
@@ -259,9 +257,9 @@ public class ExportService extends HttpServlet{
             			e.printStackTrace();
             		}
         		}
-        		row.createCell(35).setCellValue(dev.getDateTime());
-        		row.createCell(36).setCellValue(dev.getLastModified());
-        		row.createCell(37).setCellValue(dev.getDateCurrentPhase());
+        		row.createCell(33).setCellValue(dev.getDateTime());
+        		row.createCell(34).setCellValue(dev.getLastModified());
+        		row.createCell(35).setCellValue(dev.getDateCurrentPhase());
         		numRows++;
         	}
         }

@@ -245,7 +245,7 @@ public class FilterService extends HttpServlet{
 	}
 	
 	private boolean filter(Developments development) {
-		if (!"".equals(titleCode) && !titleCode.equals(development.getCode()) && !titleCode.equals(development.getTitle())) {
+		if (!"".equals(titleCode) && !titleCode.equals(development.getCode())) {
 			return false;
 		}
 		

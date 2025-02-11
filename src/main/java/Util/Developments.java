@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 public class Developments {
 	private int dev_id;
-	private String Title; 
 	private String Code;
 	private String Color;
 	private double Cost;
@@ -14,6 +13,7 @@ public class Developments {
 	private boolean isPieceDyed;
 	private boolean needFeedback;
 	private boolean isSDY;
+	private boolean isChenille;
 	private String Fabric_type;
 	private String Design_type;
 	private String Colorist;
@@ -30,10 +30,8 @@ public class Developments {
 	private String Rollsample_datestamp;
 	private String Test_status;
 	private String Test_datestamp;
-	private String Customs;
 	private double Moq;
 	private double Weight;
-	private String Nickname;
 	private int NumColorline;
 	private double Ppcm;
 	private String Note;
@@ -47,17 +45,16 @@ public class Developments {
 	
 	public Developments() {}
 	
-	public Developments(int id, String title, String code, String color, double cost, 
+	public Developments(int id, String code, String color, double cost, 
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback, 
-			boolean IsSDY, String fabric_type, String design_type, String colorist, String finishing_used, 
+			boolean IsSDY, boolean IsChenille, String fabric_type, String design_type, String colorist, String finishing_used, 
 			String season, String yarn_type, String warp_type, String content, String strike_off_status,
 			String blanket_status, String colorline_status, String colorline_datestamp,
 			String rollsample_status, String rollsample_datestamp, String test_status,
-			String test_datestamp, String customs, double moq, double weight, 
-			String nickname, int numColorline, double ppcm, String note, String fabric_img_path, 
-			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
+			String test_datestamp, double moq, double weight, int numColorline, 
+			double ppcm, String note, String fabric_img_path, String pid_path, 
+			String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
 		setDev_id(id);
-		setTitle(title);
 		setCode(code);
 		setColor(color);
 		setCost(cost);
@@ -66,6 +63,7 @@ public class Developments {
 		setPieceDyed(IsPieceDyed);
 		setNeedFeedback(NeedFeedback);
 		setSDY(IsSDY);
+		setChenille(IsChenille);
 		setFabric_type(fabric_type);
 		setDesign_type(design_type);
 		setColorist(colorist);
@@ -82,10 +80,8 @@ public class Developments {
 		setRollsample_datestamp(rollsample_datestamp);
 		setTest_status(test_status);
 		setTest_datestamp(test_datestamp);
-		setCustoms(customs);
 		setMoq(moq);
 		setWeight(weight);
-		setNickname(nickname);
 		setNumColorline(numColorline);
 		setPpcm(ppcm);
 		setNote(note);
@@ -98,17 +94,15 @@ public class Developments {
 		setDateCurrentPhase(DateCurrentPhase);
 	}
 	
-	public void setAll(int id, String title, String code, String color, double cost, 
+	public void setAll(int id, String code, String color, double cost, 
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback, 
-			boolean IsSDY, String fabric_type, String design_type, String colorist, String finishing_used, 
+			boolean IsSDY, boolean IsChenille, String fabric_type, String design_type, String colorist, String finishing_used, 
 			String season, String yarn_type, String warp_type, String content, String strike_off_status,
 			String blanket_status, String colorline_status, String colorline_datestamp,
 			String rollsample_status, String rollsample_datestamp, String test_status,
-			String test_datestamp, String customs, double moq, double weight, 
-			String nickname, int numColorline, double ppcm, String note, String fabric_img_path, 
+			String test_datestamp, double moq, double weight, int numColorline, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
 		setDev_id(id);
-		setTitle(title);
 		setCode(code);
 		setColor(color);
 		setCost(cost);
@@ -117,6 +111,7 @@ public class Developments {
 		setPieceDyed(IsPieceDyed);
 		setNeedFeedback(NeedFeedback);
 		setSDY(IsSDY);
+		setChenille(IsChenille);
 		setFabric_type(fabric_type);
 		setDesign_type(design_type);
 		setColorist(colorist);
@@ -133,10 +128,8 @@ public class Developments {
 		setRollsample_datestamp(rollsample_datestamp);
 		setTest_status(test_status);
 		setTest_datestamp(test_datestamp);
-		setCustoms(customs);
 		setMoq(moq);
 		setWeight(weight);
-		setNickname(nickname);
 		setNumColorline(numColorline);
 		setPpcm(ppcm);
 		setNote(note);
@@ -191,14 +184,6 @@ public class Developments {
         }
 		
 		return logs;
-	}
-
-	public String getTitle() {
-		return Title;
-	}
-
-	public void setTitle(String title) {
-		this.Title = title;
 	}
 
 	public String getCode() {
@@ -393,14 +378,6 @@ public class Developments {
 		this.Test_datestamp = test_datestamp;
 	}
 
-	public String getCustoms() {
-		return Customs;
-	}
-
-	public void setCustoms(String customs) {
-		this.Customs = customs;
-	}
-
 	public double getMoq() {
 		return Moq;
 	}
@@ -415,14 +392,6 @@ public class Developments {
 
 	public void setWeight(double weight) {
 		this.Weight = weight;
-	}
-
-	public String getNickname() {
-		return Nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.Nickname = nickname;
 	}
 
 	public int getNumColorline() {
@@ -511,5 +480,13 @@ public class Developments {
 
 	public void setDateCurrentPhase(String dateCurrentPhase) {
 		DateCurrentPhase = dateCurrentPhase;
+	}
+
+	public boolean isChenille() {
+		return isChenille;
+	}
+
+	public void setChenille(boolean isChenille) {
+		this.isChenille = isChenille;
 	}
 }

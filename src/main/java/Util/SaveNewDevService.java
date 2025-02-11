@@ -16,7 +16,6 @@ import javax.servlet.http.*;
 public class SaveNewDevService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private static final String UPLOAD_DIRECTORY = "uploads";
-	private static String title; 
 	private static String code;
 	private static String color;
 	private static double cost;
@@ -25,6 +24,7 @@ public class SaveNewDevService extends HttpServlet{
 	private static boolean IsPieceDyed = false;
 	private static boolean NeedFeedback = false;
 	private static boolean IsSDY = false;
+	private static boolean IsChenille = false;
 	private static String fabric_type;
 	private static String design_type;
 	private static String colorist;
@@ -41,10 +41,8 @@ public class SaveNewDevService extends HttpServlet{
 	private static String rollsample_datestamp;
 	private static String test_status;
 	private static String test_datestamp;
-	private static String customs;
 	private static double moq;
 	private static double weight;
-	private static String nickname;
 	private static int numColorline;
 	private static double ppcm;
 	private static String note;
@@ -128,14 +126,6 @@ public class SaveNewDevService extends HttpServlet{
 			request.getRequestDispatcher("/TrackerService").forward(request, response);
 			return;
 		}
-
-		temp = request.getParameterValues("Title");
-		if (temp != null) {
-			title = temp[0];
-			System.out.println("Successfully retrieved title: " + title + "\n");
-		} else {
-			System.out.println("Fail to retrieve title.");
-		}
 		
 		temp = request.getParameterValues("Code");
 		if (temp != null) {
@@ -211,6 +201,15 @@ public class SaveNewDevService extends HttpServlet{
 		} else {
 			IsSDY = false;
 			System.out.println("IsSDY unchecked.\n");
+		}
+		
+		temp = request.getParameterValues("ChenilleCB");
+		if (temp != null) {
+			IsChenille = true;
+			System.out.println("IsChenille checked.\n");
+		} else {
+			IsChenille = false;
+			System.out.println("IsChenille unchecked.\n");
 		}
 		
 		temp = request.getParameterValues("FabricType");
@@ -341,14 +340,6 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve test datestamp.");
 		}
 		
-		temp = request.getParameterValues("CustomsCat");
-		if (temp != null) {
-			customs = temp[0];
-			System.out.println("Successfully retrieved customs: " + customs + "\n");
-		} else {
-			System.out.println("Fail to retrieve customs.");
-		}
-		
 		temp = request.getParameterValues("MOQ");
 		if (temp != null) {
 			try {
@@ -373,14 +364,6 @@ public class SaveNewDevService extends HttpServlet{
 			}
 		} else {
 			System.out.println("Fail to retrieve weight.");
-		}
-		
-		temp = request.getParameterValues("FabricNickname");
-		if (temp != null) {
-			nickname = temp[0];
-			System.out.println("Successfully retrieved fabric nickname: " + nickname + "\n");
-		} else {
-			System.out.println("Fail to retrieve fabric nickname.");
 		}
 		
 		temp = request.getParameterValues("NumColorLine");
@@ -419,17 +402,12 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve note.");
 		}
 		
-		if (test_status.equals("DNE") && rollsample_status.equals("DNE") && blanket_status.equals("DNE")) {
-			currentPhase = "Strike-off";
-		} else if (test_status.equals("DNE") && rollsample_status.equals("DNE")) {
-			currentPhase =  "Blanket";
-		} else if (test_status.equals("DNE")) {
-			currentPhase = "Roll Sample";
+		if (test_status.equals("DNE")) {
+			currentPhase = "";
+		} else if (test_status.equals("Passed")) {
+			currentPhase = "Test Passed";
 		} else {
 			currentPhase = "Testing";
-			if (test_status.equals("Passed")) {
-				currentPhase = "Testing Passed";
-			}
 		}
 		System.out.println("Current Phase: " + currentPhase + "\n");
 		
@@ -500,7 +478,7 @@ public class SaveNewDevService extends HttpServlet{
 				DateCurrentPhase = old_development.getDateCurrentPhase();
 			}
 		}
-		int devid = devdata.insertDevelopment(title, code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, customs, moq, weight, nickname, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase);
+		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase);
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		
 		temp = request.getParameterValues("LeahCommentInput");
