@@ -32,7 +32,7 @@ public class NewDevService extends HttpServlet{
 			    String username = (String) session.getAttribute("userName");
 			    request.setAttribute("user", username);
 			    int devId = 0;
-			    if (!"view".equals(action)) {
+			    if (!"create".equals(action)) {
 			    	devId = Integer.parseInt(request.getParameter("devId"));
 				    request.setAttribute("devid", devId);
 			    }
