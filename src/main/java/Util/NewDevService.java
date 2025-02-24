@@ -31,8 +31,11 @@ public class NewDevService extends HttpServlet{
 				String action = request.getParameter("action");
 			    String username = (String) session.getAttribute("userName");
 			    request.setAttribute("user", username);
-			    int devId = Integer.parseInt(request.getParameter("devId"));
-			    request.setAttribute("devid", devId);
+			    int devId = 0;
+			    if (!"view".equals(action)) {
+			    	devId = Integer.parseInt(request.getParameter("devId"));
+				    request.setAttribute("devid", devId);
+			    }
 
 			    // Fetch the development data and associated comments and logs
 			    DevData devdata = new DevData();
