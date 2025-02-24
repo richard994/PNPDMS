@@ -59,7 +59,7 @@ public class NewDevService extends HttpServlet{
 			    Developments dev = devdata.getDevelopmentById(devId);
 			    ArrayList<Comment> comments = devdata.getCommentsById(devId);
 			    ArrayList<Log> logs = devdata.getLogsById(devId);
-			    List<Log> showLogs = logs.subList(0, 13);
+			    List<Log> showLogs = logs.subList(0, Math.min(logs.size(), 13));
 
 			    // Convert objects to JSON
 			    ObjectMapper objectMapper = new ObjectMapper();
