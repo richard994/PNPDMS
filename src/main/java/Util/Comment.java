@@ -4,13 +4,15 @@ public class Comment {
 	private String name;
 	private String datestamp;
 	private String content;
+	private int commentid;
 	
 	public Comment() {}
 	
-	public Comment(String cname, String cdatestamp, String ccontent) {
+	public Comment(String cname, String cdatestamp, String ccontent, int ccommentid) {
 		setName(cname);
 		setDatestamp(cdatestamp);
 		setContent(ccontent);
+		setCommentid(ccommentid);
 	}
 
 	public String getName() {
@@ -35,5 +37,13 @@ public class Comment {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getCommentid() {
+		return commentid;
+	}
+
+	public void setCommentid(int commentid) {
+		this.commentid = commentid;
 	}
 }

@@ -20,18 +20,14 @@ public class FilterService extends HttpServlet{
 	private static boolean needPieceDyed;
 	private static boolean needFeedback;
 	private static boolean needSDY;
-	private static boolean needStrikeOff;
-	private static boolean needBlanket;
-	private static boolean needRollSample;
-	private static boolean needTesting;
 	private static String titleCode;
 	private static String season;
+	private static String design_type;
 	private static String warp_type;
 	private static String yarn_type;
 	private static String colorist;
 	private static double priceMin=0;
 	private static double priceMax=10;
-	private static ArrayList<String> selectedPhases = new ArrayList<String>();
 	
 	public FilterService() {}
 	
@@ -115,53 +111,20 @@ public class FilterService extends HttpServlet{
 				System.out.println("SDYCB unchecked.\n");
 			}
 			
-			temp = request.getParameterValues("StrikeCB");
-			if (temp != null) {
-				needStrikeOff = true;
-				selectedPhases.add("Strike-off");
-				System.out.println("StrikeCB checked.\n");
-			} else {
-				needStrikeOff = false;
-				System.out.println("StrikeCB unchecked.\n");
-			}
-			
-			temp = request.getParameterValues("BlanketCB");
-			if (temp != null) {
-				needBlanket = true;
-				selectedPhases.add("Blanket");
-				System.out.println("BlanketCB checked.\n");
-			} else {
-				needBlanket = false;
-				System.out.println("BlanketCB unchecked.\n");
-			}
-			
-			temp = request.getParameterValues("RollSampleCB");
-			if (temp != null) {
-				needRollSample = true;
-				selectedPhases.add("Roll Sample");
-				System.out.println("RollSampleCB checked.\n");
-			} else {
-				needRollSample = false;
-				System.out.println("RollSampleCB unchecked.\n");
-			}
-			
-			temp = request.getParameterValues("TestingCB");
-			if (temp != null) {
-				needTesting = true;
-				selectedPhases.add("Testing");
-				selectedPhases.add("Testing Passed");
-				System.out.println("TestingCB checked.\n");
-			} else {
-				needTesting = false;
-				System.out.println("TestingCB unchecked.\n");
-			}
-			
 			temp = request.getParameterValues("Season");
 			if (temp != null) {
 				season = temp[0];
 				System.out.println("Successfully retrieved Season: " + season + "\n");
 			} else {
 				System.out.println("Fail to retrieve Season.");
+			}
+			
+			temp = request.getParameterValues("DesignType");
+			if (temp != null) {
+				design_type = temp[0];
+				System.out.println("Successfully retrieved DesignType: " + design_type + "\n");
+			} else {
+				System.out.println("Fail to retrieve DesignType.");
 			}
 			
 			temp = request.getParameterValues("WarpType");
@@ -274,24 +237,11 @@ public class FilterService extends HttpServlet{
             return false;
         }
         
-        String currentPhase = development.getCurrentPhase();
-        if (needStrikeOff && !selectedPhases.contains(currentPhase)) {
-        	return false;
-        }
-        
-        if (needBlanket && !selectedPhases.contains(currentPhase)) {
-        	return false;
-        }
-        
-        if (needRollSample && !selectedPhases.contains(currentPhase)) {
-        	return false;
-        }
-        
-        if (needTesting && !selectedPhases.contains(currentPhase)) {
-        	return false;
-        }
-        
         if (!"".equals(season) && !season.equals(development.getSeason())) {
+        	return false;
+        }
+        
+        if (!"".equals(design_type) && !design_type.equals(development.getDesign_type())) {
         	return false;
         }
         

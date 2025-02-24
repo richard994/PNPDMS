@@ -20,15 +20,11 @@ public class ExportService extends HttpServlet{
 	private static boolean needPieceDyed;
 	private static boolean needFeedback;
 	private static boolean needSDY;
-	private static boolean needStrikeOff;
-	private static boolean needBlanket;
-	private static boolean needRollSample;
-	private static boolean needTesting;
 	private static String season;
+	private static String design_type;
 	private static String warp_type;
 	private static String yarn_type;
 	private static String colorist;
-	private static ArrayList<String> selectedPhases = new ArrayList<String>();
 	
 	public ExportService() {}
 	
@@ -81,53 +77,20 @@ public class ExportService extends HttpServlet{
 			System.out.println("ModalSDYCB unchecked.\n");
 		}
 		
-		temp = request.getParameterValues("ModalStrikeCB");
-		if (temp != null) {
-			needStrikeOff = true;
-			selectedPhases.add("Strike-off");
-			System.out.println("ModalStrikeCB checked.\n");
-		} else {
-			needStrikeOff = false;
-			System.out.println("ModalStrikeCB unchecked.\n");
-		}
-		
-		temp = request.getParameterValues("ModalBlanketCB");
-		if (temp != null) {
-			needBlanket = true;
-			selectedPhases.add("Blanket");
-			System.out.println("ModalBlanketCB checked.\n");
-		} else {
-			needBlanket = false;
-			System.out.println("ModalBlanketCB unchecked.\n");
-		}
-		
-		temp = request.getParameterValues("ModalRollSampleCB");
-		if (temp != null) {
-			needRollSample = true;
-			selectedPhases.add("Roll Sample");
-			System.out.println("ModalRollSampleCB checked.\n");
-		} else {
-			needRollSample = false;
-			System.out.println("ModalRollSampleCB unchecked.\n");
-		}
-		
-		temp = request.getParameterValues("ModalTestingCB");
-		if (temp != null) {
-			needTesting = true;
-			selectedPhases.add("Testing");
-			selectedPhases.add("Testing Passed");
-			System.out.println("ModalTestingCB checked.\n");
-		} else {
-			needTesting = false;
-			System.out.println("ModalTestingCB unchecked.\n");
-		}
-		
 		temp = request.getParameterValues("ModalSeason");
 		if (temp != null) {
 			season = temp[0];
 			System.out.println("Successfully retrieved ModalSeason: " + season + "\n");
 		} else {
 			System.out.println("Fail to retrieve ModalSeason.");
+		}
+		
+		temp = request.getParameterValues("ModalDesignType");
+		if (temp != null) {
+			design_type = temp[0];
+			System.out.println("Successfully retrieved ModalDesignType: " + design_type + "\n");
+		} else {
+			System.out.println("Fail to retrieve ModalDesignType.");
 		}
 		
 		temp = request.getParameterValues("ModalWarpType");
@@ -295,24 +258,11 @@ public class ExportService extends HttpServlet{
             return false;
         }
         
-        String currentPhase = development.getCurrentPhase();
-        if (needStrikeOff && !selectedPhases.contains(currentPhase)) {
-        	return false;
-        }
-        
-        if (needBlanket && !selectedPhases.contains(currentPhase)) {
-        	return false;
-        }
-        
-        if (needRollSample && !selectedPhases.contains(currentPhase)) {
-        	return false;
-        }
-        
-        if (needTesting && !selectedPhases.contains(currentPhase)) {
-        	return false;
-        }
-        
         if (!"".equals(season) && !season.equals(development.getSeason())) {
+        	return false;
+        }
+        
+        if (!"".equals(design_type) && !design_type.equals(development.getDesign_type())) {
         	return false;
         }
         

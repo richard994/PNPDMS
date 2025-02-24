@@ -215,7 +215,7 @@ function disableAllInputs() {
     // Get all input, textarea, select elements and disable them
     var inputs = document.querySelectorAll('input, select, textarea, button'); 
     inputs.forEach(function(input) {
-        if (!input.closest('.carousel')) {  
+        if (!input.closest('.carousel, .modal-header, .modal-footer') && input.id !== "ShowFullLogHistoryLink") {  
             input.style.pointerEvents = 'none';  // Disable mouse interaction
             input.setAttribute('readonly', true);  // For inputs, textarea (optional)
             input.disabled = false;  // Don't set disabled to true to avoid style changes
@@ -241,7 +241,7 @@ function populateAllInputs() {
 	document.getElementById("PDCB").checked = dev.pieceDyed;
 	document.getElementById("ChenilleCB").checked = dev.chenille;
 	document.getElementById("FeedbackCB").checked = dev.needFeedback;
-	document.getElementById("SDYCB").checked = dev.sDY;
+	document.getElementById("SDYCB").checked = dev.sdy;
 	document.getElementById("FabricType").value = dev.fabric_type;
 	document.getElementById("DesignType").value = dev.design_type;
 	document.getElementById("Colorist").value = dev.colorist;
@@ -251,8 +251,10 @@ function populateAllInputs() {
 	document.getElementById("YarnType").value = dev.yarn_type;
 	document.getElementById("WarpType").value = dev.warp_type;
 	document.getElementById("Content").value = dev.content;
-	document.getElementById("StrikeProgress").value = dev.strike_off_status;
-	document.getElementById("StrikeProgress").dispatchEvent(new Event('change'));
+	if (dev.strike_off_status !== "DNE") {
+		document.getElementById("StrikeProgress").value = dev.strike_off_status;
+		document.getElementById("StrikeProgress").dispatchEvent(new Event('change'));
+	}
 	if (dev.blanket_status !== "DNE") {
 		document.getElementById("BlanketStatus").value = dev.blanket_status;
 		document.getElementById("BlanketStatus").dispatchEvent(new Event('change'));
@@ -302,7 +304,7 @@ function parseComments() {
 	        var commentText = content + "," + comment.datestamp;
 	        // Add the formatted comment to the appropriate list based on name
 	        if (categorizedComments[comment.name]) {
-	            categorizedComments[comment.name].push(commentText);
+	            categorizedComments[comment.name].push([commentText, comment.commentid]);
 	        }
 	    }
 	});
@@ -316,11 +318,16 @@ function parseComments() {
 				document.getElementById("placeholder-comment-" + name).style.display = "none";
 				var index = 0;
 	            commentsList.forEach(function(comment) {
-	                var conDateArr = comment.split(',');
+	                var conDateArr = comment[0].split(',');
+	                
+	                var row = document.createElement('div');
+	                row.classList.add('comment', 'p-0', 'd-flex');
+	                row.style.whiteSpace = "nowrap";
 	                
 	                // Create the comment div element
 				    var commentDiv = document.createElement('div');
 				    commentDiv.classList.add('comment', 'p-2', 'd-flex');
+				    commentDiv.style.flex = "7";
 				
 				    // Create the comment texts div
 				    var commentTextsDiv = document.createElement('div');
@@ -340,13 +347,35 @@ function parseComments() {
 				    commentDate.textContent = conDateArr[1]; 
 				    commentDateSpanHdrDiv.appendChild(commentDate);
 				    commentDateDiv.appendChild(commentDateSpanHdrDiv);
+				    
+				    // Create the delete button
+				    var deleteDiv = document.createElement('div');
+				    deleteDiv.classList.add(name + 'commentDeleteBtn', 'm-auto');
+				    deleteDiv.style.flex = "1";
+				    var deleteBtn = document.createElement('button');
+				    deleteBtn.name = 'cmtDeleteBtn' + index;
+				    deleteBtn.id = 'cmtDeleteBtn' + index;
+				    deleteBtn.textContent = 'DELETE';
+				    deleteBtn.type = 'button';
+				    deleteBtn.style.border = "0";
+				    deleteBtn.style.background = "none";
+				    deleteBtn.style.color = "#DC3545";
+				    deleteBtn.style.fontSize = "14px";
+				    deleteBtn.style.padding = "4px 8px";
+				    deleteBtn.onclick = function() {
+					    showCmtModal(devid, comment[1]);
+					};
+					deleteBtn.disabled = view;
+				    deleteDiv.appendChild(deleteBtn);
 				
-				    // Append the comment texts and date divs to the comment div
 				    commentDiv.appendChild(commentTextsDiv);
 				    commentDiv.appendChild(commentDateDiv);
+				    
+				    row.appendChild(commentDiv);
+				    row.appendChild(deleteDiv);
 				
 				    // Append the comment div to LeahComments
-				    document.getElementById(name + "Comments").appendChild(commentDiv);
+				    document.getElementById(name + "Comments").appendChild(row);
 				
 				    // Apply special styles to the first comment (first child)
 				    if (index === 0) {
@@ -459,3 +488,32 @@ function showModal() {
 	$('#dlModal').modal("show");
 }
 
+function showCmtModal(devid, commentId) {
+    $('#dlCmtModal').modal("show");
+    $('#confirmCmtDelete').on('click', function(){
+        redirect('NewDevService?action=deleteCmt&devId=' + devid + '&cmtId=' + commentId);
+    });
+}
+
+function showFullLogModal(event) {
+	event.preventDefault();
+	// Get the table body where the rows will be added
+    var tableBody = document.getElementById('logTable').getElementsByTagName('tbody')[0];
+	// Clear any existing rows in the table
+  	tableBody.innerHTML = '';
+  	// Loop through the logs and add a row for each log
+	fullLogs.forEach(function(log) {
+	    var row = tableBody.insertRow(); // Create a new row
+	    var cell1 = row.insertCell(0);   // Create first cell (name)
+	    var cell2 = row.insertCell(1);   // Create second cell (date)
+	    var cell3 = row.insertCell(2);   // Create third cell (content)
+	
+	    // Set the content of each cell
+	    cell1.textContent = log.name;
+	    cell2.textContent = formatDate(log.datestamp);
+	    cell3.textContent = log.content;
+	});
+	
+	// Show the modal
+	$('#showFullLogModal').modal("show");
+}

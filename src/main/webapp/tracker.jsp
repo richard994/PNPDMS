@@ -155,35 +155,10 @@
 					  Is SDY?
 					</label>
 				</div>
-				<div class="form-check mt-4">
-					<input class="form-check-input" type="checkbox" id="StrikeCB" name="StrikeCB">
-					<label class="form-check-label" for="StrikeCB">
-					  In Strike-off Phase
-					</label>
-				</div>
-				<div class="form-check mt-4">
-					<input class="form-check-input" type="checkbox" id="BlanketCB" name="BlanketCB">
-					<label class="form-check-label" for="BlanketCB">
-					  In Blanket Phase
-					</label>
-				</div>
-				<div class="form-check mt-4">
-					<input class="form-check-input" type="checkbox" id="RollSampleCB" name="RollSampleCB">
-					<label class="form-check-label" for="RollSampleCB">
-					  In Roll Sample Phase
-					</label>
-				</div>
-				<div class="form-check mt-4">
-					<input class="form-check-input" type="checkbox" id="TestingCB" name="TestingCB">
-					<label class="form-check-label" for="TestingCB">
-					  In Testing Phase
-					</label>
-				</div>
     			<div class="d-flex flex-column mt-4">
     				<label for="Season" class="control-label opacity-75">Season</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Season" name="Season" size="1" style="width: 100%; height: 36px">
 				    	<option value="" selected>Enter</option>
-				    	<option value="23Fall">23Fall</option>
 				    	<option value="24Spring">24Spring</option>
 				    	<option value="24Fall">24Fall</option>
 				    	<option value="25Spring">25Spring</option>
@@ -192,6 +167,33 @@
 				    	<option value="26Fall">26Fall</option>
 				    	<option value="27Spring">27Spring</option>
 				    	<option value="27Fall">27Fall</option>
+				    	<option value="28Spring">28Spring</option>
+				    	<option value="28Fall">28Fall</option>
+				    	<option value="29Spring">29Spring</option>
+				    	<option value="29Fall">29Fall</option>
+				    	<option value="30Spring">30Spring</option>
+				    	<option value="30Fall">30Fall</option>
+				  	</select>
+    			</div>
+    			<div class="d-flex flex-column mt-4">
+    				<label for="DesignType" class="control-label opacity-75">Design Type</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="DesignType" name="DesignType" size="1" style="width: 100%; height: 36px">
+				    	<option value="" selected>Enter</option>
+				    	<option value="NewDesign">New Design</option>
+				    	<option value="Reshow">Reshow</option>
+				    	<option value="24SP to 24FA">24SP to 24FA</option>
+				    	<option value="24FA to 25SP">24FA to 25SP</option>
+				    	<option value="25SP to 25FA">25SP to 25FA</option>
+				    	<option value="25FA to 26SP">25FA to 26SP</option>
+				    	<option value="26SP to 26FA">26SP to 26FA</option>
+				    	<option value="26FA to 27SP">26FA to 27SP</option>
+				    	<option value="27SP to 27FA">27SP to 27FA</option>
+				    	<option value="27FA to 28SP">27FA to 28SP</option>
+				    	<option value="28SP to 28FA">28SP to 28FA</option>
+				    	<option value="28FA to 29SP">28FA to 29SP</option>
+				    	<option value="29SP to 29FA">29SP to 29FA</option>
+				    	<option value="29FA to 30SP">29FA to 30SP</option>
+				    	<option value="30SP to 30FA">30SP to 30FA</option>
 				  	</select>
     			</div>
  			    <div class="d-flex flex-column mt-4">
@@ -208,7 +210,7 @@
 				  	</select>
     			</div>
     			<div class="d-flex flex-column mt-4">
-    				<label for="YarnType" class="control-label opacity-75">Yarn Type</label>
+    				<label for="YarnType" class="control-label opacity-75">Dyeing Type</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="YarnType" name="YarnType" size="1" style="width: 100%; height: 36px">
 				    	<option value="" selected>Enter</option>
 				    	<option value="YarnDyed">Yarn Dyed</option>
@@ -416,44 +418,8 @@
 									</div>
 				    			</div>
 				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalStrikeCB" name="ModalStrikeCB">
-										<label class="form-check-label" for="ModalStrikeCB">
-										  In Strike-off Phase
-										</label>
-									</div>
 				    			</div>
 				    		</div>
-				    		<div class="row mb-3">
-				    			<div class="col-6">
-					    			<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalBlanketCB" name="ModalBlanketCB">
-										<label class="form-check-label" for="ModalBlanketCB">
-										  In Blanket Phase
-										</label>
-									</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalRollSampleCB" name="ModalRollSampleCB">
-										<label class="form-check-label" for="ModalRollSampleCB">
-										  In Roll Sample Phase
-										</label>
-									</div>
-				    			</div>
-			    			</div>
-			    			<div class="row mb-3">
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalTestingCB" name="ModalTestingCB">
-										<label class="form-check-label" for="ModalTestingCB">
-										  In Testing Phase
-										</label>
-									</div>
-				    			</div>
-				    			<div class="col-6">
-				    			</div>
-			    			</div>
 			    			<div class="row mb-3">
 				    			<div class="col-6">
 				    				<div class="d-flex flex-column">
@@ -491,7 +457,7 @@
 			    			<div class="row mb-3">
 				    			<div class="col-6">
 				    				<div class="d-flex flex-column">
-					    				<label for="ModalYarnType" class="control-label opacity-75">Yarn Type</label>
+					    				<label for="ModalYarnType" class="control-label opacity-75">Dyeing Type</label>
 					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalYarnType" name="ModalYarnType" size="1" style="width: 100%; height: 36px">
 									    	<option value="" selected>Enter</option>
 									    	<option value="YarnDyed">Yarn Dyed</option>
@@ -513,6 +479,31 @@
 									  	</select>
 					    			</div>
 				    			</div>
+			    			</div>
+			    			<div class="row mb-3">
+			    				<div class="col-6">
+			    					<label for="ModalDesignType" class="control-label opacity-75">Design Type</label>
+				    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalDesignType" name="ModalDesignType" size="1" style="width: 100%; height: 36px">
+								    	<option value="" selected>Enter</option>
+								    	<option value="NewDesign">New Design</option>
+								    	<option value="Reshow">Reshow</option>
+								    	<option value="24SP to 24FA">24SP to 24FA</option>
+								    	<option value="24FA to 25SP">24FA to 25SP</option>
+								    	<option value="25SP to 25FA">25SP to 25FA</option>
+								    	<option value="25FA to 26SP">25FA to 26SP</option>
+								    	<option value="26SP to 26FA">26SP to 26FA</option>
+								    	<option value="26FA to 27SP">26FA to 27SP</option>
+								    	<option value="27SP to 27FA">27SP to 27FA</option>
+								    	<option value="27FA to 28SP">27FA to 28SP</option>
+								    	<option value="28SP to 28FA">28SP to 28FA</option>
+								    	<option value="28FA to 29SP">28FA to 29SP</option>
+								    	<option value="29SP to 29FA">29SP to 29FA</option>
+								    	<option value="29FA to 30SP">29FA to 30SP</option>
+								    	<option value="30SP to 30FA">30SP to 30FA</option>
+								  	</select>
+			    				</div>
+			    				<div class="col-6">
+			    				</div>
 			    			</div>
 				    	</div>
 				    </div>

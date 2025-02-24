@@ -26,6 +26,7 @@
 		}
 	</style>
 	<script defer>
+		var devid = ${devid};
 		var view = ${view};
 		var edit = ${edit};
 		var create = ${create};
@@ -33,6 +34,7 @@
 		var dev = JSON.parse('${dev}');
 		var comments = JSON.parse('${comments}');
 		var logs = JSON.parse('${logs}');
+		var fullLogs = JSON.parse('${fulllogs}');
 	</script>
 </head>
 <body class="bg-light">
@@ -261,7 +263,7 @@
 			            				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="48" fill="currentColor" class="bi bi-currency-yen" viewBox="0 0 16 16">
 										  <path d="M8.75 14v-2.629h2.446v-.967H8.75v-1.31h2.445v-.967H9.128L12.5 2h-1.699L8.047 7.327h-.086L5.207 2H3.5l3.363 6.127H4.778v.968H7.25v1.31H4.78v.966h2.47V14h1.502z"/>
 										</svg>
-										<input type="text" id="Cost" name="Cost" class="border-0" style="font-size: 38px; width: 100%" placeholder="0.0">
+										<input type="text" id="Cost" name="Cost" class="border-0" style="font-size: 32px; width: 100%" placeholder="0.0">
 			            			</div>
 		            			</div>
 		            		</div>
@@ -322,6 +324,19 @@
 							    	<option value="" selected>Enter</option>
 							    	<option value="NewDesign">New Design</option>
 							    	<option value="Reshow">Reshow</option>
+							    	<option value="24SP to 24FA">24SP to 24FA</option>
+							    	<option value="24FA to 25SP">24FA to 25SP</option>
+							    	<option value="25SP to 25FA">25SP to 25FA</option>
+							    	<option value="25FA to 26SP">25FA to 26SP</option>
+							    	<option value="26SP to 26FA">26SP to 26FA</option>
+							    	<option value="26FA to 27SP">26FA to 27SP</option>
+							    	<option value="27SP to 27FA">27SP to 27FA</option>
+							    	<option value="27FA to 28SP">27FA to 28SP</option>
+							    	<option value="28SP to 28FA">28SP to 28FA</option>
+							    	<option value="28FA to 29SP">28FA to 29SP</option>
+							    	<option value="29SP to 29FA">29SP to 29FA</option>
+							    	<option value="29FA to 30SP">29FA to 30SP</option>
+							    	<option value="30SP to 30FA">30SP to 30FA</option>
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
@@ -353,7 +368,6 @@
 			    				<label for="Season" class="control-label opacity-75">Season</label>
 			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Season" name="Season" size="1" style="width: 100%; height: 36px">
 							    	<option value="" selected>Enter</option>
-							    	<option value="23Fall">23Fall</option>
 							    	<option value="24Spring">24Spring</option>
 							    	<option value="24Fall">24Fall</option>
 							    	<option value="25Spring">25Spring</option>
@@ -362,10 +376,16 @@
 							    	<option value="26Fall">26Fall</option>
 							    	<option value="27Spring">27Spring</option>
 							    	<option value="27Fall">27Fall</option>
+							    	<option value="28Spring">28Spring</option>
+							    	<option value="28Fall">28Fall</option>
+							    	<option value="29Spring">29Spring</option>
+							    	<option value="29Fall">29Fall</option>
+							    	<option value="30Spring">30Spring</option>
+							    	<option value="30Fall">30Fall</option>
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
-			    				<label for="YarnType" class="control-label opacity-75">Yarn Type</label>
+			    				<label for="YarnType" class="control-label opacity-75">Dyeing Type</label>
 			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="YarnType" name="YarnType" size="1" style="width: 100%; height: 36px">
 							    	<option value="" selected>Enter</option>
 							    	<option value="YarnDyed">Yarn Dyed</option>
@@ -389,7 +409,18 @@
 						  	</div>
 						  	<div style="flex: 1">
 			    				<label for="Content" class="control-label opacity-75">Content<span style="font-size: 12px">(%Mix)</span></label>
-			    				<input type="text" class="custom-select border border-light border-2 rounded-0 bg-white" id="Content" name="Content" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Content" name="Content" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+						  			<option value="" selected>Enter</option>
+							    	<option value="100% polyester">100% polyester</option>
+							    	<option value="1% acrylic 99% polyester">1% acrylic 99% polyester</option>
+							    	<option value="2% acrylic 98% polyester">2% acrylic 98% polyester</option>
+							    	<option value="3% acrylic 97% polyester">3% acrylic 97% polyester</option>
+							    	<option value="10% acrylic 90% polyester">10% acrylic 90% polyester</option>
+							    	<option value="3% linen 97% polyester">3% linen 97% polyester</option>
+							    	<option value="5% linen 95% polyester">5% linen 95% polyester</option>
+							    	<option value="10%N 90%P">10%N 90%P</option>
+							    	<option value="10%V 90%P">10%V 90%P</option>
+						  		</select>
 						  	</div>
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 15px">
@@ -400,11 +431,12 @@
 						    				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
 										    	<option value="" selected>Enter</option>
-										    	<option value="Submitted">Submitted</option>
-										    	<option value="Woven">Woven</option>
-										    	<option value="Shipped">Shipped</option>
-										    	<option value="Confirmed">Confirmed</option>
-										    	<option value="Revision">Revision Submitted</option>
+										    	<option value="Wait for US feedback">Wait for US feedback</option>
+										    	<option value="US canceled">US canceled</option>
+										    	<option value="US confirmed, but George canceled">US confirmed, but George canceled</option>
+										    	<option value="Strike-off producing">Strike-off producing</option>
+										    	<option value="Being tested">Being tested</option>
+										    	<option value="Strike-off confirmed">Strike-off confirmed</option>
 										  	</select>
 									  	</div>
 								  	</div>
@@ -413,11 +445,13 @@
 						    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
 										    	<option value="DNE" selected>Enter</option>
-										    	<option value="Ready">Ready to Blanket</option>
-										    	<option value="Submitted">Blanket Submitted</option>
-										    	<option value="Woven">Blanket Woven</option>
-										    	<option value="Shipped">Blanket Shipped</option>
-										    	<option value="ColorSubmitted">Color Proposal Submitted</option>
+										    	<option value="Strike-off confirmed">Strike-off confirmed</option>
+										    	<option value="Wait for US blanket proceeding">Wait for US blanket proceeding</option>
+										    	<option value="Blanket under production">Blanket under production</option>
+										    	<option value="Banket sent">Banket sent</option>
+										    	<option value="Wait for US feedback">Wait for US feedback</option>
+										    	<option value="China Team are confirming the colors">China Team are confirming the colors</option>
+										    	<option value="Blanket confirmed">Blanket confirmed</option>
 										  	</select>
 									  	</div>
 								  	</div>
@@ -430,9 +464,9 @@
 							  			<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ColorLineProgress" name="ColorLineProgress" size="1" style="width: 100%; height: 36px">
 										    	<option value="" selected>Enter</option>
-										    	<option value="Submitted">Proposal Submitted</option>
-										    	<option value="Revision">Revision Submitted</option>
-										    	<option value="Final">Final Version</option>
+										    	<option value="Proposal Submitted">Proposal Submitted</option>
+										    	<option value="Revision Submitted">Revision Submitted</option>
+										    	<option value="Colorline Confirmed">Colorline Confirmed</option>
 										  	</select>
 									  	</div>
 									  	<div style="flex: 1">
@@ -450,10 +484,10 @@
 							  			<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="RollSampleProgress" name="RollSampleProgress" size="1" style="width: 100%; height: 36px">
 										    	<option value="DNE" selected>Enter</option>
-										    	<option value="GotRotation">Got Colorline Rotation</option>
-										    	<option value="Arranged">Roll Sample Arranged</option>
-										    	<option value="Finished">Colorline Production Finished</option>
-										    	<option value="Shipped">Colorline Shipped</option>
+										    	<option value="Got Colorline Rotation">Got Colorline Rotation</option>
+										    	<option value="Roll Sample Arranged">Roll Sample Arranged</option>
+										    	<option value="Colorline Production Finished">Colorline Production Finished</option>
+										    	<option value="Colorline Shipped">Colorline Shipped</option>
 										  	</select>
 									  	</div>
 									  	<div style="flex: 1">
@@ -469,9 +503,9 @@
 							  			<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px">
 										    	<option value="DNE" selected>Enter</option>
-										    	<option value="Process">Testing In Process</option>
-										    	<option value="Passed">Passed</option>
-										    	<option value="Failed">Failed</option>
+										    	<option value="Testing In Process">Testing In Process</option>
+										    	<option value="Test Passed">Passed</option>
+										    	<option value="Test Failed">Failed</option>
 										  	</select>
 									  	</div>
 									  	<div style="flex: 1">
@@ -580,6 +614,9 @@
 											<div style="flex: 1">
 												<input type="date" id="USCommentDatestamp" name="USCommentDatestamp" class="border-0 rounded-0 bg-white" size="1" style="width: 100%; height: 100%">
 											</div>
+											<div style="flex: 1">
+			      								<button class="btn btn-link btn-sm text-decoration-none text-danger" type="button" name="cmtDeleteBtn">DELETE</button>
+											</div>
 										</div>
 									</div>
 									<div class="comment p-2" id="placeholder-comment-US">
@@ -642,7 +679,7 @@
 					<div class="container-fluid text-center mx-auto mt-2" style="width: 260px" id="savecontainer">
 				    	<div class="d-flex" style="gap: 10px">
 				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="submit" id="savebtn">SAVE</button>
-				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px; display: none" type="submit" onclick="setFormAction('SaveNewDevService?action=edit&devId=${devid}')" id="editbtn">EDIT</button>
+				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px; display: none" type="submit" onclick="setFormAction('SaveNewDevService?action=edit&devId=${devid}')" id="editbtn">SAVE</button>
 				   			<button class="btn border-0 btn-lg rounded-0 mb-3" style="flex: 1; background-color: #4D73FF; color: white; width: 180px" type="button" onclick="showModal()" id="deletebtn">DELETE</button>
 			   			</div>
 			   		</div>
@@ -653,7 +690,28 @@
 		</div>
 		 
 		<div class="d-flex flex-column gap-3" id="logBlock" name="logBlock" style="width: 160px; display: none">
-			<a id="ShowFullLogHistoryLink" name="ShowFullLogHistoryLink" href="" style="padding-left: 10px; color: #999999; font-size: 14px; text-decoration: underline">Show full log history</a>
+			<a id="ShowFullLogHistoryLink" href="#" name="ShowFullLogHistoryLink" style="padding-left: 10px; color: #999999; font-size: 14px; text-decoration: underline" onclick="showFullLogModal(event)">Show full log history</a>
+		</div>
+		
+		<div class="modal fade" id="dlCmtModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dlModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="staticBackdropLabel">Attention</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16" style="color: red">
+				  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+				  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+				</svg>&nbsp&nbspPlease confirm deletion of comment.
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" id="confirmCmtDelete"  data-bs-dismiss="modal">Confirm</button>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 		
 		<div class="modal fade" id="dlModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dlModalLabel" aria-hidden="true">
@@ -673,6 +731,33 @@
 				    <div class="modal-footer">
 				    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				    	<button type="button" class="btn btn-primary" id="confirmDelete" data-bs-dismiss="modal" onclick="redirect('SaveNewDevService?action=delete&devId=${devid}')">Confirm</button>
+				    </div>
+			 	</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="showFullLogModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="showFullLogModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				    <div class="modal-header">
+				    	<h5 class="modal-title" id="staticBackdropLabel">Full Log History</h5>
+			    		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	    			</div>
+				    <div class="modal-body">
+				    	<table class="table" id="logTable">
+				            <thead>
+				              <tr>
+				                <th>Name</th>
+				                <th>Date</th>
+				                <th>Content</th>
+				              </tr>
+				            </thead>
+				            <tbody>
+				            </tbody>
+			            </table>
+				    </div>
+				    <div class="modal-footer">
+				    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				    </div>
 			 	</div>
 			</div>
@@ -704,10 +789,30 @@
 		
 		if (user == "June") {
 			document.getElementById("USCommentBtn").disabled = true;
+			
+			const us = document.querySelectorAll('.UScommentDeleteBtn');
+			us.forEach(element => {
+			    element.style.display = 'none';
+			});
 		} else if (user == "Kellena" || user == "Nellie" || user == "David") {
 			document.getElementById("LeahCommentBtn").disabled = true;
 			document.getElementById("MillCommentBtn").disabled = true;
 			document.getElementById("GeorgeCommentBtn").disabled = true;
+			
+			const leah = document.querySelectorAll('.LeahcommentDeleteBtn');
+			leah.forEach(element => {
+			    element.style.display = 'none';
+			});
+			
+			const mill = document.querySelectorAll('.MillcommentDeleteBtn');
+			mill.forEach(element => {
+			    element.style.display = 'none';
+			});
+			
+			const george = document.querySelectorAll('.GeorgecommentDeleteBtn');
+			george.forEach(element => {
+			    element.style.display = 'none';
+			});
 		}
 	</script>
 </body>

@@ -307,7 +307,8 @@ public class DevData {
 				String name = rs.getString("name");
 				String datestamp = rs.getString("date_stamp");
 				String content = rs.getString("content");
-				Comment comment = new Comment(name, datestamp, content);
+				int commentid = rs.getInt("comment_id");
+				Comment comment = new Comment(name, datestamp, content, commentid);
 				comments.add(comment);
 			}
 		} catch (Exception e) {
@@ -455,6 +456,25 @@ public class DevData {
 			developmentStmt.setInt(1, id);
 			developmentStmt.executeUpdate();
 			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void deleteCommentById(int devid, int commentid) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String commentUpdate = "DELETE FROM comment WHERE development_id = ? AND comment_id = ?";
+			PreparedStatement commentStmt = con.prepareStatement(commentUpdate);
+			commentStmt.setInt(1, devid);
+			commentStmt.setInt(2, commentid);
+			commentStmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

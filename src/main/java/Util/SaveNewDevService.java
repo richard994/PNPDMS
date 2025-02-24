@@ -498,7 +498,7 @@ public class SaveNewDevService extends HttpServlet{
 		}
 		
 		if ("edit".equals(action) && !LeahComment.equals("")) {
-			Comment comment = new Comment("Leah", LeahComment_datestamp, LeahComment);
+			Comment comment = new Comment("Leah", LeahComment_datestamp, LeahComment, 0);
 			comments.add(comment);
 		} else if (!LeahComment.equals("")) {
 			devdata.insertComment(devid, "Leah", LeahComment_datestamp, LeahComment);
@@ -520,7 +520,7 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve datestamp of US comment.");
 		}
 		if ("edit".equals(action) && !USComment.equals("")) {
-			Comment comment = new Comment("US", USComment_datestamp, USComment);
+			Comment comment = new Comment("US", USComment_datestamp, USComment, 0);
 			comments.add(comment);
 		} else if (!USComment.equals("")) {
 			devdata.insertComment(devid, "US", USComment_datestamp, USComment);
@@ -543,7 +543,7 @@ public class SaveNewDevService extends HttpServlet{
 		}
 		
 		if ("edit".equals(action) && !MillComment.equals("")) {
-			Comment comment = new Comment("Mill", MillComment_datestamp, MillComment);
+			Comment comment = new Comment("Mill", MillComment_datestamp, MillComment, 0);
 			comments.add(comment);
 		} else if (!MillComment.equals("")) {
 			devdata.insertComment(devid, "Mill", MillComment_datestamp, MillComment);
@@ -566,7 +566,7 @@ public class SaveNewDevService extends HttpServlet{
 		}
 		
 		if ("edit".equals(action) && !GeorgeComment.equals("")) {
-			Comment comment = new Comment("George", GeorgeComment_datestamp, GeorgeComment);
+			Comment comment = new Comment("George", GeorgeComment_datestamp, GeorgeComment, 0);
 			comments.add(comment);
 		} else if (!GeorgeComment.equals("")) {
 			devdata.insertComment(devid, "George", GeorgeComment_datestamp, GeorgeComment);
@@ -581,10 +581,8 @@ public class SaveNewDevService extends HttpServlet{
 			Developments new_development = devdata.getDevelopmentById(devid);
 			ArrayList<Log> logs = devdata.getLogsById(old_dev_id);
 			logs.addAll(old_development.compare(new_development, userName));
-			if (!comments.isEmpty()) {
-				ArrayList<Log> comment_logs = getCommentLogs(devdata, comments, old_dev_id, devid, userName, DateTime);
-				logs.addAll(comment_logs);
-			}
+			ArrayList<Log> comment_logs = getCommentLogs(devdata, comments, old_dev_id, devid, userName, DateTime);
+			logs.addAll(comment_logs);
 			if (!logs.isEmpty()) {
 				for (Log log: logs) {
 					devdata.insertLog(devid, log.getName(), log.getDatestamp(), log.getContent());

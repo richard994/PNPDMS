@@ -161,8 +161,8 @@ public class Developments {
                 Object oldValue = field.get(this); // Get value from the current object
                 Object newValue = field.get(otherDev); // Get value from the other object
                 // If the values are different, create a Log object
-                if ((oldValue != null && !oldValue.equals(newValue)) || (oldValue == null && newValue != null)) {
-                	String oldval = oldValue.toString();
+                if (newValue != null && !oldValue.equals(newValue)) {
+                	String oldval = (oldValue == null) ? "none" : oldValue.toString();
                 	String newval = newValue.toString();
                 	if (attributeName.equals("Fabric_img_path") || attributeName.equals("Pid_path") || attributeName.equals("Test_report_path")) {
                 		if (oldval.equals("") || oldval.equals("none")) {
