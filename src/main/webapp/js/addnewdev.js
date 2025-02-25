@@ -295,10 +295,9 @@ function parseComments() {
 	    // Check if the content is not an empty string or null
 	    var content = comment.content.trim();  // Trim to remove spaces
 	    if (content !== "") {
-	        var commentText = content + "," + comment.datestamp;
 	        // Add the formatted comment to the appropriate list based on name
 	        if (categorizedComments[comment.name]) {
-	            categorizedComments[comment.name].push([commentText, comment.commentid]);
+	            categorizedComments[comment.name].push([content, comment.datestamp, comment.commentid]);
 	        }
 	    }
 	});
@@ -312,9 +311,7 @@ function parseComments() {
 				document.getElementById("placeholder-comment-" + name).style.display = "none";
 				var index = 0;
 	            commentsList.forEach(function(comment) {
-	                var conDateArr = comment[0].split(',');
-	                
-	                var row = document.createElement('div');
+					var row = document.createElement('div');
 	                row.classList.add('comment', 'p-0', 'd-flex');
 	                row.style.whiteSpace = "nowrap";
 	                
@@ -330,7 +327,7 @@ function parseComments() {
 				    commentTextsDiv.style.whiteSpace = "normal";
 				    commentTextsDiv.style.wordBreak = "break-all";
 				    var commentText = document.createElement('span');
-				    commentText.textContent = conDateArr[0]; 
+				    commentText.textContent = comment[0]; 
 				    commentTextsDiv.appendChild(commentText);
 				
 				    // Create the comment date div
@@ -340,7 +337,7 @@ function parseComments() {
 				    var commentDateSpanHdrDiv = document.createElement('div');
 				    commentDateSpanHdrDiv.style.float = "right";
 				    var commentDate = document.createElement('span');
-				    commentDate.textContent = conDateArr[1];
+				    commentDate.textContent = comment[1];
 				    commentDateSpanHdrDiv.appendChild(commentDate);
 				    commentDateDiv.appendChild(commentDateSpanHdrDiv);
 				    
@@ -359,7 +356,7 @@ function parseComments() {
 				    deleteBtn.style.fontSize = "14px";
 				    deleteBtn.style.padding = "4px 8px";
 				    deleteBtn.onclick = function() {
-					    showCmtModal(devid, comment[1]);
+					    showCmtModal(devid, comment[2]);
 					};
 					deleteBtn.disabled = view;
 				    deleteDiv.appendChild(deleteBtn);
