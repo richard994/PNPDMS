@@ -2,9 +2,6 @@ function validate() {
 	if (document.getElementById("Code").value == "") {
 		alert("Please enter fabric code!");
 		return false;
-	} else if (document.getElementById("Color").value == "") {
-		alert("Please enter fabric color!");
-		return false;
 	} else if (document.getElementById("FabricType").value == "") {
 		alert("Please enter fabric type!");
 		return false;
@@ -24,12 +21,9 @@ function validate() {
 		alert("Please enter warp type!");
 		return false;
 	} else if (document.getElementById("Content").value == "") {
-		alert("Please enter content! Example: 1% acrylic 99% polyester");
+		alert("Please enter content!");
 		return false;
-	}  else if (document.getElementById("MOQ").value == "") {
-		alert("Please enter MOQ!");
-		return false;
-	} else if (document.getElementById("Weight").value == "") {
+	}  else if (document.getElementById("Weight").value == "") {
 		alert("Please enter Weight!");
 		return false;
 	} else if (document.getElementById("PPCM").value == "") {
@@ -333,6 +327,8 @@ function parseComments() {
 				    var commentTextsDiv = document.createElement('div');
 				    commentTextsDiv.classList.add('commentTexts');
 				    commentTextsDiv.style.flex = "3";
+				    commentTextsDiv.style.whiteSpace = "normal";
+				    commentTextsDiv.style.wordBreak = "break-all";
 				    var commentText = document.createElement('span');
 				    commentText.textContent = conDateArr[0]; 
 				    commentTextsDiv.appendChild(commentText);
@@ -344,7 +340,7 @@ function parseComments() {
 				    var commentDateSpanHdrDiv = document.createElement('div');
 				    commentDateSpanHdrDiv.style.float = "right";
 				    var commentDate = document.createElement('span');
-				    commentDate.textContent = conDateArr[1]; 
+				    commentDate.textContent = conDateArr[1];
 				    commentDateSpanHdrDiv.appendChild(commentDate);
 				    commentDateDiv.appendChild(commentDateSpanHdrDiv);
 				    

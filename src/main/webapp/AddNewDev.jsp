@@ -391,7 +391,7 @@
 							    	<option value="YarnDyed">Yarn Dyed</option>
 							    	<option value="Piece">Piece Dyed</option>
 							    	<option value="Space">Space Dyed</option>
-							    	<option value="Jet">Jet Dyed</option>
+							    	<option value="Spray">Spray Dyed</option>
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
@@ -445,11 +445,9 @@
 						    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
 										    	<option value="DNE" selected>Enter</option>
-										    	<option value="Strike-off confirmed">Strike-off confirmed</option>
-										    	<option value="Wait for US blanket proceeding">Wait for US blanket proceeding</option>
+										    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
 										    	<option value="Blanket under production">Blanket under production</option>
-										    	<option value="Banket sent">Banket sent</option>
-										    	<option value="Wait for US feedback">Wait for US feedback</option>
+										    	<option value="Banket sent. Wait for US feedback">Banket sent. Wait for US feedback</option>
 										    	<option value="China Team are confirming the colors">China Team are confirming the colors</option>
 										    	<option value="Blanket confirmed">Blanket confirmed</option>
 										  	</select>
