@@ -5,8 +5,13 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.nio.file.*;
 
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+
+import javax.servlet.http.Part;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -15,7 +20,7 @@ import javax.servlet.http.*;
 @MultipartConfig
 public class SaveNewDevService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	private static final String UPLOAD_DIRECTORY = "uploads";
+	private static final String AWS_BUCKET = "databricks-workspace-stack-a24ba-bucket";
 	private static String code;
 	private static String color;
 	private static double cost;
@@ -61,6 +66,13 @@ public class SaveNewDevService extends HttpServlet{
 	private static String MillComment_datestamp;
 	private static String GeorgeComment;
 	private static String GeorgeComment_datestamp;
+	private static boolean IsKnit = false;
+	private static String designer;
+	private static String direction;
+	private static boolean GeorgeCanceled = false;
+	private S3Client s3Client = S3Client.builder()
+            .region(Region.of("us-west-2"))
+            .build();
 	
 	public SaveNewDevService() {}
 	
@@ -104,17 +116,14 @@ public class SaveNewDevService extends HttpServlet{
 	        String test_report_path = dev.getTest_report_path();
 	        if (!fabric_img_path.equals("none")) {
 	        	fabric_img_path = copyFile(fabric_img_path);
-	        	fabric_img_path = fabric_img_path.substring(fabric_img_path.indexOf(UPLOAD_DIRECTORY));
 	        	dev.setFabric_img_path(fabric_img_path);
 	        }
 	        if (!pid_path.equals("none")) {
 	        	pid_path = copyFile(pid_path);
-	        	pid_path = pid_path.substring(pid_path.indexOf(UPLOAD_DIRECTORY));
 	        	dev.setPid_path(pid_path);
 	        }
 	        if (!test_report_path.equals("none")) {
 	        	test_report_path = copyFile(test_report_path);
-	        	test_report_path = test_report_path.substring(test_report_path.indexOf(UPLOAD_DIRECTORY));
 	        	dev.setTest_report_path(test_report_path);
 	        }
 	        
@@ -212,6 +221,24 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("IsChenille unchecked.\n");
 		}
 		
+		temp = request.getParameterValues("KnitCB");
+		if (temp != null) {
+			IsKnit = true;
+			System.out.println("IsKnit checked.\n");
+		} else {
+			IsKnit = false;
+			System.out.println("IsKnit unchecked.\n");
+		}
+		
+		temp = request.getParameterValues("GeorgeCancelCB");
+		if (temp != null) {
+			GeorgeCanceled = true;
+			System.out.println("GeorgeCanceled checked.\n");
+		} else {
+			GeorgeCanceled = false;
+			System.out.println("GeorgeCanceled unchecked.\n");
+		}
+		
 		temp = request.getParameterValues("FabricType");
 		if (temp != null) {
 			fabric_type = temp[0];
@@ -234,6 +261,22 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Successfully retrieved colorist: " + colorist + "\n");
 		} else {
 			System.out.println("Fail to retrieve colorist.");
+		}
+		
+		temp = request.getParameterValues("Designer");
+		if (temp != null) {
+			designer = temp[0];
+			System.out.println("Successfully retrieved designer: " + designer + "\n");
+		} else {
+			System.out.println("Fail to retrieve designer.");
+		}
+		
+		temp = request.getParameterValues("Direction");
+		if (temp != null) {
+			direction = temp[0];
+			System.out.println("Successfully retrieved direction: " + direction + "\n");
+		} else {
+			System.out.println("Fail to retrieve direction.");
 		}
 		
 		temp = request.getParameterValues("Backing");
@@ -404,8 +447,10 @@ public class SaveNewDevService extends HttpServlet{
 		
 		if (test_status.equals("DNE")) {
 			currentPhase = "";
-		} else if (test_status.equals("Passed")) {
+		} else if (test_status.equals("Test Passed")) {
 			currentPhase = "Test Passed";
+		} else if (test_status.equals("Test Failed")){
+			currentPhase = "Test Failed";
 		} else {
 			currentPhase = "Testing";
 		}
@@ -415,8 +460,7 @@ public class SaveNewDevService extends HttpServlet{
         System.out.println("fabricPicPart: " + fabricPicPart);
         if (fabricPicPart != null && fabricPicPart.getSize() > 0) {
         	System.out.println("Size of file: " + fabricPicPart.getSize());
-        	String full_fabric_img_path = saveFile(fabricPicPart);
-        	fabric_img_path = full_fabric_img_path.substring(full_fabric_img_path.indexOf(UPLOAD_DIRECTORY));
+        	fabric_img_path = saveFile(fabricPicPart);
         	System.out.println("FabricPic stored at: " + fabric_img_path + "\n");
         } else {
         	fabric_img_path = "none";
@@ -427,8 +471,7 @@ public class SaveNewDevService extends HttpServlet{
         System.out.println("pidPicPart: " + pidPicPart);
         if (pidPicPart != null && pidPicPart.getSize() > 0) {
         	System.out.println("Size of file: " + pidPicPart.getSize());
-        	String full_pid_path = saveFile(pidPicPart);
-        	pid_path = full_pid_path.substring(full_pid_path.indexOf(UPLOAD_DIRECTORY));
+        	pid_path = saveFile(pidPicPart);
             System.out.println("PidPic stored at: " + pid_path + "\n");
         } else {
         	pid_path = "none";
@@ -439,8 +482,7 @@ public class SaveNewDevService extends HttpServlet{
         System.out.println("testReportPicPart: " + testReportPicPart);
         if (testReportPicPart != null && testReportPicPart.getSize() > 0) {
         	System.out.println("Size of file: " + testReportPicPart.getSize());
-        	String full_test_report_path = saveFile(testReportPicPart);
-        	test_report_path = full_test_report_path.substring(full_test_report_path.indexOf(UPLOAD_DIRECTORY));
+        	test_report_path = saveFile(testReportPicPart);
             System.out.println("TestReportPic stored at: " + test_report_path + "\n");
         } else {
         	test_report_path = "none";
@@ -478,7 +520,7 @@ public class SaveNewDevService extends HttpServlet{
 				DateCurrentPhase = old_development.getDateCurrentPhase();
 			}
 		}
-		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase);
+		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, IsKnit, designer, direction, GeorgeCanceled);
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		
 		temp = request.getParameterValues("LeahCommentInput");
@@ -602,23 +644,24 @@ public class SaveNewDevService extends HttpServlet{
 
 
 	private String saveFile(Part part) throws IOException {
-	    if (part != null && part.getSize() > 0) {
-	        String fileName = getFileName(part);
-	        String filePath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
-	        File storeFile = new File(filePath);
-	        
-	        // Check if the file exists and modify the name if necessary
-	        fileName = getUniqueFileName(fileName, filePath);  // Get a unique file name if needed
-	        filePath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
-	        storeFile = new File(filePath);
-	        
-	        if (!storeFile.exists()) {
-	        	storeFile.mkdirs();
-	        }
-	        part.write(storeFile.getAbsolutePath());
-	        return filePath;
-	    }
-	    return null;
+		if (part != null && part.getSize() > 0) {
+            String fileName = getFileName(part);
+            String uniqueFileName = getUniqueFileName(fileName);  // Get unique file name for S3
+
+            // Upload file to S3
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                                                                .bucket(AWS_BUCKET)
+                                                                .key(uniqueFileName)
+                                                                .build();
+
+            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(part.getInputStream(), part.getSize()));
+
+            System.out.println("Successfully uploaded file: " + uniqueFileName);
+
+            // Return the S3 URL of the uploaded file
+            return s3Client.utilities().getUrl(b -> b.bucket(AWS_BUCKET).key(uniqueFileName)).toString();
+        }
+        return null;
 	}
 	
 	private String getFileName(Part part) {
@@ -631,48 +674,49 @@ public class SaveNewDevService extends HttpServlet{
 	}
 	
 	private void deleteFile(String filename) {
-		// Construct the full file path using the relative path stored in the database
-	    String filePath = getServletContext().getRealPath("") + File.separator + filename;
-	    System.out.println("Deleting file at file path: " + filePath + ".\n");
-	    
-		File file = new File(filePath);
+		if (filename.equals("none")) {
+			System.out.println("No file to delete.");
+			return;
+		}
+		
+		try {
+			// Define source and destination for the copy
+            String strippedFilename = filename.substring(filename.indexOf("com/") + "com/".length());
+            // Delete file from S3
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                                                                        .bucket(AWS_BUCKET)
+                                                                        .key(strippedFilename)
+                                                                        .build();
 
-        // Check if the file exists and delete it
-        if (file.exists()) {
-            if (file.delete()) {
-                System.out.println("File deleted successfully.");
-            } else {
-                System.out.println("Failed to delete the file.");
-            }
-        } else {
-            System.out.println("File does not exist.");
+            s3Client.deleteObject(deleteObjectRequest);
+            System.out.println("Successfully deleted file from S3: " + strippedFilename);
+        } catch (S3Exception e) {
+            System.out.println("Error occurred while deleting the file from S3.");
+            e.printStackTrace();
         }
 	}
 	
 	private String copyFile(String filename) {
-		// Construct the full file path using the relative path stored in the database
-	    String filePath = getServletContext().getRealPath("") + File.separator + filename;
-	    String stripped_filename = filename.substring(filename.indexOf("uploads/") + "uploads/".length());
-	    String destPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + "duplicated_" + stripped_filename;
-	    System.out.println("Copying file at file path: " + filePath + " to " + destPath + ".\n");
-	    
-	    // Specify the source image file and the destination file
-        Path sourcePath = Paths.get(filePath);
-        Path destinationPath = Paths.get(destPath);
+		try {
+            // Define source and destination for the copy
+            String strippedFilename = filename.substring(filename.indexOf("com/") + "com/".length());
+            String newFileName = "duplicated_" + strippedFilename;
 
-        try {
-            // Copy the file
-        	while (Files.exists(destinationPath)) {
-        		stripped_filename = destPath.substring(destPath.indexOf("uploads/") + "uploads/".length());
-        		destPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + "duplicated_" + stripped_filename;
-        		destinationPath = Paths.get(destPath);
-        	}
-            Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("File copied successfully.");
-            return destPath;
-        } catch (IOException e) {
+            // Copy the file within the same S3 bucket
+            CopyObjectRequest copyObjectRequest = CopyObjectRequest.builder()
+                                                                   .sourceBucket(AWS_BUCKET)
+                                                                   .sourceKey(strippedFilename)
+                                                                   .destinationBucket(AWS_BUCKET)
+                                                                   .destinationKey(newFileName)
+                                                                   .build();
+
+            s3Client.copyObject(copyObjectRequest);
+
+            System.out.println("Successfully copied file in S3 to: " + newFileName);
+            return s3Client.utilities().getUrl(b -> b.bucket(AWS_BUCKET).key(newFileName)).toString();
+        } catch (S3Exception e) {
+            System.out.println("Error occurred while copying the file in S3.");
             e.printStackTrace();
-            System.out.println("Error occurred while copying the file.");
         }
         return "";
 	}
@@ -710,25 +754,32 @@ public class SaveNewDevService extends HttpServlet{
 	}
 	
 	// Function to generate a unique file name if the file already exists
-	private String getUniqueFileName(String fileName, String filePath) {
-	    String filename = fileName;
-	    int counter = 1;
-	    
-	    Path destinationPath = Paths.get(filePath);
+	private String getUniqueFileName(String fileName) {
+		String filename = fileName;
+        int counter = 1;
 
-	    // Loop to check if the file already exists and increment the name if it does
-	    while (Files.exists(destinationPath)) {
-	        // Split the file name and extension
-	        String baseName = filename.substring(0, filename.lastIndexOf("."));
-	        String extension = filename.substring(filename.lastIndexOf("."));
-	        
-	        // Create a new file name by adding the counter
-	        fileName = baseName + "(" + counter + ")" + extension;
-	        filePath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + fileName;
-	        destinationPath = Paths.get(filePath);
-	        counter++;  // Increment the counter for the next potential duplicate
-	    }
+        // Check if the file already exists in S3, if so, generate a new name
+        while (doesObjectExist(filename)) {
+            String baseName = filename.substring(0, filename.lastIndexOf("."));
+            String extension = filename.substring(filename.lastIndexOf("."));
 
-	    return fileName;  // Return the unique file name
+            filename = baseName + "(" + counter + ")" + extension;
+            counter++;
+        }
+
+        return filename;  // Return the unique file name
 	}
+	
+	private boolean doesObjectExist(String key) {
+        try {
+            HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
+                                                                   .bucket(AWS_BUCKET)
+                                                                   .key(key)
+                                                                   .build();
+            s3Client.headObject(headObjectRequest);
+            return true; // Object exists
+        } catch (NoSuchKeyException e) {
+            return false; // Object does not exist
+        }
+    }
 }

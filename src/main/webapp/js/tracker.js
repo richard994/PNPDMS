@@ -61,3 +61,28 @@ function redirect(url) {
 function showModal() {
 	$('#expModal').modal("show");
 }
+
+function populateAllInputs() {
+	document.getElementById("ParagonCleanCB").checked = dev.paragonClean;
+	document.getElementById("FCLCB").checked = dev.is400hrFCL;
+	document.getElementById("PDCB").checked = dev.pieceDyed;
+	document.getElementById("ChenilleCB").checked = dev.chenille;
+	document.getElementById("FeedbackCB").checked = dev.needFeedback;
+	document.getElementById("SDYCB").checked = dev.sdy;
+	document.getElementById("KnitCB").checked = dev.knit;
+	document.getElementById("GeorgeCancelCB").checked = dev.georgeCanceled;
+	document.getElementById("FabricType").value = dev.fabric_type;
+	document.getElementById("DesignType").value = dev.design_type;
+	document.getElementById("Colorist").value = dev.colorist;
+	document.getElementById("Designer").value = dev.designer;
+	document.getElementById("Season").value = dev.season;
+	document.getElementById("YarnType").value = dev.yarn_type;
+	document.getElementById("WarpType").value = dev.warp_type;
+	document.getElementById("Direction").value = dev.direction;
+	document.getElementById("Content").value = dev.content;
+	document.getElementById("StrikeProgress").value = dev.strike_off_status;
+	document.getElementById("BlanketProgress").value = dev.blanket_status;
+	document.getElementById("ColorLineProgress").value = dev.colorline_status;
+	document.getElementById("RollSampleProgress").value = dev.rollsample_status;
+	document.getElementById("TestingProgress").value = dev.test_status;
+}

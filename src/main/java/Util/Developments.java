@@ -42,6 +42,12 @@ public class Developments {
 	private String dateTime;
 	private String LastModified;
 	private String DateCurrentPhase;
+	private boolean isKnit;
+	private String Designer;
+	private String Direction;
+	private boolean GeorgeCanceled;
+	private double priceMin;
+	private double priceMax;
 	
 	public Developments() {}
 	
@@ -53,7 +59,8 @@ public class Developments {
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, double moq, double weight, int numColorline, 
 			double ppcm, String note, String fabric_img_path, String pid_path, 
-			String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
+			String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
+			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -92,6 +99,10 @@ public class Developments {
 		setDateTime(DateTime);
 		setLastModified(LastModified);
 		setDateCurrentPhase(DateCurrentPhase);
+		setKnit(IsKnit);
+		setDesigner(designer);
+		setDirection(direction);
+		setGeorgeCanceled(GeorgeCanceled);
 	}
 	
 	public void setAll(int id, String code, String color, double cost, 
@@ -101,7 +112,8 @@ public class Developments {
 			String blanket_status, String colorline_status, String colorline_datestamp,
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, double moq, double weight, int numColorline, double ppcm, String note, String fabric_img_path, 
-			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
+			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
+			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -140,6 +152,10 @@ public class Developments {
 		setDateTime(DateTime);
 		setLastModified(LastModified);
 		setDateCurrentPhase(DateCurrentPhase);
+		setKnit(IsKnit);
+		setDesigner(designer);
+		setDirection(direction);
+		setGeorgeCanceled(GeorgeCanceled);
 	}
 	
 	public ArrayList<Log> compare(Developments otherDev, String username) {
@@ -161,7 +177,7 @@ public class Developments {
                 Object oldValue = field.get(this); // Get value from the current object
                 Object newValue = field.get(otherDev); // Get value from the other object
                 // If the values are different, create a Log object
-                if (newValue != null && !oldValue.equals(newValue)) {
+                if (newValue != null && !newValue.equals(oldValue)) {
                 	String oldval = (oldValue == null) ? "none" : oldValue.toString();
                 	String newval = newValue.toString();
                 	if (attributeName.equals("Fabric_img_path") || attributeName.equals("Pid_path") || attributeName.equals("Test_report_path")) {
@@ -488,5 +504,53 @@ public class Developments {
 
 	public void setChenille(boolean isChenille) {
 		this.isChenille = isChenille;
+	}
+
+	public boolean isKnit() {
+		return isKnit;
+	}
+
+	public void setKnit(boolean isKnit) {
+		this.isKnit = isKnit;
+	}
+
+	public String getDesigner() {
+		return Designer;
+	}
+
+	public void setDesigner(String designer) {
+		Designer = designer;
+	}
+
+	public String getDirection() {
+		return Direction;
+	}
+
+	public void setDirection(String direction) {
+		Direction = direction;
+	}
+
+	public boolean isGeorgeCanceled() {
+		return GeorgeCanceled;
+	}
+
+	public void setGeorgeCanceled(boolean georgeCanceled) {
+		GeorgeCanceled = georgeCanceled;
+	}
+
+	public double getPriceMin() {
+		return priceMin;
+	}
+
+	public void setPriceMin(double priceMin) {
+		this.priceMin = priceMin;
+	}
+
+	public double getPriceMax() {
+		return priceMax;
+	}
+
+	public void setPriceMax(double priceMax) {
+		this.priceMax = priceMax;
 	}
 }

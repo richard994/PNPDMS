@@ -105,6 +105,10 @@ CREATE TABLE `development` (
   `DateTime` varchar(50) NOT NULL,
   `LastModified` varchar(50) NOT NULL,
   `DateCurrentPhase` varchar(50) NOT NULL,
+  `IsKnit` BOOLEAN DEFAULT false,
+  `designer` varchar(50),
+  `direction` varchar(50),
+  `GeorgeCanceled` BOOLEAN DEFAULT false,
   PRIMARY KEY (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

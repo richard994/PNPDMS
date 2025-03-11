@@ -36,15 +36,15 @@ public class DevData {
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, double moq, double weight, 
 			int numColorline, double ppcm, String note, String fabric_img_path, 
-			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase) {
+			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, boolean isKnit, String designer, String direction, boolean georgeCanceled) {
 		try {
 			getConn();
 			String sql = "INSERT INTO MijuPrice.development(code, color, cost, IsParagonClean, Is400hrFCL, "
 					+ "IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, "
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
-					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, IsKnit, designer, direction, GeorgeCanceled) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, code);
 			stmt.setString(2, color);
@@ -83,6 +83,10 @@ public class DevData {
 			stmt.setString(35, DateTime);
 			stmt.setString(36, LastModified);
 			stmt.setString(37, DateCurrentPhase);
+			stmt.setBoolean(38, isKnit);
+			stmt.setString(39, designer);
+			stmt.setString(40, direction);
+			stmt.setBoolean(41, georgeCanceled);
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys
@@ -201,6 +205,10 @@ public class DevData {
 				String LastModified = rs.getString("LastModified");
 				String DateCurrentPhase = rs.getString("DateCurrentPhase");
 				int dev_id = rs.getInt("development_id");
+				boolean isKnit = rs.getBoolean("IsKnit");
+				String designer = rs.getString("designer");
+				String direction = rs.getString("direction");
+				boolean georgeCanceled = rs.getBoolean("GeorgeCanceled");
 				Developments development = new Developments(dev_id, code, color, cost, 
 										IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
 										IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, 
@@ -209,7 +217,8 @@ public class DevData {
 										rollsample_status, rollsample_datestamp, test_status,
 										test_datestamp, moq, weight, 
 										numColorline, ppcm, note, fabric_img_path, 
-										pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase);
+										pid_path, test_report_path, currentPhase, DateTime, LastModified, 
+										DateCurrentPhase, isKnit, designer, direction, georgeCanceled);
 				developments.add(development);
 			}
 			return developments;
@@ -270,6 +279,10 @@ public class DevData {
 				String DateTime = rs.getString("DateTime");
 				String LastModified = rs.getString("LastModified");
 				String DateCurrentPhase = rs.getString("DateCurrentPhase");
+				boolean isKnit = rs.getBoolean("IsKnit");
+				String designer = rs.getString("designer");
+				String direction = rs.getString("direction");
+				boolean georgeCanceled = rs.getBoolean("GeorgeCanceled");
 				
 				development.setAll(id, code, color, cost, 
 									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
@@ -279,7 +292,8 @@ public class DevData {
 									rollsample_status, rollsample_datestamp, test_status,
 									test_datestamp, moq, weight, 
 									numColorline, ppcm, note, fabric_img_path, 
-									pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase);
+									pid_path, test_report_path, currentPhase, DateTime, LastModified, 
+									DateCurrentPhase, isKnit, designer, direction, georgeCanceled);
 			}
 			return development;
 		} catch (Exception e) {
@@ -370,8 +384,9 @@ public class DevData {
 					+ "IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, "
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
-					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, "
+					+ "IsKnit, designer, direction, GeorgeCanceled) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, dev.getCode());
 			stmt.setString(2, dev.getColor());
@@ -410,6 +425,10 @@ public class DevData {
 			stmt.setString(35, dev.getDateTime());
 			stmt.setString(36, dev.getLastModified());
 			stmt.setString(37, dev.getDateCurrentPhase());
+			stmt.setBoolean(38, dev.isKnit());
+			stmt.setString(39, dev.getDesigner());
+			stmt.setString(40, dev.getDirection());
+			stmt.setBoolean(41, dev.isGeorgeCanceled());
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys

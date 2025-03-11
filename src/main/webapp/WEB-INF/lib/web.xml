@@ -1,0 +1,179 @@
+<web-app>
+    <!-- Servlet Declarations -->
+    <servlet>
+        <servlet-name>CalcService</servlet-name>
+        <servlet-class>Util.CalcService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>CopyService</servlet-name>
+        <servlet-class>Util.CopyService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>CreateService</servlet-name>
+        <servlet-class>Util.CreateService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>DeleteService</servlet-name>
+        <servlet-class>Util.DeleteService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>EditService</servlet-name>
+        <servlet-class>Util.EditService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>ExportService</servlet-name>
+        <servlet-class>Util.ExportService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>FilterService</servlet-name>
+        <servlet-class>Util.FilterService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>FinishService</servlet-name>
+        <servlet-class>Util.FinishService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>HomeService</servlet-name>
+        <servlet-class>Util.HomeService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>LoginService</servlet-name>
+        <servlet-class>Util.LoginService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>LogoutService</servlet-name>
+        <servlet-class>Util.LogoutService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>MatService</servlet-name>
+        <servlet-class>Util.MatService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>NewDevService</servlet-name>
+        <servlet-class>Util.NewDevService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>PricingService</servlet-name>
+        <servlet-class>Util.PricingService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>SaveNewDevService</servlet-name>
+        <servlet-class>Util.SaveNewDevService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>TrackerService</servlet-name>
+        <servlet-class>Util.TrackerService</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Servlet Mappings -->
+    <servlet-mapping>
+        <servlet-name>CalcService</servlet-name>
+        <url-pattern>/CalcService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>CopyService</servlet-name>
+        <url-pattern>/CopyService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>CreateService</servlet-name>
+        <url-pattern>/CreateService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>DeleteService</servlet-name>
+        <url-pattern>/DeleteService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>EditService</servlet-name>
+        <url-pattern>/EditService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ExportService</servlet-name>
+        <url-pattern>/ExportService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>FilterService</servlet-name>
+        <url-pattern>/FilterService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>FinishService</servlet-name>
+        <url-pattern>/FinishService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>HomeService</servlet-name>
+        <url-pattern>/HomeService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>LoginService</servlet-name>
+        <url-pattern>/LoginService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>LogoutService</servlet-name>
+        <url-pattern>/LogoutService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>MatService</servlet-name>
+        <url-pattern>/MatService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>NewDevService</servlet-name>
+        <url-pattern>/NewDevService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>PricingService</servlet-name>
+        <url-pattern>/PricingService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>SaveNewDevService</servlet-name>
+        <url-pattern>/SaveNewDevService</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>TrackerService</servlet-name>
+        <url-pattern>/TrackerService</url-pattern>
+    </servlet-mapping>
+</web-app>

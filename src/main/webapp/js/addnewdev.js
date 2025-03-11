@@ -75,10 +75,16 @@ const test = document.getElementById("TestingProgress");
 
 strike.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (selectedValue == "Confirmed") {
+	if (selectedValue == "Strike-off confirmed") {
+		document.getElementById("StrikeNoProgress").style.display = "none";
 		document.getElementById("StrikeProgressing").style.display = "none";
 		document.getElementById("StrikeProgressed").style.display = "block";
+	} else if (selectedValue == "DNE") {
+		document.getElementById("StrikeNoProgress").style.display = "block";
+		document.getElementById("StrikeProgressing").style.display = "none";
+		document.getElementById("StrikeProgressed").style.display = "none";
 	} else {
+		document.getElementById("StrikeNoProgress").style.display = "none";
 		document.getElementById("StrikeProgressing").style.display = "block";
 		document.getElementById("StrikeProgressed").style.display = "none";
 	}
@@ -86,7 +92,7 @@ strike.addEventListener("change", function(event) {
 
 blanket.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (selectedValue == "Shipped" || selectedValue == "ColorSubmitted") {
+	if (selectedValue == "Blanket confirmed") {
 		document.getElementById("BlanketNoProgress").style.display = "none";
 		document.getElementById("BlanketProgressing").style.display = "none";
 		document.getElementById("BlanketProgressed").style.display = "block";
@@ -103,7 +109,7 @@ blanket.addEventListener("change", function(event) {
 
 roll.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (selectedValue == "Shipped" || selectedValue == "Finished") {
+	if (selectedValue == "Roll samples to Yibei") {
 		document.getElementById("RollNoProgress").style.display = "none";
 		document.getElementById("RollProgressing").style.display = "none";
 		document.getElementById("RollProgressed").style.display = "block";
@@ -120,7 +126,7 @@ roll.addEventListener("change", function(event) {
 
 test.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (selectedValue == "Passed") {
+	if (selectedValue == "Test Passed") {
 		document.getElementById("TestNoProgress").style.display = "none";
 		document.getElementById("TestProgressing").style.display = "none";
 		document.getElementById("TestProgressed").style.display = "block";
@@ -236,14 +242,18 @@ function populateAllInputs() {
 	document.getElementById("ChenilleCB").checked = dev.chenille;
 	document.getElementById("FeedbackCB").checked = dev.needFeedback;
 	document.getElementById("SDYCB").checked = dev.sdy;
+	document.getElementById("KnitCB").checked = dev.knit;
+	document.getElementById("GeorgeCancelCB").checked = dev.georgeCanceled;
 	document.getElementById("FabricType").value = dev.fabric_type;
 	document.getElementById("DesignType").value = dev.design_type;
 	document.getElementById("Colorist").value = dev.colorist;
+	document.getElementById("Designer").value = dev.designer;
 	const selectedFinArr = dev.finishing_used.split(",");
 	document.querySelector('#Backing').setValue(selectedFinArr, false);
 	document.getElementById("Season").value = dev.season;
 	document.getElementById("YarnType").value = dev.yarn_type;
 	document.getElementById("WarpType").value = dev.warp_type;
+	document.getElementById("Direction").value = dev.direction;
 	document.getElementById("Content").value = dev.content;
 	if (dev.strike_off_status !== "DNE") {
 		document.getElementById("StrikeProgress").value = dev.strike_off_status;
@@ -253,9 +263,9 @@ function populateAllInputs() {
 		document.getElementById("BlanketStatus").value = dev.blanket_status;
 		document.getElementById("BlanketStatus").dispatchEvent(new Event('change'));
 	}
+	document.getElementById("ColorLineProgress").value = dev.colorline_status;
+	document.getElementById("ColorlineDatestamp").value = dev.colorline_datestamp;
 	if (dev.rollsample_status !== "DNE") {
-		document.getElementById("ColorLineProgress").value = dev.colorline_status;
-		document.getElementById("ColorlineDatestamp").value = dev.colorline_datestamp;
 		document.getElementById("RollSampleProgress").value = dev.rollsample_status;
 		document.getElementById("RollSampleDatestamp").value = dev.rollsample_datestamp;
 		document.getElementById("RollSampleProgress").dispatchEvent(new Event('change'));
@@ -276,7 +286,11 @@ function populateAllInputs() {
 	var daysPassed = difference / (1000 * 60 * 60 * 24);
 	daysPassed = Math.floor(daysPassed);
 	document.getElementById("CurrDaySpent").textContent = daysPassed;
-	parseComments();
+	if (view) {
+		document.getElementById("CommentContainer").style.display = "none";
+	} else {
+		parseComments();
+	}
 	parseLogs();
 }
 

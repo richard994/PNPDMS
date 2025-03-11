@@ -91,6 +91,14 @@
 				<div class="rounded-0 mt-2 overflow-auto" id="progress">
 			    	<div class="container-fluid text-center pt-4">
 			    		<div class="row d-flex align-items-center justify-content-center">
+			    			<div class="col" id="StrikeNoProgress">
+			    				<div class="d-flex align-items-center justify-content-center opacity-50">
+				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-circle" viewBox="0 0 16 16">
+								  		<path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306Z"/>
+									</svg>
+				    				<span>&nbsp&nbspStrike-off</span>
+			    				</div>
+			    			</div>
 			    			<div class="col" style="margin-left: 120px" id="StrikeProgressing">
 			    				<div class="d-flex align-items-center justify-content-center" style="color: #4D73FF">
 				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle-fill" viewBox="0 0 16 16">
@@ -296,6 +304,8 @@
 								  Chenille
 								</label>
 							</div>
+		            	</div>
+		            	<div class="d-flex mt-4" id="CheckBoxes" style="white-space: nowrap; gap: 30px">
 		            		<div class="form-check" style="flex: 1">
 								<input class="form-check-input" type="checkbox" id="FeedbackCB" name="FeedbackCB">
 								<label class="form-check-label" for="FeedbackCB">
@@ -306,6 +316,18 @@
 								<input class="form-check-input" type="checkbox" id="SDYCB" name="SDYCB">
 								<label class="form-check-label" for="SDYCB">
 								  SDY
+								</label>
+							</div>
+							<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" id="KnitCB" name="KnitCB">
+								<label class="form-check-label" for="KnitCB">
+								  Knit
+								</label>
+							</div>
+							<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" id="GeorgeCancelCB" name="GeorgeCancelCB">
+								<label class="form-check-label" for="GeorgeCancelCB">
+								  George Canceled
 								</label>
 							</div>
 		            	</div>
@@ -349,17 +371,14 @@
 							    	<option value="derocher">Derocher</option>
 							  	</select>
 						  	</div>
-						  	<div style="flex: 1; transform: translateY(-1px)">
-			    				<label for="Backing" class="control-label opacity-75">Finishing</label>
-			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Backing" name="Backing" size="1" placeholder="Select Multiple" data-search="true" data-silent-initial-value-set="true" style="width: 100%; height: 36px" multiple>
-							    	<option value="KC">KC</option>
-							    	<option value="NP">NP</option>
-							    	<option value="HS">HS</option>
-							    	<option value="TC">TC</option>
-							    	<option value="AW">AW</option>
-							    	<option value="SPB">SPB</option>
-							    	<option value="FB">FB</option>
-							    	<option value="KB">KB</option>
+						  	<div style="flex: 1">
+			    				<label for="Designer" class="control-label opacity-75">Designer</label>
+			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Designer" name="Designer" size="1" style="width: 100%; height: 36px">
+							    	<option value="" selected>Enter</option>
+							    	<option value="house">House</option>
+							    	<option value="Outsource">Outsource</option>
+							    	<option value="crowder">Crowder</option>
+							    	<option value="derocher">Derocher</option>
 							  	</select>
 						  	</div>
 		                </div>
@@ -408,6 +427,16 @@
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
+			    				<label for="Direction" class="control-label opacity-75">Direction</label>
+			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Direction" name="Direction" size="1" style="width: 100%; height: 36px">
+							    	<option value="" selected>Enter</option>
+							    	<option value="UU">UU</option>
+							    	<option value="UTR">UTR</option>
+							  	</select>
+						  	</div>
+		            	</div>
+		            	<div class="d-flex mt-2" style="gap: 15px">
+		            		<div style="flex: 1">
 			    				<label for="Content" class="control-label opacity-75">Content<span style="font-size: 12px">(%Mix)</span></label>
 			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Content" name="Content" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 						  			<option value="" selected>Enter</option>
@@ -422,6 +451,19 @@
 							    	<option value="10%V 90%P">10%V 90%P</option>
 						  		</select>
 						  	</div>
+						  	<div style="flex: 1">
+			    				<label for="Backing" class="control-label opacity-75">Finishing</label>
+			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Backing" name="Backing" size="1" placeholder="Select Multiple" data-search="true" data-silent-initial-value-set="true" style="width: 100%; height: 36px" multiple>
+							    	<option value="KC">KC</option>
+							    	<option value="NP">NP</option>
+							    	<option value="HS">HS</option>
+							    	<option value="TC">TC</option>
+							    	<option value="AW">AW</option>
+							    	<option value="SPB">SPB</option>
+							    	<option value="FB">FB</option>
+							    	<option value="KB">KB</option>
+							  	</select>
+						  	</div>
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 15px">
 		                	<div style="flex: 2">
@@ -430,12 +472,10 @@
 		                				<div id="StrikeBlock">
 						    				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
-										    	<option value="" selected>Enter</option>
+										    	<option value="DNE" selected>Enter</option>
 										    	<option value="Wait for US feedback">Wait for US feedback</option>
 										    	<option value="US canceled">US canceled</option>
-										    	<option value="US confirmed, but George canceled">US confirmed, but George canceled</option>
 										    	<option value="Strike-off producing">Strike-off producing</option>
-										    	<option value="Being tested">Being tested</option>
 										    	<option value="Strike-off confirmed">Strike-off confirmed</option>
 										  	</select>
 									  	</div>
@@ -447,7 +487,7 @@
 										    	<option value="DNE" selected>Enter</option>
 										    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
 										    	<option value="Blanket under production">Blanket under production</option>
-										    	<option value="Banket sent. Wait for US feedback">Banket sent. Wait for US feedback</option>
+										    	<option value="Blanket sent. Wait for US feedback">Blanket sent. Wait for US feedback</option>
 										    	<option value="China Team are confirming the colors">China Team are confirming the colors</option>
 										    	<option value="Blanket confirmed">Blanket confirmed</option>
 										  	</select>
@@ -462,9 +502,9 @@
 							  			<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ColorLineProgress" name="ColorLineProgress" size="1" style="width: 100%; height: 36px">
 										    	<option value="" selected>Enter</option>
-										    	<option value="Proposal Submitted">Proposal Submitted</option>
-										    	<option value="Revision Submitted">Revision Submitted</option>
-										    	<option value="Colorline Confirmed">Colorline Confirmed</option>
+										    	<option value="Yibei has received all colors">Yibei has received all colors</option>
+										    	<option value="Colorline completed">Colorline completed</option>
+										    	<option value="Colorline shipped">Colorline shipped</option>
 										  	</select>
 									  	</div>
 									  	<div style="flex: 1">
@@ -482,10 +522,9 @@
 							  			<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="RollSampleProgress" name="RollSampleProgress" size="1" style="width: 100%; height: 36px">
 										    	<option value="DNE" selected>Enter</option>
-										    	<option value="Got Colorline Rotation">Got Colorline Rotation</option>
-										    	<option value="Roll Sample Arranged">Roll Sample Arranged</option>
-										    	<option value="Colorline Production Finished">Colorline Production Finished</option>
-										    	<option value="Colorline Shipped">Colorline Shipped</option>
+										    	<option value="Roll Samples Arranged">Roll Samples Arranged</option>
+										    	<option value="Roll samples completed">Roll samples completed</option>
+										    	<option value="Roll samples to Yibei">Roll samples to Yibei</option>
 										  	</select>
 									  	</div>
 									  	<div style="flex: 1">
@@ -779,6 +818,8 @@
 		if (view) {
 			disableAllInputs(); 
 			populateAllInputs();
+			// Disable the Virtual Select instance
+			document.querySelector('#Backing').disable();
 		} else if (edit) {
 			populateAllInputs();
 			document.getElementById("savebtn").style.display = "none";

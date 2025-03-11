@@ -24,8 +24,9 @@
 			color: black;
 		}
 	</style>
-	<script>
+	<script defer>
 		var filtered = ${filtered};
+		var dev = JSON.parse('${filterdev}');
 	</script>
 </head>
 
@@ -144,6 +145,12 @@
 					</label>
 				</div>
 				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="ChenilleCB" name="ChenilleCB">
+					<label class="form-check-label" for="ChenilleCB">
+					  Chenille
+					</label>
+				</div>
+				<div class="form-check mt-4">
 					<input class="form-check-input" type="checkbox" id="FeedbackCB" name="FeedbackCB">
 					<label class="form-check-label" for="FeedbackCB">
 					  Need US Feedback?
@@ -152,9 +159,29 @@
 				<div class="form-check mt-4">
 					<input class="form-check-input" type="checkbox" id="SDYCB" name="SDYCB">
 					<label class="form-check-label" for="SDYCB">
-					  Is SDY?
+					  SDY
 					</label>
 				</div>
+				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="KnitCB" name="KnitCB">
+					<label class="form-check-label" for="KnitCB">
+					  Knit
+					</label>
+				</div>
+				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="GeorgeCancelCB" name="GeorgeCancelCB">
+					<label class="form-check-label" for="GeorgeCancelCB">
+					  George Canceled
+					</label>
+				</div>
+				<div class="d-flex flex-column mt-4">
+    				<label for="FabricType" class="control-label opacity-75">Fabric Type</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="FabricType" name="FabricType" size="1" style="width: 100%; height: 36px">
+				    	<option value="" selected>Enter</option>
+				    	<option value="Base">Base</option>
+				    	<option value="Jaquard">Jaquard</option>
+				  	</select>
+			  	</div>
     			<div class="d-flex flex-column mt-4">
     				<label for="Season" class="control-label opacity-75">Season</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Season" name="Season" size="1" style="width: 100%; height: 36px">
@@ -196,6 +223,26 @@
 				    	<option value="30SP to 30FA">30SP to 30FA</option>
 				  	</select>
     			</div>
+    			<div class="d-flex flex-column mt-4">
+    				<label for="Colorist" class="control-label opacity-75">Colorist</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Colorist" name="Colorist" size="1" style="width: 100%; height: 36px">
+				    	<option value="" selected>Enter</option>
+				    	<option value="house">House</option>
+				    	<option value="marteen">Marteen</option>
+				    	<option value="crowder">Crowder</option>
+				    	<option value="derocher">Derocher</option>
+				  	</select>
+			  	</div>
+			  	<div class="d-flex flex-column mt-4">
+    				<label for="Designer" class="control-label opacity-75">Designer</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Designer" name="Designer" size="1" style="width: 100%; height: 36px">
+				    	<option value="" selected>Enter</option>
+				    	<option value="house">House</option>
+				    	<option value="Outsource">Outsource</option>
+				    	<option value="crowder">Crowder</option>
+				    	<option value="derocher">Derocher</option>
+				  	</select>
+			  	</div>
  			    <div class="d-flex flex-column mt-4">
     				<label for="WarpType" class="control-label opacity-75">Warp Type</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="WarpType" name="WarpType" size="1" style="width: 100%; height: 36px">
@@ -220,15 +267,76 @@
 				  	</select>
     			</div>
     			<div class="d-flex flex-column mt-4">
-    				<label for="Colorist" class="control-label opacity-75">Colorist</label>
-    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Colorist" name="Colorist" size="1" style="width: 100%; height: 36px">
+    				<label for="Direction" class="control-label opacity-75">Direction</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Direction" name="Direction" size="1" style="width: 100%; height: 36px">
 				    	<option value="" selected>Enter</option>
-				    	<option value="house">House</option>
-				    	<option value="marteen">Marteen</option>
-				    	<option value="crowder">Crowder</option>
-				    	<option value="derocher">Derocher</option>
+				    	<option value="UU">UU</option>
+				    	<option value="UTR">UTR</option>
 				  	</select>
-    			</div>
+			  	</div>
+			  	<div class="d-flex flex-column mt-4">
+    				<label for="Content" class="control-label opacity-75">Content<span style="font-size: 12px">(%Mix)</span></label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Content" name="Content" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			  			<option value="" selected>Enter</option>
+				    	<option value="100% polyester">100% polyester</option>
+				    	<option value="1% acrylic 99% polyester">1% acrylic 99% polyester</option>
+				    	<option value="2% acrylic 98% polyester">2% acrylic 98% polyester</option>
+				    	<option value="3% acrylic 97% polyester">3% acrylic 97% polyester</option>
+				    	<option value="10% acrylic 90% polyester">10% acrylic 90% polyester</option>
+				    	<option value="3% linen 97% polyester">3% linen 97% polyester</option>
+				    	<option value="5% linen 95% polyester">5% linen 95% polyester</option>
+				    	<option value="10%N 90%P">10%N 90%P</option>
+				    	<option value="10%V 90%P">10%V 90%P</option>
+			  		</select>
+			  	</div>
+			  	<div class="d-flex flex-column mt-4">
+    				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
+				    	<option value="DNE" selected>Enter</option>
+				    	<option value="Wait for US feedback">Wait for US feedback</option>
+				    	<option value="US canceled">US canceled</option>
+				    	<option value="Strike-off producing">Strike-off producing</option>
+				    	<option value="Strike-off confirmed">Strike-off confirmed</option>
+				  	</select>
+			  	</div>
+			  	<div class="d-flex flex-column mt-4">
+    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
+				    	<option value="DNE" selected>Enter</option>
+				    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
+				    	<option value="Blanket under production">Blanket under production</option>
+				    	<option value="Banket sent. Wait for US feedback">Blanket sent. Wait for US feedback</option>
+				    	<option value="China Team are confirming the colors">China Team are confirming the colors</option>
+				    	<option value="Blanket confirmed">Blanket confirmed</option>
+				  	</select>
+			  	</div>
+			  	<div class="d-flex flex-column mt-4">
+		  			<label for="ColorLineProgress" class="control-label opacity-75">Colorline Status</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ColorLineProgress" name="ColorLineProgress" size="1" style="width: 100%; height: 36px">
+				    	<option value="" selected>Enter</option>
+				    	<option value="Yibei has received all colors">Yibei has received all colors</option>
+				    	<option value="Colorline completed">Colorline completed</option>
+				    	<option value="Colorline shipped">Colorline shipped</option>
+				  	</select>
+			  	</div>
+			  	<div class="d-flex flex-column mt-4">
+			  		<label for="RollSampleProgress" class="control-label opacity-75">Roll Sample Progress</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="RollSampleProgress" name="RollSampleProgress" size="1" style="width: 100%; height: 36px">
+				    	<option value="DNE" selected>Enter</option>
+				    	<option value="Roll Samples Arranged">Roll Samples Arranged</option>
+				    	<option value="Roll samples completed">Roll samples completed</option>
+				    	<option value="Roll samples to Yibei">Roll samples to Yibei</option>
+				  	</select>
+			  	</div>
+			  	<div class="d-flex flex-column mt-4">
+			  		<label for="TestingProgress" class="control-label opacity-75">Testing Progress</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px">
+				    	<option value="DNE" selected>Enter</option>
+				    	<option value="Testing In Process">Testing In Process</option>
+				    	<option value="Test Passed">Passed</option>
+				    	<option value="Test Failed">Failed</option>
+				  	</select>
+			  	</div>
 			</div>
 		</div>
 		
@@ -418,9 +526,41 @@
 									</div>
 				    			</div>
 				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ModalChenilleCB" name="ModalChenilleCB">
+										<label class="form-check-label" for="ModalChenilleCB">
+										  Chenille
+										</label>
+									</div>
+				    			</div>
+				    		</div>
+				    		<div class="row mb-3">
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ModalKnitCB" name="ModalKnitCB">
+										<label class="form-check-label" for="ModalKnitCB">
+										  Knit
+										</label>
+									</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ModalGeorgeCancelCB" name="ModalGeorgeCancelCB">
+										<label class="form-check-label" for="ModalGeorgeCancelCB">
+										  George Canceled
+										</label>
+									</div>
 				    			</div>
 				    		</div>
 			    			<div class="row mb-3">
+			    				<div class="col-6">
+			    					<label for="ModalFabricType" class="control-label opacity-75">Fabric Type</label>
+				    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalFabricType" name="ModalFabricType" size="1" style="width: 100%; height: 36px">
+								    	<option value="" selected>Enter</option>
+								    	<option value="Base">Base</option>
+								    	<option value="Jaquard">Jaquard</option>
+								  	</select>
+			    				</div>
 				    			<div class="col-6">
 				    				<div class="d-flex flex-column">
 					    				<label for="ModalSeason" class="control-label opacity-75">Season</label>
@@ -438,7 +578,9 @@
 									  	</select>
 					    			</div>
 				    			</div>
-				    			<div class="col-6">
+			    			</div>
+			    			<div class="row mb-3">
+			    				<div class="col-6">
 				    				<div class="d-flex flex-column">
 					    				<label for="ModalWarpType" class="control-label opacity-75">Warp Type</label>
 					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalWarpType" name="ModalWarpType" size="1" style="width: 100%; height: 36px">
@@ -453,8 +595,6 @@
 									  	</select>
 					    			</div>
 				    			</div>
-			    			</div>
-			    			<div class="row mb-3">
 				    			<div class="col-6">
 				    				<div class="d-flex flex-column">
 					    				<label for="ModalYarnType" class="control-label opacity-75">Dyeing Type</label>
@@ -466,18 +606,6 @@
 									    	<option value="Jet">Jet Dyed</option>
 									  	</select>
     								</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="d-flex flex-column">
-					    				<label for="ModalColorist" class="control-label opacity-75">Colorist</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalColorist" name="ModalColorist" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="house">House</option>
-									    	<option value="marteen">Marteen</option>
-									    	<option value="crowder">Crowder</option>
-									    	<option value="derocher">Derocher</option>
-									  	</select>
-					    			</div>
 				    			</div>
 			    			</div>
 			    			<div class="row mb-3">
@@ -503,7 +631,122 @@
 								  	</select>
 			    				</div>
 			    				<div class="col-6">
-			    				</div>
+				    				<div class="d-flex flex-column">
+					    				<label for="ModalDesigner" class="control-label opacity-75">Designer</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalDesigner" name="ModalDesigner" size="1" style="width: 100%; height: 36px">
+									    	<option value="" selected>Enter</option>
+									    	<option value="house">House</option>
+									    	<option value="Outsource">Outsource</option>
+									    	<option value="crowder">Crowder</option>
+									    	<option value="derocher">Derocher</option>
+									  	</select>
+					    			</div>
+				    			</div>
+			    			</div>
+			    			<div class="row mb-3">
+			    				<div class="col-6">
+				    				<div class="d-flex flex-column">
+					    				<label for="ModalColorist" class="control-label opacity-75">Colorist</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalColorist" name="ModalColorist" size="1" style="width: 100%; height: 36px">
+									    	<option value="" selected>Enter</option>
+									    	<option value="house">House</option>
+									    	<option value="marteen">Marteen</option>
+									    	<option value="crowder">Crowder</option>
+									    	<option value="derocher">Derocher</option>
+									  	</select>
+					    			</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="d-flex flex-column">
+					    				<label for="ModalDirection" class="control-label opacity-75">Direction</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalDirection" name="ModalDirection" size="1" style="width: 100%; height: 36px">
+									    	<option value="" selected>Enter</option>
+									    	<option value="UU">UU</option>
+									    	<option value="UTR">UTR</option>
+									  	</select>
+					    			</div>
+				    			</div>
+			    			</div>
+			    			<div class="row mb-3">
+			    				<div class="col-6">
+				    				<div class="d-flex flex-column">
+				    					<label for="ModalContent" class="control-label opacity-75">Content<span style="font-size: 12px">(%Mix)</span></label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalContent" name="ModalContent" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+								  			<option value="" selected>Enter</option>
+									    	<option value="100% polyester">100% polyester</option>
+									    	<option value="1% acrylic 99% polyester">1% acrylic 99% polyester</option>
+									    	<option value="2% acrylic 98% polyester">2% acrylic 98% polyester</option>
+									    	<option value="3% acrylic 97% polyester">3% acrylic 97% polyester</option>
+									    	<option value="10% acrylic 90% polyester">10% acrylic 90% polyester</option>
+									    	<option value="3% linen 97% polyester">3% linen 97% polyester</option>
+									    	<option value="5% linen 95% polyester">5% linen 95% polyester</option>
+									    	<option value="10%N 90%P">10%N 90%P</option>
+									    	<option value="10%V 90%P">10%V 90%P</option>
+								  		</select>
+					    			</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="d-flex flex-column">
+				    					<label for="ModalStrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalStrikeProgress" name="ModalStrikeProgress" size="1" style="width: 100%; height: 36px">
+									    	<option value="DNE" selected>Enter</option>
+									    	<option value="Wait for US feedback">Wait for US feedback</option>
+									    	<option value="US canceled">US canceled</option>
+									    	<option value="Strike-off producing">Strike-off producing</option>
+									    	<option value="Strike-off confirmed">Strike-off confirmed</option>
+									  	</select>
+					    			</div>
+				    			</div>
+			    			</div>
+			    			<div class="row mb-3">
+			    				<div class="col-6">
+				    				<div class="d-flex flex-column">
+				    					<label for="ModalBlanketStatus" class="control-label opacity-75">Blanket Status</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalBlanketStatus" name="ModalBlanketStatus" size="1" style="width: 100%; height: 36px">
+									    	<option value="DNE" selected>Enter</option>
+									    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
+									    	<option value="Blanket under production">Blanket under production</option>
+									    	<option value="Blanket sent. Wait for US feedback">Blanket sent. Wait for US feedback</option>
+									    	<option value="China Team are confirming the colors">China Team are confirming the colors</option>
+									    	<option value="Blanket confirmed">Blanket confirmed</option>
+									  	</select>
+					    			</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="d-flex flex-column">
+				    					<label for="ModalColorLineProgress" class="control-label opacity-75">Colorline Status</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalColorLineProgress" name="ModalColorLineProgress" size="1" style="width: 100%; height: 36px">
+									    	<option value="" selected>Enter</option>
+									    	<option value="Yibei has received all colors">Yibei has received all colors</option>
+									    	<option value="Colorline completed">Colorline completed</option>
+									    	<option value="Colorline shipped">Colorline shipped</option>
+									  	</select>
+					    			</div>
+				    			</div>
+			    			</div>
+			    			<div class="row mb-3">
+			    				<div class="col-6">
+				    				<div class="d-flex flex-column">
+				    					<label for="ModalRollSampleProgress" class="control-label opacity-75">Roll Sample Progress</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalRollSampleProgress" name="ModalRollSampleProgress" size="1" style="width: 100%; height: 36px">
+									    	<option value="DNE" selected>Enter</option>
+									    	<option value="Roll Samples Arranged">Roll Samples Arranged</option>
+									    	<option value="Roll samples completed">Roll samples completed</option>
+									    	<option value="Roll samples to Yibei">Roll samples to Yibei</option>
+									  	</select>
+					    			</div>
+				    			</div>
+				    			<div class="col-6">
+				    				<div class="d-flex flex-column">
+				    					<label for="ModalTestingProgress" class="control-label opacity-75">Testing Progress</label>
+					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalTestingProgress" name="ModalTestingProgress" size="1" style="width: 100%; height: 36px">
+									    	<option value="DNE" selected>Enter</option>
+									    	<option value="Testing In Process">Testing In Process</option>
+									    	<option value="Test Passed">Passed</option>
+									    	<option value="Test Failed">Failed</option>
+									  	</select>
+					    			</div>
+				    			</div>
 			    			</div>
 				    	</div>
 				    </div>
@@ -517,10 +760,11 @@
 	</form>
 	
 	<script src="js/tracker.js"></script>
-	<script>
+	<script type="text/javascript">
 		if (filtered) {
 			document.getElementById("filteredNav").style.display = "block";
 			document.getElementById("unfilteredNav").style.display = "none";
+			populateAllInputs();
 		}
 	</script>
 </body>
