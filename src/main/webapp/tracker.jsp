@@ -115,14 +115,14 @@
 						<div class="col p-0">
 							<div class="default-track"></div>
 							<span class="slider-track"></span>
-							<input type="range" class="min-val" min="0" max="10" step="0.1" value="0" id="PriceRangeMin" name="PriceRangeMin" oninput="slideMin()">
-							<input type="range" class="max-val" min="0" max="10" step="0.1" value="10" id="PriceRangeMax" name="PriceRangeMax" oninput="slideMax()">
+							<input type="range" class="min-val" min="0" max="100" step="1" value="0" id="PriceRangeMin" name="PriceRangeMin" oninput="slideMin()">
+							<input type="range" class="max-val" min="0" max="100" step="1" value="100" id="PriceRangeMax" name="PriceRangeMax" oninput="slideMax()">
 			            </div>
 		            </div>
 		            <div class="row" style="position: relative">
 			            <div class="col price-container mt-0 p-0">
-			              <div class="price-1" id="min-price" style="width: 20px">$0</div>
-			              <div class="price-2" id="max-price" style="width: 20px; transform: translateX(20px)">$10</div>
+			              <div class="price-1" id="min-price" style="width: 20px">¥0</div>
+			              <div class="price-2" id="max-price" style="width: 20px; transform: translateX(20px)">¥100</div>
 			            </div>
 		            </div>
 	            </div>

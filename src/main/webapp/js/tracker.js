@@ -1,8 +1,10 @@
 window.onload = function () {
-  minVal.value = 0;
-  maxVal.value = 10;
-  slideMin();
-  slideMax();
+  if (!filtered) {
+	  minVal.value = 0;
+	  maxVal.value = 100;
+	  slideMin();
+	  slideMax();
+  }
 };
 
 const minVal = document.querySelector(".min-val");
@@ -19,7 +21,7 @@ function slideMin() {
   if (gap <= 0){
 	minVal.value = parseInt(maxVal.value) - minGap;
   }
-  minPrice.innerHTML = "$" + minVal.value;
+  minPrice.innerHTML = "¥" + minVal.value;
   setArea();
 }
 
@@ -28,20 +30,16 @@ function slideMax() {
   if (gap <= 0){
 	maxVal.value = parseInt(minVal.value) + minGap;
   }
-  maxPrice.innerHTML = "$" + maxVal.value;
+  maxPrice.innerHTML = "¥" + maxVal.value;
   setArea();
 }
 
 function setArea() {
-  range.style.left = `${
-    ((minVal.value - sliderMinValue) / (sliderMaxValue - sliderMinValue)) * 100
-  }%`;
+  const minPercentage = (parseInt(minVal.value) - sliderMinValue) / (sliderMaxValue - sliderMinValue) * 100;
+  const maxPercentage = (parseInt(maxVal.value) - sliderMinValue) / (sliderMaxValue - sliderMinValue) * 100;
 
-  range.style.left = (minVal.value / sliderMaxValue) * 100 + "%";
-  range.style.right = `${
-    100 -
-    ((maxVal.value - sliderMinValue) / (sliderMaxValue - sliderMinValue)) * 100
-  }%`;
+  range.style.left = `${minPercentage}%`;
+  range.style.width = `${maxPercentage - minPercentage}%`;
 }
 
 function refresh() {
@@ -63,6 +61,12 @@ function showModal() {
 }
 
 function populateAllInputs() {
+	document.getElementById("min-price").textContent = dev.priceMin;
+	document.getElementById("PriceRangeMin").value = dev.priceMin;
+	slideMin();
+	document.getElementById("max-price").textContent = dev.priceMax;
+	document.getElementById("PriceRangeMax").value = dev.priceMax;
+	slideMax();
 	document.getElementById("ParagonCleanCB").checked = dev.paragonClean;
 	document.getElementById("FCLCB").checked = dev.is400hrFCL;
 	document.getElementById("PDCB").checked = dev.pieceDyed;

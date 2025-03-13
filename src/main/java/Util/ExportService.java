@@ -436,7 +436,7 @@ public class ExportService extends HttpServlet{
             anchor.setRow1(row.getRowNum());
 
             Picture pict = drawing.createPicture(anchor, pictureIdx);
-            pict.resize(0.2);
+            pict.resize(0.1, 0.1);
         } catch (IOException e) {
             e.printStackTrace();
         }
