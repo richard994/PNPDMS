@@ -2,7 +2,7 @@ function validate() {
 	if (document.getElementById("Code").value == "") {
 		alert("Please enter fabric code!");
 		return false;
-	} else if (document.getElementById("FabricType").value == "") {
+	} /*else if (document.getElementById("FabricType").value == "") {
 		alert("Please enter fabric type!");
 		return false;
 	} else if (document.getElementById("DesignType").value == "") {
@@ -63,7 +63,7 @@ function validate() {
 			alert("Please enter datastamp for George comment!");
 			return false;
 		}
-	}
+	}*/
 	
 	return true;
 }

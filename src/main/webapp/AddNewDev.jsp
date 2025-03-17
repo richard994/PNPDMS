@@ -852,6 +852,10 @@
 			george.forEach(element => {
 			    element.style.display = 'none';
 			});
+			
+			if (user == "David") {
+				document.getElementById("CommentContainer").style.display = "none";
+			}
 		}
 	</script>
 </body>
