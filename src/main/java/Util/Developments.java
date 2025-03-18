@@ -184,9 +184,9 @@ public class Developments {
                 		if (oldval.equals("") || oldval.equals("none")) {
                 			oldval = "none";
                 		} else {
-                			oldval = oldval.substring(oldval.indexOf("uploads/") + "uploads/".length());
+                			oldval = oldval.substring(oldval.indexOf("com/") + "com/".length());
                 		}
-                		newval = newval.substring(newval.indexOf("uploads/") + "uploads/".length());
+                		newval = newval.substring(newval.indexOf("com/") + "com/".length());
                 	}
                 	LocalDateTime currentDateTime = LocalDateTime.now();
                     String datestamp = currentDateTime.toString();
