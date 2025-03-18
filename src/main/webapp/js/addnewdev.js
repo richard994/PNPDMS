@@ -29,7 +29,7 @@ function validate() {
 	} else if (document.getElementById("PPCM").value == "") {
 		alert("Please enter PPCM!");
 		return false;
-	}
+	}*/
 	
 	if (window.getComputedStyle(document.getElementById("Leah-comment-input-block")).display == "block") {
 		if (document.getElementById("LeahCommentInput").value == "") {
@@ -39,7 +39,9 @@ function validate() {
 			alert("Please enter datastamp for Leah comment!");
 			return false;
 		}
-	} else if (window.getComputedStyle(getElementById("US-comment-input-block")).display == "block") {
+	} 
+
+	if (window.getComputedStyle(document.getElementById("US-comment-input-block")).display == "block") {
 		if (document.getElementById("USCommentInput").value == "") {
 			alert("Please enter US comment!");
 			return false;
@@ -47,7 +49,9 @@ function validate() {
 			alert("Please enter datastamp for US comment!");
 			return false;
 		}
-	} else if (window.getComputedStyle(document.getElementById("Mill-comment-input-block")).display == "block") {
+	} 
+
+	if (window.getComputedStyle(document.getElementById("Mill-comment-input-block")).display == "block") {
 		if (document.getElementById("MillCommentInput").value == "") {
 			alert("Please enter Mill comment!");
 			return false;
@@ -55,7 +59,9 @@ function validate() {
 			alert("Please enter datastamp for Mill comment!");
 			return false;
 		}
-	} else if (window.getComputedStyle(document.getElementById("George-comment-input-block")).display == "block") {
+	} 
+
+	if (window.getComputedStyle(document.getElementById("George-comment-input-block")).display == "block") {
 		if (document.getElementById("GeorgeCommentInput").value == "") {
 			alert("Please enter George comment!");
 			return false;
@@ -63,7 +69,7 @@ function validate() {
 			alert("Please enter datastamp for George comment!");
 			return false;
 		}
-	}*/
+	}
 	
 	return true;
 }

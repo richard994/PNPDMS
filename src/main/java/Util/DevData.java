@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -329,7 +330,17 @@ public class DevData {
 			e.printStackTrace();
 			return comments;
 		}
-		Collections.reverse(comments);
+		
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
+        Collections.sort(comments, new Comparator<Comment>() {
+            @Override
+            public int compare(Comment c1, Comment c2) {
+                LocalDate date1 = LocalDate.parse(c1.getDatestamp(), formatter);
+                LocalDate date2 = LocalDate.parse(c2.getDatestamp(), formatter);
+                return date1.compareTo(date2);
+            }
+        });
+        Collections.reverse(comments);
 		return comments;
 	}
 	
