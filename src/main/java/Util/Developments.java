@@ -184,9 +184,17 @@ public class Developments {
                 		if (oldval.equals("") || oldval.equals("none")) {
                 			oldval = "none";
                 		} else {
-                			oldval = oldval.substring(oldval.indexOf("com/") + "com/".length());
+                			try {
+                				oldval = oldval.substring(oldval.indexOf("com/") + "com/".length());
+                			} catch (Exception e) {
+                				oldval = "old_path";
+                			}
                 		}
-                		newval = newval.substring(newval.indexOf("com/") + "com/".length());
+                		try {
+                			newval = newval.substring(newval.indexOf("com/") + "com/".length());
+                		} catch (Exception e) {
+                			newval = "new_path";
+                		}
                 	}
                 	LocalDateTime currentDateTime = LocalDateTime.now();
                     String datestamp = currentDateTime.toString();
