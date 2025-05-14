@@ -42,7 +42,6 @@
 		        <li class="nav-item mr-5"><a href="HomeService" class="nav-link" id="Home">Home</a></li>
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
-		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
 		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker" style="color: #4D73FF">Tracker</a></li>
            		<li class="nav-item dropdown mr-5">
 				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
@@ -210,6 +209,7 @@
 				    	<option value="Reshow">Reshow</option>
 				    	<option value="24SP to 24FA">24SP to 24FA</option>
 				    	<option value="24FA to 25SP">24FA to 25SP</option>
+				    	<option value="24FA to 25FA">24FA to 25FA</option>
 				    	<option value="25SP to 25FA">25SP to 25FA</option>
 				    	<option value="25FA to 26SP">25FA to 26SP</option>
 				    	<option value="26SP to 26FA">26SP to 26FA</option>
@@ -247,23 +247,26 @@
     				<label for="WarpType" class="control-label opacity-75">Warp Type</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="WarpType" name="WarpType" size="1" style="width: 100%; height: 36px">
 				    	<option value="" selected>Enter</option>
-				    	<option value="chenille">Chenille</option>
-				    	<option value="fancy">Fancy Yarn</option>
-				    	<option value="filament">Filament Yarn</option>
-				    	<option value="cotton">Cotton</option>
-				    	<option value="poly">Polyester</option>
-				    	<option value="rayon">Rayon</option>
-				    	<option value="slub">Slub Yarn</option>
+				    	<option value="9600 150D Solid">9600 150D Solid</option>
+				    	<option value="9600 150D E&E">9600 150D E&E</option>
+				    	<option value="9600 150D 6-End Tapestry">9600 150D 6-End Tapestry</option>
+				    	<option value="4860 SDY Solid">4860 SDY Solid</option>
+				    	<option value="4800 150D Space Dye">4800 150D Space Dye</option>
+				    	<option value="4800 150D Solid">4800 150D Solid</option>
+				    	<option value="4800 Double Beam">4800 Double Beam</option>
+				    	<option value="4800 4-End Warps">4800 4-End Warps</option>
+				    	<option value="4800 3-End Warps">4800 3-End Warps</option>
+				    	<option value="4800 150D E&E">4800 150D E&E</option>
 				  	</select>
     			</div>
     			<div class="d-flex flex-column mt-4">
-    				<label for="YarnType" class="control-label opacity-75">Dyeing Type</label>
+    				<label for="YarnType" class="control-label opacity-75">Style</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="YarnType" name="YarnType" size="1" style="width: 100%; height: 36px">
 				    	<option value="" selected>Enter</option>
-				    	<option value="YarnDyed">Yarn Dyed</option>
-				    	<option value="Piece">Piece Dyed</option>
-				    	<option value="Space">Space Dyed</option>
-				    	<option value="Jet">Jet Dyed</option>
+				    	<option value="Traditional">Traditional</option>
+				    	<option value="Transitional">Transitional</option>
+				    	<option value="Contemporary">Contemporary</option>
+				    	<option value="Modern">Modern</option>
 				  	</select>
     			</div>
     			<div class="d-flex flex-column mt-4">
@@ -467,8 +470,7 @@
 	</div>
 	</form>
 	
-	<form id="expform" name="expform" action="ExportService" method="get">
-		<div class="modal fade" id="expModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="expModalLabel" aria-hidden="true">
+	<div class="modal fade" id="expModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="expModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 				    <div class="modal-header">
@@ -478,286 +480,17 @@
 				    <div class="modal-body">
 				    	<div class="container">
 				    		<div class="row mb-3">
-				    			<span style="color: red">*Filter by selected field; if not selected, it will not be filtered.</span>
+				    			<span style="color: blue">Confirm export developments shown to excel.</span>
 				    		</div>
-				    		<div class="row mb-3">
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalFeedbackCB" name="ModalFeedbackCB">
-										<label class="form-check-label" for="ModalFeedbackCB">
-										  Need US Feedback
-										</label>
-									</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalParagonCleanCB" name="ModalParagonCleanCB">
-										<label class="form-check-label" for="ModalParagonCleanCB">
-										  Paragon Clean
-										</label>
-									</div>
-				    			</div>
-				    		</div>
-				    		<div class="row mb-3">
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalFCLCB" name="ModalFCLCB">
-										<label class="form-check-label" for="ModalFCLCB">
-										  400hr FCL
-										</label>
-									</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalPDCB" name="ModalPDCB">
-										<label class="form-check-label" for="ModalPDCB">
-										  Piece Dyed
-										</label>
-									</div>
-				    			</div>
-				    		</div>
-				    		<div class="row mb-3">
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalSDYCB" name="ModalSDYCB">
-										<label class="form-check-label" for="ModalSDYCB">
-										  SDY
-										</label>
-									</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalChenilleCB" name="ModalChenilleCB">
-										<label class="form-check-label" for="ModalChenilleCB">
-										  Chenille
-										</label>
-									</div>
-				    			</div>
-				    		</div>
-				    		<div class="row mb-3">
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalKnitCB" name="ModalKnitCB">
-										<label class="form-check-label" for="ModalKnitCB">
-										  Knit
-										</label>
-									</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="ModalGeorgeCancelCB" name="ModalGeorgeCancelCB">
-										<label class="form-check-label" for="ModalGeorgeCancelCB">
-										  George Canceled
-										</label>
-									</div>
-				    			</div>
-				    		</div>
-			    			<div class="row mb-3">
-			    				<div class="col-6">
-			    					<label for="ModalFabricType" class="control-label opacity-75">Fabric Type</label>
-				    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalFabricType" name="ModalFabricType" size="1" style="width: 100%; height: 36px">
-								    	<option value="" selected>Enter</option>
-								    	<option value="Base">Base</option>
-								    	<option value="Jaquard">Jaquard</option>
-								  	</select>
-			    				</div>
-				    			<div class="col-6">
-				    				<div class="d-flex flex-column">
-					    				<label for="ModalSeason" class="control-label opacity-75">Season</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalSeason" name="ModalSeason" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="23Fall">23Fall</option>
-									    	<option value="24Spring">24Spring</option>
-									    	<option value="24Fall">24Fall</option>
-									    	<option value="25Spring">25Spring</option>
-									    	<option value="25Fall">25Fall</option>
-									    	<option value="26Spring">26Spring</option>
-									    	<option value="26Fall">26Fall</option>
-									    	<option value="27Spring">27Spring</option>
-									    	<option value="27Fall">27Fall</option>
-									  	</select>
-					    			</div>
-				    			</div>
-			    			</div>
-			    			<div class="row mb-3">
-			    				<div class="col-6">
-				    				<div class="d-flex flex-column">
-					    				<label for="ModalWarpType" class="control-label opacity-75">Warp Type</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalWarpType" name="ModalWarpType" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="chenille">Chenille</option>
-									    	<option value="fancy">Fancy Yarn</option>
-									    	<option value="filament">Filament Yarn</option>
-									    	<option value="cotton">Cotton</option>
-									    	<option value="poly">Polyester</option>
-									    	<option value="rayon">Rayon</option>
-									    	<option value="slub">Slub Yarn</option>
-									  	</select>
-					    			</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="d-flex flex-column">
-					    				<label for="ModalYarnType" class="control-label opacity-75">Dyeing Type</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalYarnType" name="ModalYarnType" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="YarnDyed">Yarn Dyed</option>
-									    	<option value="Piece">Piece Dyed</option>
-									    	<option value="Space">Space Dyed</option>
-									    	<option value="Jet">Jet Dyed</option>
-									  	</select>
-    								</div>
-				    			</div>
-			    			</div>
-			    			<div class="row mb-3">
-			    				<div class="col-6">
-			    					<label for="ModalDesignType" class="control-label opacity-75">Design Type</label>
-				    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalDesignType" name="ModalDesignType" size="1" style="width: 100%; height: 36px">
-								    	<option value="" selected>Enter</option>
-								    	<option value="NewDesign">New Design</option>
-								    	<option value="Reshow">Reshow</option>
-								    	<option value="24SP to 24FA">24SP to 24FA</option>
-								    	<option value="24FA to 25SP">24FA to 25SP</option>
-								    	<option value="25SP to 25FA">25SP to 25FA</option>
-								    	<option value="25FA to 26SP">25FA to 26SP</option>
-								    	<option value="26SP to 26FA">26SP to 26FA</option>
-								    	<option value="26FA to 27SP">26FA to 27SP</option>
-								    	<option value="27SP to 27FA">27SP to 27FA</option>
-								    	<option value="27FA to 28SP">27FA to 28SP</option>
-								    	<option value="28SP to 28FA">28SP to 28FA</option>
-								    	<option value="28FA to 29SP">28FA to 29SP</option>
-								    	<option value="29SP to 29FA">29SP to 29FA</option>
-								    	<option value="29FA to 30SP">29FA to 30SP</option>
-								    	<option value="30SP to 30FA">30SP to 30FA</option>
-								  	</select>
-			    				</div>
-			    				<div class="col-6">
-				    				<div class="d-flex flex-column">
-					    				<label for="ModalDesigner" class="control-label opacity-75">Designer</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalDesigner" name="ModalDesigner" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="house">House</option>
-									    	<option value="Outsource">Outsource</option>
-									    	<option value="crowder">Crowder</option>
-									    	<option value="derocher">Derocher</option>
-									  	</select>
-					    			</div>
-				    			</div>
-			    			</div>
-			    			<div class="row mb-3">
-			    				<div class="col-6">
-				    				<div class="d-flex flex-column">
-					    				<label for="ModalColorist" class="control-label opacity-75">Colorist</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalColorist" name="ModalColorist" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="house">House</option>
-									    	<option value="marteen">Marteen</option>
-									    	<option value="crowder">Crowder</option>
-									    	<option value="derocher">Derocher</option>
-									  	</select>
-					    			</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="d-flex flex-column">
-					    				<label for="ModalDirection" class="control-label opacity-75">Direction</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalDirection" name="ModalDirection" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="UU">UU</option>
-									    	<option value="UTR">UTR</option>
-									  	</select>
-					    			</div>
-				    			</div>
-			    			</div>
-			    			<div class="row mb-3">
-			    				<div class="col-6">
-				    				<div class="d-flex flex-column">
-				    					<label for="ModalContent" class="control-label opacity-75">Content<span style="font-size: 12px">(%Mix)</span></label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalContent" name="ModalContent" size="1" style="width: 100%; height: 36px" placeholder="Enter">
-								  			<option value="" selected>Enter</option>
-									    	<option value="100% polyester">100% polyester</option>
-									    	<option value="1% acrylic 99% polyester">1% acrylic 99% polyester</option>
-									    	<option value="2% acrylic 98% polyester">2% acrylic 98% polyester</option>
-									    	<option value="3% acrylic 97% polyester">3% acrylic 97% polyester</option>
-									    	<option value="10% acrylic 90% polyester">10% acrylic 90% polyester</option>
-									    	<option value="3% linen 97% polyester">3% linen 97% polyester</option>
-									    	<option value="5% linen 95% polyester">5% linen 95% polyester</option>
-									    	<option value="10%N 90%P">10%N 90%P</option>
-									    	<option value="10%V 90%P">10%V 90%P</option>
-								  		</select>
-					    			</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="d-flex flex-column">
-				    					<label for="ModalStrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalStrikeProgress" name="ModalStrikeProgress" size="1" style="width: 100%; height: 36px">
-									    	<option value="DNE" selected>Enter</option>
-									    	<option value="Wait for US feedback">Wait for US feedback</option>
-									    	<option value="US canceled">US canceled</option>
-									    	<option value="Strike-off producing">Strike-off producing</option>
-									    	<option value="Strike-off confirmed">Strike-off confirmed</option>
-									  	</select>
-					    			</div>
-				    			</div>
-			    			</div>
-			    			<div class="row mb-3">
-			    				<div class="col-6">
-				    				<div class="d-flex flex-column">
-				    					<label for="ModalBlanketStatus" class="control-label opacity-75">Blanket Status</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalBlanketStatus" name="ModalBlanketStatus" size="1" style="width: 100%; height: 36px">
-									    	<option value="DNE" selected>Enter</option>
-									    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
-									    	<option value="Blanket under production">Blanket under production</option>
-									    	<option value="Blanket sent. Wait for US feedback">Blanket sent. Wait for US feedback</option>
-									    	<option value="China Team are confirming the colors">China Team are confirming the colors</option>
-									    	<option value="Blanket confirmed">Blanket confirmed</option>
-									  	</select>
-					    			</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="d-flex flex-column">
-				    					<label for="ModalColorLineProgress" class="control-label opacity-75">Colorline Status</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalColorLineProgress" name="ModalColorLineProgress" size="1" style="width: 100%; height: 36px">
-									    	<option value="" selected>Enter</option>
-									    	<option value="Yibei has received all colors">Yibei has received all colors</option>
-									    	<option value="Colorline completed">Colorline completed</option>
-									    	<option value="Colorline shipped">Colorline shipped</option>
-									  	</select>
-					    			</div>
-				    			</div>
-			    			</div>
-			    			<div class="row mb-3">
-			    				<div class="col-6">
-				    				<div class="d-flex flex-column">
-				    					<label for="ModalRollSampleProgress" class="control-label opacity-75">Roll Sample Progress</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalRollSampleProgress" name="ModalRollSampleProgress" size="1" style="width: 100%; height: 36px">
-									    	<option value="DNE" selected>Enter</option>
-									    	<option value="Roll Samples Arranged">Roll Samples Arranged</option>
-									    	<option value="Roll samples completed">Roll samples completed</option>
-									    	<option value="Roll samples to Yibei">Roll samples to Yibei</option>
-									  	</select>
-					    			</div>
-				    			</div>
-				    			<div class="col-6">
-				    				<div class="d-flex flex-column">
-				    					<label for="ModalTestingProgress" class="control-label opacity-75">Testing Progress</label>
-					    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ModalTestingProgress" name="ModalTestingProgress" size="1" style="width: 100%; height: 36px">
-									    	<option value="DNE" selected>Enter</option>
-									    	<option value="Testing In Process">Testing In Process</option>
-									    	<option value="Test Passed">Passed</option>
-									    	<option value="Test Failed">Failed</option>
-									  	</select>
-					    			</div>
-				    			</div>
-			    			</div>
-				    	</div>
-				    </div>
-				    <div class="modal-footer">
+			    		</div>
+		    		</div>
+		    		<div class="modal-footer">
 				    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-				    	<button type="submit" class="btn btn-primary" id="confirmExport" data-bs-dismiss="modal">Export</button>
+				    	<button type="button"  onclick="window.location.href='ExportService?filtered=${filtered}'" class="btn btn-primary" id="confirmExport" data-bs-dismiss="modal">Export</button>
 				    </div>
-			 	</div>
+				 </div>
 			</div>
-		</div>
-	</form>
+	</div>
 	
 	<script src="js/tracker.js"></script>
 	<script type="text/javascript">

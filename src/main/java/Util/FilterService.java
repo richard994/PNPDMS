@@ -2,9 +2,8 @@ package Util;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet("/FilterService")
 public class FilterService extends HttpServlet{
@@ -44,304 +45,279 @@ public class FilterService extends HttpServlet{
 	
 	public FilterService() {}
 	
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse
 			response) throws ServletException, IOException{
 		HttpSession session = request.getSession();
-		Object filteredObj = session.getAttribute("filtered");
-		boolean filtered = (filteredObj != null) ? (boolean) filteredObj : false;
+		String temp[];
 		
-		if (!filtered) {
-			String temp[];
-			
-			DevData devData = new DevData();
-	        ArrayList<Developments> developments = devData.getDevelopments();
-	        Developments filterdev = new Developments();
-	        
-	        temp = request.getParameterValues("PriceRangeMin");
-			if (temp != null) {
-				priceMin = Double.parseDouble(temp[0]);
-				filterdev.setPriceMin(priceMin);
-				System.out.println("Successfully retrieved PriceRangeMin: " + priceMin + "\n");
-			} else {
-				System.out.println("Fail to retrieve PriceRangeMin.");
-			}
-			
-			temp = request.getParameterValues("PriceRangeMax");
-			if (temp != null) {
-				priceMax = Double.parseDouble(temp[0]);
-				filterdev.setPriceMax(priceMax);
-				System.out.println("Successfully retrieved PriceRangeMax: " + priceMax + "\n");
-			} else {
-				System.out.println("Fail to retrieve PriceRangeMax.");
-			}
-			
-			temp = request.getParameterValues("titleCode");
-			if (temp != null) {
-				titleCode = temp[0];
-				filterdev.setCode(titleCode);			
-				System.out.println("Successfully retrieved title: " + titleCode + "\n");
-			} else {
-				System.out.println("Fail to retrieve title.");
-			}
-			
-			temp = request.getParameterValues("FeedbackCB");
-			if (temp != null) {
-				needFeedback = true;
-				System.out.println("FeedbackCB checked.\n");
-			} else {
-				needFeedback = false;
-				System.out.println("FeedbackCB unchecked.\n");
-			}
-			filterdev.setNeedFeedback(needFeedback);
-			
-			temp = request.getParameterValues("ParagonCleanCB");
-			if (temp != null) {
-				needParagonClean = true;
-				System.out.println("ParagonCleanCB checked.\n");
-			} else {
-				needParagonClean = false;
-				System.out.println("ParagonCleanCB unchecked.\n");
-			}
-			filterdev.setParagonClean(needParagonClean);
-			
-			temp = request.getParameterValues("FCLCB");
-			if (temp != null) {
-				need400hrFCL = true;
-				System.out.println("FCLCB checked.\n");
-			} else {
-				need400hrFCL = false;
-				System.out.println("FCLCB unchecked.\n");
-			}
-			filterdev.setIs400hrFCL(need400hrFCL);
-			
-			temp = request.getParameterValues("PDCB");
-			if (temp != null) {
-				needPieceDyed = true;
-				System.out.println("PDCB checked.\n");
-			} else {
-				needPieceDyed = false;
-				System.out.println("PDCB unchecked.\n");
-			}
-			filterdev.setPieceDyed(needPieceDyed);
-			
-			temp = request.getParameterValues("SDYCB");
-			if (temp != null) {
-				needSDY = true;
-				System.out.println("SDYCB checked.\n");
-			} else {
-				needSDY = false;
-				System.out.println("SDYCB unchecked.\n");
-			}
-			filterdev.setSDY(needSDY);
-			
-			temp = request.getParameterValues("ChenilleCB");
-			if (temp != null) {
-				needChenille = true;
-				System.out.println("ChenilleCB checked.\n");
-			} else {
-				needChenille = false;
-				System.out.println("ChenilleCB unchecked.\n");
-			}
-			filterdev.setChenille(needChenille);
-			
-			temp = request.getParameterValues("KnitCB");
-			if (temp != null) {
-				needKnit = true;
-				System.out.println("KnitCB checked.\n");
-			} else {
-				needKnit = false;
-				System.out.println("KnitCB unchecked.\n");
-			}
-			filterdev.setKnit(needKnit);
-			
-			temp = request.getParameterValues("GeorgeCancelCB");
-			if (temp != null) {
-				needGeorgeCanceled = true;
-				System.out.println("GeorgeCancelCB checked.\n");
-			} else {
-				needGeorgeCanceled = false;
-				System.out.println("GeorgeCancelCB unchecked.\n");
-			}
-			filterdev.setGeorgeCanceled(needGeorgeCanceled);
-			
-			temp = request.getParameterValues("Season");
-			if (temp != null) {
-				season = temp[0];
-				filterdev.setSeason(season);
-				System.out.println("Successfully retrieved Season: " + season + "\n");
-			} else {
-				System.out.println("Fail to retrieve Season.");
-			}
-			
-			temp = request.getParameterValues("DesignType");
-			if (temp != null) {
-				design_type = temp[0];
-				filterdev.setDesign_type(design_type);
-				System.out.println("Successfully retrieved DesignType: " + design_type + "\n");
-			} else {
-				System.out.println("Fail to retrieve DesignType.");
-			}
-			
-			temp = request.getParameterValues("WarpType");
-			if (temp != null) {
-				warp_type = temp[0];
-				filterdev.setWarp_type(warp_type);
-				System.out.println("Successfully retrieved WarpType: " + warp_type + "\n");
-			} else {
-				System.out.println("Fail to retrieve WarpType.");
-			}
-			
-			temp = request.getParameterValues("YarnType");
-			if (temp != null) {
-				yarn_type = temp[0];
-				filterdev.setYarn_type(yarn_type);
-				System.out.println("Successfully retrieved YarnType: " + yarn_type + "\n");
-			} else {
-				System.out.println("Fail to retrieve YarnType.");
-			}
-			
-			temp = request.getParameterValues("Colorist");
-			if (temp != null) {
-				colorist = temp[0];
-				filterdev.setColorist(colorist);
-				System.out.println("Successfully retrieved Colorist: " + colorist + "\n");
-			} else {
-				System.out.println("Fail to retrieve Colorist.");
-			}
-			
-			temp = request.getParameterValues("Content");
-			if (temp != null) {
-				content = temp[0];
-				filterdev.setContent(content);
-				System.out.println("Successfully retrieved Content: " + content + "\n");
-			} else {
-				System.out.println("Fail to retrieve Content.");
-			}
-			
-			temp = request.getParameterValues("FabricType");
-			if (temp != null) {
-				fabric_type = temp[0];
-				filterdev.setFabric_type(fabric_type);
-				System.out.println("Successfully retrieved FabricType: " + fabric_type + "\n");
-			} else {
-				System.out.println("Fail to retrieve FabricType.");
-			}
-			
-			temp = request.getParameterValues("Designer");
-			if (temp != null) {
-				designer = temp[0];
-				filterdev.setDesigner(designer);
-				System.out.println("Successfully retrieved Designer: " + designer + "\n");
-			} else {
-				System.out.println("Fail to retrieve Designer.");
-			}
-			
-			temp = request.getParameterValues("Direction");
-			if (temp != null) {
-				direction = temp[0];
-				filterdev.setDirection(direction);
-				System.out.println("Successfully retrieved Direction: " + direction + "\n");
-			} else {
-				System.out.println("Fail to retrieve Direction.");
-			}
-			
-			temp = request.getParameterValues("StrikeProgress");
-			if (temp != null) {
-				strikeoff = temp[0];
-				filterdev.setStrike_off_status(strikeoff);
-				System.out.println("Successfully retrieved StrikeProgress: " + strikeoff + "\n");
-			} else {
-				System.out.println("Fail to retrieve StrikeProgress.");
-			}
-			
-			temp = request.getParameterValues("BlanketStatus");
-			if (temp != null) {
-				blanket = temp[0];
-				filterdev.setBlanket_status(blanket);
-				System.out.println("Successfully retrieved BlanketStatus: " + blanket + "\n");
-			} else {
-				System.out.println("Fail to retrieve BlanketStatus.");
-			}
-			
-			temp = request.getParameterValues("ColorLineProgress");
-			if (temp != null) {
-				colorline = temp[0];
-				filterdev.setColorline_status(colorline);
-				System.out.println("Successfully retrieved ColorLineProgress: " + colorline + "\n");
-			} else {
-				System.out.println("Fail to retrieve ColorLineProgress.");
-			}
-			
-			temp = request.getParameterValues("RollSampleProgress");
-			if (temp != null) {
-				rollsample = temp[0];
-				filterdev.setRollsample_status(rollsample);
-				System.out.println("Successfully retrieved RollSampleProgress: " + rollsample + "\n");
-			} else {
-				System.out.println("Fail to retrieve RollSampleProgress.");
-			}
-			
-			temp = request.getParameterValues("TestingProgress");
-			if (temp != null) {
-				test = temp[0];
-				filterdev.setTest_status(test);
-				System.out.println("Successfully retrieved TestingProgress: " + test + "\n");
-			} else {
-				System.out.println("Fail to retrieve TestingProgress.");
-			}
-	    	
-			developments.removeIf(dev -> !filter(dev));
-	    	
-	    	Collections.reverse(developments);
-	    	ObjectMapper objectMapper = new ObjectMapper();
-		    String devJson = objectMapper.writeValueAsString(filterdev);
-	    	session.setAttribute("filteredList", developments);
-	    	session.setAttribute("filterdev", devJson);
-	    	session.setAttribute("filtered", true);
-	        int itemsPerPage = 9;
-	        int totalItems = developments.size();
-	        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-	
-	        // Get the current page from request (default to 1 if not set)
-	        int currentPage = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
-	
-	        // Calculate the starting index for the sublist
-	        int startIndex = (currentPage - 1) * itemsPerPage;
-	        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-	
-	        // Get the sublist for the current page
-	        List<Developments> currentPageList = developments.subList(startIndex, endIndex);
-	        request.setAttribute("currentPageList", currentPageList);
-	        request.setAttribute("totalPages", totalPages);
-	        request.setAttribute("currentPage", currentPage);
-	        request.setAttribute("filtered", true);
-	
-			request.getRequestDispatcher("/tracker.jsp").forward(request, response);
+		DevData devData = new DevData();
+        ArrayList<Developments> developments = devData.getDevelopments();
+        Developments filterdev = new Developments();
+        
+        temp = request.getParameterValues("PriceRangeMin");
+		if (temp != null) {
+			priceMin = Double.parseDouble(temp[0]);
+			filterdev.setPriceMin(priceMin);
+			System.out.println("Successfully retrieved PriceRangeMin: " + priceMin + "\n");
 		} else {
-			@SuppressWarnings("unchecked")
-			ArrayList<Developments> developments = (ArrayList<Developments>) session.getAttribute("filteredList");
-			int itemsPerPage = 9;
-	        int totalItems = developments.size();
-	        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-	
-	        // Get the current page from request (default to 1 if not set)
-	        int currentPage = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
-	
-	        // Calculate the starting index for the sublist
-	        int startIndex = (currentPage - 1) * itemsPerPage;
-	        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-	
-	        // Get the sublist for the current page
-	        List<Developments> currentPageList = developments.subList(startIndex, endIndex);
-	        request.setAttribute("currentPageList", currentPageList);
-	        request.setAttribute("totalPages", totalPages);
-	        request.setAttribute("currentPage", currentPage);
-	        request.setAttribute("filtered", true);
-	        session.setAttribute("filtered", true);
-	
-			request.getRequestDispatcher("/tracker.jsp").forward(request, response);
-			
+			System.out.println("Fail to retrieve PriceRangeMin.");
 		}
+		
+		temp = request.getParameterValues("PriceRangeMax");
+		if (temp != null) {
+			priceMax = Double.parseDouble(temp[0]);
+			filterdev.setPriceMax(priceMax);
+			System.out.println("Successfully retrieved PriceRangeMax: " + priceMax + "\n");
+		} else {
+			System.out.println("Fail to retrieve PriceRangeMax.");
+		}
+		
+		temp = request.getParameterValues("titleCode");
+		if (temp != null) {
+			titleCode = temp[0];
+			filterdev.setCode(titleCode);			
+			System.out.println("Successfully retrieved title: " + titleCode + "\n");
+		} else {
+			System.out.println("Fail to retrieve title.");
+		}
+		
+		temp = request.getParameterValues("FeedbackCB");
+		if (temp != null) {
+			needFeedback = true;
+			System.out.println("FeedbackCB checked.\n");
+		} else {
+			needFeedback = false;
+			System.out.println("FeedbackCB unchecked.\n");
+		}
+		filterdev.setNeedFeedback(needFeedback);
+		
+		temp = request.getParameterValues("ParagonCleanCB");
+		if (temp != null) {
+			needParagonClean = true;
+			System.out.println("ParagonCleanCB checked.\n");
+		} else {
+			needParagonClean = false;
+			System.out.println("ParagonCleanCB unchecked.\n");
+		}
+		filterdev.setParagonClean(needParagonClean);
+		
+		temp = request.getParameterValues("FCLCB");
+		if (temp != null) {
+			need400hrFCL = true;
+			System.out.println("FCLCB checked.\n");
+		} else {
+			need400hrFCL = false;
+			System.out.println("FCLCB unchecked.\n");
+		}
+		filterdev.setIs400hrFCL(need400hrFCL);
+		
+		temp = request.getParameterValues("PDCB");
+		if (temp != null) {
+			needPieceDyed = true;
+			System.out.println("PDCB checked.\n");
+		} else {
+			needPieceDyed = false;
+			System.out.println("PDCB unchecked.\n");
+		}
+		filterdev.setPieceDyed(needPieceDyed);
+		
+		temp = request.getParameterValues("SDYCB");
+		if (temp != null) {
+			needSDY = true;
+			System.out.println("SDYCB checked.\n");
+		} else {
+			needSDY = false;
+			System.out.println("SDYCB unchecked.\n");
+		}
+		filterdev.setSDY(needSDY);
+		
+		temp = request.getParameterValues("ChenilleCB");
+		if (temp != null) {
+			needChenille = true;
+			System.out.println("ChenilleCB checked.\n");
+		} else {
+			needChenille = false;
+			System.out.println("ChenilleCB unchecked.\n");
+		}
+		filterdev.setChenille(needChenille);
+		
+		temp = request.getParameterValues("KnitCB");
+		if (temp != null) {
+			needKnit = true;
+			System.out.println("KnitCB checked.\n");
+		} else {
+			needKnit = false;
+			System.out.println("KnitCB unchecked.\n");
+		}
+		filterdev.setKnit(needKnit);
+		
+		temp = request.getParameterValues("GeorgeCancelCB");
+		if (temp != null) {
+			needGeorgeCanceled = true;
+			System.out.println("GeorgeCancelCB checked.\n");
+		} else {
+			needGeorgeCanceled = false;
+			System.out.println("GeorgeCancelCB unchecked.\n");
+		}
+		filterdev.setGeorgeCanceled(needGeorgeCanceled);
+		
+		temp = request.getParameterValues("Season");
+		if (temp != null) {
+			season = temp[0];
+			filterdev.setSeason(season);
+			System.out.println("Successfully retrieved Season: " + season + "\n");
+		} else {
+			System.out.println("Fail to retrieve Season.");
+		}
+		
+		temp = request.getParameterValues("DesignType");
+		if (temp != null) {
+			design_type = temp[0];
+			filterdev.setDesign_type(design_type);
+			System.out.println("Successfully retrieved DesignType: " + design_type + "\n");
+		} else {
+			System.out.println("Fail to retrieve DesignType.");
+		}
+		
+		temp = request.getParameterValues("WarpType");
+		if (temp != null) {
+			warp_type = temp[0];
+			filterdev.setWarp_type(warp_type);
+			System.out.println("Successfully retrieved WarpType: " + warp_type + "\n");
+		} else {
+			System.out.println("Fail to retrieve WarpType.");
+		}
+		
+		temp = request.getParameterValues("YarnType");
+		if (temp != null) {
+			yarn_type = temp[0];
+			filterdev.setYarn_type(yarn_type);
+			System.out.println("Successfully retrieved YarnType: " + yarn_type + "\n");
+		} else {
+			System.out.println("Fail to retrieve YarnType.");
+		}
+		
+		temp = request.getParameterValues("Colorist");
+		if (temp != null) {
+			colorist = temp[0];
+			filterdev.setColorist(colorist);
+			System.out.println("Successfully retrieved Colorist: " + colorist + "\n");
+		} else {
+			System.out.println("Fail to retrieve Colorist.");
+		}
+		
+		temp = request.getParameterValues("Content");
+		if (temp != null) {
+			content = temp[0];
+			filterdev.setContent(content);
+			System.out.println("Successfully retrieved Content: " + content + "\n");
+		} else {
+			System.out.println("Fail to retrieve Content.");
+		}
+		
+		temp = request.getParameterValues("FabricType");
+		if (temp != null) {
+			fabric_type = temp[0];
+			filterdev.setFabric_type(fabric_type);
+			System.out.println("Successfully retrieved FabricType: " + fabric_type + "\n");
+		} else {
+			System.out.println("Fail to retrieve FabricType.");
+		}
+		
+		temp = request.getParameterValues("Designer");
+		if (temp != null) {
+			designer = temp[0];
+			filterdev.setDesigner(designer);
+			System.out.println("Successfully retrieved Designer: " + designer + "\n");
+		} else {
+			System.out.println("Fail to retrieve Designer.");
+		}
+		
+		temp = request.getParameterValues("Direction");
+		if (temp != null) {
+			direction = temp[0];
+			filterdev.setDirection(direction);
+			System.out.println("Successfully retrieved Direction: " + direction + "\n");
+		} else {
+			System.out.println("Fail to retrieve Direction.");
+		}
+		
+		temp = request.getParameterValues("StrikeProgress");
+		if (temp != null) {
+			strikeoff = temp[0];
+			filterdev.setStrike_off_status(strikeoff);
+			System.out.println("Successfully retrieved StrikeProgress: " + strikeoff + "\n");
+		} else {
+			System.out.println("Fail to retrieve StrikeProgress.");
+		}
+		
+		temp = request.getParameterValues("BlanketStatus");
+		if (temp != null) {
+			blanket = temp[0];
+			filterdev.setBlanket_status(blanket);
+			System.out.println("Successfully retrieved BlanketStatus: " + blanket + "\n");
+		} else {
+			System.out.println("Fail to retrieve BlanketStatus.");
+		}
+		
+		temp = request.getParameterValues("ColorLineProgress");
+		if (temp != null) {
+			colorline = temp[0];
+			filterdev.setColorline_status(colorline);
+			System.out.println("Successfully retrieved ColorLineProgress: " + colorline + "\n");
+		} else {
+			System.out.println("Fail to retrieve ColorLineProgress.");
+		}
+		
+		temp = request.getParameterValues("RollSampleProgress");
+		if (temp != null) {
+			rollsample = temp[0];
+			filterdev.setRollsample_status(rollsample);
+			System.out.println("Successfully retrieved RollSampleProgress: " + rollsample + "\n");
+		} else {
+			System.out.println("Fail to retrieve RollSampleProgress.");
+		}
+		
+		temp = request.getParameterValues("TestingProgress");
+		if (temp != null) {
+			test = temp[0];
+			filterdev.setTest_status(test);
+			System.out.println("Successfully retrieved TestingProgress: " + test + "\n");
+		} else {
+			System.out.println("Fail to retrieve TestingProgress.");
+		}
+    	
+		developments.removeIf(dev -> !filter(dev));
+		developments.sort(Comparator.comparing(Developments::getCode));
+
+        // Get the current page from request (default to 1 if not set)
+        int currentPage = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
+        if (request.getParameter("page") != null) {
+			developments = (ArrayList<Developments>) session.getAttribute("filteredList");
+        } else {
+        	session.setAttribute("filteredList", developments);
+        	ObjectMapper objectMapper = new ObjectMapper();
+    	    String devJson = objectMapper.writeValueAsString(filterdev);
+    	    session.setAttribute("filterdev", devJson);
+        }
+        
+        int itemsPerPage = 15;
+        int totalItems = developments.size();
+        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+
+        // Calculate the starting index for the sublist
+        int startIndex = (currentPage - 1) * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+        // Get the sublist for the current page
+        List<Developments> currentPageList = developments.subList(startIndex, endIndex);
+        request.setAttribute("currentPageList", currentPageList);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("filtered", true);
+
+		request.getRequestDispatcher("/tracker.jsp").forward(request, response);
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse 
@@ -350,7 +326,7 @@ public class FilterService extends HttpServlet{
 	}
 	
 	private boolean filter(Developments development) {
-		if (!"".equals(titleCode) && !titleCode.equals(development.getCode())) {
+		if (!"".equals(titleCode) && !development.getCode().contains(titleCode)) {
 			return false;
 		}
 		

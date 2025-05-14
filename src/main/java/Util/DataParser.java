@@ -82,46 +82,6 @@ public class DataParser implements Runnable {
 		}
 	}
 	
-	public static void ParseJSONfin(String[] args) throws IOException, JSONException {
-		try {
-			URL u = new URL("http://218.75.78.226:9000/zhongya_eos/ajax/ZY/dataHcl");
-			HttpURLConnection hr = (HttpURLConnection) u.openConnection();
-			if (hr.getResponseCode()==200) {
-				InputStream is = hr.getInputStream();
-				StringBuffer sb = new StringBuffer();
-				BufferedReader br = new BufferedReader(new InputStreamReader(is));
-				String line = br.readLine();
-				while (line != null) {
-					sb.append(line);
-					line = br.readLine();
-				}
-				JSONArray arr = new JSONArray(sb.toString());
-				if (arr.length() > 0) {
-					truncateFinish();
-				} else {
-					return;
-				}
-				double pdrate;
-				String priceweightflag;
-				String postdisposaletypeename;
-				double price;
-				int finid;
-				for (int i=0; i<arr.length(); i++) {
-					JSONObject obj = arr.getJSONObject(i);
-					pdrate = obj.getDouble("pdrate");
-					postdisposaletypeename = obj.getString("postdisposaletypeename");
-					priceweightflag = obj.getString("priceweightflag");
-					price = obj.getDouble("price");
-					finid = obj.getInt("id");
-					insertFinish(pdrate, priceweightflag, postdisposaletypeename, price, finid);
-				}
-			}
-		}
-		catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-	
 	public static void getConn() {
 		try {
 			Class.forName(driver);
@@ -140,23 +100,6 @@ public class DataParser implements Runnable {
 		try {
 			getConn();
 			String sql = "TRUNCATE TABLE MijuPrice.mats;";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.executeUpdate();
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public static void truncateFinish() {
-		try {
-			getConn();
-			String sql = "TRUNCATE TABLE MijuPrice.finishing;";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.executeUpdate();
 		} catch(SQLException e) {
@@ -200,34 +143,11 @@ public class DataParser implements Runnable {
 			}
 		}
 	}
-	
-	public static void insertFinish(double pdrate, String priceweightflag, String postdisposaletypeename, double price, int finid) {
-		try {
-			getConn();
-			String sql = "INSERT INTO MijuPrice.finishing(pdrate, priceweightflag, postdisposaletypeename, price, fin_id) VALUES (?, ?, ?, ?, ?);";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setDouble(1, pdrate);
-			stmt.setString(2, priceweightflag);
-			stmt.setString(3, postdisposaletypeename);
-			stmt.setDouble(4, price);
-			stmt.setInt(5, finid);
-			stmt.executeUpdate();
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 
 	@Override
 	public void run() {
 		try {
 			ParseJSONmat(null);
-			ParseJSONfin(null);
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		} 

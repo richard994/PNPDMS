@@ -61,6 +61,7 @@ function showModal() {
 }
 
 function populateAllInputs() {
+	document.getElementById("titleCode").value = dev.code;
 	document.getElementById("min-price").textContent = dev.priceMin;
 	document.getElementById("PriceRangeMin").value = dev.priceMin;
 	slideMin();

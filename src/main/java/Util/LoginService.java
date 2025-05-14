@@ -29,7 +29,7 @@ public class LoginService extends HttpServlet{
 		UserData ud = new UserData();
 		boolean exist = ud.CheckExist(email, password, session);
 		session.setAttribute("loggedin", exist);
-		session.setMaxInactiveInterval(1200);
+		session.setMaxInactiveInterval(7200);
 		
 		if (exist) {
 			request.getRequestDispatcher("HomeService").forward(request, response);

@@ -1,8 +1,8 @@
-package Util;
+	package Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,8 +28,6 @@ public class TrackerService extends HttpServlet{
 			if (!loggedin) {
 				request.getRequestDispatcher("/auth.jsp").forward(request, response);
 			} else {
-				session.removeAttribute("filteredList");
-				session.setAttribute("filtered", false);
 				request.setAttribute("filtered", false);
 				
 				String username = (String) session.getAttribute("userName");
@@ -37,8 +35,8 @@ public class TrackerService extends HttpServlet{
 				
 		        DevData devData = new DevData();
 		        ArrayList<Developments> developments = devData.getDevelopments();
-		        Collections.reverse(developments);
-		        int itemsPerPage = 9;
+		        developments.sort(Comparator.comparing(Developments::getCode));
+		        int itemsPerPage = 15;
 		        int totalItems = developments.size();
 		        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
 

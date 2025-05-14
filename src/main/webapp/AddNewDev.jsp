@@ -50,7 +50,6 @@
 		        <li class="nav-item mr-5"><a href="HomeService" class="nav-link" id="Home">Home</a></li>
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
-		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
 		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker" style="color: #4D73FF">Tracker</a></li>
            		<li class="nav-item dropdown mr-5">
 				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
@@ -259,7 +258,7 @@
 		    					<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Code" name="Code" size="1" style="width: 70%; height: 36px" placeholder="Enter">
 	    					</div>
 	    					<div style="flex: 1">
-	            				<label for="Color" class="control-label opacity-75">Colorline:</label>
+	            				<label for="Color" class="control-label opacity-75">Pattern:</label>
 		    					<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Color" name="Color" size="1" style="width: 70%; height: 36px" placeholder="Enter">
 	    					</div>
 		            	</div>
@@ -348,6 +347,7 @@
 							    	<option value="Reshow">Reshow</option>
 							    	<option value="24SP to 24FA">24SP to 24FA</option>
 							    	<option value="24FA to 25SP">24FA to 25SP</option>
+							    	<option value="24FA to 25FA">24FA to 25FA</option>
 							    	<option value="25SP to 25FA">25SP to 25FA</option>
 							    	<option value="25FA to 26SP">25FA to 26SP</option>
 							    	<option value="26SP to 26FA">26SP to 26FA</option>
@@ -404,26 +404,29 @@
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
-			    				<label for="YarnType" class="control-label opacity-75">Dyeing Type</label>
+			    				<label for="YarnType" class="control-label opacity-75">Style</label>
 			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="YarnType" name="YarnType" size="1" style="width: 100%; height: 36px">
 							    	<option value="" selected>Enter</option>
-							    	<option value="YarnDyed">Yarn Dyed</option>
-							    	<option value="Piece">Piece Dyed</option>
-							    	<option value="Space">Space Dyed</option>
-							    	<option value="Spray">Spray Dyed</option>
+							    	<option value="Traditional">Traditional</option>
+							    	<option value="Transitional">Transitional</option>
+							    	<option value="Contemporary">Contemporary</option>
+							    	<option value="Modern">Modern</option>
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
 			    				<label for="WarpType" class="control-label opacity-75">Warp Type</label>
 			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="WarpType" name="WarpType" size="1" style="width: 100%; height: 36px">
 							    	<option value="" selected>Enter</option>
-							    	<option value="chenille">Chenille</option>
-							    	<option value="fancy">Fancy Yarn</option>
-							    	<option value="filament">Filament Yarn</option>
-							    	<option value="cotton">Cotton</option>
-							    	<option value="poly">Polyester</option>
-							    	<option value="rayon">Rayon</option>
-							    	<option value="slub">Slub Yarn</option>
+							    	<option value="9600 150D Solid">9600 150D Solid</option>
+							    	<option value="9600 150D E&E">9600 150D E&E</option>
+							    	<option value="9600 150D 6-End Tapestry">9600 150D 6-End Tapestry</option>
+							    	<option value="4860 SDY Solid">4860 SDY Solid</option>
+							    	<option value="4800 150D Space Dye">4800 150D Space Dye</option>
+							    	<option value="4800 150D Solid">4800 150D Solid</option>
+							    	<option value="4800 Double Beam">4800 Double Beam</option>
+							    	<option value="4800 4-End Warps">4800 4-End Warps</option>
+							    	<option value="4800 3-End Warps">4800 3-End Warps</option>
+							    	<option value="4800 150D E&E">4800 150D E&E</option>
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
@@ -650,9 +653,6 @@
 											</div>
 											<div style="flex: 1">
 												<input type="date" id="USCommentDatestamp" name="USCommentDatestamp" class="border-0 rounded-0 bg-white" size="1" style="width: 100%; height: 100%">
-											</div>
-											<div style="flex: 1">
-			      								<button class="btn btn-link btn-sm text-decoration-none text-danger" type="button" name="cmtDeleteBtn">DELETE</button>
 											</div>
 										</div>
 									</div>

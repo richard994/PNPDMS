@@ -36,16 +36,6 @@
           String matCzString = request.getAttribute("matCzStr").toString();
           String matLossString = request.getAttribute("matLossStr").toString();%>
         var matstr = "<%= matString%>";
-	
-		function next() {
-			document.getElementById("progress2").style.display = "none";
-			document.getElementById("nextbtn").style.display = "none";
-			document.getElementById("progressed1").style.display = "block";
-			document.getElementById("wwbtncontainer").style.display = "block";
-			document.getElementById("WW").style.display = "block";
-			document.getElementById("savebtn").style.display = "block";
-			document.getElementById("wtable").style.display = "table";
-		}
 		
 		function addWW() {
 			counter += 1;
@@ -143,7 +133,6 @@
 		        <li class="nav-item mr-5"><a href="HomeService" class="nav-link" id="Home">Home</a></li>
 		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing" style="color: #4D73FF">Pricing</a></li>
 		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
-		        <li class="nav-item mr-5"><a href="FinishService" class="nav-link" id="Finishing">Finishing</a></li>
 		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker">Tracker</a></li>
            		<li class="nav-item dropdown mr-5">
 				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
@@ -237,7 +226,7 @@
     		<div class="col-md-6">
     			<div class="d-flex flex-column" style="transform: translateY(-1px)">
     				<label for="ppmodel" class="control-label opacity-75">Finishing Module</label>
-    				<select id="ppmodel" class="border border-2 border-light" name="ppmodel" placeholder="Select Desired Finishings" data-search="true" data-silent-initial-value-set="true" style="width: 100%; height: 36px" multiple>
+    				<select id="ppmodel" class="border border-2 border-light" name="ppmodel" placeholder="Select Desired Finishings" data-search="false" data-silent-initial-value-set="true" style="width: 100%; height: 36px" multiple>
 				    	<%for(String f:finishings){%>
 				    	<option value="<%=f%>"><%=f%></option>
 				    	<%}%>
