@@ -430,7 +430,18 @@
 				    </c:if>
 				    
 				    <c:forEach var="i" begin="1" end="${totalPages}">
-				    	<li class="page-item"><a class="page-link" href="TrackerService?page=${i}">${i}</a></li>
+				      <c:choose>
+				        <c:when test="${i == currentPage}">
+				          <li class="page-item active">
+				            <span class="page-link">${i}</span>
+				          </li>
+				        </c:when>
+				        <c:otherwise>
+				          <li class="page-item">
+				            <a class="page-link" href="TrackerService?page=${i}">${i}</a>
+				          </li>
+				        </c:otherwise>
+				      </c:choose>
 				    </c:forEach>
 				    
 				    <c:if test="${currentPage < totalPages}">
@@ -454,7 +465,18 @@
 				    </c:if>
 				    
 				    <c:forEach var="i" begin="1" end="${totalPages}">
-				    	<li class="page-item"><a class="page-link" href="FilterService?page=${i}">${i}</a></li>
+				    	<c:choose>
+				        <c:when test="${i == currentPage}">
+				          <li class="page-item active">
+				            <span class="page-link">${i}</span>
+				          </li>
+				        </c:when>
+				        <c:otherwise>
+				          <li class="page-item">
+				            <a class="page-link" href="FilterService?page=${i}">${i}</a>
+				          </li>
+				        </c:otherwise>
+				      </c:choose>
 				    </c:forEach>
 				    
 				    <c:if test="${currentPage < totalPages}">
