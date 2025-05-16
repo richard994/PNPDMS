@@ -97,11 +97,6 @@ public class DataParser implements Runnable {
 					line = br.readLine();
 				}
 				JSONArray arr = new JSONArray(sb.toString());
-				if (arr.length() > 0) {
-					truncateMats();
-				} else {
-					return;
-				}
 				DevData devdata = new DevData();
 				ArrayList<Developments> developments = devdata.getDevelopments();
 				String productCode;
@@ -122,7 +117,7 @@ public class DataParser implements Runnable {
 					ppcm = parseSafeDouble(obj, "Avabbdensity");
 					for (Developments development : developments) {
 						if (development.getCode().equals(productCode)) {
-							System.out.println(productCode + " found. MOQ: " + moq + ". Content: " + content + ". Weight:" + weight + ". PPCM: " + ppcm + ". finish: " + finishing + ". producttype: " + producttype + ".");
+							//System.out.println(productCode + " found. MOQ: " + moq + ". Content: " + content + ". Weight:" + weight + ". PPCM: " + ppcm + ". finish: " + finishing + ". producttype: " + producttype + ".");
 							devdata.updateDevTableString("content", content, "code", productCode);
 							devdata.updateDevTableString("finishing_used", finishing, "code", productCode);
 							devdata.updateDevTableString("fabric_type", producttype, "code", productCode);
