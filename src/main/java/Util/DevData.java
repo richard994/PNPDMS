@@ -509,4 +509,43 @@ public class DevData {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public void updateDevTableString(String att_to_alter, String new_value, String key, String key_value) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String updateCommand = "UPDATE development SET " + att_to_alter + " = ? WHERE " + key + " = ?";
+			PreparedStatement updateStmt = con.prepareStatement(updateCommand);
+			updateStmt.setString(1, new_value);
+			updateStmt.setString(2, key_value);
+			updateStmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void updateDevTableDouble(String att_to_alter, double new_value, String key, String key_value) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String updateCommand = "UPDATE development SET " + att_to_alter + " = ? WHERE " + key + " = ?";
+			PreparedStatement updateStmt = con.prepareStatement(updateCommand);
+			updateStmt.setDouble(1, new_value);
+			updateStmt.setString(2, key_value);
+			updateStmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 }

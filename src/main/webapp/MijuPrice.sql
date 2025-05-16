@@ -86,7 +86,7 @@ CREATE TABLE `development` (
   `warp_type` varchar(50),
   `content` varchar(50),
   `strike_off_status` varchar(50),
-  `blanket_status` varchar(50),
+  `blanket_status` varchar(500),
   `colorline_status` varchar(50),
   `colorline_datestamp` varchar(50),
   `rollsample_status` varchar(50),

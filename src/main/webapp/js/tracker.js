@@ -84,7 +84,6 @@ function populateAllInputs() {
 	document.getElementById("YarnType").value = dev.yarn_type;
 	document.getElementById("WarpType").value = dev.warp_type;
 	document.getElementById("Direction").value = dev.direction;
-	document.getElementById("Content").value = dev.content;
 	document.getElementById("StrikeProgress").value = dev.strike_off_status;
 	document.getElementById("BlanketProgress").value = dev.blanket_status;
 	document.getElementById("ColorLineProgress").value = dev.colorline_status;

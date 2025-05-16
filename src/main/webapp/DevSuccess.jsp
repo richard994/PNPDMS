@@ -78,7 +78,7 @@
 		<div class="container-fluid text-center mx-auto mt-5 mb-5" style="width: 500px; display: block" id="afterbtngroup">
 			<button class="btn border-0 btn-lg rounded-0 mb-3" type="button" style="background-color: white; color: #4D73FF; width: 180px; border: 1px solid #4D73FF !important" onclick="clickTracker()" id="backbtn">Back to tracker</button>
 			<div style="display: inline-block; width: 30px"></div>
-			<button class="btn border-0 btn-lg rounded-0 mb-3" type="button" style="background-color: #4D73FF; color: white; width: 180px" onclick="window.location.href='NewDevService'" id="morebtn">Add more</button>
+			<button class="btn border-0 btn-lg rounded-0 mb-3" type="button" style="background-color: #4D73FF; color: white; width: 180px" onclick="window.location.href='NewDevService?action=create'" id="morebtn">Add more</button>
 		</div>
 	</div>
 

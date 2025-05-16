@@ -278,21 +278,6 @@
 				  	</select>
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
-    				<label for="Content" class="control-label opacity-75">Content<span style="font-size: 12px">(%Mix)</span></label>
-    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Content" name="Content" size="1" style="width: 100%; height: 36px" placeholder="Enter">
-			  			<option value="" selected>Enter</option>
-				    	<option value="100% polyester">100% polyester</option>
-				    	<option value="1% acrylic 99% polyester">1% acrylic 99% polyester</option>
-				    	<option value="2% acrylic 98% polyester">2% acrylic 98% polyester</option>
-				    	<option value="3% acrylic 97% polyester">3% acrylic 97% polyester</option>
-				    	<option value="10% acrylic 90% polyester">10% acrylic 90% polyester</option>
-				    	<option value="3% linen 97% polyester">3% linen 97% polyester</option>
-				    	<option value="5% linen 95% polyester">5% linen 95% polyester</option>
-				    	<option value="10%N 90%P">10%N 90%P</option>
-				    	<option value="10%V 90%P">10%V 90%P</option>
-			  		</select>
-			  	</div>
-			  	<div class="d-flex flex-column mt-4">
     				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
 				    	<option value="DNE" selected>Enter</option>

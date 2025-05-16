@@ -31,10 +31,10 @@
 		var edit = ${edit};
 		var create = ${create};
 		var user = '${user}';
-		var dev = JSON.parse('${dev}');
-		var comments = JSON.parse('${comments}');
-		var logs = JSON.parse('${logs}');
-		var fullLogs = JSON.parse('${fulllogs}');
+		var dev = ${dev};
+		var comments = ${comments};
+		var logs = ${logs};
+		var fullLogs = ${fulllogs};
 	</script>
 </head>
 <body class="bg-light">
@@ -90,15 +90,15 @@
 				<div class="rounded-0 mt-2 overflow-auto" id="progress">
 			    	<div class="container-fluid text-center pt-4">
 			    		<div class="row d-flex align-items-center justify-content-center">
-			    			<div class="col" id="StrikeNoProgress">
+			    			<div class="col" style="margin-left: 120px" id="StrikeNoProgress">
 			    				<div class="d-flex align-items-center justify-content-center opacity-50">
-				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-circle" viewBox="0 0 16 16">
-								  		<path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306Z"/>
+				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
+									  <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383z"/>
 									</svg>
 				    				<span>&nbsp&nbspStrike-off</span>
 			    				</div>
 			    			</div>
-			    			<div class="col" style="margin-left: 120px" id="StrikeProgressing">
+			    			<div class="col" style="margin-left: 120px; display: none" id="StrikeProgressing">
 			    				<div class="d-flex align-items-center justify-content-center" style="color: #4D73FF">
 				    				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle-fill" viewBox="0 0 16 16">
 								  		<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"/>
@@ -441,18 +441,7 @@
 		            	<div class="d-flex mt-2" style="gap: 15px">
 		            		<div style="flex: 1">
 			    				<label for="Content" class="control-label opacity-75">Content<span style="font-size: 12px">(%Mix)</span></label>
-			    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Content" name="Content" size="1" style="width: 100%; height: 36px" placeholder="Enter">
-						  			<option value="" selected>Enter</option>
-							    	<option value="100% polyester">100% polyester</option>
-							    	<option value="1% acrylic 99% polyester">1% acrylic 99% polyester</option>
-							    	<option value="2% acrylic 98% polyester">2% acrylic 98% polyester</option>
-							    	<option value="3% acrylic 97% polyester">3% acrylic 97% polyester</option>
-							    	<option value="10% acrylic 90% polyester">10% acrylic 90% polyester</option>
-							    	<option value="3% linen 97% polyester">3% linen 97% polyester</option>
-							    	<option value="5% linen 95% polyester">5% linen 95% polyester</option>
-							    	<option value="10%N 90%P">10%N 90%P</option>
-							    	<option value="10%V 90%P">10%V 90%P</option>
-						  		</select>
+			    				<input class="custom-select border border-light border-2 rounded-0 bg-white" id="Content" name="Content" size="1" style="width: 100%; height: 36px" placeholder="Enter" readonly/>
 						  	</div>
 						  	<div style="flex: 1">
 			    				<label for="Backing" class="control-label opacity-75">Finishing</label>
@@ -558,11 +547,11 @@
 		            	<div class="d-flex mt-2" style="gap: 20px">
 		            		<div style="flex: 1">
 			            		<label for="MOQ" class="control-label opacity-75">MOQ in meters</label>
-			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="MOQ" name="MOQ" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="MOQ" name="MOQ" size="1" style="width: 100%; height: 36px" placeholder="Enter" readonly>
 		            		</div>
 		            		<div style="flex: 1">
 			            		<label for="Weight" class="control-label opacity-75">Weight in grams</label>
-			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Weight" name="Weight" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="Weight" name="Weight" size="1" style="width: 100%; height: 36px" placeholder="Enter" readonly>
 		            		</div>
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 20px">
@@ -572,7 +561,7 @@
 		            		</div>
 		            		<div style="flex: 1">
 			            		<label for="PPCM" class="control-label opacity-75">PPCM</label>
-			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="PPCM" name="PPCM" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="PPCM" name="PPCM" size="1" style="width: 100%; height: 36px" placeholder="Enter" readonly>
 		            		</div>
 		            	</div>
 		            	<div class="mt-2">

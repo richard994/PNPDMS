@@ -34,7 +34,6 @@ public class FilterService extends HttpServlet{
 	private static String fabric_type;
 	private static String designer;
 	private static String direction;
-	private static String content;
 	private static String strikeoff;
 	private static String blanket;
 	private static String colorline;
@@ -205,15 +204,6 @@ public class FilterService extends HttpServlet{
 			System.out.println("Successfully retrieved Colorist: " + colorist + "\n");
 		} else {
 			System.out.println("Fail to retrieve Colorist.");
-		}
-		
-		temp = request.getParameterValues("Content");
-		if (temp != null) {
-			content = temp[0];
-			filterdev.setContent(content);
-			System.out.println("Successfully retrieved Content: " + content + "\n");
-		} else {
-			System.out.println("Fail to retrieve Content.");
 		}
 		
 		temp = request.getParameterValues("FabricType");
@@ -396,10 +386,6 @@ public class FilterService extends HttpServlet{
         }
         
         if (!"".equals(direction) && !direction.equals(development.getDirection())) {
-        	return false;
-        }
-        
-        if (!"".equals(content) && !content.equals(development.getContent())) {
         	return false;
         }
         

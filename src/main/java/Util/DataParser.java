@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.net.HttpURLConnection;
 
 import org.json.JSONArray;
@@ -82,6 +83,128 @@ public class DataParser implements Runnable {
 		}
 	}
 	
+	public static void ParseJSONdev(String[] args) throws IOException, JSONException {
+		try {
+			URL u = new URL("http://218.75.78.226:9000/zhongya_eos/ajax/ZY/dataProductList");
+			HttpURLConnection hr = (HttpURLConnection) u.openConnection();
+			if (hr.getResponseCode()==200) {
+				InputStream is = hr.getInputStream();
+				StringBuffer sb = new StringBuffer();
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+				String line = br.readLine();
+				while (line != null) {
+					sb.append(line);
+					line = br.readLine();
+				}
+				JSONArray arr = new JSONArray(sb.toString());
+				if (arr.length() > 0) {
+					truncateMats();
+				} else {
+					return;
+				}
+				DevData devdata = new DevData();
+				ArrayList<Developments> developments = devdata.getDevelopments();
+				String productCode;
+				String content;
+				String finishing; 
+				String producttype;
+				double moq;
+				double weight;
+				double ppcm;
+				for (int i=0; i<arr.length(); i++) {
+					JSONObject obj = arr.getJSONObject(i);
+					productCode = obj.getString("productid");
+					content = obj.getString("component");
+					finishing = checkFinishingType(obj.getString("defaultpdtypename"));
+					producttype = checkProductType(obj.getString("producttype"));
+					moq = parseSafeDouble(obj, "minquantity");
+					weight = parseSafeDouble(obj, "Squareweight");
+					ppcm = parseSafeDouble(obj, "Avabbdensity");
+					for (Developments development : developments) {
+						if (development.getCode().equals(productCode)) {
+							System.out.println(productCode + " found. MOQ: " + moq + ". Content: " + content + ". Weight:" + weight + ". PPCM: " + ppcm + ". finish: " + finishing + ". producttype: " + producttype + ".");
+							devdata.updateDevTableString("content", content, "code", productCode);
+							devdata.updateDevTableString("finishing_used", finishing, "code", productCode);
+							devdata.updateDevTableString("fabric_type", producttype, "code", productCode);
+							devdata.updateDevTableDouble("moq", moq, "code", productCode);
+							devdata.updateDevTableDouble("weight", weight, "code", productCode);
+							devdata.updateDevTableDouble("ppcm", ppcm, "code", productCode);
+							break;
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	private static double parseSafeDouble(JSONObject o, String key) {
+	    String raw = o.optString(key, "").trim();
+	    if (raw.isEmpty()) {
+	        // missing or empty
+	        return 0; 
+	    }
+	    try {
+	        return Double.parseDouble(raw);
+	    } catch (NumberFormatException e) {
+	        // non‐numeric
+	        return 0;
+	    }
+	}
+	
+	private static String checkProductType(String key) {
+		if (key.equals("平板布")) {
+			return "Base";
+		} else if (key.equals("花布")) {
+			return "Jaquard";
+		} else {
+			return "";
+		}
+	}
+	
+	private static String checkFinishingType(String key) {
+		String finishing = "";
+		if (key.contains("涂层")) {
+			finishing += "KC,";
+		}
+		
+		if (key.contains("轧毛")) {
+			finishing += "NP,";
+		}
+		
+		if (key.contains("空气洗")) {
+			finishing += "AW,";
+		}
+		
+		if (key.contains("定型")) {
+			finishing += "HS,";
+		}
+		
+		if (key.contains("单面绒")) {
+			finishing += "SPB,";
+		}
+		
+		if (key.contains("无纺棉")) {
+			finishing += "FB,";
+		}
+		
+		if (key.contains("TC布")) {
+			finishing += "TC,";
+		}
+		
+		if (key.contains("春亚纺")) {
+			finishing += "KB,";
+		}
+		
+		if (finishing.endsWith(",")) {
+		    finishing = finishing.substring(0, finishing.length() - 1);
+		}
+		
+		return finishing;
+	}
+	
 	public static void getConn() {
 		try {
 			Class.forName(driver);
@@ -148,6 +271,7 @@ public class DataParser implements Runnable {
 	public void run() {
 		try {
 			ParseJSONmat(null);
+			ParseJSONdev(null);
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		} 
