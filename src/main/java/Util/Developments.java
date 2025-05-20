@@ -23,6 +23,7 @@ public class Developments {
 	private String Warp_type;
 	private String Content;
 	private String Strike_off_status;
+	private String Strike_off_birthday;
 	private String Blanket_status;
 	private String Colorline_status;
 	private String Colorline_datestamp;
@@ -60,7 +61,7 @@ public class Developments {
 			String test_datestamp, double moq, double weight, int numColorline, 
 			double ppcm, String note, String fabric_img_path, String pid_path, 
 			String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
-			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled) {
+			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -103,6 +104,7 @@ public class Developments {
 		setDesigner(designer);
 		setDirection(direction);
 		setGeorgeCanceled(GeorgeCanceled);
+		setStrike_off_birthday(strike_off_birthday);
 	}
 	
 	public void setAll(int id, String code, String color, double cost, 
@@ -113,7 +115,7 @@ public class Developments {
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, double moq, double weight, int numColorline, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
-			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled) {
+			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -156,6 +158,7 @@ public class Developments {
 		setDesigner(designer);
 		setDirection(direction);
 		setGeorgeCanceled(GeorgeCanceled);
+		setStrike_off_birthday(strike_off_birthday);
 	}
 	
 	public ArrayList<Log> compare(Developments otherDev, String username) {
@@ -560,5 +563,13 @@ public class Developments {
 
 	public void setPriceMax(double priceMax) {
 		this.priceMax = priceMax;
+	}
+
+	public String getStrike_off_birthday() {
+		return Strike_off_birthday;
+	}
+
+	public void setStrike_off_birthday(String strike_off_birthday) {
+		Strike_off_birthday = strike_off_birthday;
 	}
 }

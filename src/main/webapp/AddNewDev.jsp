@@ -459,10 +459,10 @@
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 15px">
 		                	<div style="flex: 2">
-		                		<div class="d-flex" style="gap: 15px">
-		                			<div style="flex: 1">
-		                				<div id="StrikeBlock">
-						    				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
+                				<div id="StrikeBlock">
+                					<span class="control-label opacity-75">Stike-off Progress and Stike-off Birthday</span>
+                					<div class="d-flex" style="gap: 5px">
+                						<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
 										    	<option value="DNE" selected>Enter</option>
 										    	<option value="Wait for US feedback">Wait for US feedback</option>
@@ -471,7 +471,14 @@
 										    	<option value="Strike-off confirmed">Strike-off confirmed</option>
 										  	</select>
 									  	</div>
+									  	<div style="flex: 1">
+									  		<input type="date" id="StrikeBirthday" name="StrikeBirthday" class="custom-select border border-light border-2 rounded-0 bg-white" size="1" style="width: 100%; height: 36px">
+									  	</div>
 								  	</div>
+								  </div>
+						  	</div>
+						  	<div style="flex: 2">
+		                		<div class="d-flex" style="gap: 15px">
 								  	<div style="flex: 1">
 								  		<div id="BlanketBlock">
 						    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
@@ -487,7 +494,9 @@
 								  	</div>
 							  	</div>
 						  	</div>
-						  	<div style="flex: 2">
+		            	</div>
+		            	<div class="d-flex mt-2" style="gap: 15px">
+		            		<div style="flex: 2">
 						  		<div id="ColorlineBlock">
 						  			<span class="control-label opacity-75">Color Line Progress and Est. Ready Date</span>
 							  		<div class="d-flex" style="gap: 5px">
@@ -505,8 +514,6 @@
 								  	</div>
 							  	</div>
 						  	</div>
-		            	</div>
-		            	<div class="d-flex mt-2" style="gap: 15px">
 		            		<div style="flex: 2">
 		            			<div id="RollSampleBlock">
 							  		<span class="control-label opacity-75">Roll Sample Progress and Est. Ready Date</span>
@@ -525,7 +532,9 @@
 								  	</div>
 							  	</div>
 						  	</div>
-						  	<div style="flex: 2">
+		            	</div>
+		            	<div class="d-flex mt-2" style="gap: 15px">
+		                	<div style="flex: 2">
 						  		<div id="TestBlock">
 						  			<span class="control-label opacity-75">Testing Progress and Est. Ready Date</span>
 							  		<div class="d-flex" style="gap: 5px">
@@ -543,6 +552,7 @@
 								  	</div>
 							  	</div>
 						  	</div>
+						  	<div style="flex: 2"></div>
 		            	</div>
 		            	<div class="d-flex mt-2" style="gap: 20px">
 		            		<div style="flex: 1">

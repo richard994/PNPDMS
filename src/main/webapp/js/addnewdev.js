@@ -263,6 +263,7 @@ function populateAllInputs() {
 	document.getElementById("Content").value = dev.content;
 	if (dev.strike_off_status !== "DNE") {
 		document.getElementById("StrikeProgress").value = dev.strike_off_status;
+		document.getElementById("StrikeBirthday").value = dev.strike_off_birthday;
 		document.getElementById("StrikeProgress").dispatchEvent(new Event('change'));
 	}
 	if (dev.blanket_status !== "DNE") {

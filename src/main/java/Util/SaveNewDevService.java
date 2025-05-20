@@ -39,6 +39,7 @@ public class SaveNewDevService extends HttpServlet{
 	private static String warp_type;
 	private static String content;
 	private static String strike_off_status;
+	private static String strike_off_birthday;
 	private static String blanket_status;
 	private static String colorline_status;
 	private static String colorline_datestamp;
@@ -327,6 +328,14 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("Fail to retrieve strike-off progress.");
 		}
 		
+		temp = request.getParameterValues("StrikeBirthday");
+		if (temp != null) {
+			strike_off_birthday = temp[0];
+			System.out.println("Successfully retrieved strike-off birthday: " + strike_off_birthday + "\n");
+		} else {
+			System.out.println("Fail to retrieve strike-off birthday.");
+		}
+		
 		temp = request.getParameterValues("BlanketStatus");
 		if (temp != null) {
 			blanket_status = temp[0];
@@ -520,7 +529,7 @@ public class SaveNewDevService extends HttpServlet{
 				DateCurrentPhase = old_development.getDateCurrentPhase();
 			}
 		}
-		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, IsKnit, designer, direction, GeorgeCanceled);
+		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday);
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		
 		temp = request.getParameterValues("LeahCommentInput");

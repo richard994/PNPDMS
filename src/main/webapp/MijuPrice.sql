@@ -109,6 +109,7 @@ CREATE TABLE `development` (
   `designer` varchar(50),
   `direction` varchar(50),
   `GeorgeCanceled` BOOLEAN DEFAULT false,
+  `strike_off_birthday` varchar(50),
   PRIMARY KEY (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
