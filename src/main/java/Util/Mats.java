@@ -1,74 +1,174 @@
 package Util;
 
 public class Mats {
-	private String mat_name;
-	private String mat_type;
-	private String color_type;
-	private String memo;
-	private double use_percentage;
-	private double cost;
+	private String name;
+	private double whitePrice;
+	private double dyePrice;
+	private double colorPrice;
+	private double drPrice;
+	private double prPrice;
+	private double countgu;
+	private double countzhi;
+	private String mtrtype;
+	private double wloss;
+	private String key;
+	private String matName; 
+	private String matType;
+	private String matColor; 
+	private String matMemo;
+	private double usePercent;
 	
 	public Mats() {}
 	
-	public Mats(String mn, String mt, String ct, String mm, double up, double c) {
-		this.mat_name = mn;
-		this.mat_type = mt;
-		this.color_type = ct;
-		this.memo = mm;
-		this.use_percentage = up;
-		this.cost = c;
+	public Mats(String name, double whitePrice, double dyePrice, double colorPrice, 
+			double drPrice, double prPrice, double countgu, double countzhi, 
+			String mtrtype, double wloss, String key) {
+		setName(name);
+		setWhitePrice(whitePrice);
+		setDyePrice(dyePrice);
+		setColorPrice(colorPrice);
+		setDrPrice(drPrice);
+		setPrPrice(prPrice);
+		setCountgu(countgu);
+		setCountzhi(countzhi);
+		setMtrtype(mtrtype);
+		setWloss(wloss);
+		setKey(key);
 	}
 	
-	public void setMatName(String mn) {
-		this.mat_name = mn;
+	public Mats(String matName, String wwType, String matColor, String matMemo, double usePercent) {
+		setMatName(matName);
+		setMatType(wwType);
+		setMatColor(matColor);
+		setMatMemo(matMemo);
+		setUsePercent(usePercent);
 	}
-	
-	public void setMatType(String mt) {
-		this.mat_type = mt;
+
+	public String getName() {
+		return name;
 	}
-	
-	public void setMatColor(String ct) {
-		this.color_type = ct;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public void setMatMemo(String mm) {
-		this.memo = mm;
+
+	public double getWhitePrice() {
+		return whitePrice;
 	}
-	
-	public void setUsePercent(double up) {
-		this.use_percentage = up;
+
+	public void setWhitePrice(double whitePrice) {
+		this.whitePrice = whitePrice;
 	}
-	
-	public void setMatCost(double c) {
-		this.cost = c;
+
+	public double getDyePrice() {
+		return dyePrice;
 	}
-	
-	public String getMatStr() {
-		String buffer = mat_name + ',' + mat_type + ',' + color_type + ',' + memo + ',' + use_percentage + ',' + cost;
-		return buffer;
+
+	public void setDyePrice(double dyePrice) {
+		this.dyePrice = dyePrice;
 	}
-	
+
+	public double getColorPrice() {
+		return colorPrice;
+	}
+
+	public void setColorPrice(double colorPrice) {
+		this.colorPrice = colorPrice;
+	}
+
+	public double getDrPrice() {
+		return drPrice;
+	}
+
+	public void setDrPrice(double drPrice) {
+		this.drPrice = drPrice;
+	}
+
+	public double getPrPrice() {
+		return prPrice;
+	}
+
+	public void setPrPrice(double prPrice) {
+		this.prPrice = prPrice;
+	}
+
+	public double getCountgu() {
+		return countgu;
+	}
+
+	public void setCountgu(double countgu) {
+		this.countgu = countgu;
+	}
+
+	public double getCountzhi() {
+		return countzhi;
+	}
+
+	public void setCountzhi(double countzhi) {
+		this.countzhi = countzhi;
+	}
+
+	public String getMtrtype() {
+		return mtrtype;
+	}
+
+	public void setMtrtype(String mtrtype) {
+		this.mtrtype = mtrtype;
+	}
+
+	public double getWloss() {
+		return wloss;
+	}
+
+	public void setWloss(double wloss) {
+		this.wloss = wloss;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
 	public String getMatName() {
-		return mat_name;
+		return matName;
 	}
-	
+
+	public void setMatName(String matName) {
+		this.matName = matName;
+	}
+
 	public String getMatType() {
-		return mat_type;
+		return matType;
 	}
-	
+
+	public void setMatType(String matType) {
+		this.matType = matType;
+	}
+
 	public String getMatColor() {
-		return color_type;
+		return matColor;
 	}
-	
+
+	public void setMatColor(String matColor) {
+		this.matColor = matColor;
+	}
+
 	public String getMatMemo() {
-		return memo;
+		return matMemo;
 	}
-	
+
+	public void setMatMemo(String matMemo) {
+		this.matMemo = matMemo;
+	}
+
 	public double getUsePercent() {
-		return use_percentage;
+		return usePercent;
 	}
-	
-	public double getMatCost() {
-		return cost;
+
+	public void setUsePercent(double usePercent) {
+		this.usePercent = usePercent;
 	}
 }

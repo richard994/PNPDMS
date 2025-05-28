@@ -2,6 +2,8 @@ package Util;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -26,8 +28,10 @@ public class ExportService extends HttpServlet{
 		
 		DevData devdata = new DevData();
 		ArrayList<Developments> developments = devdata.getDevelopments();
+		developments.sort(Comparator.comparing(Developments::getCode));
 		if (filtered) {
 			developments = (ArrayList<Developments>) session.getAttribute("filteredList");
+			developments.sort(Comparator.comparing(Developments::getCode));
 		}
 		String filename = "developments.xlsx";
 		

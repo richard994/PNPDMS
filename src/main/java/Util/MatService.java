@@ -1,7 +1,7 @@
 package Util;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @WebServlet("/MatService")
 public class MatService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	private static List<String> matList;
-	private static int numMats;
-	private static String matStr;
 	
 	public MatService() {}
 	
@@ -29,43 +28,79 @@ public class MatService extends HttpServlet{
 			if (!loggedin) {
 				request.getRequestDispatcher("/auth.jsp").forward(request, response);
 			} else {
-				MatData matdata = new MatData();
-				matStr = matdata.getMatStr();
-				matList = matdata.getMatList();
-				numMats = matList.size();
-				int remainder = numMats % 3;
-				if (remainder != 0) {
-					remainder = 3 - remainder;
-				}
-				for (int i=0; i<remainder; i++) {
-					matList.add("EMPTY");
-				}
-				request.setAttribute("numMats", numMats);
-				request.setAttribute("matList", matList);
-				request.setAttribute("matStr", matStr);
-				request.setAttribute("matCatStr", matdata.getMatCategoryStr());
+				PriceData priceData = new PriceData();
+				ArrayList<Mats> matList = priceData.getMatList();
 				
-				int numChenilleYarn = matdata.getNumChenillerYarn();
-				int numCottonYarn = matdata.getNumCottonYarn();
-				int numRayon = matdata.getNumRayon();
-				int numFancyYarn = matdata.getNumFancyYarn();
-				int numFilamentYarn = matdata.getNumFilamentYarn();
-				int numPolyesterYarn = matdata.getNumPolyesterYarn();
-				int numWoolYarn = matdata.getNumWoolYarn();
-				int numCashmere = matdata.getNumCashmere();
-				int numLinenYarn = matdata.getNumLinenYarn();
-				int numArtificialCotton = matdata.getNumArtificialCotton();
-				int numFullCotton = matdata.getNumFullCotton();
-				int numTwistedYarn = matdata.getNumTwistedYarn();
-				int numPolyCotton = matdata.getNumPolyCotton();
-				int numSlubYarn = matdata.getNumSlubYarn();
-				int numSilk = matdata.getNumSilk();
-				int numAcrylicYarn = matdata.getNumAcrylicYarn();
-				int numFireRetardent = matdata.getNumFireRetardent();
-				int numFilamentPolyester = matdata.getNumFilamentPolyester();
-				int numNylon = matdata.getNumNylon();
-				int numPolyLinen = matdata.getNumPolyLinen();
-				int numRecycledYarn = matdata.getNumRecycledYarn();
+				int numChenilleYarn=0;
+				int numCottonYarn=0;
+				int numRayon=0;
+				int numFancyYarn=0;
+				int numFilamentYarn=0;
+				int numPolyesterYarn=0;
+				int numWoolYarn=0;
+				int numCashmere=0;
+				int numLinenYarn=0;
+				int numArtificialCotton=0;
+				int numFullCotton=0;
+				int numTwistedYarn=0;
+				int numPolyCotton=0;
+				int numSlubYarn=0;
+				int numSilk=0;
+				int numAcrylicYarn=0;
+				int numFireRetardent=0;
+				int numFilamentPolyester=0;
+				int numNylon=0;
+				int numPolyLinen=0;
+				int numRecycledYarn=0;
+				for (Mats mat : matList) {
+					if (mat.getKey().equals("1")) {
+						numChenilleYarn++;
+					} else if (mat.getKey().equals("2")) {
+						numCottonYarn++;
+					} else if (mat.getKey().equals("3")) {
+						numRayon++;
+					} else if (mat.getKey().equals("4")) {
+						numFancyYarn++;
+					} else if (mat.getKey().equals("5")) {
+						numFilamentYarn++;
+					} else if (mat.getKey().equals("6")) {
+						numPolyesterYarn++;
+					} else if (mat.getKey().equals("7")) {
+						numWoolYarn++;
+					} else if (mat.getKey().equals("8")) {
+						numCashmere++;
+					} else if (mat.getKey().equals("9")) {
+						numLinenYarn++;
+					} else if (mat.getKey().equals("A")) {
+						numArtificialCotton++;
+					} else if (mat.getKey().equals("B")) {
+						numFullCotton++;
+					} else if (mat.getKey().equals("C")) {
+						numTwistedYarn++;
+					} else if (mat.getKey().equals("D")) {
+						numPolyCotton++;
+					} else if (mat.getKey().equals("E")) {
+						numSlubYarn++;
+					} else if (mat.getKey().equals("F")) {
+						numSilk++;
+					} else if (mat.getKey().equals("G")) {
+						numAcrylicYarn++;
+					} else if (mat.getKey().equals("H")) {
+						numFireRetardent++;
+					} else if (mat.getKey().equals("J")) {	
+						numFilamentPolyester++;
+					} else if (mat.getKey().equals("K")) {
+						numNylon++;
+					} else if (mat.getKey().equals("L")) {
+						numPolyLinen++;
+					} else if (mat.getKey().equals("N")) {
+						numRecycledYarn++;
+					} else {} 
+				}
+				
+				ObjectMapper objectMapper = new ObjectMapper();
+				String matJson = objectMapper.writeValueAsString(matList);
+				request.setAttribute("mats", matJson);
 				request.setAttribute("numChenilleYarn", numChenilleYarn);
 				request.setAttribute("numCottonYarn", numCottonYarn);
 				request.setAttribute("numRayon", numRayon);

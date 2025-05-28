@@ -824,38 +824,6 @@
 			document.getElementById("savebtn").style.display = "none";
 			document.getElementById("editbtn").style.display = "block";
 		}
-		
-		if (user == "June") {
-			document.getElementById("USCommentBtn").disabled = true;
-			
-			const us = document.querySelectorAll('.UScommentDeleteBtn');
-			us.forEach(element => {
-			    element.style.display = 'none';
-			});
-		} else if (user == "Kellena" || user == "Nellie" || user == "David") {
-			document.getElementById("LeahCommentBtn").disabled = true;
-			document.getElementById("MillCommentBtn").disabled = true;
-			document.getElementById("GeorgeCommentBtn").disabled = true;
-			
-			const leah = document.querySelectorAll('.LeahcommentDeleteBtn');
-			leah.forEach(element => {
-			    element.style.display = 'none';
-			});
-			
-			const mill = document.querySelectorAll('.MillcommentDeleteBtn');
-			mill.forEach(element => {
-			    element.style.display = 'none';
-			});
-			
-			const george = document.querySelectorAll('.GeorgecommentDeleteBtn');
-			george.forEach(element => {
-			    element.style.display = 'none';
-			});
-			
-			if (user == "David") {
-				document.getElementById("CommentContainer").style.display = "none";
-			}
-		}
 	</script>
 </body>
 </html>
