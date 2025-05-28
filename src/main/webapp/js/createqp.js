@@ -173,7 +173,7 @@ function validate() {
 		}
 		
 		if (weftSum != 100) {
-		    alert('Total usePercent for "Weft" need to be 100 (current: '+warpSum+'%)');
+		    alert('Total usePercent for "Weft" need to be 100 (current: '+weftSum+'%)');
 		    return false;
 		}
 	}
