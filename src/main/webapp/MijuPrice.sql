@@ -11,15 +11,6 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE `finishing` (
-  `pdrate` double NOT NULL,
-  `priceweightflag` varchar(10) NOT NULL,
-  `postdisposaletypeename` varchar(500) NOT NULL,
-  `price` double NOT NULL,
-  `fin_id` int NOT NULL,
-  PRIMARY KEY (`fin_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE `mats` (
   `mtrename` varchar(500) NOT NULL,
   `mtrtype` varchar(5) NOT NULL,

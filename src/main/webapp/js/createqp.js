@@ -93,7 +93,7 @@ function clickPricing() {
 	document.getElementById("Pricing").click();
 }
 
-function validatePhaseOne() {/*
+function validatePhaseOne() {
 	if (document.forms["PDform"]["pmodel"].value == "") {
 		alert("Please enter product model!");
 		return false;
@@ -109,7 +109,7 @@ function validatePhaseOne() {/*
 	} else if (document.forms["PDform"]["totalWarp"].value == "") {
 		alert("Please enter total warp!");
 		return false;
-	} */
+	} 
 	next();
 }
 
