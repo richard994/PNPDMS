@@ -306,6 +306,7 @@ public class FilterService extends HttpServlet{
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("filtered", true);
+        request.setAttribute("sorted", false);
 
 		request.getRequestDispatcher("/tracker.jsp").forward(request, response);
 	}
