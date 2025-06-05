@@ -26,6 +26,7 @@
 	</style>
 	<script defer>
 		var filtered = ${filtered};
+		var sorted = ${sorted};
 		var dev = JSON.parse('${filterdev}');
 	</script>
 </head>
@@ -61,6 +62,7 @@
 		    <li class="breadcrumb-item">Tracker</li>
 		  </ol>
 		</nav>
+		<!--  
 		<div class="container">
 			<div style="float: right">
 				<img class="language" src="img/language.svg" alt="language" />
@@ -70,6 +72,7 @@
 			  	</select>
 		  	</div>
 	  	</div>
+	  	-->
 	</div>
 	
 	<form id="filterForm" name="filterForm" action="FilterService" method="get">
@@ -99,6 +102,12 @@
 				  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
 				</svg>
 	    		Export
+	    	</button>
+	    	<button class="btn border-0" type="button" id="export" onclick="showSortModal()" style="background-color: #4D73FF; color: white; width: 180px">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-right" viewBox="0 0 16 16">
+				  <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5m0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5m0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5"/>
+				</svg>
+	    		Sort
 	    	</button>
 		</div>
 	</div>
@@ -439,6 +448,41 @@
 				  </ul>
 				</nav>
 				
+				<nav aria-label="Page navigation" id="sortedNav">
+				  <ul class="pagination justify-content-center">
+				    <c:if test="${currentPage > 1}">
+					    <li class="page-item">
+					      <a class="page-link" href="TrackerService?action=sort&page=${currentPage-1}" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+				    </c:if>
+				    
+				    <c:forEach var="i" begin="1" end="${totalPages}">
+				      <c:choose>
+				        <c:when test="${i == currentPage}">
+				          <li class="page-item active">
+				            <span class="page-link">${i}</span>
+				          </li>
+				        </c:when>
+				        <c:otherwise>
+				          <li class="page-item">
+				            <a class="page-link" href="TrackerService?action=sort&page=${i}">${i}</a>
+				          </li>
+				        </c:otherwise>
+				      </c:choose>
+				    </c:forEach>
+				    
+				    <c:if test="${currentPage < totalPages}">
+					    <li class="page-item">
+					      <a class="page-link" href="TrackerService?action=sort&page=${currentPage + 1}" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+				    </c:if>
+				  </ul>
+				</nav>
+				
 				<nav aria-label="Page navigation" id="filteredNav" style="display: none">
 				  <ul class="pagination justify-content-center">
 				    <c:if test="${currentPage > 1}">
@@ -499,12 +543,40 @@
 			</div>
 	</div>
 	
+	<div class="modal fade" id="sortModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="expModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				    <div class="modal-header">
+				    	<h5 class="modal-title" id="staticBackdropLabel">Sort</h5>
+			    		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	    			</div>
+				    <div class="modal-body">
+				    	<div class="container">
+				    		<div class="row mb-3">
+				    			<span style="color: blue">Sort by recently modified.</span>
+				    		</div>
+			    		</div>
+		    		</div>
+		    		<div class="modal-footer">
+				    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				    	<button type="button"  onclick="window.location.href='TrackerService?action=sort'" class="btn btn-primary" id="confirmSort" data-bs-dismiss="modal">Confirm</button>
+				    </div>
+				 </div>
+			</div>
+	</div>
+	
 	<script src="js/tracker.js"></script>
 	<script type="text/javascript">
+		document.getElementById("filteredNav").style.display = "none";
+		document.getElementById("unfilteredNav").style.display = "none";
+		document.getElementById("sortedNav").style.display = "none";
 		if (filtered) {
 			document.getElementById("filteredNav").style.display = "block";
-			document.getElementById("unfilteredNav").style.display = "none";
 			populateAllInputs();
+		} else if (sorted) {
+			document.getElementById("sortedNav").style.display = "block";
+		} else {
+			document.getElementById("unfilteredNav").style.display = "block";
 		}
 	</script>
 </body>

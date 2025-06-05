@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,14 +29,21 @@ public class TrackerService extends HttpServlet{
 			if (!loggedin) {
 				request.getRequestDispatcher("/auth.jsp").forward(request, response);
 			} else {
+				String action = request.getParameter("action");
 				request.setAttribute("filtered", false);
+				request.setAttribute("sorted", false);
 				
 				String username = (String) session.getAttribute("userName");
 				request.setAttribute("user", username);
 				
 		        DevData devData = new DevData();
 		        ArrayList<Developments> developments = devData.getDevelopments();
-		        developments.sort(Comparator.comparing(Developments::getCode));
+		        if ("sort".equals(action)) {
+		        	Collections.reverse(developments);
+		        	request.setAttribute("sorted", true);
+		        } else {
+		        	developments.sort(Comparator.comparing(Developments::getCode));
+		        }
 		        int itemsPerPage = 15;
 		        int totalItems = developments.size();
 		        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);

@@ -60,6 +60,10 @@ function showModal() {
 	$('#expModal').modal("show");
 }
 
+function showSortModal() {
+	$('#sortModal').modal("show");
+}
+
 function populateAllInputs() {
 	document.getElementById("titleCode").value = dev.code;
 	document.getElementById("min-price").textContent = dev.priceMin;

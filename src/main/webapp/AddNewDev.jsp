@@ -70,6 +70,7 @@
 		    <li class="breadcrumb-item">New Product Development</li>
 		  </ol>
 		</nav>
+		<!--  
 		<div class="container">
 			<div style="float: right">
 				<img class="language" src="img/language.svg" alt="language" />
@@ -79,6 +80,7 @@
 			  	</select>
 		  	</div>
 	  	</div>
+	  	-->
 	</div>
 	
 	<form id="NDform" name="NDform" action="SaveNewDevService" method="post" enctype="multipart/form-data" onsubmit="return validate()">
