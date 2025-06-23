@@ -21,10 +21,12 @@ public class FilterService extends HttpServlet{
 	private static boolean need400hrFCL;
 	private static boolean needPieceDyed;
 	private static boolean needFeedback;
+	private static boolean needChinaFeedback;
 	private static boolean needSDY;
 	private static boolean needChenille;
 	private static boolean needKnit;
 	private static boolean needGeorgeCanceled;
+	private static boolean inactive;
 	private static String titleCode;
 	private static String season;
 	private static String design_type;
@@ -90,6 +92,16 @@ public class FilterService extends HttpServlet{
 			System.out.println("FeedbackCB unchecked.\n");
 		}
 		filterdev.setNeedFeedback(needFeedback);
+		
+		temp = request.getParameterValues("ChinaFeedbackCB");
+		if (temp != null) {
+			needChinaFeedback = true;
+			System.out.println("ChinaFeedbackCB checked.\n");
+		} else {
+			needChinaFeedback = false;
+			System.out.println("ChinaFeedbackCB unchecked.\n");
+		}
+		filterdev.setNeedChinaFeedback(needChinaFeedback);
 		
 		temp = request.getParameterValues("ParagonCleanCB");
 		if (temp != null) {
@@ -160,6 +172,16 @@ public class FilterService extends HttpServlet{
 			System.out.println("GeorgeCancelCB unchecked.\n");
 		}
 		filterdev.setGeorgeCanceled(needGeorgeCanceled);
+		
+		temp = request.getParameterValues("inactiveCB");
+		if (temp != null) {
+			inactive = true;
+			System.out.println("inactiveCB checked.\n");
+		} else {
+			inactive = false;
+			System.out.println("inactiveCB unchecked.\n");
+		}
+		filterdev.setInactive(inactive);
 		
 		temp = request.getParameterValues("Season");
 		if (temp != null) {
@@ -348,6 +370,10 @@ public class FilterService extends HttpServlet{
             return false;
         }
         
+        if (needChinaFeedback && !development.isNeedChinaFeedback()) {
+            return false;
+        }
+        
         if (needSDY && !development.isSDY()) {
             return false;
         }
@@ -361,6 +387,10 @@ public class FilterService extends HttpServlet{
         }
         
         if (needGeorgeCanceled && !development.isGeorgeCanceled()) {
+            return false;
+        }
+        
+        if (inactive && !development.isInactive()) {
             return false;
         }
         
