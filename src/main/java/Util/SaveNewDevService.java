@@ -28,8 +28,10 @@ public class SaveNewDevService extends HttpServlet{
 	private static boolean Is400hrFCL = false;
 	private static boolean IsPieceDyed = false;
 	private static boolean NeedFeedback = false;
+	private static boolean NeedChinaFeedback = false;
 	private static boolean IsSDY = false;
 	private static boolean IsChenille = false;
+	private static boolean inactive = false;
 	private static String fabric_type;
 	private static String design_type;
 	private static String colorist;
@@ -204,6 +206,15 @@ public class SaveNewDevService extends HttpServlet{
 			System.out.println("NeedFeedback unchecked.\n");
 		}
 		
+		temp = request.getParameterValues("ChinaFeedbackCB");
+		if (temp != null) {
+			NeedChinaFeedback = true;
+			System.out.println("NeedChinaFeedback checked.\n");
+		} else {
+			NeedChinaFeedback = false;
+			System.out.println("NeedChinaFeedback unchecked.\n");
+		}
+		
 		temp = request.getParameterValues("SDYCB");
 		if (temp != null) {
 			IsSDY = true;
@@ -238,6 +249,15 @@ public class SaveNewDevService extends HttpServlet{
 		} else {
 			GeorgeCanceled = false;
 			System.out.println("GeorgeCanceled unchecked.\n");
+		}
+		
+		temp = request.getParameterValues("inactiveCB");
+		if (temp != null) {
+			inactive = true;
+			System.out.println("inactive checked.\n");
+		} else {
+			inactive = false;
+			System.out.println("inactive unchecked.\n");
 		}
 		
 		temp = request.getParameterValues("FabricType");
@@ -456,9 +476,9 @@ public class SaveNewDevService extends HttpServlet{
 		
 		if (test_status.equals("DNE")) {
 			currentPhase = "";
-		} else if (test_status.equals("Test Passed")) {
+		} else if (test_status.equals("Testing passed")) {
 			currentPhase = "Test Passed";
-		} else if (test_status.equals("Test Failed")){
+		} else if (test_status.contains("failed")){
 			currentPhase = "Test Failed";
 		} else {
 			currentPhase = "Testing";
@@ -524,12 +544,8 @@ public class SaveNewDevService extends HttpServlet{
 			} else {
 				deleteFile(old_development.getTest_report_path());
 			}
-			String old_phase = old_development.getCurrentPhase();
-			if (old_phase.equals(currentPhase)) {
-				DateCurrentPhase = old_development.getDateCurrentPhase();
-			}
 		}
-		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday);
+		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive);
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		
 		temp = request.getParameterValues("LeahCommentInput");
@@ -640,6 +656,10 @@ public class SaveNewDevService extends HttpServlet{
 				}
 				devdata.deleteDev(old_dev_id);
 				System.out.println("Deleted old development " + old_dev_id + ".\n");
+				String DateCurrPhase = old_development.checkPhase(new_development);
+				if (!DateCurrPhase.equals("")) {
+					devdata.updateDevTableString("DateCurrentPhase", DateCurrPhase, "development_id", devid);
+				}
 			} else {
 				devdata.deleteDev(devid);
 				System.out.println("No change, deleting new development " + devid + ".\n");
@@ -683,7 +703,7 @@ public class SaveNewDevService extends HttpServlet{
 	}
 	
 	private void deleteFile(String filename) {
-		if (filename.equals("none")) {
+		if (filename.equals("none") || filename.isEmpty()) {
 			System.out.println("No file to delete.");
 			return;
 		}

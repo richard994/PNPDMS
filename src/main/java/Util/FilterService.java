@@ -317,8 +317,14 @@ public class FilterService extends HttpServlet{
 	}
 	
 	private boolean filter(Developments development) {
-		if (!"".equals(titleCode) && !development.getCode().contains(titleCode)) {
-			return false;
+		if (!titleCode.isEmpty()) {
+		    String tc = titleCode.toLowerCase();
+		    String code  = development.getCode()  == null ? "" : development.getCode().toLowerCase();
+		    String color = development.getColor() == null ? "" : development.getColor().toLowerCase();
+
+		    if (!code.contains(tc) && !color.contains(tc)) {
+		        return false;
+		    }
 		}
 		
 		double cost = development.getCost();

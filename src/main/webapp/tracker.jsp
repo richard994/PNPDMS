@@ -165,6 +165,12 @@
 					</label>
 				</div>
 				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="ChinaFeedbackCB" name="ChinaFeedbackCB">
+					<label class="form-check-label" for="ChinaFeedbackCB">
+					  Need China Feedback?
+					</label>
+				</div>
+				<div class="form-check mt-4">
 					<input class="form-check-input" type="checkbox" id="SDYCB" name="SDYCB">
 					<label class="form-check-label" for="SDYCB">
 					  SDY
@@ -180,6 +186,12 @@
 					<input class="form-check-input" type="checkbox" id="GeorgeCancelCB" name="GeorgeCancelCB">
 					<label class="form-check-label" for="GeorgeCancelCB">
 					  George Canceled
+					</label>
+				</div>
+				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="inactiveCB" name="inactiveCB">
+					<label class="form-check-label" for="inactiveCB">
+					  Inactive
 					</label>
 				</div>
 				<div class="d-flex flex-column mt-4">
@@ -282,7 +294,7 @@
     				<label for="Direction" class="control-label opacity-75">Direction</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="Direction" name="Direction" size="1" style="width: 100%; height: 36px">
 				    	<option value="" selected>Enter</option>
-				    	<option value="UU">UU</option>
+				    	<option value="RR">RR</option>
 				    	<option value="UTR">UTR</option>
 				  	</select>
 			  	</div>
@@ -290,10 +302,13 @@
     				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
 				    	<option value="DNE" selected>Enter</option>
-				    	<option value="Wait for US feedback">Wait for US feedback</option>
-				    	<option value="US canceled">US canceled</option>
+				    	<option value="Strike-off submitted">Strike-off submitted</option>
 				    	<option value="Strike-off producing">Strike-off producing</option>
-				    	<option value="Strike-off confirmed">Strike-off confirmed</option>
+				    	<option value="Strike-off shipped, awaiting initial feedback from US">Strike-off shipped, awaiting initial feedback from US</option>
+				    	<option value="One team confirmed; both parties in discussion, see comment">One team confirmed; both parties in discussion, see comment</option>
+				    	<option value="US team is submitting a revision">US team is submitting a revision</option>
+				    	<option value="Confirm to drop">Confirm to drop</option>
+				    	<option value="Strike-off confirmed by both teams">Strike-off confirmed by both teams</option>
 				  	</select>
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
@@ -301,19 +316,14 @@
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
 				    	<option value="DNE" selected>Enter</option>
 				    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
-				    	<option value="Blanket under production">Blanket under production</option>
-				    	<option value="Banket sent. Wait for US feedback">Blanket sent. Wait for US feedback</option>
-				    	<option value="China Team are confirming the colors">China Team are confirming the colors</option>
-				    	<option value="Blanket confirmed">Blanket confirmed</option>
-				  	</select>
-			  	</div>
-			  	<div class="d-flex flex-column mt-4">
-		  			<label for="ColorLineProgress" class="control-label opacity-75">Colorline Status</label>
-    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ColorLineProgress" name="ColorLineProgress" size="1" style="width: 100%; height: 36px">
-				    	<option value="" selected>Enter</option>
-				    	<option value="Yibei has received all colors">Yibei has received all colors</option>
-				    	<option value="Colorline completed">Colorline completed</option>
-				    	<option value="Colorline shipped">Colorline shipped</option>
+				    	<option value="US blanket submitted">US blanket submitted</option>
+				    	<option value="Blanket in production">Blanket in production</option>
+				    	<option value="Blanket shipped, awaiting initial feedback from US">Blanket shipped, awaiting initial feedback from US</option>
+				    	<option value="Colorline proposal submitted">Colorline proposal submitted</option>
+				    	<option value="US color revisions requested, see comment">US color revisions requested, see comment</option>
+				    	<option value="China team revisions suggested, see comment">China team revisions suggested, see comment</option>
+				    	<option value="Confirm to drop">Confirm to drop</option>
+				    	<option value="Colorline confirmed">Colorline confirmed</option>
 				  	</select>
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
@@ -326,12 +336,24 @@
 				  	</select>
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
+		  			<label for="ColorLineProgress" class="control-label opacity-75">Colorline Status</label>
+    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="ColorLineProgress" name="ColorLineProgress" size="1" style="width: 100%; height: 36px">
+				    	<option value="" selected>Enter</option>
+				    	<option value="Yibei has received all colors">Yibei has received all colors</option>
+				    	<option value="Colorline completed">Colorline completed</option>
+				    	<option value="Colorline shipped">Colorline shipped</option>
+				  	</select>
+			  	</div>
+			  	<div class="d-flex flex-column mt-4">
 			  		<label for="TestingProgress" class="control-label opacity-75">Testing Progress</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px">
 				    	<option value="DNE" selected>Enter</option>
-				    	<option value="Testing In Process">Testing In Process</option>
-				    	<option value="Test Passed">Passed</option>
-				    	<option value="Test Failed">Failed</option>
+				    	<option value="Testing in progress">Testing in progress</option>
+				    	<option value="Under improvement and retesting">Under improvement and retesting</option>
+				    	<option value="Testing failed, awaiting US feedback, see comment">Testing failed, awaiting US feedback, see comment</option>
+				    	<option value="Testing confirmed to proceed">Testing confirmed to proceed</option>
+				    	<option value="Testing passed">Testing passed</option>
+				    	<option value="Testing failed, product dropped">Testing failed, product dropped</option>
 				  	</select>
 			  	</div>
 			</div>

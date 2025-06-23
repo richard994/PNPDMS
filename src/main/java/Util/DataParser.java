@@ -115,6 +115,7 @@ public class DataParser implements Runnable {
 					moq = parseSafeDouble(obj, "minquantity");
 					weight = parseSafeDouble(obj, "Squareweight");
 					ppcm = parseSafeDouble(obj, "Avabbdensity");
+					boolean exist = false;
 					for (Developments development : developments) {
 						if (development.getCode().equals(productCode)) {
 							//System.out.println(productCode + " found. MOQ: " + moq + ". Content: " + content + ". Weight:" + weight + ". PPCM: " + ppcm + ". finish: " + finishing + ". producttype: " + producttype + ".");
@@ -124,8 +125,17 @@ public class DataParser implements Runnable {
 							devdata.updateDevTableDouble("moq", moq, "code", productCode);
 							devdata.updateDevTableDouble("weight", weight, "code", productCode);
 							devdata.updateDevTableDouble("ppcm", ppcm, "code", productCode);
+							exist = true;
 							break;
 						}
+					}
+					if (!exist) {
+						devdata.updateDevTableString("content", "", "code", productCode);
+						devdata.updateDevTableString("finishing_used", "", "code", productCode);
+						devdata.updateDevTableString("fabric_type", "", "code", productCode);
+						devdata.updateDevTableDouble("moq", 0, "code", productCode);
+						devdata.updateDevTableDouble("weight", 0, "code", productCode);
+						devdata.updateDevTableDouble("ppcm", 0, "code", productCode);
 					}
 				}
 			}

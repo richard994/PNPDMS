@@ -81,7 +81,7 @@ const test = document.getElementById("TestingProgress");
 
 strike.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (selectedValue == "Strike-off confirmed") {
+	if (selectedValue == "Strike-off confirmed by both teams") {
 		document.getElementById("StrikeNoProgress").style.display = "none";
 		document.getElementById("StrikeProgressing").style.display = "none";
 		document.getElementById("StrikeProgressed").style.display = "block";
@@ -98,7 +98,7 @@ strike.addEventListener("change", function(event) {
 
 blanket.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (selectedValue == "Blanket confirmed") {
+	if (selectedValue == "Colorline confirmed") {
 		document.getElementById("BlanketNoProgress").style.display = "none";
 		document.getElementById("BlanketProgressing").style.display = "none";
 		document.getElementById("BlanketProgressed").style.display = "block";
@@ -132,7 +132,7 @@ roll.addEventListener("change", function(event) {
 
 test.addEventListener("change", function(event) {
 	const selectedValue = event.target.value;
-	if (selectedValue == "Test Passed") {
+	if (selectedValue == "Testing passed") {
 		document.getElementById("TestNoProgress").style.display = "none";
 		document.getElementById("TestProgressing").style.display = "none";
 		document.getElementById("TestProgressed").style.display = "block";
@@ -247,9 +247,11 @@ function populateAllInputs() {
 	document.getElementById("PDCB").checked = dev.pieceDyed;
 	document.getElementById("ChenilleCB").checked = dev.chenille;
 	document.getElementById("FeedbackCB").checked = dev.needFeedback;
+	document.getElementById("ChinaFeedbackCB").checked = dev.needChinaFeedback;
 	document.getElementById("SDYCB").checked = dev.sdy;
 	document.getElementById("KnitCB").checked = dev.knit;
 	document.getElementById("GeorgeCancelCB").checked = dev.georgeCanceled;
+	document.getElementById("inactiveCB").checked = dev.isInactive;
 	document.getElementById("FabricType").value = dev.fabric_type;
 	document.getElementById("DesignType").value = dev.design_type;
 	document.getElementById("Colorist").value = dev.colorist;

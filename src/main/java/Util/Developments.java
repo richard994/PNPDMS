@@ -12,8 +12,10 @@ public class Developments {
 	private boolean is400hrFCL;
 	private boolean isPieceDyed;
 	private boolean needFeedback;
+	private boolean needChinaFeedback;
 	private boolean isSDY;
 	private boolean isChenille;
+	private boolean inactive;
 	private String Fabric_type;
 	private String Design_type;
 	private String Colorist;
@@ -61,7 +63,8 @@ public class Developments {
 			String test_datestamp, double moq, double weight, int numColorline, 
 			double ppcm, String note, String fabric_img_path, String pid_path, 
 			String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
-			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday) {
+			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday,
+			boolean NeedChinaFeedback, boolean inactive) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -105,6 +108,8 @@ public class Developments {
 		setDirection(direction);
 		setGeorgeCanceled(GeorgeCanceled);
 		setStrike_off_birthday(strike_off_birthday);
+		setNeedChinaFeedback(NeedChinaFeedback);
+		setInactive(inactive);
 	}
 	
 	public void setAll(int id, String code, String color, double cost, 
@@ -115,7 +120,8 @@ public class Developments {
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, double moq, double weight, int numColorline, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
-			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday) {
+			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday,
+			boolean NeedChinaFeedback, boolean inactive) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -159,6 +165,8 @@ public class Developments {
 		setDirection(direction);
 		setGeorgeCanceled(GeorgeCanceled);
 		setStrike_off_birthday(strike_off_birthday);
+		setNeedChinaFeedback(NeedChinaFeedback);
+		setInactive(inactive);
 	}
 	
 	public ArrayList<Log> compare(Developments otherDev, String username) {
@@ -211,6 +219,37 @@ public class Developments {
         }
 		
 		return logs;
+	}
+	
+	public String checkPhase(Developments otherDev) {
+		String DateCurrentPhase = "";
+		
+		try {
+			// Get all fields of the Development class (including private ones)
+            Field[] fields = Developments.class.getDeclaredFields();
+            
+            for (Field field : fields) {
+            	field.setAccessible(true); // Make private fields accessible
+                String attributeName = field.getName();
+                
+                if (attributeName.equals("Strike_off_status") || attributeName.equals("Blanket_status") || 
+                	attributeName.equals("Colorline_status") || attributeName.equals("Rollsample_status")) {
+                	Object oldValue = field.get(this); // Get value from the current object
+                    Object newValue = field.get(otherDev); // Get value from the other object
+                    
+                    if (newValue != null && !newValue.equals(oldValue)) {
+                    	return LocalDateTime.now().toString();
+                    }
+                } else {
+                	continue;
+                }
+            }
+		} catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return DateCurrentPhase;
+        }
+		
+		return DateCurrentPhase;
 	}
 
 	public String getCode() {
@@ -571,5 +610,21 @@ public class Developments {
 
 	public void setStrike_off_birthday(String strike_off_birthday) {
 		Strike_off_birthday = strike_off_birthday;
+	}
+
+	public boolean isNeedChinaFeedback() {
+		return needChinaFeedback;
+	}
+
+	public void setNeedChinaFeedback(boolean needChinaFeedback) {
+		this.needChinaFeedback = needChinaFeedback;
+	}
+
+	public boolean isInactive() {
+		return inactive;
+	}
+
+	public void setInactive(boolean inactive) {
+		this.inactive = inactive;
 	}
 }

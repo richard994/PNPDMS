@@ -38,7 +38,8 @@ public class DevData {
 			String test_datestamp, double moq, double weight, 
 			int numColorline, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
-			boolean isKnit, String designer, String direction, boolean georgeCanceled, String strike_off_birthday) {
+			boolean isKnit, String designer, String direction, boolean georgeCanceled, String strike_off_birthday,
+			boolean NeedChinaFeedback, boolean inactive) {
 		try {
 			getConn();
 			String sql = "INSERT INTO MijuPrice.development(code, color, cost, IsParagonClean, Is400hrFCL, "
@@ -46,8 +47,8 @@ public class DevData {
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
 					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, "
-					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, code);
 			stmt.setString(2, color);
@@ -91,6 +92,8 @@ public class DevData {
 			stmt.setString(40, direction);
 			stmt.setBoolean(41, georgeCanceled);
 			stmt.setString(42, strike_off_birthday);
+			stmt.setBoolean(43, NeedChinaFeedback);
+			stmt.setBoolean(44, inactive);
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys
@@ -214,6 +217,8 @@ public class DevData {
 				String direction = rs.getString("direction");
 				boolean georgeCanceled = rs.getBoolean("GeorgeCanceled");
 				String strike_off_birthday = rs.getString("strike_off_birthday");
+				boolean NeedChinaFeedback = rs.getBoolean("NeedChinaFeedback");
+				boolean inactive = rs.getBoolean("inactive");
 				Developments development = new Developments(dev_id, code, color, cost, 
 										IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
 										IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, 
@@ -223,7 +228,8 @@ public class DevData {
 										test_datestamp, moq, weight, 
 										numColorline, ppcm, note, fabric_img_path, 
 										pid_path, test_report_path, currentPhase, DateTime, LastModified, 
-										DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday);
+										DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday,
+										NeedChinaFeedback, inactive);
 				developments.add(development);
 			}
 			return developments;
@@ -289,6 +295,8 @@ public class DevData {
 				String direction = rs.getString("direction");
 				boolean georgeCanceled = rs.getBoolean("GeorgeCanceled");
 				String strike_off_birthday = rs.getString("strike_off_birthday");
+				boolean NeedChinaFeedback = rs.getBoolean("NeedChinaFeedback");
+				boolean inactive = rs.getBoolean("inactive");
 				
 				development.setAll(id, code, color, cost, 
 									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
@@ -299,7 +307,8 @@ public class DevData {
 									test_datestamp, moq, weight, 
 									numColorline, ppcm, note, fabric_img_path, 
 									pid_path, test_report_path, currentPhase, DateTime, LastModified, 
-									DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday);
+									DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday,
+									NeedChinaFeedback, inactive);
 			}
 			return development;
 		} catch (Exception e) {
@@ -401,8 +410,8 @@ public class DevData {
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
 					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, "
-					+ "IsKnit, designer, direction, GeorgeCanceled) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, dev.getCode());
 			stmt.setString(2, dev.getColor());
@@ -445,6 +454,9 @@ public class DevData {
 			stmt.setString(39, dev.getDesigner());
 			stmt.setString(40, dev.getDirection());
 			stmt.setBoolean(41, dev.isGeorgeCanceled());
+			stmt.setString(42, dev.getStrike_off_birthday());
+			stmt.setBoolean(43, dev.isNeedChinaFeedback());
+			stmt.setBoolean(44, dev.isInactive());
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys
@@ -528,6 +540,25 @@ public class DevData {
 			PreparedStatement updateStmt = con.prepareStatement(updateCommand);
 			updateStmt.setString(1, new_value);
 			updateStmt.setString(2, key_value);
+			updateStmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void updateDevTableString(String att_to_alter, String new_value, String key, int key_value) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try (Connection con= DriverManager.getConnection(  
+				Constant.DBUrl, Constant.DBUserName,Constant.DBPassword);) {
+			String updateCommand = "UPDATE development SET " + att_to_alter + " = ? WHERE " + key + " = ?";
+			PreparedStatement updateStmt = con.prepareStatement(updateCommand);
+			updateStmt.setString(1, new_value);
+			updateStmt.setInt(2, key_value);
 			updateStmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
