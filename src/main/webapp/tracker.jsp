@@ -423,7 +423,7 @@
 										</div>
 		  							</div>
 		  							<div class="col">
-		  								<span style="float: right" id="CardCurrStatus${status.index}" class="cardcurrstatus">${dev.currentPhase}</span>
+		  								<span style="float: right" id="CardCurrStatus${status.index}" class="cardcurrstatus">${dev.currentPhase == 'Test Passed' ? 'Test Pass' : dev.currentPhase}</span>
 		  							</div>
 		  						</div>
 		  						<div class="row">
