@@ -400,7 +400,25 @@
 		  								<div class="form-check">
 											<input class="form-check-input" type="checkbox" ${dev.needFeedback ? 'checked' : ''} id="CardFeedBackCB${status.index}" disabled>
 											<label class="form-check-label" for="CardFeedBackCB${status.index}" style="white-space: nowrap">
-											  Need Feedback
+											  Need US Feedback
+											</label>
+										</div>
+		  							</div>
+		  							<div class="col">
+		  								<div class="form-check" style="float: right">
+											<input class="form-check-input" type="checkbox" ${dev.inactive ? 'checked' : ''} id="CardInactiveCB${status.index}" disabled>
+											<label class="form-check-label" for="CardInactiveCB${status.index}" style="white-space: nowrap">
+											  inactive
+											</label>
+										</div>
+		  							</div>
+		  						</div>
+		  						<div class="row">
+		  							<div class="col">
+		  								<div class="form-check">
+											<input class="form-check-input" type="checkbox" ${dev.needChinaFeedback ? 'checked' : ''} id="CardChinaFeedBackCB${status.index}" disabled>
+											<label class="form-check-label" for="CardChinaFeedBackCB${status.index}" style="white-space: nowrap">
+											  Need China Feedback
 											</label>
 										</div>
 		  							</div>
