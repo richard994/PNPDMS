@@ -4,6 +4,7 @@ import java.io.*;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import software.amazon.awssdk.services.s3.S3Client;
@@ -84,6 +85,7 @@ public class SaveNewDevService extends HttpServlet{
 		doPost(request, response);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest request, HttpServletResponse 
 			response) throws ServletException, IOException {
 		String temp[];
@@ -643,6 +645,7 @@ public class SaveNewDevService extends HttpServlet{
 		String userName = (String) session.getAttribute("userName");
 		if ("edit".equals(action)) {
 			System.out.println("Editing.\n");
+			boolean edited = false;
 			int old_dev_id = Integer.parseInt(request.getParameter("devId"));
 			Developments old_development = devdata.getDevelopmentById(old_dev_id);
 			Developments new_development = devdata.getDevelopmentById(devid);
@@ -660,11 +663,39 @@ public class SaveNewDevService extends HttpServlet{
 				if (!DateCurrPhase.equals("")) {
 					devdata.updateDevTableString("DateCurrentPhase", DateCurrPhase, "development_id", devid);
 				}
+				edited = true;
 			} else {
 				devdata.deleteDev(devid);
 				System.out.println("No change, deleting new development " + devid + ".\n");
 			}
-			request.getRequestDispatcher("/TrackerService").forward(request, response);
+			
+			ArrayList<Developments> filtered_list = (ArrayList<Developments>) session.getAttribute("filteredList");
+			if (filtered_list != null) {
+				if (edited) {
+					filtered_list.removeIf(dev -> dev.getDev_id() == old_dev_id);
+					filtered_list.add(devdata.getDevelopmentById(devid));
+					session.setAttribute("filteredList", filtered_list);
+				}
+				int currentPage = Integer.parseInt(session.getAttribute("filteredPageNumber") != null ? String.valueOf(session.getAttribute("filteredPageNumber")) : "1");
+				int itemsPerPage = 15;
+		        int totalItems = filtered_list.size();
+		        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+
+		        // Calculate the starting index for the sublist
+		        int startIndex = (currentPage - 1) * itemsPerPage;
+		        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+		        // Get the sublist for the current page
+		        List<Developments> currentPageList = filtered_list.subList(startIndex, endIndex);
+		        request.setAttribute("currentPageList", currentPageList);
+		        request.setAttribute("totalPages", totalPages);
+		        request.setAttribute("currentPage", currentPage);
+		        request.setAttribute("filtered", true);
+		        request.setAttribute("sorted", false);
+		        request.getRequestDispatcher("/tracker.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/TrackerService").forward(request, response);
+			}
 		} else {
 			devdata.insertLog(devid, userName, DateTime, "Created New Development");
 			request.getRequestDispatcher("/DevSuccess.jsp").forward(request, response);

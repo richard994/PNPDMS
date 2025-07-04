@@ -333,6 +333,7 @@ public class FilterService extends HttpServlet{
 
         // Get the current page from request (default to 1 if not set)
         int currentPage = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
+        session.setAttribute("filteredPageNumber", currentPage);
         if (request.getParameter("page") != null) {
 			developments = (ArrayList<Developments>) session.getAttribute("filteredList");
         } else {
