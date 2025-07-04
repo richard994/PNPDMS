@@ -90,9 +90,15 @@ function populateAllInputs() {
 	document.getElementById("YarnType").value = dev.yarn_type;
 	document.getElementById("WarpType").value = dev.warp_type;
 	document.getElementById("Direction").value = dev.direction;
-	document.getElementById("StrikeProgress").value = dev.strike_off_status;
-	document.getElementById("BlanketProgress").value = dev.blanket_status;
+	const selectedStrikeArr = dev.strike_off_status.split("!");
+	const modifiedStrikeArr = selectedStrikeArr.map(item => item + "!");
+	document.querySelector('#StrikeProgress').setValue(modifiedStrikeArr, false);
+	const selectedBlanketArr = dev.blanket_status.split("!");
+	const modifiedBlanketArr = selectedBlanketArr.map(item => item + "!");
+	document.querySelector('#BlanketStatus').setValue(modifiedBlanketArr, false);
 	document.getElementById("ColorLineProgress").value = dev.colorline_status;
 	document.getElementById("RollSampleProgress").value = dev.rollsample_status;
-	document.getElementById("TestingProgress").value = dev.test_status;
+	const selectedTestArr = dev.test_status.split("!");
+	const modifiedTestArr = selectedTestArr.map(item => item + "!");
+	document.querySelector('#TestingProgress').setValue(modifiedTestArr, false);
 }

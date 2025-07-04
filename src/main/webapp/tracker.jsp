@@ -10,6 +10,8 @@
 	<link rel="stylesheet" type="text/css" href="css/tracker.css" />
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="js/jquery-3.7.0.min.js"></script>
+	<link rel="stylesheet" href="js/virtual-select.min.css">
+	<script type="text/javascript" src="js/virtual-select.min.js"></script>
 	<title>Tracker</title>
 	
 	<style>
@@ -300,30 +302,28 @@
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
     				<label for="StrikeProgress" class="control-label opacity-75">Strike-Off Progress</label>
-    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
-				    	<option value="DNE" selected>Enter</option>
-				    	<option value="Strike-off submitted">Strike-off submitted</option>
-				    	<option value="Strike-off producing">Strike-off producing</option>
-				    	<option value="Strike-off shipped, awaiting initial feedback from US">Strike-off shipped, awaiting initial feedback from US</option>
-				    	<option value="One team confirmed; both parties in discussion, see comment">One team confirmed; both parties in discussion, see comment</option>
-				    	<option value="US team is submitting a revision">US team is submitting a revision</option>
-				    	<option value="Confirm to drop">Confirm to drop</option>
-				    	<option value="Strike-off confirmed by both teams">Strike-off confirmed by both teams</option>
+    				<select class="custom-select multi-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px" multiple>
+				    	<option value="Strike-off submitted!">Strike-off submitted</option>
+				    	<option value="Strike-off producing!">Strike-off producing</option>
+				    	<option value="Strike-off shipped, awaiting initial feedback from US!">Strike-off shipped, awaiting initial feedback from US</option>
+				    	<option value="One team confirmed; both parties in discussion, see comment!">One team confirmed; both parties in discussion, see comment</option>
+				    	<option value="US team is submitting a revision!">US team is submitting a revision</option>
+				    	<option value="Confirm to drop!">Confirm to drop</option>
+				    	<option value="Strike-off confirmed by both teams!">Strike-off confirmed by both teams</option>
 				  	</select>
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
     				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
-    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
-				    	<option value="DNE" selected>Enter</option>
-				    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
-				    	<option value="US blanket submitted">US blanket submitted</option>
-				    	<option value="Blanket in production">Blanket in production</option>
-				    	<option value="Blanket shipped, awaiting initial feedback from US">Blanket shipped, awaiting initial feedback from US</option>
-				    	<option value="Colorline proposal submitted">Colorline proposal submitted</option>
-				    	<option value="US color revisions requested, see comment">US color revisions requested, see comment</option>
-				    	<option value="China team revisions suggested, see comment">China team revisions suggested, see comment</option>
-				    	<option value="Confirm to drop">Confirm to drop</option>
-				    	<option value="Colorline confirmed">Colorline confirmed</option>
+    				<select class="custom-select multi-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px" multiple>
+				    	<option value="Strike-off confirmed. Wait for US blanket proceeding!">Strike-off confirmed. Wait for US blanket proceeding</option>
+				    	<option value="US blanket submitted!">US blanket submitted</option>
+				    	<option value="Blanket in production!">Blanket in production</option>
+				    	<option value="Blanket shipped, awaiting initial feedback from US!">Blanket shipped, awaiting initial feedback from US</option>
+				    	<option value="Colorline proposal submitted!">Colorline proposal submitted</option>
+				    	<option value="US color revisions requested, see comment!">US color revisions requested, see comment</option>
+				    	<option value="China team revisions suggested, see comment!">China team revisions suggested, see comment</option>
+				    	<option value="Confirm to drop!">Confirm to drop</option>
+				    	<option value="Colorline confirmed!">Colorline confirmed</option>
 				  	</select>
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
@@ -346,14 +346,13 @@
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
 			  		<label for="TestingProgress" class="control-label opacity-75">Testing Progress</label>
-    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px">
-				    	<option value="DNE" selected>Enter</option>
-				    	<option value="Testing in progress">Testing in progress</option>
-				    	<option value="Under improvement and retesting">Under improvement and retesting</option>
-				    	<option value="Testing failed, awaiting US feedback, see comment">Testing failed, awaiting US feedback, see comment</option>
-				    	<option value="Testing confirmed to proceed">Testing confirmed to proceed</option>
-				    	<option value="Testing passed">Testing passed</option>
-				    	<option value="Testing failed, product dropped">Testing failed, product dropped</option>
+    				<select class="custom-select multi-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px" multiple>
+				    	<option value="Testing in progress!">Testing in progress</option>
+				    	<option value="Under improvement and retesting!">Under improvement and retesting</option>
+				    	<option value="Testing failed, awaiting US feedback, see comment!">Testing failed, awaiting US feedback, see comment</option>
+				    	<option value="Testing confirmed to proceed!">Testing confirmed to proceed</option>
+				    	<option value="Testing passed!">Testing passed</option>
+				    	<option value="Testing failed, product dropped!">Testing failed, product dropped</option>
 				  	</select>
 			  	</div>
 			</div>
@@ -607,6 +606,10 @@
 	
 	<script src="js/tracker.js"></script>
 	<script type="text/javascript">
+		VirtualSelect.init({
+			ele: '.multi-select'
+		});
+		
 		document.getElementById("filteredNav").style.display = "none";
 		document.getElementById("unfilteredNav").style.display = "none";
 		document.getElementById("sortedNav").style.display = "none";

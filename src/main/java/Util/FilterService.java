@@ -2,8 +2,11 @@ package Util;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +46,9 @@ public class FilterService extends HttpServlet{
 	private static String test;
 	private static double priceMin=0;
 	private static double priceMax=10;
+	Set<String> selectedStrikeProgress = new HashSet<>();
+	Set<String> selectedBlanketProgress = new HashSet<>();
+	Set<String> selectedTestProgress = new HashSet<>();
 	
 	public FilterService() {}
 	
@@ -255,20 +261,35 @@ public class FilterService extends HttpServlet{
 			System.out.println("Fail to retrieve Direction.");
 		}
 		
+		selectedStrikeProgress.clear();
 		temp = request.getParameterValues("StrikeProgress");
 		if (temp != null) {
-			strikeoff = temp[0];
+			String[] values = temp[0].split("!");
+			for (int i = 0; i < values.length; i++) {
+			    // Remove leading spaces, commas, and tabs from each item
+			    values[i] = values[i].replaceAll("^[\\s,]+", "").trim();
+			}
+			strikeoff = String.join("!", values);
 			filterdev.setStrike_off_status(strikeoff);
 			System.out.println("Successfully retrieved StrikeProgress: " + strikeoff + "\n");
+			selectedStrikeProgress.addAll(Arrays.asList(values));
+			System.out.println("selectedStrikeProgress: " + selectedStrikeProgress + "\n");
 		} else {
 			System.out.println("Fail to retrieve StrikeProgress.");
 		}
 		
+		selectedBlanketProgress.clear();
 		temp = request.getParameterValues("BlanketStatus");
 		if (temp != null) {
-			blanket = temp[0];
+			String[] values = temp[0].split("!");
+			for (int i = 0; i < values.length; i++) {
+			    // Remove leading spaces, commas, and tabs from each item
+			    values[i] = values[i].replaceAll("^[\\s,]+", "").trim();
+			}
+			blanket = String.join("!", values);
 			filterdev.setBlanket_status(blanket);
 			System.out.println("Successfully retrieved BlanketStatus: " + blanket + "\n");
+			selectedBlanketProgress.addAll(Arrays.asList(values));
 		} else {
 			System.out.println("Fail to retrieve BlanketStatus.");
 		}
@@ -291,11 +312,18 @@ public class FilterService extends HttpServlet{
 			System.out.println("Fail to retrieve RollSampleProgress.");
 		}
 		
+		selectedTestProgress.clear();
 		temp = request.getParameterValues("TestingProgress");
 		if (temp != null) {
-			test = temp[0];
+			String[] values = temp[0].split("!");
+			for (int i = 0; i < values.length; i++) {
+			    // Remove leading spaces, commas, and tabs from each item
+			    values[i] = values[i].replaceAll("^[\\s,]+", "").trim();
+			}
+			test = String.join("!", values);
 			filterdev.setTest_status(test);
 			System.out.println("Successfully retrieved TestingProgress: " + test + "\n");
+			selectedTestProgress.addAll(Arrays.asList(values));
 		} else {
 			System.out.println("Fail to retrieve TestingProgress.");
 		}
@@ -394,6 +422,10 @@ public class FilterService extends HttpServlet{
             return false;
         }
         
+        if (!inactive && development.isInactive()) {
+            return false;
+        }
+        
         if (!"".equals(season) && !season.equals(development.getSeason())) {
         	return false;
         }
@@ -426,13 +458,13 @@ public class FilterService extends HttpServlet{
         	return false;
         }
         
-        if (!"".equals(strikeoff) && !"DNE".equals(strikeoff) && !strikeoff.equals(development.getStrike_off_status())) {
-        	return false;
-        }
+        if (!selectedStrikeProgress.isEmpty() && !selectedStrikeProgress.contains("") && !selectedStrikeProgress.contains(development.getStrike_off_status())) {
+    	    return false;
+    	}
         
-        if (!"".equals(blanket) && !"DNE".equals(blanket) && !blanket.equals(development.getBlanket_status())) {
-        	return false;
-        }
+        if (!selectedBlanketProgress.isEmpty() && !selectedBlanketProgress.contains("") && !selectedBlanketProgress.contains(development.getBlanket_status())) {
+    	    return false;
+    	}
         
         if (!"".equals(colorline) && !"DNE".equals(colorline) && !colorline.equals(development.getColorline_status())) {
         	return false;
@@ -442,9 +474,9 @@ public class FilterService extends HttpServlet{
         	return false;
         }
         
-        if (!"".equals(test) && !"DNE".equals(test) && !test.equals(development.getTest_status())) {
-        	return false;
-        }
+        if (!selectedTestProgress.isEmpty() && !selectedTestProgress.contains("") && !selectedTestProgress.contains(development.getTest_status())) {
+    	    return false;
+    	}
         
         return true;
     }
