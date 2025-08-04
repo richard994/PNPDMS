@@ -345,7 +345,12 @@
 								  Inactive
 								</label>
 							</div>
-							<div class="form-check" style="flex: 1"></div>
+							<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" id="priceConfirmCB" name="priceConfirmCB">
+								<label class="form-check-label" for="priceConfirmCB">
+								  Price Confirmed
+								</label>
+							</div>
 							<div class="form-check" style="flex: 1"></div>
 		            	</div>
 		                <div class="d-flex mt-4" style="gap: 15px">

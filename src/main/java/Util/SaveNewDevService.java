@@ -33,6 +33,7 @@ public class SaveNewDevService extends HttpServlet{
 	private static boolean IsSDY = false;
 	private static boolean IsChenille = false;
 	private static boolean inactive = false;
+	private static boolean priceConfirmed = false;
 	private static String fabric_type;
 	private static String design_type;
 	private static String colorist;
@@ -260,6 +261,15 @@ public class SaveNewDevService extends HttpServlet{
 		} else {
 			inactive = false;
 			System.out.println("inactive unchecked.\n");
+		}
+		
+		temp = request.getParameterValues("priceConfirmCB");
+		if (temp != null) {
+			priceConfirmed = true;
+			System.out.println("priceConfirmedCB checked.\n");
+		} else {
+			priceConfirmed = false;
+			System.out.println("priceConfirmedCB unchecked.\n");
 		}
 		
 		temp = request.getParameterValues("FabricType");
@@ -547,7 +557,7 @@ public class SaveNewDevService extends HttpServlet{
 				deleteFile(old_development.getTest_report_path());
 			}
 		}
-		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive);
+		int devid = devdata.insertDevelopment(code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, season, yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed);
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		
 		temp = request.getParameterValues("LeahCommentInput");

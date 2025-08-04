@@ -30,6 +30,7 @@ public class FilterService extends HttpServlet{
 	private static boolean needKnit;
 	private static boolean needGeorgeCanceled;
 	private static boolean inactive;
+	private static boolean priceConfirmed;
 	private static String titleCode;
 	private static String season;
 	private static String design_type;
@@ -188,6 +189,16 @@ public class FilterService extends HttpServlet{
 			System.out.println("inactiveCB unchecked.\n");
 		}
 		filterdev.setInactive(inactive);
+		
+		temp = request.getParameterValues("priceConfirmCB");
+		if (temp != null) {
+			priceConfirmed = true;
+			System.out.println("priceConfirmCB checked.\n");
+		} else {
+			priceConfirmed = false;
+			System.out.println("priceConfirmCB unchecked.\n");
+		}
+		filterdev.setPriceConfirmed(priceConfirmed);
 		
 		temp = request.getParameterValues("Season");
 		if (temp != null) {
@@ -424,6 +435,10 @@ public class FilterService extends HttpServlet{
         }
         
         if (!inactive && development.isInactive()) {
+            return false;
+        }
+        
+        if (priceConfirmed && !development.isPriceConfirmed()) {
             return false;
         }
         

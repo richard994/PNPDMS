@@ -16,6 +16,7 @@ public class Developments {
 	private boolean isSDY;
 	private boolean isChenille;
 	private boolean inactive;
+	private boolean priceConfirmed;
 	private String Fabric_type;
 	private String Design_type;
 	private String Colorist;
@@ -64,7 +65,7 @@ public class Developments {
 			double ppcm, String note, String fabric_img_path, String pid_path, 
 			String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
 			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday,
-			boolean NeedChinaFeedback, boolean inactive) {
+			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -110,6 +111,7 @@ public class Developments {
 		setStrike_off_birthday(strike_off_birthday);
 		setNeedChinaFeedback(NeedChinaFeedback);
 		setInactive(inactive);
+		setPriceConfirmed(priceConfirmed);
 	}
 	
 	public void setAll(int id, String code, String color, double cost, 
@@ -121,7 +123,7 @@ public class Developments {
 			String test_datestamp, double moq, double weight, int numColorline, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
 			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday,
-			boolean NeedChinaFeedback, boolean inactive) {
+			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -167,6 +169,7 @@ public class Developments {
 		setStrike_off_birthday(strike_off_birthday);
 		setNeedChinaFeedback(NeedChinaFeedback);
 		setInactive(inactive);
+		setPriceConfirmed(priceConfirmed);
 	}
 	
 	public ArrayList<Log> compare(Developments otherDev, String username) {
@@ -626,5 +629,13 @@ public class Developments {
 
 	public void setInactive(boolean inactive) {
 		this.inactive = inactive;
+	}
+
+	public boolean isPriceConfirmed() {
+		return priceConfirmed;
+	}
+
+	public void setPriceConfirmed(boolean priceConfirmed) {
+		this.priceConfirmed = priceConfirmed;
 	}
 }

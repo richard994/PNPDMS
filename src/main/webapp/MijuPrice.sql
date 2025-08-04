@@ -103,6 +103,7 @@ CREATE TABLE `development` (
   `strike_off_birthday` varchar(50),
   `NeedChinaFeedback` BOOLEAN DEFAULT false,
   `inactive` BOOLEAN DEFAULT false,
+  `priceConfirmed` BOOLEAN DEFAULT false,
   PRIMARY KEY (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

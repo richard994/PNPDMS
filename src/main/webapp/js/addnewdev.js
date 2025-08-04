@@ -252,6 +252,7 @@ function populateAllInputs() {
 	document.getElementById("KnitCB").checked = dev.knit;
 	document.getElementById("GeorgeCancelCB").checked = dev.georgeCanceled;
 	document.getElementById("inactiveCB").checked = dev.inactive;
+	document.getElementById("priceConfirmCB").checked = dev.priceConfirmed;
 	document.getElementById("FabricType").value = dev.fabric_type;
 	document.getElementById("DesignType").value = dev.design_type;
 	document.getElementById("Colorist").value = dev.colorist;

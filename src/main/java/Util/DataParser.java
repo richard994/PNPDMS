@@ -104,7 +104,11 @@ public class DataParser implements Runnable {
 				String productCode;
 				String content;
 				String finishing; 
-				String producttype;
+				String producttype;/*
+				boolean isChenille;
+				boolean isPieceDyed;
+				boolean isSDY;
+				boolean isKnit;*/
 				double moq;
 				double weight;
 				double ppcm;
@@ -119,16 +123,23 @@ public class DataParser implements Runnable {
 					producttype = checkProductType(obj.getString("producttype"));
 					moq = parseSafeDouble(obj, "minquantity");
 					weight = parseSafeDouble(obj, "Squareweight");
-					ppcm = parseSafeDouble(obj, "Avabbdensity");
+					ppcm = parseSafeDouble(obj, "Avabbdensity");/*
+					isChenille = "Y".equals(obj.getString("isxne"));
+					isPieceDyed = "Y".equals(obj.getString("ispiran"));
+					isSDY = "Y".equals(obj.getString("issemuli"));
+					isKnit = "Y".equals(obj.getString("iszhenzhi"));*/
 					for (Developments development : developments) {
 						if (development.getCode().equals(productCode)) {
-							//System.out.println(productCode + " found. MOQ: " + moq + ". Content: " + content + ". Weight:" + weight + ". PPCM: " + ppcm + ". finish: " + finishing + ". producttype: " + producttype + ".");
 							devdata.updateDevTableString("content", content, "code", productCode);
 							devdata.updateDevTableString("finishing_used", finishing, "code", productCode);
 							devdata.updateDevTableString("fabric_type", producttype, "code", productCode);
 							devdata.updateDevTableDouble("moq", moq, "code", productCode);
 							devdata.updateDevTableDouble("weight", weight, "code", productCode);
-							devdata.updateDevTableDouble("ppcm", ppcm, "code", productCode);
+							devdata.updateDevTableDouble("ppcm", ppcm, "code", productCode);/*
+							devdata.updateDevTableBoolean("IsChenille", isChenille, "code", productCode);
+							devdata.updateDevTableBoolean("IsPieceDyed", isPieceDyed, "code", productCode);
+							devdata.updateDevTableBoolean("IsSDY", isSDY, "code", productCode);
+							devdata.updateDevTableBoolean("IsKnit", isKnit, "code", productCode);*/
 							break;
 						}
 					}
@@ -142,7 +153,11 @@ public class DataParser implements Runnable {
 				        devdata.updateDevTableString("fabric_type", "", "code", code);
 				        devdata.updateDevTableDouble("moq", 0.0, "code", code);
 				        devdata.updateDevTableDouble("weight", 0.0, "code", code);
-				        devdata.updateDevTableDouble("ppcm", 0.0, "code", code);
+				        devdata.updateDevTableDouble("ppcm", 0.0, "code", code);/*
+				        devdata.updateDevTableBoolean("IsChenille", false, "code", code);
+						devdata.updateDevTableBoolean("IsPieceDyed", false, "code", code);
+						devdata.updateDevTableBoolean("IsSDY", false, "code", code);
+						devdata.updateDevTableBoolean("IsKnit", false, "code", code);*/
 				    }
 				}
 			}

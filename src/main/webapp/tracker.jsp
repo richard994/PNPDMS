@@ -196,6 +196,12 @@
 					  Inactive
 					</label>
 				</div>
+				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="priceConfirmCB" name="priceConfirmCB">
+					<label class="form-check-label" for="priceConfirmCB">
+					  Price Confirmed
+					</label>
+				</div>
 				<div class="d-flex flex-column mt-4">
     				<label for="FabricType" class="control-label opacity-75">Fabric Type</label>
     				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="FabricType" name="FabricType" size="1" style="width: 100%; height: 36px">
@@ -606,9 +612,13 @@
 	
 	<script src="js/tracker.js"></script>
 	<script type="text/javascript">
+		let scrollPosition = window.scrollY;
+	
 		VirtualSelect.init({
 			ele: '.multi-select'
 		});
+		
+		window.scrollTo(0, scrollPosition);
 		
 		document.getElementById("filteredNav").style.display = "none";
 		document.getElementById("unfilteredNav").style.display = "none";
