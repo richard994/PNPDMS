@@ -101,4 +101,5 @@ function populateAllInputs() {
 	const selectedTestArr = dev.test_status.split("!");
 	const modifiedTestArr = selectedTestArr.map(item => item + "!");
 	document.querySelector('#TestingProgress').setValue(modifiedTestArr, false);
+	window.scrollTo(0, scrollPosition);
 }

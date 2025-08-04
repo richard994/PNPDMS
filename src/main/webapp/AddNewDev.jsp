@@ -837,9 +837,13 @@
         
     <script src="js/addnewdev.js"></script>
    	<script type="text/javascript">
+   		let scrollPosition = window.scrollY;
+   		
 		VirtualSelect.init({
 			ele: '#Backing'
 		});
+		
+		window.scrollTo(0, scrollPosition);
 		
 		$(document).ready(function(){
 		    $('#carouselImages').carousel({

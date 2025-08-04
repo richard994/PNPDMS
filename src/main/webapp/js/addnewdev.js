@@ -302,6 +302,7 @@ function populateAllInputs() {
 		parseComments();
 	}
 	parseLogs();
+	window.scrollTo(0, scrollPosition);
 }
 
 function parseComments() {
