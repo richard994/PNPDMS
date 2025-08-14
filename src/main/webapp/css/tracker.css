@@ -178,6 +178,13 @@ input[type="range"]::-moz-range-thumb {
 	float: left;
 }
 
+#MultEditBtn {
+	background-color: #4D73FF; 
+	color: white; 
+	width: 350px; 
+	float: left;
+}
+
 .card {
 	background: #FFF;
 	font-size: 14px;

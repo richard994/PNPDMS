@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+body {
+	font-family: 'Inter', sans-serif !important;
+}
+
+#headbar {
+	font-size: calc( 12px + (20 - 16) * (100vw - 400px) / (800 - 400) );
+	font-weight: 300;
+}
+
+#breadcrumbContainer {
+	margin-left: 165px; 
+	display: flex; 
+	justify-content: space-between; 
+	width: 84%;
+}
+
+.breadcrumb-item::before {
+	content: url(discount.png) !important;
+	padding-right: 5px !important;
+}
+
+.breadcrumb-item::after {
+	content: ">";
+	padding-left: 10px;
+}
+
+.breadcrumb-item:last-child::after {
+	content: "";
+}
+
+.breadcrumb-item:last-child {
+	opacity: 1.0;
+}
+
+.breadcrumb-item {
+	opacity: 0.5;
+}
+.nav-link {
+	color: black;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-menu li a {
+  float: none;
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}

@@ -81,7 +81,7 @@
 	<div class="input-group border-bottom pb-4 mb-4" style="width: 1250px; margin-left: 165px">
 		<div class="hstack gap-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text bg-light border-light">Title or Code</span>
+				<span class="input-group-text bg-light border-light">Pattern or Code</span>
 			</div>
 			<input type="text" id="titleCode" name="titleCode" class="form-control border rounded-0 me-auto" placeholder="Enter"/>
 			
@@ -371,6 +371,12 @@
 					  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 					</svg>
 			  		Add New Product Development
+			  	</button>
+			  	<button class="btn border-0" type="button" id="MultEditBtn" onclick="window.location.href='MultEdit'" style="margin-left: 25px">
+			  		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+					  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+					</svg>
+			  		Edit Multiple Product Development
 			  	</button>
 		  	</div>
 		  	

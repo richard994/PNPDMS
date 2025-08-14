@@ -142,6 +142,233 @@ public class SaveNewDevService extends HttpServlet{
 			return;
 		}
 		
+		if ("multedit".equals(action)) {
+			System.out.println("Multi Editing.");
+			String devIds = request.getParameter("devIds");
+			DevData devdata = new DevData();
+			
+			String[] devIdArray = devIds.split(";");
+			for (String code : devIdArray) {
+			    System.out.println("Editing " + code);
+			    Developments dev = devdata.getDevelopmentByCode(code);
+			    
+			    temp = request.getParameterValues("Color-" + code);
+				if (temp != null) {
+					color = temp[0];
+					System.out.println("Successfully retrieved color: " + color + "\n");
+					if (!color.equals(dev.getColor())) {
+						devdata.updateDevTableString("color", color, "code", code);
+						System.out.println("Successfully editted color: " + color + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve color.");
+				}
+				
+				temp = request.getParameterValues("GeorgeCancelCB-" + code);
+				if (temp != null) {
+					GeorgeCanceled = true;
+					System.out.println("GeorgeCanceled checked.\n");
+				} else {
+					GeorgeCanceled = false;
+					System.out.println("GeorgeCanceled unchecked.\n");
+				}
+				if (dev.isGeorgeCanceled() != GeorgeCanceled) {
+					devdata.updateDevTableBoolean("GeorgeCanceled", GeorgeCanceled, "code", code);
+					System.out.println("Successfully editted GeorgeCanceled: " + GeorgeCanceled + "\n");
+				}
+				
+				temp = request.getParameterValues("inactiveCB-" + code);
+				if (temp != null) {
+					inactive = true;
+					System.out.println("inactive checked.\n");
+				} else {
+					inactive = false;
+					System.out.println("inactive unchecked.\n");
+				}
+				if (dev.isInactive() != inactive) {
+					devdata.updateDevTableBoolean("inactive", inactive, "code", code);
+					System.out.println("Successfully editted inactive: " + inactive + "\n");
+				}
+				
+				temp = request.getParameterValues("priceConfirmCB-" + code);
+				if (temp != null) {
+					priceConfirmed = true;
+					System.out.println("priceConfirmedCB checked.\n");
+				} else {
+					priceConfirmed = false;
+					System.out.println("priceConfirmedCB unchecked.\n");
+				}
+				if (dev.isPriceConfirmed() != priceConfirmed) {
+					devdata.updateDevTableBoolean("priceConfirmed", priceConfirmed, "code", code);
+					System.out.println("Successfully editted priceConfirmed: " + priceConfirmed + "\n");
+				}
+				
+				temp = request.getParameterValues("DesignType-" + code);
+				if (temp != null) {
+					design_type = temp[0];
+					System.out.println("Successfully retrieved design type: " + design_type + "\n");
+					if (!design_type.equals(dev.getDesign_type())) {
+						devdata.updateDevTableString("design_type", design_type, "code", code);
+						System.out.println("Successfully editted design type: " + design_type + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve design type.");
+				}
+				
+				temp = request.getParameterValues("Colorist-" + code);
+				if (temp != null) {
+					colorist = temp[0];
+					System.out.println("Successfully retrieved colorist: " + colorist + "\n");
+					if (!colorist.equals(dev.getColorist())) {
+						devdata.updateDevTableString("colorist", colorist, "code", code);
+						System.out.println("Successfully editted colorist: " + colorist + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve colorist.");
+				}
+				
+				temp = request.getParameterValues("Designer-" + code);
+				if (temp != null) {
+					designer = temp[0];
+					System.out.println("Successfully retrieved designer: " + designer + "\n");
+					if (!designer.equals(dev.getDesigner())) {
+						devdata.updateDevTableString("designer", designer, "code", code);
+						System.out.println("Successfully editted designer: " + designer + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve designer.");
+				}
+				
+				temp = request.getParameterValues("Season-" + code);
+				if (temp != null) {
+					season = temp[0];
+					System.out.println("Successfully retrieved season: " + season + "\n");
+					if (!season.equals(dev.getSeason())) {
+						devdata.updateDevTableString("season", season, "code", code);
+						System.out.println("Successfully editted season: " + season + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve season.");
+				}
+				
+				temp = request.getParameterValues("YarnType-" + code);
+				if (temp != null) {
+					yarn_type = temp[0];
+					System.out.println("Successfully retrieved style: " + yarn_type + "\n");
+					if (!yarn_type.equals(dev.getYarn_type())) {
+						devdata.updateDevTableString("yarn_type", yarn_type, "code", code);
+						System.out.println("Successfully editted style: " + yarn_type + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve yarn type.");
+				}
+				
+				temp = request.getParameterValues("WarpType-" + code);
+				if (temp != null) {
+					warp_type = temp[0];
+					System.out.println("Successfully retrieved warp type: " + warp_type + "\n");
+					if (!warp_type.equals(dev.getWarp_type())) {
+						devdata.updateDevTableString("warp_type", warp_type, "code", code);
+						System.out.println("Successfully editted warp type: " + warp_type + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve warp type.");
+				}
+				
+				temp = request.getParameterValues("Direction-" + code);
+				if (temp != null) {
+					direction = temp[0];
+					System.out.println("Successfully retrieved direction: " + direction + "\n");
+					if (!direction.equals(dev.getDirection())) {
+						devdata.updateDevTableString("direction", direction, "code", code);
+						System.out.println("Successfully editted direction: " + direction + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve direction.");
+				}
+				
+				temp = request.getParameterValues("StrikeProgress-" + code);
+				if (temp != null) {
+					strike_off_status = temp[0];
+					System.out.println("Successfully retrieved strike-off progress: " + strike_off_status + "\n");
+					if (!strike_off_status.equals(dev.getStrike_off_status())) {
+						devdata.updateDevTableString("strike_off_status", strike_off_status, "code", code);
+						System.out.println("Successfully editted strike-off progress: " + strike_off_status + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve strike-off progress.");
+				}
+				
+				temp = request.getParameterValues("StrikeBirthday-" + code);
+				if (temp != null) {
+					strike_off_birthday = temp[0];
+					System.out.println("Successfully retrieved strike-off birthday: " + strike_off_birthday + "\n");
+					if (!strike_off_birthday.equals(dev.getStrike_off_birthday())) {
+						devdata.updateDevTableString("strike_off_birthday", strike_off_birthday, "code", code);
+						System.out.println("Successfully editted strike-off birthday: " + strike_off_birthday + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve strike-off birthday.");
+				}
+				
+				temp = request.getParameterValues("BlanketStatus-" + code);
+				if (temp != null) {
+					blanket_status = temp[0];
+					System.out.println("Successfully retrieved blanket status: " + blanket_status + "\n");
+					if (!blanket_status.equals(dev.getBlanket_status())) {
+						devdata.updateDevTableString("blanket_status", blanket_status, "code", code);
+						System.out.println("Successfully editted blanket status: " + blanket_status + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve blanket status.");
+				}
+				
+				temp = request.getParameterValues("TestingProgress-" + code);
+				if (temp != null) {
+					test_status = temp[0];
+					System.out.println("Successfully retrieved test status: " + test_status + "\n");
+					if (!test_status.equals(dev.getTest_status())) {
+						devdata.updateDevTableString("test_status", test_status, "code", code);
+						System.out.println("Successfully editted test status: " + test_status + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve test status.");
+				}
+				
+				temp = request.getParameterValues("TestingDatestamp-" + code);
+				if (temp != null) {
+					test_datestamp = temp[0];
+					System.out.println("Successfully retrieved test datestamp: " + test_datestamp + "\n");
+					if (!test_datestamp.equals(dev.getTest_datestamp())) {
+						devdata.updateDevTableString("test_datestamp", test_datestamp, "code", code);
+						System.out.println("Successfully editted test datestamp: " + test_datestamp + "\n");
+					}
+				} else {
+					System.out.println("Fail to retrieve test datestamp.");
+				}
+				
+				Developments new_dev = devdata.getDevelopmentByCode(code);
+				ArrayList<Log> logs = new ArrayList<Log>();
+				HttpSession session = request.getSession();
+				String userName = (String) session.getAttribute("userName");
+				logs.addAll(dev.compare(new_dev, userName));
+				if (!logs.isEmpty()) {
+					for (Log log: logs) {
+						devdata.insertLog(dev.getDev_id(), log.getName(), log.getDatestamp(), log.getContent());
+					}
+					System.out.println("Logs added to development " + code + ".\n");
+					String DateCurrPhase = dev.checkPhase(new_dev);
+					if (!DateCurrPhase.equals("")) {
+						devdata.updateDevTableString("DateCurrentPhase", DateCurrPhase, "development_id", dev.getDev_id());
+					}
+				} 
+				System.out.println("Successfully editted development " + code + ".\n");
+			}
+			
+			request.getRequestDispatcher("/TrackerService").forward(request, response);
+			return;
+		}
+		
 		temp = request.getParameterValues("Code");
 		if (temp != null) {
 			code = temp[0];

@@ -182,9 +182,9 @@ public class DataParser implements Runnable {
 	}
 	
 	private static String checkProductType(String key) {
-		if (key.equals("平板布")) {
+		if (key.contains("平板布")) {
 			return "Base";
-		} else if (key.equals("花布")) {
+		} else if (key.contains("花布")) {
 			return "Jaquard";
 		} else {
 			return "";
