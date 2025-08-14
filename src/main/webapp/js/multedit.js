@@ -24,7 +24,7 @@ function addProductBlock(dev) {
             </div>
             <div class="form-check" style="flex: 1">
                 <input class="form-check-input" type="checkbox" id="inactiveCB-${productCode}" name="inactiveCB-${productCode}">
-                <label class="form-check-label" for="inactiveCB-${productCode}">inactiveCB</label>
+                <label class="form-check-label" for="inactiveCB-${productCode}">inactive</label>
             </div>
             <div class="form-check" style="flex: 1">
                 <input class="form-check-input" type="checkbox" id="priceConfirmCB-${productCode}" name="priceConfirmCB-${productCode}">
