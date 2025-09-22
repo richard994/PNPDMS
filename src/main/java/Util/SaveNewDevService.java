@@ -638,12 +638,12 @@ public class SaveNewDevService extends HttpServlet{
 	}
 		
 	private void updateBooleanIfChanged(DevData devdata,
-		             String column,
-		             boolean newVal,
-		             boolean oldVal,
-		             String keyCol,
-		             String keyVal,
-		             String label) {
+             String column,
+             boolean newVal,
+             boolean oldVal,
+             String keyCol,
+             String keyVal,
+             String label) {
 		if (newVal != oldVal) {
 			devdata.updateDevTableBoolean(column, newVal, keyCol, keyVal);
 			System.out.println("Successfully edited " + label + ": " + newVal + "\n");
