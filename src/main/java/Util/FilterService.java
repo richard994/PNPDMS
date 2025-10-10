@@ -22,6 +22,7 @@ public class FilterService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private static boolean needParagonClean;
 	private static boolean need400hrFCL;
+	private static boolean need1000hrFCL;
 	private static boolean needPieceDyed;
 	private static boolean needFeedback;
 	private static boolean needChinaFeedback;
@@ -129,6 +130,16 @@ public class FilterService extends HttpServlet{
 			System.out.println("FCLCB unchecked.\n");
 		}
 		filterdev.setIs400hrFCL(need400hrFCL);
+		
+		temp = request.getParameterValues("TFCLCB");
+		if (temp != null) {
+			need1000hrFCL = true;
+			System.out.println("TFCLCB checked.\n");
+		} else {
+			need1000hrFCL = false;
+			System.out.println("TFCLCB unchecked.\n");
+		}
+		filterdev.setIs1000hrFCL(need1000hrFCL);;
 		
 		temp = request.getParameterValues("PDCB");
 		if (temp != null) {
@@ -399,6 +410,10 @@ public class FilterService extends HttpServlet{
         }
     	
         if (need400hrFCL && !development.isIs400hrFCL()) {
+            return false;
+        }
+        
+        if (need1000hrFCL && !development.isIs1000hrFCL()) {
             return false;
         }
         

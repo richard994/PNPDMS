@@ -287,22 +287,22 @@
 								  Paragon Clean
 								</label>
 							</div>
+							<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" id="SDYCB" name="SDYCB">
+								<label class="form-check-label" for="SDYCB">
+								  Normal SDY
+								</label>
+							</div>
 		            		<div class="form-check" style="flex: 1">
 								<input class="form-check-input" type="checkbox" id="FCLCB" name="FCLCB">
 								<label class="form-check-label" for="FCLCB">
-								  400hr FCL
-								</label>
-							</div>
-		            		<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" id="PDCB" name="PDCB">
-								<label class="form-check-label" for="PDCB">
-								  Piece Dyed
+								  500hr FCL
 								</label>
 							</div>
 							<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" id="ChenilleCB" name="ChenilleCB">
-								<label class="form-check-label" for="ChenilleCB">
-								  Chenille
+								<input class="form-check-input" type="checkbox" id="TFCLCB" name="TFCLCB">
+								<label class="form-check-label" for="TFCLCB">
+								  1000hr FCL
 								</label>
 							</div>
 		            	</div>
@@ -319,20 +319,26 @@
 								  Need China Feedback?
 								</label>
 							</div>
-		            		<div class="form-check" style="flex: 1">
-								<input class="form-check-input" type="checkbox" id="SDYCB" name="SDYCB">
-								<label class="form-check-label" for="SDYCB">
-								  SDY
+							<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" id="PDCB" name="PDCB">
+								<label class="form-check-label" for="PDCB">
+								  Piece Dyed
 								</label>
 							</div>
 							<div class="form-check" style="flex: 1">
+								<input class="form-check-input" type="checkbox" id="ChenilleCB" name="ChenilleCB">
+								<label class="form-check-label" for="ChenilleCB">
+								  Chenille
+								</label>
+							</div>
+		            	</div>
+		            	<div class="d-flex mt-4" id="CheckBoxes" style="white-space: nowrap; gap: 30px">
+		            		<div class="form-check" style="flex: 1">
 								<input class="form-check-input" type="checkbox" id="KnitCB" name="KnitCB">
 								<label class="form-check-label" for="KnitCB">
 								  Knit
 								</label>
 							</div>
-		            	</div>
-		            	<div class="d-flex mt-4" id="CheckBoxes" style="white-space: nowrap; gap: 30px">
 		            		<div class="form-check" style="flex: 1">
 								<input class="form-check-input" type="checkbox" id="GeorgeCancelCB" name="GeorgeCancelCB">
 								<label class="form-check-label" for="GeorgeCancelCB">
@@ -351,7 +357,6 @@
 								  Price Confirmed
 								</label>
 							</div>
-							<div class="form-check" style="flex: 1"></div>
 		            	</div>
 		                <div class="d-flex mt-4" style="gap: 15px">
 		                	<div style="flex: 1">

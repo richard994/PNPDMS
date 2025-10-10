@@ -17,6 +17,7 @@ public class Developments {
 	private boolean isChenille;
 	private boolean inactive;
 	private boolean priceConfirmed;
+	private boolean is1000hrFCL;
 	private String Fabric_type;
 	private String Design_type;
 	private String Colorist;
@@ -65,7 +66,7 @@ public class Developments {
 			double ppcm, String note, String fabric_img_path, String pid_path, 
 			String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
 			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday,
-			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed) {
+			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed, boolean Is1000hrFCL) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -112,6 +113,7 @@ public class Developments {
 		setNeedChinaFeedback(NeedChinaFeedback);
 		setInactive(inactive);
 		setPriceConfirmed(priceConfirmed);
+		setIs1000hrFCL(Is1000hrFCL);
 	}
 	
 	public void setAll(int id, String code, String color, double cost, 
@@ -123,7 +125,7 @@ public class Developments {
 			String test_datestamp, double moq, double weight, int numColorline, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
 			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday,
-			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed) {
+			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed, boolean Is1000hrFCL) {
 		setDev_id(id);
 		setCode(code);
 		setColor(color);
@@ -170,6 +172,7 @@ public class Developments {
 		setNeedChinaFeedback(NeedChinaFeedback);
 		setInactive(inactive);
 		setPriceConfirmed(priceConfirmed);
+		setIs1000hrFCL(Is1000hrFCL);
 	}
 	
 	public ArrayList<Log> compare(Developments otherDev, String username) {
@@ -637,5 +640,13 @@ public class Developments {
 
 	public void setPriceConfirmed(boolean priceConfirmed) {
 		this.priceConfirmed = priceConfirmed;
+	}
+
+	public boolean isIs1000hrFCL() {
+		return is1000hrFCL;
+	}
+
+	public void setIs1000hrFCL(boolean is1000hrFCL) {
+		this.is1000hrFCL = is1000hrFCL;
 	}
 }

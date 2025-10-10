@@ -34,6 +34,7 @@ public class SaveNewDevService extends HttpServlet{
 	private static boolean IsChenille = false;
 	private static boolean inactive = false;
 	private static boolean priceConfirmed = false;
+	private static boolean Is1000hrFCL = false;
 	private static String fabric_type;
 	private static String design_type;
 	private static String colorist;
@@ -123,6 +124,7 @@ public class SaveNewDevService extends HttpServlet{
 		GeorgeCanceled = !parseInput("GeorgeCancelCB", request).isEmpty();
 		inactive = !parseInput("inactiveCB", request).isEmpty();
 		priceConfirmed = !parseInput("priceConfirmCB", request).isEmpty();
+		Is1000hrFCL = !parseInput("TFCLCB", request).isEmpty();
 		fabric_type = parseInput("FabricType", request);
 		design_type = parseInput("DesignType", request);
 		colorist = parseInput("Colorist", request);
@@ -208,7 +210,7 @@ public class SaveNewDevService extends HttpServlet{
                 numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path,
                 currentPhase, DateTime, LastModified, DateCurrentPhase,
                 IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback,
-                inactive, priceConfirmed
+                inactive, priceConfirmed, Is1000hrFCL
         );
 
         ArrayList<Comment> stagedComments = new ArrayList<>();

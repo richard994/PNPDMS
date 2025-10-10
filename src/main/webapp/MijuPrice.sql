@@ -71,7 +71,7 @@ CREATE TABLE `development` (
   `fabric_type` varchar(50),
   `design_type` varchar(50),
   `colorist` varchar(50),
-  `finishing_used` varchar(50),
+  `finishing_used` varchar(500),
   `season` varchar(50),
   `yarn_type` varchar(50),
   `warp_type` varchar(500),
@@ -104,6 +104,7 @@ CREATE TABLE `development` (
   `NeedChinaFeedback` BOOLEAN DEFAULT false,
   `inactive` BOOLEAN DEFAULT false,
   `priceConfirmed` BOOLEAN DEFAULT false,
+  `Is1000HrFCL` BOOLEAN DEFAULT false,
   PRIMARY KEY (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

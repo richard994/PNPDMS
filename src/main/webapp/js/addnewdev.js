@@ -244,6 +244,7 @@ function populateAllInputs() {
 	document.getElementById("Cost").value = dev.cost;
 	document.getElementById("ParagonCleanCB").checked = dev.paragonClean;
 	document.getElementById("FCLCB").checked = dev.is400hrFCL;
+	document.getElementById("TFCLCB").checked = dev.is1000hrFCL;
 	document.getElementById("PDCB").checked = dev.pieceDyed;
 	document.getElementById("ChenilleCB").checked = dev.chenille;
 	document.getElementById("FeedbackCB").checked = dev.needFeedback;

@@ -143,12 +143,6 @@
 					</label>
 				</div>
 				<div class="form-check mt-4">
-					<input class="form-check-input" type="checkbox" id="FCLCB" name="FCLCB">
-					<label class="form-check-label" for="FCLCB">
-					  400hr FCL
-					</label>
-				</div>
-				<div class="form-check mt-4">
 					<input class="form-check-input" type="checkbox" id="PDCB" name="PDCB">
 					<label class="form-check-label" for="PDCB">
 					  Piece Dyed
@@ -175,7 +169,19 @@
 				<div class="form-check mt-4">
 					<input class="form-check-input" type="checkbox" id="SDYCB" name="SDYCB">
 					<label class="form-check-label" for="SDYCB">
-					  SDY
+					  Normal SDY
+					</label>
+				</div>
+				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="FCLCB" name="FCLCB">
+					<label class="form-check-label" for="FCLCB">
+					  500hr FCL
+					</label>
+				</div>
+				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="TFCLCB" name="TFCLCB">
+					<label class="form-check-label" for="TFCLCB">
+					  1000hr FCL
 					</label>
 				</div>
 				<div class="form-check mt-4">

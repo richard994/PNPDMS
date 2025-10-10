@@ -39,7 +39,7 @@ public class DevData {
 			int numColorline, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
 			boolean isKnit, String designer, String direction, boolean georgeCanceled, String strike_off_birthday,
-			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed) {
+			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed, boolean Is1000HrFCL) {
 		try {
 			getConn();
 			String sql = "INSERT INTO MijuPrice.development(code, color, cost, IsParagonClean, Is400hrFCL, "
@@ -47,8 +47,8 @@ public class DevData {
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
 					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, "
-					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, code);
 			stmt.setString(2, color);
@@ -95,6 +95,7 @@ public class DevData {
 			stmt.setBoolean(43, NeedChinaFeedback);
 			stmt.setBoolean(44, inactive);
 			stmt.setBoolean(45, priceConfirmed);
+			stmt.setBoolean(46, Is1000HrFCL);
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys
@@ -221,6 +222,7 @@ public class DevData {
 				boolean NeedChinaFeedback = rs.getBoolean("NeedChinaFeedback");
 				boolean inactive = rs.getBoolean("inactive");
 				boolean priceConfirmed = rs.getBoolean("priceConfirmed");
+				boolean Is1000HrFCL = rs.getBoolean("Is1000HrFCL");
 				Developments development = new Developments(dev_id, code, color, cost, 
 										IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
 										IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, 
@@ -231,7 +233,7 @@ public class DevData {
 										numColorline, ppcm, note, fabric_img_path, 
 										pid_path, test_report_path, currentPhase, DateTime, LastModified, 
 										DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday,
-										NeedChinaFeedback, inactive, priceConfirmed);
+										NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL);
 				developments.add(development);
 			}
 			return developments;
@@ -300,6 +302,7 @@ public class DevData {
 				boolean NeedChinaFeedback = rs.getBoolean("NeedChinaFeedback");
 				boolean inactive = rs.getBoolean("inactive");
 				boolean priceConfirmed = rs.getBoolean("priceConfirmed");
+				boolean Is1000HrFCL = rs.getBoolean("Is1000HrFCL");
 				
 				development.setAll(id, code, color, cost, 
 									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
@@ -311,7 +314,7 @@ public class DevData {
 									numColorline, ppcm, note, fabric_img_path, 
 									pid_path, test_report_path, currentPhase, DateTime, LastModified, 
 									DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday,
-									NeedChinaFeedback, inactive, priceConfirmed);
+									NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL);
 			}
 			return development;
 		} catch (Exception e) {
@@ -379,6 +382,7 @@ public class DevData {
 				boolean NeedChinaFeedback = rs.getBoolean("NeedChinaFeedback");
 				boolean inactive = rs.getBoolean("inactive");
 				boolean priceConfirmed = rs.getBoolean("priceConfirmed");
+				boolean Is1000HrFCL = rs.getBoolean("Is1000HrFCL");
 				
 				development.setAll(id, code, color, cost, 
 									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
@@ -390,7 +394,7 @@ public class DevData {
 									numColorline, ppcm, note, fabric_img_path, 
 									pid_path, test_report_path, currentPhase, DateTime, LastModified, 
 									DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday,
-									NeedChinaFeedback, inactive, priceConfirmed);
+									NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL);
 			}
 			return development;
 		} catch (Exception e) {
@@ -492,8 +496,8 @@ public class DevData {
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
 					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, "
-					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, dev.getCode());
 			stmt.setString(2, dev.getColor());
@@ -540,6 +544,7 @@ public class DevData {
 			stmt.setBoolean(43, dev.isNeedChinaFeedback());
 			stmt.setBoolean(44, dev.isInactive());
 			stmt.setBoolean(45, dev.isPriceConfirmed());
+			stmt.setBoolean(46, dev.isIs1000hrFCL());
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys
