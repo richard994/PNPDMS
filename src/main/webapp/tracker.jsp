@@ -470,110 +470,112 @@
 		  		
 		  		</div>
 		  		
-	  			<nav aria-label="Page navigation" id="unfilteredNav">
-				  <ul class="pagination justify-content-center">
-				    <c:if test="${currentPage > 1}">
-					    <li class="page-item">
-					      <a class="page-link" href="TrackerService?page=${currentPage-1}" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-				    </c:if>
-				    
-				    <c:forEach var="i" begin="1" end="${totalPages}">
-				      <c:choose>
-				        <c:when test="${i == currentPage}">
-				          <li class="page-item active">
-				            <span class="page-link">${i}</span>
-				          </li>
-				        </c:when>
-				        <c:otherwise>
-				          <li class="page-item">
-				            <a class="page-link" href="TrackerService?page=${i}">${i}</a>
-				          </li>
-				        </c:otherwise>
-				      </c:choose>
-				    </c:forEach>
-				    
-				    <c:if test="${currentPage < totalPages}">
-					    <li class="page-item">
-					      <a class="page-link" href="TrackerService?page=${currentPage + 1}" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-				    </c:if>
-				  </ul>
-				</nav>
-				
-				<nav aria-label="Page navigation" id="sortedNav">
-				  <ul class="pagination justify-content-center">
-				    <c:if test="${currentPage > 1}">
-					    <li class="page-item">
-					      <a class="page-link" href="TrackerService?action=sort&page=${currentPage-1}" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-				    </c:if>
-				    
-				    <c:forEach var="i" begin="1" end="${totalPages}">
-				      <c:choose>
-				        <c:when test="${i == currentPage}">
-				          <li class="page-item active">
-				            <span class="page-link">${i}</span>
-				          </li>
-				        </c:when>
-				        <c:otherwise>
-				          <li class="page-item">
-				            <a class="page-link" href="TrackerService?action=sort&page=${i}">${i}</a>
-				          </li>
-				        </c:otherwise>
-				      </c:choose>
-				    </c:forEach>
-				    
-				    <c:if test="${currentPage < totalPages}">
-					    <li class="page-item">
-					      <a class="page-link" href="TrackerService?action=sort&page=${currentPage + 1}" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-				    </c:if>
-				  </ul>
-				</nav>
-				
-				<nav aria-label="Page navigation" id="filteredNav" style="display: none">
-				  <ul class="pagination justify-content-center">
-				    <c:if test="${currentPage > 1}">
-					    <li class="page-item">
-					      <a class="page-link" href="FilterService?page=${currentPage-1}" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-				    </c:if>
-				    
-				    <c:forEach var="i" begin="1" end="${totalPages}">
-				    	<c:choose>
-				        <c:when test="${i == currentPage}">
-				          <li class="page-item active">
-				            <span class="page-link">${i}</span>
-				          </li>
-				        </c:when>
-				        <c:otherwise>
-				          <li class="page-item">
-				            <a class="page-link" href="FilterService?page=${i}">${i}</a>
-				          </li>
-				        </c:otherwise>
-				      </c:choose>
-				    </c:forEach>
-				    
-				    <c:if test="${currentPage < totalPages}">
-					    <li class="page-item">
-					      <a class="page-link" href="FilterService?page=${currentPage + 1}" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-				    </c:if>
-				  </ul>
-				</nav>
+	  			<c:choose>
+                                        <c:when test="${filtered}">
+                                                <c:set var="pageService" value="FilterService" />
+                                        </c:when>
+                                        <c:otherwise>
+                                                <c:set var="pageService" value="TrackerService" />
+                                        </c:otherwise>
+                                </c:choose>
+                                <c:set var="isSorted" value="${sorted}" />
+                                <c:set var="displayStart" value="${currentPage - 2}" />
+                                <c:if test="${displayStart < 1}">
+                                        <c:set var="displayStart" value="1" />
+                                </c:if>
+                                <c:set var="displayEnd" value="${currentPage + 2}" />
+                                <c:if test="${displayEnd > totalPages}">
+                                        <c:set var="displayEnd" value="${totalPages}" />
+                                </c:if>
+
+                                <c:if test="${totalPages > 0}">
+                                <nav aria-label="Page navigation" id="paginationNav">
+                                  <ul class="pagination justify-content-center">
+                                    <c:if test="${currentPage > 1}">
+                                            <c:url var="prevUrl" value="${pageService}">
+                                                    <c:if test="${isSorted}">
+                                                            <c:param name="action" value="sort" />
+                                                    </c:if>
+                                                    <c:param name="page" value="${currentPage-1}" />
+                                            </c:url>
+                                            <li class="page-item">
+                                              <a class="page-link" href="${prevUrl}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                              </a>
+                                            </li>
+                                    </c:if>
+
+                                    <c:if test="${displayStart > 1}">
+                                            <c:url var="firstUrl" value="${pageService}">
+                                                    <c:if test="${isSorted}">
+                                                            <c:param name="action" value="sort" />
+                                                    </c:if>
+                                                    <c:param name="page" value="1" />
+                                            </c:url>
+                                            <li class="page-item">
+                                                    <a class="page-link" href="${firstUrl}">1</a>
+                                            </li>
+                                            <c:if test="${displayStart > 2}">
+                                                    <li class="page-item disabled">
+                                                            <span class="page-link">&hellip;</span>
+                                                    </li>
+                                            </c:if>
+                                    </c:if>
+
+                                    <c:forEach var="i" begin="${displayStart}" end="${displayEnd}">
+                                      <c:url var="pageUrl" value="${pageService}">
+                                              <c:if test="${isSorted}">
+                                                      <c:param name="action" value="sort" />
+                                              </c:if>
+                                              <c:param name="page" value="${i}" />
+                                      </c:url>
+                                      <c:choose>
+                                        <c:when test="${i == currentPage}">
+                                          <li class="page-item active">
+                                            <span class="page-link">${i}</span>
+                                          </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                          <li class="page-item">
+                                            <a class="page-link" href="${pageUrl}">${i}</a>
+                                          </li>
+                                        </c:otherwise>
+                                      </c:choose>
+                                    </c:forEach>
+
+                                    <c:if test="${displayEnd < totalPages}">
+                                            <c:if test="${displayEnd < totalPages - 1}">
+                                                    <li class="page-item disabled">
+                                                            <span class="page-link">&hellip;</span>
+                                                    </li>
+                                            </c:if>
+                                            <c:url var="lastUrl" value="${pageService}">
+                                                    <c:if test="${isSorted}">
+                                                            <c:param name="action" value="sort" />
+                                                    </c:if>
+                                                    <c:param name="page" value="${totalPages}" />
+                                            </c:url>
+                                            <li class="page-item">
+                                                    <a class="page-link" href="${lastUrl}">${totalPages}</a>
+                                            </li>
+                                    </c:if>
+
+                                    <c:if test="${currentPage < totalPages}">
+                                            <c:url var="nextUrl" value="${pageService}">
+                                                    <c:if test="${isSorted}">
+                                                            <c:param name="action" value="sort" />
+                                                    </c:if>
+                                                    <c:param name="page" value="${currentPage + 1}" />
+                                            </c:url>
+                                            <li class="page-item">
+                                              <a class="page-link" href="${nextUrl}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                              </a>
+                                            </li>
+                                    </c:if>
+                                  </ul>
+                                </nav>
+                                </c:if>
 		</div>
 	</div>
 	</form>
