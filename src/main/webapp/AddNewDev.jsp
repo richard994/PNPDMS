@@ -455,6 +455,7 @@
 							    	<option value="4800 4-End Warps">4800 4-End Warps</option>
 							    	<option value="4800 3-End Warps">4800 3-End Warps</option>
 							    	<option value="4800 150D E&E">4800 150D E&E</option>
+							    	<option value="Jenny Warp">Jenny Warp</option>
 							  	</select>
 						  	</div>
 						  	<div style="flex: 1">
