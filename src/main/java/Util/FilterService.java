@@ -199,7 +199,7 @@ public class FilterService extends HttpServlet{
 			active = false;
 			System.out.println("ActiveCB unchecked.\n");
 		}
-		filterdev.setInactive(active);
+		filterdev.setInactive(!active);
 		
 		temp = request.getParameterValues("priceConfirmCB");
 		if (temp != null) {

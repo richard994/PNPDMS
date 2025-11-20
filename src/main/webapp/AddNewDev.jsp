@@ -221,7 +221,7 @@
 						      </div>
 						    </div>
 						    <div class="carousel-item">
-						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="Test Report Image" onerror="this.onerror=null; this.src='img/placeholder-img.jpg';" id="TestPic" name="TestPic">
+						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="Colorline Image" onerror="this.onerror=null; this.src='img/placeholder-img.jpg';" id="TestPic" name="TestPic">
 						      <div class="carousel-caption d-none d-md-block">
 						      	<h5>Colorline Picture</h5>
 						      </div>
@@ -247,7 +247,7 @@
 						  	<input type="file" name="PidInput" id="PidInput" accept="image/*" style="display: none"/>
 						  	
 						  	<button class="btn border-2 imgbtn" type="button" id="TestReportBtn">
-						  		Test Report
+						  		Colorline Picture
 						  	</button>
 						  	<input type="file" name="TestReportInput" id="TestReportInput" accept="image/*" style="display: none"/>
 						</div>
