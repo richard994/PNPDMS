@@ -632,19 +632,11 @@
 			ele: '.multi-select'
 		});
 		
-		window.scrollTo(0, scrollPosition);
-		
-		document.getElementById("filteredNav").style.display = "none";
-		document.getElementById("unfilteredNav").style.display = "none";
-		document.getElementById("sortedNav").style.display = "none";
 		if (filtered) {
-			document.getElementById("filteredNav").style.display = "block";
 			populateAllInputs();
-		} else if (sorted) {
-			document.getElementById("sortedNav").style.display = "block";
-		} else {
-			document.getElementById("unfilteredNav").style.display = "block";
 		}
+		
+		window.scrollTo(0, scrollPosition);
 	</script>
 </body>
 </html>
