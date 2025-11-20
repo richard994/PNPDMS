@@ -29,6 +29,7 @@ public class Developments {
 	private String Strike_off_status;
 	private String Strike_off_birthday;
 	private String Blanket_status;
+	private String Blanket_datestamp;
 	private String Colorline_status;
 	private String Colorline_datestamp;
 	private String Rollsample_status;
@@ -38,6 +39,8 @@ public class Developments {
 	private double Moq;
 	private double Weight;
 	private int NumColorline;
+	private int NumColor;
+	private int NumTotalColor;
 	private double Ppcm;
 	private String Note;
 	private String Fabric_img_path = "";
@@ -60,9 +63,9 @@ public class Developments {
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback, 
 			boolean IsSDY, boolean IsChenille, String fabric_type, String design_type, String colorist, String finishing_used, 
 			String season, String yarn_type, String warp_type, String content, String strike_off_status,
-			String blanket_status, String colorline_status, String colorline_datestamp,
+			String blanket_status, String blanket_datestamp, String colorline_status, String colorline_datestamp,
 			String rollsample_status, String rollsample_datestamp, String test_status,
-			String test_datestamp, double moq, double weight, int numColorline, 
+			String test_datestamp, double moq, double weight, int numColorline, int numColor, int numTotalColor,
 			double ppcm, String note, String fabric_img_path, String pid_path, 
 			String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
 			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday,
@@ -87,6 +90,7 @@ public class Developments {
 		setContent(content);
 		setStrike_off_status(strike_off_status);
 		setBlanket_status(blanket_status);
+		setBlanket_datestamp(blanket_datestamp);
 		setColorline_status(colorline_status);
 		setColorline_datestamp(colorline_datestamp);
 		setRollsample_status(rollsample_status);
@@ -96,6 +100,8 @@ public class Developments {
 		setMoq(moq);
 		setWeight(weight);
 		setNumColorline(numColorline);
+		setNumColor(numColor);
+		setNumTotalColor(numTotalColor);
 		setPpcm(ppcm);
 		setNote(note);
 		setFabric_img_path(fabric_img_path);
@@ -120,9 +126,9 @@ public class Developments {
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback, 
 			boolean IsSDY, boolean IsChenille, String fabric_type, String design_type, String colorist, String finishing_used, 
 			String season, String yarn_type, String warp_type, String content, String strike_off_status,
-			String blanket_status, String colorline_status, String colorline_datestamp,
+			String blanket_status, String blanket_datestamp, String colorline_status, String colorline_datestamp,
 			String rollsample_status, String rollsample_datestamp, String test_status,
-			String test_datestamp, double moq, double weight, int numColorline, double ppcm, String note, String fabric_img_path, 
+			String test_datestamp, double moq, double weight, int numColorline, int numColor, int numTotalColor, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
 			boolean IsKnit, String designer, String direction, boolean GeorgeCanceled, String strike_off_birthday,
 			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed, boolean Is1000hrFCL) {
@@ -146,6 +152,7 @@ public class Developments {
 		setContent(content);
 		setStrike_off_status(strike_off_status);
 		setBlanket_status(blanket_status);
+		setBlanket_datestamp(blanket_datestamp);
 		setColorline_status(colorline_status);
 		setColorline_datestamp(colorline_datestamp);
 		setRollsample_status(rollsample_status);
@@ -155,6 +162,8 @@ public class Developments {
 		setMoq(moq);
 		setWeight(weight);
 		setNumColorline(numColorline);
+		setNumColor(numColor);
+		setNumTotalColor(numTotalColor);
 		setPpcm(ppcm);
 		setNote(note);
 		setFabric_img_path(fabric_img_path);
@@ -648,5 +657,29 @@ public class Developments {
 
 	public void setIs1000hrFCL(boolean is1000hrFCL) {
 		this.is1000hrFCL = is1000hrFCL;
+	}
+
+	public String getBlanket_datestamp() {
+		return Blanket_datestamp;
+	}
+
+	public void setBlanket_datestamp(String blanket_datestamp) {
+		Blanket_datestamp = blanket_datestamp;
+	}
+
+	public int getNumColor() {
+		return NumColor;
+	}
+
+	public void setNumColor(int numColor) {
+		NumColor = numColor;
+	}
+
+	public int getNumTotalColor() {
+		return NumTotalColor;
+	}
+
+	public void setNumTotalColor(int numTotalColor) {
+		NumTotalColor = numTotalColor;
 	}
 }

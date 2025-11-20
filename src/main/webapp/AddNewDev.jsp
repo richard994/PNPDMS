@@ -223,7 +223,7 @@
 						    <div class="carousel-item">
 						      <img class="d-block w-100" src="img/placeholder-image.jpg" alt="Test Report Image" onerror="this.onerror=null; this.src='img/placeholder-img.jpg';" id="TestPic" name="TestPic">
 						      <div class="carousel-caption d-none d-md-block">
-						      	<h5>Test Report</h5>
+						      	<h5>Colorline Picture</h5>
 						      </div>
 						    </div>
 						  </div>
@@ -373,6 +373,7 @@
 							    	<option value="" selected>Enter</option>
 							    	<option value="NewDesign">New Design</option>
 							    	<option value="Reshow">Reshow</option>
+							    	<option value="PCR">PCR</option>
 							    	<option value="24SP to 24FA">24SP to 24FA</option>
 							    	<option value="24FA to 25SP">24FA to 25SP</option>
 							    	<option value="24FA to 25FA">24FA to 25FA</option>
@@ -489,7 +490,7 @@
 		            	<div class="d-flex mt-2" style="gap: 15px">
 		                	<div style="flex: 2">
                 				<div id="StrikeBlock">
-                					<span class="control-label opacity-75">Stike-off Progress and Stike-off Birthday</span>
+                					<span class="control-label opacity-75">Stike-off Progress</span>
                 					<div class="d-flex" style="gap: 5px">
                 						<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="StrikeProgress" name="StrikeProgress" size="1" style="width: 100%; height: 36px">
@@ -513,19 +514,26 @@
 		                		<div class="d-flex" style="gap: 15px">
 								  	<div style="flex: 1">
 								  		<div id="BlanketBlock">
-						    				<label for="BlanketStatus" class="control-label opacity-75">Blanket Status</label>
-						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
-										    	<option value="DNE" selected>Enter</option>
-										    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
-										    	<option value="US blanket submitted">US blanket submitted</option>
-										    	<option value="Blanket in production">Blanket in production</option>
-										    	<option value="Blanket shipped, awaiting initial feedback from US">Blanket shipped, awaiting initial feedback from US</option>
-										    	<option value="Colorline proposal submitted">Colorline proposal submitted</option>
-										    	<option value="US color revisions requested, see comment">US color revisions requested, see comment</option>
-										    	<option value="China team revisions suggested, see comment">China team revisions suggested, see comment</option>
-										    	<option value="Confirm to drop">Confirm to drop</option>
-										    	<option value="Colorline confirmed">Colorline confirmed</option>
-										  	</select>
+								  			<span class="control-label opacity-75">Blanket Status</span>
+								  			<div class="d-flex" style="gap: 5px">
+								  				<div style="flex: 2">
+								  					<select class="custom-select border border-light border-2 rounded-0 bg-white" id="BlanketStatus" name="BlanketStatus" size="1" style="width: 100%; height: 36px">
+												    	<option value="DNE" selected>Enter</option>
+												    	<option value="Strike-off confirmed. Wait for US blanket proceeding">Strike-off confirmed. Wait for US blanket proceeding</option>
+												    	<option value="US blanket submitted">US blanket submitted</option>
+												    	<option value="Blanket in production">Blanket in production</option>
+												    	<option value="Blanket shipped, awaiting initial feedback from US">Blanket shipped, awaiting initial feedback from US</option>
+												    	<option value="Colorline proposal submitted">Colorline proposal submitted</option>
+												    	<option value="US color revisions requested, see comment">US color revisions requested, see comment</option>
+												    	<option value="China team revisions suggested, see comment">China team revisions suggested, see comment</option>
+												    	<option value="Confirm to drop">Confirm to drop</option>
+												    	<option value="Colorline confirmed">Colorline confirmed</option>
+												  	</select>
+								  				</div>
+								  				<div style="flex: 1">
+											  		<input type="date" id="BlanketDatestamp" name="BlanketDatestamp" class="custom-select border border-light border-2 rounded-0 bg-white" size="1" style="width: 100%; height: 36px">
+											  	</div>
+								  			</div>
 									  	</div>
 								  	</div>
 							  	</div>
@@ -572,7 +580,7 @@
 		            	<div class="d-flex mt-2" style="gap: 15px">
 		                	<div style="flex: 2">
 						  		<div id="TestBlock">
-						  			<span class="control-label opacity-75">Testing Progress and Est. Ready Date</span>
+						  			<span class="control-label opacity-75">Testing Progress</span>
 							  		<div class="d-flex" style="gap: 5px">
 							  			<div style="flex: 2">
 						    				<select class="custom-select border border-light border-2 rounded-0 bg-white" id="TestingProgress" name="TestingProgress" size="1" style="width: 100%; height: 36px">
@@ -611,6 +619,16 @@
 		            		<div style="flex: 1">
 			            		<label for="PPCM" class="control-label opacity-75">PPCM</label>
 			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="PPCM" name="PPCM" size="1" style="width: 100%; height: 36px" placeholder="Enter" readonly>
+		            		</div>
+		            	</div>
+		            	<div class="d-flex mt-2" style="gap: 20px">
+		            		<div style="flex: 1">
+			            		<label for="NumColor" class="control-label opacity-75">Number of Colors</label>
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="NumColor" name="NumColor" size="1" style="width: 100%; height: 36px" placeholder="Enter">
+		            		</div>
+		            		<div style="flex: 1">
+			            		<label for="NumTotalColor" class="control-label opacity-75">Number of Total Colors</label>
+			    				<input type="text" class="border border-light border-2 rounded-0 bg-white" id="NumTotalColor" name="NumTotalColor" size="1" style="width: 100%; height: 36px" placeholder="Enter">
 		            		</div>
 		            	</div>
 		            	<div class="mt-2">

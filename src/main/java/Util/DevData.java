@@ -33,10 +33,10 @@ public class DevData {
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback, 
 			boolean IsSDY, boolean IsChenille, String fabric_type, String design_type, String colorist, String finishing_used, 
 			String season, String yarn_type, String warp_type, String content, String strike_off_status,
-			String blanket_status, String colorline_status, String colorline_datestamp,
+			String blanket_status, String blanket_datestamp, String colorline_status, String colorline_datestamp,
 			String rollsample_status, String rollsample_datestamp, String test_status,
 			String test_datestamp, double moq, double weight, 
-			int numColorline, double ppcm, String note, String fabric_img_path, 
+			int numColorline, int numColor, int numTotalColor, double ppcm, String note, String fabric_img_path, 
 			String pid_path, String test_report_path, String currentPhase, String DateTime, String LastModified, String DateCurrentPhase, 
 			boolean isKnit, String designer, String direction, boolean georgeCanceled, String strike_off_birthday,
 			boolean NeedChinaFeedback, boolean inactive, boolean priceConfirmed, boolean Is1000HrFCL) {
@@ -47,8 +47,9 @@ public class DevData {
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
 					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, "
-					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL,"
+					+ "blanket_datestamp, numColor, numTotalColor) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, code);
 			stmt.setString(2, color);
@@ -96,6 +97,9 @@ public class DevData {
 			stmt.setBoolean(44, inactive);
 			stmt.setBoolean(45, priceConfirmed);
 			stmt.setBoolean(46, Is1000HrFCL);
+			stmt.setString(47, blanket_datestamp);
+			stmt.setInt(48, numColor);
+			stmt.setInt(49, numTotalColor);
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys
@@ -223,14 +227,17 @@ public class DevData {
 				boolean inactive = rs.getBoolean("inactive");
 				boolean priceConfirmed = rs.getBoolean("priceConfirmed");
 				boolean Is1000HrFCL = rs.getBoolean("Is1000HrFCL");
+				String blanket_datestamp = rs.getString("blanket_datestamp");
+				int numColor = rs.getInt("numColor");
+				int numTotalColor = rs.getInt("numTotalColor");
 				Developments development = new Developments(dev_id, code, color, cost, 
 										IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
 										IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, 
 										season, yarn_type, warp_type, content, strike_off_status,
-										blanket_status, colorline_status, colorline_datestamp,
+										blanket_status, blanket_datestamp, colorline_status, colorline_datestamp,
 										rollsample_status, rollsample_datestamp, test_status,
 										test_datestamp, moq, weight, 
-										numColorline, ppcm, note, fabric_img_path, 
+										numColorline, numColor, numTotalColor, ppcm, note, fabric_img_path, 
 										pid_path, test_report_path, currentPhase, DateTime, LastModified, 
 										DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday,
 										NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL);
@@ -303,15 +310,18 @@ public class DevData {
 				boolean inactive = rs.getBoolean("inactive");
 				boolean priceConfirmed = rs.getBoolean("priceConfirmed");
 				boolean Is1000HrFCL = rs.getBoolean("Is1000HrFCL");
+				String blanket_datestamp = rs.getString("blanket_datestamp");
+				int numColor = rs.getInt("numColor");
+				int numTotalColor = rs.getInt("numTotalColor");
 				
 				development.setAll(id, code, color, cost, 
 									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
 									IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, 
 									season, yarn_type, warp_type, content, strike_off_status,
-									blanket_status, colorline_status, colorline_datestamp,
+									blanket_status, blanket_datestamp, colorline_status, colorline_datestamp,
 									rollsample_status, rollsample_datestamp, test_status,
 									test_datestamp, moq, weight, 
-									numColorline, ppcm, note, fabric_img_path, 
+									numColorline, numColor, numTotalColor, ppcm, note, fabric_img_path, 
 									pid_path, test_report_path, currentPhase, DateTime, LastModified, 
 									DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday,
 									NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL);
@@ -383,15 +393,18 @@ public class DevData {
 				boolean inactive = rs.getBoolean("inactive");
 				boolean priceConfirmed = rs.getBoolean("priceConfirmed");
 				boolean Is1000HrFCL = rs.getBoolean("Is1000HrFCL");
+				String blanket_datestamp = rs.getString("blanket_datestamp");
+				int numColor = rs.getInt("numColor");
+				int numTotalColor = rs.getInt("numTotalColor");
 				
 				development.setAll(id, code, color, cost, 
 									IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, 
 									IsSDY, IsChenille, fabric_type, design_type, colorist, finishing_used, 
 									season, yarn_type, warp_type, content, strike_off_status,
-									blanket_status, colorline_status, colorline_datestamp,
+									blanket_status, blanket_datestamp, colorline_status, colorline_datestamp,
 									rollsample_status, rollsample_datestamp, test_status,
 									test_datestamp, moq, weight, 
-									numColorline, ppcm, note, fabric_img_path, 
+									numColorline, numColor, numTotalColor, ppcm, note, fabric_img_path, 
 									pid_path, test_report_path, currentPhase, DateTime, LastModified, 
 									DateCurrentPhase, isKnit, designer, direction, georgeCanceled, strike_off_birthday,
 									NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL);
@@ -496,8 +509,9 @@ public class DevData {
 					+ "yarn_type, warp_type, content, strike_off_status, blanket_status, colorline_status, colorline_datestamp, "
 					+ "rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight, "
 					+ "numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path, currentPhase, DateTime, LastModified, DateCurrentPhase, "
-					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					+ "IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback, inactive, priceConfirmed, Is1000HrFCL,"
+					+ "blanket_datestamp, numColor, numTotalColor) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, dev.getCode());
 			stmt.setString(2, dev.getColor());
@@ -545,6 +559,9 @@ public class DevData {
 			stmt.setBoolean(44, dev.isInactive());
 			stmt.setBoolean(45, dev.isPriceConfirmed());
 			stmt.setBoolean(46, dev.isIs1000hrFCL());
+			stmt.setString(47, dev.getBlanket_datestamp());
+			stmt.setInt(48, dev.getNumColor());
+			stmt.setInt(49, dev.getNumTotalColor());
 			int affectedRows = stmt.executeUpdate();
 			ResultSet generatedKeys = null;
 			// Check if the insert was successful and retrieve the generated keys

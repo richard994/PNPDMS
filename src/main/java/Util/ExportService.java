@@ -57,7 +57,16 @@ public class ExportService extends HttpServlet{
     	Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Developments");
         Row header = sheet.createRow(0);
-        String[] columnNames = {"Code", "Pattern", "Cost", "Price Confirmed", "Paragon Clean", "Normal SDY", "500 hour FCL", "1000 hour FCL", "Piece Dyed", "Need US Feedback", "Need China Feedback", "Chenille", "Knit", "George Canceled", "Inactive", "Fabric Type", "Design Type", "Colorist", "Designer", "Direction", "Finishing", "Season", "Style", "Warp Type", "Content", "Strike-off Status", "Strike-off Birthday", "Blanket Status", "Colorline Status", "Colorline Est. Date", "Roll Sample Status", "Roll Sample Est. Date", "Test Status", "Test Est. Date", "MOQ", "Weight", "# of Colorline requested", "PPCM", "Note", "Creation Date", "Last Modified Date", "Current Phase Started Date", "Leah Comments", "US Comments", "Mill Comments", "George Comments"};
+        String[] columnNames = {"Code", "Pattern", "Cost", "Price Confirmed", "Paragon Clean", "Normal SDY", "500 hour FCL", 
+        		"1000 hour FCL", "Piece Dyed", "Need US Feedback", "Need China Feedback", "Chenille", "Knit", 
+        		"George Canceled", "Inactive", "Fabric Type", "Design Type", "Colorist", "Designer", 
+        		"Direction", "Finishing", "Season", "Style", "Warp Type", "Content", "Strike-off Status", 
+        		"Strike-off Birthday", "Blanket Status", "Blanket Datestamp", "Colorline Status", 
+        		"Colorline Est. Date", "Roll Sample Status", "Roll Sample Est. Date", "Test Status", 
+        		"Test Est. Date", "MOQ", "Weight", "# of Colorline requested", "Number of Colors", 
+        		"Number of Total Colors", "PPCM", "Note", 
+        		"Creation Date", "Last Modified Date", "Current Phase Started Date", 
+        		"Leah Comments", "US Comments", "Mill Comments", "George Comments"};
         for (int i = 0; i < columnNames.length; i++) {
             Cell cell = header.createCell(i);
             cell.setCellValue(columnNames[i]);
@@ -95,20 +104,23 @@ public class ExportService extends HttpServlet{
     		row.createCell(25).setCellValue(dev.getStrike_off_status());
     		row.createCell(26).setCellValue(dev.getStrike_off_birthday());
     		row.createCell(27).setCellValue(dev.getBlanket_status());
-    		row.createCell(28).setCellValue(dev.getColorline_status());
-    		row.createCell(29).setCellValue(dev.getColorline_datestamp());
-    		row.createCell(30).setCellValue(dev.getRollsample_status());
-    		row.createCell(31).setCellValue(dev.getRollsample_datestamp());
-    		row.createCell(32).setCellValue(dev.getTest_status());
-    		row.createCell(33).setCellValue(dev.getTest_datestamp());
-    		row.createCell(34).setCellValue(dev.getMoq());
-    		row.createCell(35).setCellValue(dev.getWeight());
-    		row.createCell(36).setCellValue(dev.getNumColorline());
-    		row.createCell(37).setCellValue(dev.getPpcm());
-    		row.createCell(38).setCellValue(dev.getNote());
-    		row.createCell(39).setCellValue(dev.getDateTime().substring(0, 10));
-    		row.createCell(40).setCellValue(dev.getLastModified().substring(0, 10));
-    		row.createCell(41).setCellValue(dev.getDateCurrentPhase().substring(0, 10));
+    		row.createCell(28).setCellValue(dev.getBlanket_datestamp());
+    		row.createCell(29).setCellValue(dev.getColorline_status());
+    		row.createCell(30).setCellValue(dev.getColorline_datestamp());
+    		row.createCell(31).setCellValue(dev.getRollsample_status());
+    		row.createCell(32).setCellValue(dev.getRollsample_datestamp());
+    		row.createCell(33).setCellValue(dev.getTest_status());
+    		row.createCell(34).setCellValue(dev.getTest_datestamp());
+    		row.createCell(35).setCellValue(dev.getMoq());
+    		row.createCell(36).setCellValue(dev.getWeight());
+    		row.createCell(37).setCellValue(dev.getNumColorline());
+    		row.createCell(38).setCellValue(dev.getNumColor());
+    		row.createCell(39).setCellValue(dev.getNumTotalColor());
+    		row.createCell(40).setCellValue(dev.getPpcm());
+    		row.createCell(41).setCellValue(dev.getNote());
+    		row.createCell(42).setCellValue(dev.getDateTime().substring(0, 10));
+    		row.createCell(43).setCellValue(dev.getLastModified().substring(0, 10));
+    		row.createCell(44).setCellValue(dev.getDateCurrentPhase().substring(0, 10));
     		
     		//parse comments
     		ArrayList<Comment> comments = devdata.getCommentsById(dev.getDev_id());
@@ -127,10 +139,10 @@ public class ExportService extends HttpServlet{
     				georgeCmt += comment.getDatestamp() + ": " + comment.getContent() + ". ";
     			}
     		}
-    		row.createCell(42).setCellValue(leahCmt);
-    		row.createCell(43).setCellValue(USCmt);
-    		row.createCell(44).setCellValue(millCmt);
-    		row.createCell(45).setCellValue(georgeCmt);
+    		row.createCell(45).setCellValue(leahCmt);
+    		row.createCell(46).setCellValue(USCmt);
+    		row.createCell(47).setCellValue(millCmt);
+    		row.createCell(48).setCellValue(georgeCmt);
     		numRows++;
         }
         

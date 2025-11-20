@@ -46,6 +46,7 @@ public class SaveNewDevService extends HttpServlet{
 	private static String strike_off_status;
 	private static String strike_off_birthday;
 	private static String blanket_status;
+	private static String blanket_datestamp;
 	private static String colorline_status;
 	private static String colorline_datestamp;
 	private static String rollsample_status;
@@ -55,6 +56,8 @@ public class SaveNewDevService extends HttpServlet{
 	private static double moq;
 	private static double weight;
 	private static int numColorline;
+	private static int numColor;
+	private static int numTotalColor;
 	private static double ppcm;
 	private static String note;
 	private static String fabric_img_path;
@@ -137,6 +140,7 @@ public class SaveNewDevService extends HttpServlet{
 		strike_off_status = parseInput("StrikeProgress", request);
 		strike_off_birthday = parseInput("StrikeBirthday", request);
 		blanket_status = parseInput("BlanketStatus", request);
+		blanket_datestamp = parseInput("BlanketDatestamp", request);
 		colorline_status = parseInput("ColorLineProgress", request);
 		colorline_datestamp = parseInput("ColorlineDatestamp", request);
 		rollsample_status = parseInput("RollSampleProgress", request);
@@ -151,9 +155,17 @@ public class SaveNewDevService extends HttpServlet{
 		if (!weightStr.isEmpty()) {
 			weight = Double.parseDouble(weightStr);
 		}
-		String numColorStr = parseInput("NumColorLine", request); 
+		String numColorlineStr = parseInput("NumColorLine", request); 
+		if (!numColorlineStr.isEmpty()) {
+			numColorline = Integer.parseInt(numColorlineStr);
+		}
+		String numColorStr = parseInput("NumColor", request); 
 		if (!numColorStr.isEmpty()) {
-			numColorline = Integer.parseInt(numColorStr);
+			numColor = Integer.parseInt(numColorStr);
+		}
+		String numTotalColorStr = parseInput("NumTotalColor", request); 
+		if (!numTotalColorStr.isEmpty()) {
+			numTotalColor = Integer.parseInt(numTotalColorStr);
 		}
 		String ppcmStr = parseInput("PPCM", request); 
 		if (!ppcmStr.isEmpty()) {
@@ -205,9 +217,9 @@ public class SaveNewDevService extends HttpServlet{
         int devid = devdata.insertDevelopment(
                 code, color, cost, IsParagonClean, Is400hrFCL, IsPieceDyed, NeedFeedback, IsSDY, IsChenille,
                 fabric_type, design_type, colorist, finishing_used, season, style, warp_type, content,
-                strike_off_status, blanket_status, colorline_status, colorline_datestamp,
+                strike_off_status, blanket_status, blanket_datestamp, colorline_status, colorline_datestamp,
                 rollsample_status, rollsample_datestamp, test_status, test_datestamp, moq, weight,
-                numColorline, ppcm, note, fabric_img_path, pid_path, test_report_path,
+                numColorline, numColor, numTotalColor, ppcm, note, fabric_img_path, pid_path, test_report_path,
                 currentPhase, DateTime, LastModified, DateCurrentPhase,
                 IsKnit, designer, direction, GeorgeCanceled, strike_off_birthday, NeedChinaFeedback,
                 inactive, priceConfirmed, Is1000hrFCL

@@ -197,9 +197,9 @@
 					</label>
 				</div>
 				<div class="form-check mt-4">
-					<input class="form-check-input" type="checkbox" id="inactiveCB" name="inactiveCB">
-					<label class="form-check-label" for="inactiveCB">
-					  Inactive
+					<input class="form-check-input" type="checkbox" id="ActiveCB" name="ActiveCB">
+					<label class="form-check-label" for="ActiveCB">
+					  Active
 					</label>
 				</div>
 				<div class="form-check mt-4">

@@ -105,6 +105,9 @@ CREATE TABLE `development` (
   `inactive` BOOLEAN DEFAULT false,
   `priceConfirmed` BOOLEAN DEFAULT false,
   `Is1000HrFCL` BOOLEAN DEFAULT false,
+  `blanket_datestamp` varchar(50),
+  `numColor` int DEFAULT 0,
+  `numTotalColor` int DEFAULT 0,
   PRIMARY KEY (`development_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

@@ -272,6 +272,7 @@ function populateAllInputs() {
 	}
 	if (dev.blanket_status !== "DNE") {
 		document.getElementById("BlanketStatus").value = dev.blanket_status;
+		document.getElementById("BlanketDatestamp").value = dev.blanket_datestamp;
 		document.getElementById("BlanketStatus").dispatchEvent(new Event('change'));
 	}
 	document.getElementById("ColorLineProgress").value = dev.colorline_status;
@@ -289,6 +290,8 @@ function populateAllInputs() {
 	document.getElementById("MOQ").value = dev.moq;
 	document.getElementById("Weight").value = dev.weight;
 	document.getElementById("NumColorLine").value = dev.numColorline;
+	document.getElementById("NumColor").value = dev.numColor;
+	document.getElementById("NumTotalColor").value = dev.numTotalColor;
 	document.getElementById("PPCM").value = dev.ppcm;
 	document.getElementById("Note").value = dev.note;
 	var devDate = new Date(dev.dateCurrentPhase);
