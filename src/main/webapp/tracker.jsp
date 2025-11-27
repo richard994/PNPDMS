@@ -242,6 +242,7 @@
 				    	<option value="" selected>Enter</option>
 				    	<option value="NewDesign">New Design</option>
 				    	<option value="Reshow">Reshow</option>
+				    	<option value="PCR">PCR</option>
 				    	<option value="24SP to 24FA">24SP to 24FA</option>
 				    	<option value="24FA to 25SP">24FA to 25SP</option>
 				    	<option value="24FA to 25FA">24FA to 25FA</option>
@@ -292,6 +293,7 @@
 				    	<option value="4800 4-End Warps">4800 4-End Warps</option>
 				    	<option value="4800 3-End Warps">4800 3-End Warps</option>
 				    	<option value="4800 150D E&E">4800 150D E&E</option>
+				    	<option value="Jenny Warp">Jenny Warp</option>
 				  	</select>
     			</div>
     			<div class="d-flex flex-column mt-4">
