@@ -38,7 +38,21 @@ function addProductBlock(dev) {
                     <option value="" selected>Enter</option>
                     <option value="NewDesign">New Design</option>
                     <option value="Reshow">Reshow</option>
-                    <!-- Add more options as needed -->
+                    <option value="PCR">PCR</option>
+			    	<option value="24SP to 24FA">24SP to 24FA</option>
+			    	<option value="24FA to 25SP">24FA to 25SP</option>
+			    	<option value="24FA to 25FA">24FA to 25FA</option>
+			    	<option value="25SP to 25FA">25SP to 25FA</option>
+			    	<option value="25FA to 26SP">25FA to 26SP</option>
+			    	<option value="26SP to 26FA">26SP to 26FA</option>
+			    	<option value="26FA to 27SP">26FA to 27SP</option>
+			    	<option value="27SP to 27FA">27SP to 27FA</option>
+			    	<option value="27FA to 28SP">27FA to 28SP</option>
+			    	<option value="28SP to 28FA">28SP to 28FA</option>
+			    	<option value="28FA to 29SP">28FA to 29SP</option>
+			    	<option value="29SP to 29FA">29SP to 29FA</option>
+			    	<option value="29FA to 30SP">29FA to 30SP</option>
+			    	<option value="30SP to 30FA">30SP to 30FA</option>
                 </select>
             </div>
             <div style="flex: 1">
@@ -47,7 +61,8 @@ function addProductBlock(dev) {
                     <option value="" selected>Enter</option>
                     <option value="house">House</option>
                     <option value="marteen">Marteen</option>
-                    <!-- Add more options as needed -->
+                    <option value="crowder">Crowder</option>
+			    	<option value="derocher">Derocher</option>
                 </select>
             </div>
             <div style="flex: 1">
@@ -56,7 +71,8 @@ function addProductBlock(dev) {
                     <option value="" selected>Enter</option>
                     <option value="house">House</option>
                     <option value="Outsource">Outsource</option>
-                    <!-- Add more options as needed -->
+                    <option value="crowder">Crowder</option>
+			    	<option value="derocher">Derocher</option>
                 </select>
             </div>
             <div style="flex: 1">
@@ -105,6 +121,7 @@ function addProductBlock(dev) {
 			    	<option value="4800 4-End Warps">4800 4-End Warps</option>
 			    	<option value="4800 3-End Warps">4800 3-End Warps</option>
 			    	<option value="4800 150D E&E">4800 150D E&E</option>
+			    	<option value="Jenny Warp">Jenny Warp</option>
 			  	</select>
 		  	</div>
 		  	<div style="flex: 1">
