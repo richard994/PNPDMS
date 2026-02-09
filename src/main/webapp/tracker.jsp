@@ -203,6 +203,12 @@
 					</label>
 				</div>
 				<div class="form-check mt-4">
+					<input class="form-check-input" type="checkbox" id="InactiveCB" name="InactiveCB">
+					<label class="form-check-label" for="InactiveCB">
+					  Inactive
+					</label>
+				</div>
+				<div class="form-check mt-4">
 					<input class="form-check-input" type="checkbox" id="priceConfirmCB" name="priceConfirmCB">
 					<label class="form-check-label" for="priceConfirmCB">
 					  Price Confirmed
@@ -267,6 +273,7 @@
 				    	<option value="marteen">Marteen</option>
 				    	<option value="crowder">Crowder</option>
 				    	<option value="derocher">Derocher</option>
+				    	<option value="leon">Leon</option>
 				  	</select>
 			  	</div>
 			  	<div class="d-flex flex-column mt-4">
@@ -277,6 +284,7 @@
 				    	<option value="Outsource">Outsource</option>
 				    	<option value="crowder">Crowder</option>
 				    	<option value="derocher">Derocher</option>
+				    	<option value="leon">Leon</option>
 				  	</select>
 			  	</div>
  			    <div class="d-flex flex-column mt-4">

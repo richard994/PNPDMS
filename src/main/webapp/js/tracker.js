@@ -83,6 +83,7 @@ function populateAllInputs() {
 	document.getElementById("KnitCB").checked = dev.knit;
 	document.getElementById("GeorgeCancelCB").checked = dev.georgeCanceled;
 	document.getElementById("ActiveCB").checked = (dev.inactive === false);
+	document.getElementById("InactiveCB").checked = dev.inactive;
 	document.getElementById("FabricType").value = dev.fabric_type;
 	document.getElementById("DesignType").value = dev.design_type;
 	document.getElementById("Colorist").value = dev.colorist;
