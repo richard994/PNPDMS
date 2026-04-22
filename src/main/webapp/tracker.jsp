@@ -459,9 +459,30 @@
 		  							</div>
 		  							<div class="col">
 		  								<div id="CardBtnGroup" style="display: flex; gap: 10px">
-			  								<button class="btn border-2 cardbtn" type="button" onclick="redirect('SaveNewDevService?action=duplicate&devId=${dev.dev_id}')" id="DuplicateBtn${status.index}">
+			  								<button class="btn border-2 cardbtn" type="button" onclick="showDuplicateModal(${dev.dev_id})" id="DuplicateBtn${status.index}">
 										  		Duplicate
 										  	</button>
+									  		<div class="modal fade" id="DupModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="expModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+														    <div class="modal-header">
+														    	<h5 class="modal-title" id="staticBackdropLabel">Duplicate</h5>
+													    		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											    			</div>
+														    <div class="modal-body">
+														    	<div class="container">
+														    		<div class="row mb-3">
+														    			<span style="color: blue">Confirm duplicate of the current development.</span>
+														    		</div>
+													    		</div>
+												    		</div>
+												    		<div class="modal-footer">
+														    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+														    	<button type="button" class="btn btn-primary" id="confirmDuplicate" data-bs-dismiss="modal">Confirm</button>
+														    </div>
+														 </div>
+													</div>
+											</div>
 										  	<button class="btn border-2 cardbtn" type="button" id="EditBtn${status.index}" onclick="window.location.href='NewDevService?action=edit&devId=${dev.dev_id}'">
 										  		Edit
 										  	</button>

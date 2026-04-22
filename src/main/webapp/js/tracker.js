@@ -64,6 +64,13 @@ function showSortModal() {
 	$('#sortModal').modal("show");
 }
 
+function showDuplicateModal(devid) {
+    $('#DupModal').modal("show");
+    $('#confirmDuplicate').on('click', function(){
+        redirect('SaveNewDevService?action=duplicate&devId=' + devid);
+    });
+}
+
 function populateAllInputs() {
 	document.getElementById("titleCode").value = dev.code;
 	document.getElementById("min-price").textContent = dev.priceMin;

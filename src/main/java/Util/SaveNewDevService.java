@@ -113,8 +113,10 @@ public class SaveNewDevService extends HttpServlet{
 		code = parseInput("Code", request);
 		color = parseInput("Color", request);
 		String costStr = parseInput("Cost", request); 
-		if (!costStr.isEmpty()) {
+		if (costStr != null && !costStr.trim().isEmpty()) {
 		    cost = Double.parseDouble(costStr);
+		} else {
+			cost = 0.0;
 		}
 		IsParagonClean = !parseInput("ParagonCleanCB", request).isEmpty();
 		Is400hrFCL = !parseInput("FCLCB", request).isEmpty();
@@ -148,28 +150,40 @@ public class SaveNewDevService extends HttpServlet{
 		test_status = parseInput("TestingProgress", request);
 		test_datestamp = parseInput("TestingDatestamp", request);
 		String moqStr = parseInput("MOQ", request); 
-		if (!moqStr.isEmpty()) {
+		if (moqStr != null && !moqStr.trim().isEmpty()) {
 			moq = Double.parseDouble(moqStr);
+		} else {
+			moq = 0.0;
 		}
 		String weightStr = parseInput("Weight", request); 
-		if (!weightStr.isEmpty()) {
+		if (weightStr != null && !weightStr.trim().isEmpty()) {
 			weight = Double.parseDouble(weightStr);
+		} else {
+			weight = 0.0;
 		}
 		String numColorlineStr = parseInput("NumColorLine", request); 
-		if (!numColorlineStr.isEmpty()) {
+		if (numColorlineStr != null && !numColorlineStr.trim().isEmpty()) {
 			numColorline = Integer.parseInt(numColorlineStr);
+		} else {
+			numColorline = 0;
 		}
 		String numColorStr = parseInput("NumColor", request); 
-		if (!numColorStr.isEmpty()) {
+		if (numColorStr != null && !numColorStr.trim().isEmpty()) {
 			numColor = Integer.parseInt(numColorStr);
+		} else {
+			numColor = 0;
 		}
 		String numTotalColorStr = parseInput("NumTotalColor", request); 
-		if (!numTotalColorStr.isEmpty()) {
+		if (numTotalColorStr != null && !numTotalColorStr.trim().isEmpty()) {
 			numTotalColor = Integer.parseInt(numTotalColorStr);
+		}  else {
+			numTotalColor = 0;
 		}
 		String ppcmStr = parseInput("PPCM", request); 
-		if (!ppcmStr.isEmpty()) {
+		if (ppcmStr != null && !ppcmStr.trim().isEmpty()) {
 			ppcm = Double.parseDouble(ppcmStr);
+		} else {
+			ppcm = 0.0;
 		}
 		note = parseInput("Note", request);
 		LeahComment = parseInput("LeahCommentInput", request);

@@ -147,6 +147,41 @@ test.addEventListener("change", function(event) {
 	}
 });
 
+const saveBtn = document.getElementById('savebtn');
+const editBtn = document.getElementById('editbtn');
+
+// List of all input IDs that need validation
+const commentIds = ['Note', 'LeahCommentInput', 'GeorgeCommentInput', 'MillCommentInput', 'USCommentInput'];
+
+// Function to check all inputs and update button/style states
+const validateComments = () => {
+  let isOverLimit = false;
+
+  commentIds.forEach(id => {
+    const input = document.getElementById(id);
+    if (input) {
+      if (input.value.length > 1000) {
+        input.style.color = 'red';
+        isOverLimit = true; // Flag that at least one input is invalid
+      } else {
+        input.style.color = 'black';
+      }
+    }
+  });
+
+  // Update button states based on the flag
+  saveBtn.disabled = isOverLimit;
+  editBtn.disabled = isOverLimit;
+};
+
+// Attach the listener to each input
+commentIds.forEach(id => {
+  const input = document.getElementById(id);
+  if (input) {
+    input.addEventListener('input', validateComments);
+  }
+});
+
 // Function to trigger file input dialog on button click
 function triggerFileInput(buttonId, fileInputId) {
     const button = document.getElementById(buttonId);

@@ -126,6 +126,11 @@ public class DevData {
 	
 	public void insertComment(int development_id, String name, String date_stamp, String content) {
 		try {
+			// Check if content exceeds 1000 characters and crop if necessary
+			if (content != null && content.length() > 1000) {
+			    content = content.substring(0, 1000);
+			}
+			
 			getConn();
 			String sql = "INSERT INTO MijuPrice.comment(development_id, name, date_stamp, content) VALUES (?,?,?,?);";
 			PreparedStatement stmt = conn.prepareStatement(sql);
