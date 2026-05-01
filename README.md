@@ -63,4 +63,21 @@ Miju_Price_Calc/
 ```
 
 #######后端
-
+  数据库总共7个表：
+    comment            # 对应开发的评论：
+    
+    development        # 开发：
+    
+    log                # 对应开发的日志：
+    
+    materials          # 对应计算过价格的纱线信息：
+    
+    mats               # 来自erp的纱线信息：mtrename 纱线英文名称, mtrtype 纱线类型, countgu 股数, countzhi 织数, 
+                         prprice 喷染价格, colorprice 色纺价格, drprice 段染价格, whiteprice 白纱价格, dyeprice 染色价格, 
+                         whiteloss 白纱损耗, warploss 经纱损耗, colorloss 色纺纱损耗, mtrid 中亚型号, material_id 主钥
+                         
+    quotes             # 计算过的价格：create_date 创建日期, model_name 产品型号, 
+                         fabric_type 面料类型, finish_module 后处理方式, memo 批注, quote_id 主钥, 
+                         ppcm 纬密, total_warp 总经, weight 克重, sale_price 售价
+                         
+    user               # 用户：user_id 主钥, name 用户名称, email 邮箱, password 密码
