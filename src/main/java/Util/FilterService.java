@@ -31,6 +31,7 @@ public class FilterService extends HttpServlet{
 	private static boolean needKnit;
 	private static boolean needGeorgeCanceled;
 	private static boolean active;
+	private static boolean inactive;
 	private static boolean priceConfirmed;
 	private static String titleCode;
 	private static String season;
@@ -199,7 +200,21 @@ public class FilterService extends HttpServlet{
 			active = false;
 			System.out.println("ActiveCB unchecked.\n");
 		}
-		filterdev.setInactive(!active);
+		
+		temp = request.getParameterValues("InactiveCB");
+		if (temp != null) {
+			inactive = true;
+			System.out.println("InactiveCB checked.\n");
+		} else {
+			inactive = false;
+			System.out.println("InactiveCB unchecked.\n");
+		}
+		
+		if (active || (!active && !inactive)) {
+			filterdev.setInactive(false);
+		} else {
+			filterdev.setInactive(true);
+		}
 		
 		temp = request.getParameterValues("priceConfirmCB");
 		if (temp != null) {
@@ -350,7 +365,7 @@ public class FilterService extends HttpServlet{
 			System.out.println("Fail to retrieve TestingProgress.");
 		}
     	
-		developments.removeIf(dev -> !filter(dev));
+		developments.removeIf(dev -> !filter(dev, filterdev));
 		developments.sort(Comparator.comparing(Developments::getCode));
 
         // Get the current page from request (default to 1 if not set)
@@ -389,7 +404,7 @@ public class FilterService extends HttpServlet{
 		doGet(request, response);
 	}
 	
-	private boolean filter(Developments development) {
+	private boolean filter(Developments development, Developments filterdev) {
 		if (!titleCode.isEmpty()) {
 		    String tc = titleCode.toLowerCase();
 		    String code  = development.getCode()  == null ? "" : development.getCode().toLowerCase();
@@ -445,13 +460,10 @@ public class FilterService extends HttpServlet{
             return false;
         }
         
-        if (active && development.isInactive()) {
+        if (filterdev.isInactive() && !development.isInactive()) {
             return false;
         }
         
-        if (!active && !development.isInactive()) {
-            return false;
-        }
         
         if (priceConfirmed && !development.isPriceConfirmed()) {
             return false;
