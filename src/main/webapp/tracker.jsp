@@ -301,6 +301,9 @@
 				    	<option value="4800 4-End Warps">4800 4-End Warps</option>
 				    	<option value="4800 3-End Warps">4800 3-End Warps</option>
 				    	<option value="4800 150D E&E">4800 150D E&E</option>
+				    	<option value="1000hr 4800 150D 4-Color Random Warps SDY">1000hr 4800 150D 4-Color Random Warps SDY</option>
+				    	<option value="1000hr 4800 150D Solid Warps">1000hr 4800 150D Solid Warps</option>
+				    	<option value="1000hr 9600 150D Solid Warps">1000hr 9600 150D Solid Warps</option>
 				    	<option value="Jenny Warp">Jenny Warp</option>
 				  	</select>
     			</div>

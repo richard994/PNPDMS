@@ -225,6 +225,10 @@ public class DataParser implements Runnable {
 			finishing += "KB,";
 		}
 		
+		if (key.contains("砂洗")) {
+			finishing += "SW,";
+		}
+		
 		if (finishing.endsWith(",")) {
 		    finishing = finishing.substring(0, finishing.length() - 1);
 		}
