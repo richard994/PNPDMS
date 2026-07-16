@@ -1,106 +1,32 @@
 <%@page import="Util.CalcService"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/shared.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/createqp.css">
 
 	<title>Success</title>
-	
+
 	<style>
 		body {
 			font-family: 'Inter', sans-serif !important;
 		}
-		
-		#headbar {
-			font-size: calc( 12px + (20 - 16) * (100vw - 400px) / (800 - 400) );
-			font-weight: 300;
-		}
-		#home::before {
-			content: url(home.png) !important;
-		}
-		.breadcrumb-item::before {
-			content: url(discount.png) !important;
-			padding-right: 5px !important;
-		}
-		
-		.breadcrumb-item::after {
-			content: ">";
-			padding-left: 10px;
-		}
-		
-		.breadcrumb-item:last-child::after {
-			content: "";
-		}
-		
-		.breadcrumb-item:last-child {
-			opacity: 1.0;
-		}
-		
-		.breadcrumb-item {
-			opacity: 0.5;
-		}
-		.nav-link {
-			color: black;
-		}
-		.dropdown-menu {
-		  display: none;
-		  position: absolute;
-		  background-color: #f9f9f9;
-		  min-width: 160px;
-		  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-		  z-index: 1;
-		}
-		
-		.dropdown-menu li a {
-		  float: none;
-		  color: black;
-		  text-decoration: none;
-		  display: block;
-		  text-align: left;
-		}
-		
-		.dropdown-menu li a:hover {
-		  background-color: #ddd;
-		}
-		
-		.dropdown:hover .dropdown-menu {
-		  display: block;
-		}
 	</style>
-	
-	<script type="text/javascript">		
+
+	<script type="text/javascript">
 		function clickPricing() {
 			document.getElementById("Pricing").click();
 		}
 	</script>
 </head>
 <body class="bg-light">
-	<section class="bg-white">
-		<div class="container">
-	   		<div class="d-flex flex-wrap justify-content-center py-3 mb-4" id="headbar">
-		      <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-		      <img src="icon.png" class="img-fluid d-sm-block d-none" style="width: 95px; margin-left: 90px">
-		      </p>
-		
-		      <ul class="nav nav-pills">
-		        <li class="nav-item mr-5"><a href="HomeService" class="nav-link" id="Home">Home</a></li>
-		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing" style="color: #4D73FF">Pricing</a></li>
-		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
-		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker">Tracker</a></li>
-          		<li class="nav-item dropdown mr-5">
-				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
-				    <ul class="dropdown-menu">
-					  <li><a class="dropdown-item" href="LogoutService">Log Out</a></li>
-				    </ul>
-				</li>
-		      </ul>
-		    </div>
-	    </div>
-	</section>
+	<c:set var="activePage" value="Pricing" scope="request" />
+	<jsp:include page="/WEB-INF/jspf/navbar.jsp" />
 	
 	<nav aria-label="breadcrumb" id="breadcrumb" style="margin-left: 165px">
 	  <ol class="breadcrumb">

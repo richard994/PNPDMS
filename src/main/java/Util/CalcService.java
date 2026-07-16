@@ -12,24 +12,24 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/CalcService")
 public class CalcService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	private static String[] sFinish;
-	private static String pmodel;
-	private static String memo;
-	private static String ftype;
-	private static String date;
-	private static double totalWarp;
-	private static double ppcm;
-	private static double finalSalePrice;
-	private static double weight;
-	
+
 	public CalcService() {}
-	
+
 	public void doPost(HttpServletRequest request, HttpServletResponse
 			response) throws ServletException, IOException{
 		PriceData priceData = new PriceData();
 		ArrayList<Mats> receivedMats = new ArrayList<Mats>();
 		String temp[];
 		String finStr = "";
+		String[] sFinish;
+		String pmodel = null;
+		String memo = null;
+		String ftype = null;
+		String date = null;
+		double totalWarp = 0;
+		double ppcm = 0;
+		double finalSalePrice = 0;
+		double weight = 0;
 		
 		String action = request.getParameter("action");
 		System.out.println("Action: " + action + "\n");

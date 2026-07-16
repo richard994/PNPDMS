@@ -1,6 +1,5 @@
 package Util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -32,8 +31,7 @@ public class MultEdit extends HttpServlet{
 
 			    DevData devdata = new DevData();
 			    ArrayList<Developments> dev = devdata.getDevelopments();
-			    ObjectMapper objectMapper = new ObjectMapper();
-			    String devJson = objectMapper.writeValueAsString(dev);
+			    String devJson = JsonUtil.toScriptSafeJson(dev);
 			    request.setAttribute("dev", devJson);
 			    
 			    // Forward to the appropriate page

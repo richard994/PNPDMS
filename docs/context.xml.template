@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Server-side only. Do NOT put this file under src/main/webapp/META-INF —
+  that would bundle it (and the real password) into the WAR and into git.
+
+  Copy this to $CATALINA_BASE/conf/Catalina/localhost/<context-path>.xml on
+  the AWS box (e.g. conf/Catalina/localhost/Miju_price_calc.xml if the WAR
+  is deployed as Miju_price_calc.war), then replace the password below.
+  See docs/DEPLOYMENT.md for the full walkthrough.
+-->
+<Context>
+    <Resource name="jdbc/MijuPrice"
+              auth="Container"
+              type="javax.sql.DataSource"
+              factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/MijuPrice?useUnicode=true&amp;characterEncoding=UTF-8"
+              username="root"
+              password="REPLACE_WITH_REAL_PASSWORD"
+              initialSize="2"
+              maxTotal="20"
+              maxIdle="10"
+              minIdle="2"
+              maxWaitMillis="10000"
+              validationQuery="SELECT 1"
+              testOnBorrow="true"/>
+</Context>

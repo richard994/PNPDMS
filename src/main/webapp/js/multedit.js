@@ -235,6 +235,10 @@ function search() {
     });
 
     if (matchedDevelopment) {
+        if (devids.indexOf(matchedDevelopment.code) > -1) {
+            alert("Development already added.");
+            return;
+        }
         addProductBlock(matchedDevelopment);
         devids.push(matchedDevelopment.code);
     } else {

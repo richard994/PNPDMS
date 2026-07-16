@@ -18,14 +18,17 @@ public class LoginService extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse
 			response) throws ServletException, IOException{
 		HttpSession session = request.getSession();
-		
-		String email = "";
-		String password = "";
+
 		String[] emailBuffer = request.getParameterValues("email");
 		String[] passwordBuffer = request.getParameterValues("password");
-		email = emailBuffer[0];
-		password = passwordBuffer[0];
-		
+		if (emailBuffer == null || passwordBuffer == null) {
+			request.setAttribute("wrongInput", "yes");
+			request.getRequestDispatcher("/auth.jsp").forward(request, response);
+			return;
+		}
+		String email = emailBuffer[0];
+		String password = passwordBuffer[0];
+
 		UserData ud = new UserData();
 		boolean exist = ud.CheckExist(email, password, session);
 		session.setAttribute("loggedin", exist);

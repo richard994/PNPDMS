@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 @WebServlet("/PricingService")
 public class PricingService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -30,8 +28,7 @@ public class PricingService extends HttpServlet{
 			} else {
 				PriceData pd = new PriceData();
 				ArrayList<Quotes> quotes = pd.getQuotes();
-				ObjectMapper objectMapper = new ObjectMapper();
-				String quoteJson = objectMapper.writeValueAsString(quotes);
+				String quoteJson = JsonUtil.toScriptSafeJson(quotes);
 				
 				request.setAttribute("quotes", quoteJson);
 				request.getRequestDispatcher("/pricing.jsp").forward(request, response);

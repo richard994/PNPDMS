@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 @WebServlet("/MatService")
 public class MatService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -98,8 +96,7 @@ public class MatService extends HttpServlet{
 					} else {} 
 				}
 				
-				ObjectMapper objectMapper = new ObjectMapper();
-				String matJson = objectMapper.writeValueAsString(matList);
+				String matJson = JsonUtil.toScriptSafeJson(matList);
 				request.setAttribute("mats", matJson);
 				request.setAttribute("numChenilleYarn", numChenilleYarn);
 				request.setAttribute("numCottonYarn", numCottonYarn);

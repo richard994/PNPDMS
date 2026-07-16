@@ -547,7 +547,7 @@ function showModal() {
 
 function showCmtModal(devid, commentId) {
     $('#dlCmtModal').modal("show");
-    $('#confirmCmtDelete').on('click', function(){
+    $('#confirmCmtDelete').off('click').on('click', function(){
         redirect('NewDevService?action=deleteCmt&devId=' + devid + '&cmtId=' + commentId);
     });
 }

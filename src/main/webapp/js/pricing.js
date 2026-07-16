@@ -75,8 +75,11 @@ function filterAndRender() {
     .trim()
     .toLowerCase();
 
-  // handle multiple‐select properly
-  const finishingFilter = document.getElementById("finishingmodule").value;
+  // handle multiple‐select properly: a native <select multiple>'s .value only
+  // returns the first selected option, so read all selected options instead
+  const finishingFilter = Array.from(
+    document.getElementById("finishingmodule").selectedOptions
+  ).map(opt => opt.value);
 
   const dateFilter = document.getElementById("pdate").value;
 
@@ -85,14 +88,14 @@ function filterAndRender() {
     // note: zero-based children, so
     // td:nth-child(2) is children[1], etc.
     const rowpm = tr.children[1].textContent.trim().toLowerCase();
-    const rowfn = tr.children[6].textContent.trim();
+    const rowfn = tr.children[6].textContent.trim().split(",").map(s => s.trim()).filter(Boolean);
     const rowdt = tr.children[8].textContent.trim();
 
     // 3) check each filter (empty filter ⇒ pass)
     let visible = true;
     if (pmodel && !rowpm.includes(pmodel))     visible = false;
     if (dateFilter && rowdt !== dateFilter)     visible = false;
-    if (finishingFilter.length && !finishingFilter.includes(rowfn)) {
+    if (finishingFilter.length && !finishingFilter.some(f => rowfn.includes(f))) {
       visible = false;
     }
 
@@ -111,7 +114,7 @@ function redirect(url) {
 
 function showModal(quoteId) {
     $('#dlModal').modal("show");
-    $('#confirmDelete').on('click', function(){
+    $('#confirmDelete').off('click').on('click', function(){
         redirect('CalcService?action=delete&quoteId=' + quoteId);
     });
 }

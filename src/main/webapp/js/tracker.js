@@ -66,7 +66,7 @@ function showSortModal() {
 
 function showDuplicateModal(devid) {
     $('#DupModal').modal("show");
-    $('#confirmDuplicate').on('click', function(){
+    $('#confirmDuplicate').off('click').on('click', function(){
         redirect('SaveNewDevService?action=duplicate&devId=' + devid);
     });
 }

@@ -1,57 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/shared.css">
 	<link rel="stylesheet" href="js/virtual-select.min.css">
 	<link rel="stylesheet" type="text/css" href="css/MultEdit.css" />
 	<script src="js/jquery-3.7.0.min.js"></script>
 	<script type="text/javascript" src="js/virtual-select.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<title>MultEdit</title>
-	<style>
-		#home::before {
-			content: url(home.png) !important;
-		}
-		.breadcrumb-item::before {
-			content: url(discount.png) !important;
-			padding-right: 5px !important;
-		}
-		.nav-link {
-			color: black;
-		}
-	</style>
 	<script defer>
 		var dev = ${dev};
 		let devids = [];
 	</script>
 </head>
 <body class="bg-light">
-	<section class="bg-white">
-		<div class="container">
-	   		<div class="d-flex flex-wrap justify-content-center py-3 mb-4" id="headbar">
-		      <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-		      <img src="icon.png" class="img-fluid d-sm-block d-none" style="width: 95px; margin-left: 90px">
-		      </p>
-		
-		      <ul class="nav nav-pills">
-		        <li class="nav-item mr-5"><a href="HomeService" class="nav-link" id="Home">Home</a></li>
-		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing">Pricing</a></li>
-		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
-		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker" style="color: #4D73FF">Tracker</a></li>
-           		<li class="nav-item dropdown mr-5">
-				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
-				    <ul class="dropdown-menu">
-					  <li><a class="dropdown-item" href="LogoutService">Log Out</a></li>
-				    </ul>
-				</li>
-		      </ul>
-		    </div>
-	    </div>
-	</section>
+	<c:set var="activePage" value="Tracker" scope="request" />
+	<jsp:include page="/WEB-INF/jspf/navbar.jsp" />
 	
 	<div class="container" id="breadcrumbContainer">
 		<nav aria-label="breadcrumb" id="breadcrumb" style="width: 100%; white-space: nowrap">

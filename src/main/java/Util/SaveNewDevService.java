@@ -18,71 +18,18 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 @WebServlet("/SaveNewDevService")
-@MultipartConfig
+@MultipartConfig(
+		fileSizeThreshold = 1024 * 1024,      // 1MB - larger parts spill to disk instead of heap
+		maxFileSize = 20L * 1024 * 1024,      // 20MB per uploaded file
+		maxRequestSize = 60L * 1024 * 1024    // 60MB total (fabric pic + PID pic + test report)
+)
 public class SaveNewDevService extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private static final String AWS_BUCKET = "databricks-workspace-stack-a24ba-bucket";
-	private static String code;
-	private static String color;
-	private static double cost;
-	private static boolean IsParagonClean = false;
-	private static boolean Is400hrFCL = false;
-	private static boolean IsPieceDyed = false;
-	private static boolean NeedFeedback = false;
-	private static boolean NeedChinaFeedback = false;
-	private static boolean IsSDY = false;
-	private static boolean IsChenille = false;
-	private static boolean inactive = false;
-	private static boolean priceConfirmed = false;
-	private static boolean Is1000hrFCL = false;
-	private static String fabric_type;
-	private static String design_type;
-	private static String colorist;
-	private static String finishing_used; 
-	private static String season;
-	private static String style;
-	private static String warp_type;
-	private static String content;
-	private static String strike_off_status;
-	private static String strike_off_birthday;
-	private static String blanket_status;
-	private static String blanket_datestamp;
-	private static String colorline_status;
-	private static String colorline_datestamp;
-	private static String rollsample_status;
-	private static String rollsample_datestamp;
-	private static String test_status;
-	private static String test_datestamp;
-	private static double moq;
-	private static double weight;
-	private static int numColorline;
-	private static int numColor;
-	private static int numTotalColor;
-	private static double ppcm;
-	private static String note;
-	private static String fabric_img_path;
-	private static String pid_path;
-	private static String test_report_path;
-	private static String currentPhase;
-	private static String DateTime;
-	private static String LastModified;
-	private static String DateCurrentPhase;
-	private static String LeahComment;
-	private static String LeahComment_datestamp;
-	private static String USComment;
-	private static String USComment_datestamp;
-	private static String MillComment;
-	private static String MillComment_datestamp;
-	private static String GeorgeComment;
-	private static String GeorgeComment_datestamp;
-	private static boolean IsKnit = false;
-	private static String designer;
-	private static String direction;
-	private static boolean GeorgeCanceled = false;
 	private S3Client s3Client = S3Client.builder()
             .region(Region.of("us-west-2"))
             .build();
-	
+
 	public SaveNewDevService() {}
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse
@@ -97,104 +44,134 @@ public class SaveNewDevService extends HttpServlet{
 		String userName = (String) session.getAttribute("userName");
 		
 		if ("delete".equals(action)) {
-			handleDelete(request, response);
+			try {
+				handleDelete(request, response);
+			} catch (RuntimeException e) {
+				System.out.println("Failed to delete development: " + e.getMessage());
+			}
 			request.getRequestDispatcher("/TrackerService").forward(request, response);
 			return;
 		} else if ("duplicate".equals(action)) {
-			handleDuplicate(request, response);
+			try {
+				handleDuplicate(request, response);
+			} catch (RuntimeException e) {
+				System.out.println("Failed to duplicate development: " + e.getMessage());
+			}
 			request.getRequestDispatcher("/TrackerService").forward(request, response);
 			return;
 		} else if ("multedit".equals(action)) {
-			handleMultiEdit(request, response);
+			try {
+				handleMultiEdit(request, response);
+			} catch (RuntimeException e) {
+				System.out.println("Failed to process multi-edit: " + e.getMessage());
+			}
 			request.getRequestDispatcher("/TrackerService").forward(request, response);
 			return;
 		}
-		
-		code = parseInput("Code", request);
-		color = parseInput("Color", request);
-		String costStr = parseInput("Cost", request); 
+
+		if ("edit".equals(action)) {
+			try {
+				Integer.parseInt(request.getParameter("devId"));
+			} catch (NumberFormatException e) {
+				request.getRequestDispatcher("/TrackerService").forward(request, response);
+				return;
+			}
+		}
+
+		String code = parseInput("Code", request);
+		String color = parseInput("Color", request);
+		String costStr = parseInput("Cost", request);
+		double cost;
 		if (costStr != null && !costStr.trim().isEmpty()) {
 		    cost = Double.parseDouble(costStr);
 		} else {
 			cost = 0.0;
 		}
-		IsParagonClean = !parseInput("ParagonCleanCB", request).isEmpty();
-		Is400hrFCL = !parseInput("FCLCB", request).isEmpty();
-		IsPieceDyed = !parseInput("PDCB", request).isEmpty();
-		NeedFeedback = !parseInput("FeedbackCB", request).isEmpty();
-		NeedChinaFeedback = !parseInput("ChinaFeedbackCB", request).isEmpty();
-		IsSDY = !parseInput("SDYCB", request).isEmpty();
-		IsChenille = !parseInput("ChenilleCB", request).isEmpty();
-		IsKnit = !parseInput("KnitCB", request).isEmpty();
-		GeorgeCanceled = !parseInput("GeorgeCancelCB", request).isEmpty();
-		inactive = !parseInput("inactiveCB", request).isEmpty();
-		priceConfirmed = !parseInput("priceConfirmCB", request).isEmpty();
-		Is1000hrFCL = !parseInput("TFCLCB", request).isEmpty();
-		fabric_type = parseInput("FabricType", request);
-		design_type = parseInput("DesignType", request);
-		colorist = parseInput("Colorist", request);
-		designer = parseInput("Designer", request);
-		direction = parseInput("Direction", request);
-		finishing_used = parseInput("Backing", request);
-		season = parseInput("Season", request);
-		style = parseInput("YarnType", request);
-		warp_type = parseInput("WarpType", request);
-		strike_off_status = parseInput("StrikeProgress", request);
-		strike_off_birthday = parseInput("StrikeBirthday", request);
-		blanket_status = parseInput("BlanketStatus", request);
-		blanket_datestamp = parseInput("BlanketDatestamp", request);
-		colorline_status = parseInput("ColorLineProgress", request);
-		colorline_datestamp = parseInput("ColorlineDatestamp", request);
-		rollsample_status = parseInput("RollSampleProgress", request);
-		rollsample_datestamp = parseInput("RollSampleDatestamp", request);
-		test_status = parseInput("TestingProgress", request);
-		test_datestamp = parseInput("TestingDatestamp", request);
-		String moqStr = parseInput("MOQ", request); 
+		boolean IsParagonClean = !parseInput("ParagonCleanCB", request).isEmpty();
+		boolean Is400hrFCL = !parseInput("FCLCB", request).isEmpty();
+		boolean IsPieceDyed = !parseInput("PDCB", request).isEmpty();
+		boolean NeedFeedback = !parseInput("FeedbackCB", request).isEmpty();
+		boolean NeedChinaFeedback = !parseInput("ChinaFeedbackCB", request).isEmpty();
+		boolean IsSDY = !parseInput("SDYCB", request).isEmpty();
+		boolean IsChenille = !parseInput("ChenilleCB", request).isEmpty();
+		boolean IsKnit = !parseInput("KnitCB", request).isEmpty();
+		boolean GeorgeCanceled = !parseInput("GeorgeCancelCB", request).isEmpty();
+		boolean inactive = !parseInput("inactiveCB", request).isEmpty();
+		boolean priceConfirmed = !parseInput("priceConfirmCB", request).isEmpty();
+		boolean Is1000hrFCL = !parseInput("TFCLCB", request).isEmpty();
+		String fabric_type = parseInput("FabricType", request);
+		String design_type = parseInput("DesignType", request);
+		String colorist = parseInput("Colorist", request);
+		String designer = parseInput("Designer", request);
+		String direction = parseInput("Direction", request);
+		String finishing_used = parseInput("Backing", request);
+		String season = parseInput("Season", request);
+		String style = parseInput("YarnType", request);
+		String warp_type = parseInput("WarpType", request);
+		String content = null;
+		String strike_off_status = parseInput("StrikeProgress", request);
+		String strike_off_birthday = parseInput("StrikeBirthday", request);
+		String blanket_status = parseInput("BlanketStatus", request);
+		String blanket_datestamp = parseInput("BlanketDatestamp", request);
+		String colorline_status = parseInput("ColorLineProgress", request);
+		String colorline_datestamp = parseInput("ColorlineDatestamp", request);
+		String rollsample_status = parseInput("RollSampleProgress", request);
+		String rollsample_datestamp = parseInput("RollSampleDatestamp", request);
+		String test_status = parseInput("TestingProgress", request);
+		String test_datestamp = parseInput("TestingDatestamp", request);
+		String moqStr = parseInput("MOQ", request);
+		double moq;
 		if (moqStr != null && !moqStr.trim().isEmpty()) {
 			moq = Double.parseDouble(moqStr);
 		} else {
 			moq = 0.0;
 		}
-		String weightStr = parseInput("Weight", request); 
+		String weightStr = parseInput("Weight", request);
+		double weight;
 		if (weightStr != null && !weightStr.trim().isEmpty()) {
 			weight = Double.parseDouble(weightStr);
 		} else {
 			weight = 0.0;
 		}
-		String numColorlineStr = parseInput("NumColorLine", request); 
+		String numColorlineStr = parseInput("NumColorLine", request);
+		int numColorline;
 		if (numColorlineStr != null && !numColorlineStr.trim().isEmpty()) {
 			numColorline = Integer.parseInt(numColorlineStr);
 		} else {
 			numColorline = 0;
 		}
-		String numColorStr = parseInput("NumColor", request); 
+		String numColorStr = parseInput("NumColor", request);
+		int numColor;
 		if (numColorStr != null && !numColorStr.trim().isEmpty()) {
 			numColor = Integer.parseInt(numColorStr);
 		} else {
 			numColor = 0;
 		}
-		String numTotalColorStr = parseInput("NumTotalColor", request); 
+		String numTotalColorStr = parseInput("NumTotalColor", request);
+		int numTotalColor;
 		if (numTotalColorStr != null && !numTotalColorStr.trim().isEmpty()) {
 			numTotalColor = Integer.parseInt(numTotalColorStr);
 		}  else {
 			numTotalColor = 0;
 		}
-		String ppcmStr = parseInput("PPCM", request); 
+		String ppcmStr = parseInput("PPCM", request);
+		double ppcm;
 		if (ppcmStr != null && !ppcmStr.trim().isEmpty()) {
 			ppcm = Double.parseDouble(ppcmStr);
 		} else {
 			ppcm = 0.0;
 		}
-		note = parseInput("Note", request);
-		LeahComment = parseInput("LeahCommentInput", request);
-		LeahComment_datestamp = parseInput("LeahCommentDatestamp", request);
-		USComment = parseInput("USCommentInput", request);
-		USComment_datestamp = parseInput("USCommentDatestamp", request);
-		MillComment = parseInput("MillCommentInput", request);
-		MillComment_datestamp = parseInput("MillCommentDatestamp", request);
-		GeorgeComment = parseInput("GeorgeCommentInput", request);
-		GeorgeComment_datestamp = parseInput("GeorgeCommentDatestamp", request);
-		
+		String note = parseInput("Note", request);
+		String LeahComment = parseInput("LeahCommentInput", request);
+		String LeahComment_datestamp = parseInput("LeahCommentDatestamp", request);
+		String USComment = parseInput("USCommentInput", request);
+		String USComment_datestamp = parseInput("USCommentDatestamp", request);
+		String MillComment = parseInput("MillCommentInput", request);
+		String MillComment_datestamp = parseInput("MillCommentDatestamp", request);
+		String GeorgeComment = parseInput("GeorgeCommentInput", request);
+		String GeorgeComment_datestamp = parseInput("GeorgeCommentDatestamp", request);
+
+		String currentPhase;
 		if (test_status.equals("DNE")) {
 			currentPhase = "";
 		} else if (test_status.equals("Testing passed")) {
@@ -205,16 +182,26 @@ public class SaveNewDevService extends HttpServlet{
 			currentPhase = "Testing";
 		}
 		System.out.println("Current Phase: " + currentPhase + "\n");
-		
+
 		LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTime = currentDateTime.toString();
-        LastModified = currentDateTime.toString();
-        DateCurrentPhase = currentDateTime.toString();
+        String DateTime = currentDateTime.toString();
+        String LastModified = currentDateTime.toString();
+        String DateCurrentPhase = currentDateTime.toString();
         System.out.println("Current date & time: " + DateTime + "\n");
-		
-        fabric_img_path  = storePart(request, "FabricPicInput",  "FabricPic");
-        pid_path         = storePart(request, "PidInput",        "PidPic");
-        test_report_path = storePart(request, "TestReportInput", "TestReportPic");
+
+        String fabric_img_path;
+        String pid_path;
+        String test_report_path;
+        try {
+        	fabric_img_path  = storePart(request, "FabricPicInput",  "FabricPic");
+        	pid_path         = storePart(request, "PidInput",        "PidPic");
+        	test_report_path = storePart(request, "TestReportInput", "TestReportPic");
+        } catch (IllegalStateException e) {
+        	// A file exceeded @MultipartConfig's maxFileSize/maxRequestSize
+        	System.out.println("Upload rejected, file too large: " + e.getMessage());
+        	request.getRequestDispatcher("/TrackerService").forward(request, response);
+        	return;
+        }
 
         DevData devdata = new DevData();
         if ("edit".equals(action)) {
@@ -279,9 +266,9 @@ public class SaveNewDevService extends HttpServlet{
 		DevData devdata = new DevData();
 		Developments dev = devdata.getDevelopmentById(dev_id);
 		LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTime = currentDateTime.toString();
-        LastModified = currentDateTime.toString();
-        DateCurrentPhase = currentDateTime.toString();
+        String DateTime = currentDateTime.toString();
+        String LastModified = currentDateTime.toString();
+        String DateCurrentPhase = currentDateTime.toString();
         dev.setDateTime(DateTime);
         dev.setLastModified(LastModified);
         dev.setDateCurrentPhase(DateCurrentPhase);
@@ -321,37 +308,37 @@ public class SaveNewDevService extends HttpServlet{
 		    System.out.println("Editing " + code);
 		    Developments dev = devdata.getDevelopmentByCode(code);
 		    
-		    color = parseInput("Color-" + code, request);
+		    String color = parseInput("Color-" + code, request);
 		    updateStringIfChanged(devdata, "color", color, dev.getColor(), "code", code, "Color-" + code);
-		    GeorgeCanceled = !parseInput("GeorgeCancelCB-" + code, request).isEmpty();
-		    updateBooleanIfChanged(devdata, "GeorgeCanceled", GeorgeCanceled, dev.isGeorgeCanceled(), "code", code, "GeorgeCancelCB-" + code);	    
-			inactive = !parseInput("inactiveCB-" + code, request).isEmpty();
+		    boolean GeorgeCanceled = !parseInput("GeorgeCancelCB-" + code, request).isEmpty();
+		    updateBooleanIfChanged(devdata, "GeorgeCanceled", GeorgeCanceled, dev.isGeorgeCanceled(), "code", code, "GeorgeCancelCB-" + code);
+			boolean inactive = !parseInput("inactiveCB-" + code, request).isEmpty();
 			updateBooleanIfChanged(devdata, "inactive", inactive, dev.isInactive(), "code", code, "inactiveCB-" + code);
-			priceConfirmed = !parseInput("priceConfirmCB-" + code, request).isEmpty();
+			boolean priceConfirmed = !parseInput("priceConfirmCB-" + code, request).isEmpty();
 			updateBooleanIfChanged(devdata, "priceConfirmed", priceConfirmed, dev.isPriceConfirmed(), "code", code, "priceConfirmCB-" + code);
-			design_type = parseInput("DesignType-" + code, request);
+			String design_type = parseInput("DesignType-" + code, request);
 			updateStringIfChanged(devdata, "design_type", design_type, dev.getDesign_type(), "code", code, "DesignType-" + code);
-			colorist = parseInput("Colorist-" + code, request);
+			String colorist = parseInput("Colorist-" + code, request);
 			updateStringIfChanged(devdata, "colorist", colorist, dev.getColorist(), "code", code, "Colorist-" + code);
-			designer = parseInput("Designer-" + code, request);
+			String designer = parseInput("Designer-" + code, request);
 			updateStringIfChanged(devdata, "designer", designer, dev.getDesigner(), "code", code, "Designer-" + code);
-			season = parseInput("Season-" + code, request);
+			String season = parseInput("Season-" + code, request);
 			updateStringIfChanged(devdata, "season", season, dev.getSeason(), "code", code, "Season-" + code);
-			style = parseInput("YarnType-" + code, request);
+			String style = parseInput("YarnType-" + code, request);
 			updateStringIfChanged(devdata, "yarn_type", style, dev.getYarn_type(), "code", code, "YarnType-" + code);
-			warp_type = parseInput("WarpType-" + code, request);
+			String warp_type = parseInput("WarpType-" + code, request);
 			updateStringIfChanged(devdata, "warp_type", warp_type, dev.getWarp_type(), "code", code, "WarpType-" + code);
-			direction = parseInput("Direction-" + code, request);
+			String direction = parseInput("Direction-" + code, request);
 			updateStringIfChanged(devdata, "direction", direction, dev.getDirection(), "code", code, "Direction-" + code);
-			strike_off_status = parseInput("StrikeProgress-" + code, request);
+			String strike_off_status = parseInput("StrikeProgress-" + code, request);
 			updateStringIfChanged(devdata, "strike_off_status", strike_off_status, dev.getStrike_off_status(), "code", code, "StrikeProgress-" + code);
-			strike_off_birthday = parseInput("StrikeBirthday-" + code, request);
+			String strike_off_birthday = parseInput("StrikeBirthday-" + code, request);
 			updateStringIfChanged(devdata, "strike_off_birthday", strike_off_birthday, dev.getStrike_off_birthday(), "code", code, "StrikeBirthday-" + code);
-			blanket_status = parseInput("BlanketStatus-" + code, request);
+			String blanket_status = parseInput("BlanketStatus-" + code, request);
 			updateStringIfChanged(devdata, "blanket_status", blanket_status, dev.getBlanket_status(), "code", code, "BlanketStatus-" + code);
-			test_status = parseInput("TestingProgress-" + code, request);
+			String test_status = parseInput("TestingProgress-" + code, request);
 			updateStringIfChanged(devdata, "test_status", test_status, dev.getTest_status(), "code", code, "TestingProgress-" + code);
-			test_datestamp = parseInput("TestingDatestamp-" + code, request);
+			String test_datestamp = parseInput("TestingDatestamp-" + code, request);
 			updateStringIfChanged(devdata, "test_datestamp", test_datestamp, dev.getTest_datestamp(), "code", code, "TestingDatestamp-" + code);
 			
 			Developments new_dev = devdata.getDevelopmentByCode(code);
@@ -629,8 +616,9 @@ public class SaveNewDevService extends HttpServlet{
 		final int itemsPerPage = 15;
 		int totalItems = filtered.size();
 		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-		
-		int startIndex = Math.max(0, (currentPage - 1) * itemsPerPage);
+		currentPage = Math.max(1, Math.min(currentPage, Math.max(1, totalPages)));
+
+		int startIndex = Math.min(Math.max(0, (currentPage - 1) * itemsPerPage), totalItems);
 		int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 		
 		List<Developments> currentPageList = filtered.subList(startIndex, endIndex);

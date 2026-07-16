@@ -7,55 +7,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/shared.css">
 	<link rel="stylesheet" type="text/css" href="css/tracker.css" />
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="js/jquery-3.7.0.min.js"></script>
 	<link rel="stylesheet" href="js/virtual-select.min.css">
 	<script type="text/javascript" src="js/virtual-select.min.js"></script>
 	<title>Tracker</title>
-	
-	<style>
-		#home::before {
-			content: url(home.png) !important;
-		}
-		.breadcrumb-item::before {
-			content: url(discount.png) !important;
-			padding-right: 5px !important;
-		}
-		.nav-link {
-			color: black;
-		}
-	</style>
+
 	<script defer>
 		var filtered = ${filtered};
 		var sorted = ${sorted};
-		var dev = JSON.parse('${filterdev}');
+		var dev = ${empty filterdev ? '{}' : filterdev};
 	</script>
 </head>
 
 <body class="bg-light">
-	<section class="bg-white">
-		<div class="container">
-	   		<div class="d-flex flex-wrap justify-content-center py-3 mb-4" id="headbar">
-		      <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-		      <img src="icon.png" class="img-fluid d-sm-block d-none" style="width: 95px; margin-left: 90px">
-		      </p>
-		
-		      <ul class="nav nav-pills">
-		        <li class="nav-item mr-5"><a href="HomeService" class="nav-link" id="Home">Home</a></li>
-		        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing">Pricing</a></li>
-		        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material">Material</a></li>
-		        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker" style="color: #4D73FF">Tracker</a></li>
-           		<li class="nav-item dropdown mr-5">
-				   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Account</a>
-				    <ul class="dropdown-menu">
-					  <li><a class="dropdown-item" href="LogoutService">Log Out</a></li>
-				    </ul>
-				</li>
-		      </ul>
-		    </div>
-	    </div>
-	</section>
+	<c:set var="activePage" value="Tracker" scope="request" />
+	<jsp:include page="/WEB-INF/jspf/navbar.jsp" />
 	
 	<div class="container" id="breadcrumbContainer">
 		<nav aria-label="breadcrumb" id="breadcrumb" style="width: 50%">
@@ -465,27 +434,6 @@
 			  								<button class="btn border-2 cardbtn" type="button" onclick="showDuplicateModal(${dev.dev_id})" id="DuplicateBtn${status.index}">
 										  		Duplicate
 										  	</button>
-									  		<div class="modal fade" id="DupModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="expModalLabel" aria-hidden="true">
-													<div class="modal-dialog">
-														<div class="modal-content">
-														    <div class="modal-header">
-														    	<h5 class="modal-title" id="staticBackdropLabel">Duplicate</h5>
-													    		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											    			</div>
-														    <div class="modal-body">
-														    	<div class="container">
-														    		<div class="row mb-3">
-														    			<span style="color: blue">Confirm duplicate of the current development.</span>
-														    		</div>
-													    		</div>
-												    		</div>
-												    		<div class="modal-footer">
-														    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-														    	<button type="button" class="btn btn-primary" id="confirmDuplicate" data-bs-dismiss="modal">Confirm</button>
-														    </div>
-														 </div>
-													</div>
-											</div>
 										  	<button class="btn border-2 cardbtn" type="button" id="EditBtn${status.index}" onclick="window.location.href='NewDevService?action=edit&devId=${dev.dev_id}'">
 										  		Edit
 										  	</button>
@@ -614,6 +562,28 @@
 	</div>
 	</form>
 	
+	<div class="modal fade" id="DupModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="expModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				    <div class="modal-header">
+				    	<h5 class="modal-title" id="staticBackdropLabel">Duplicate</h5>
+			    		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		    			</div>
+				    <div class="modal-body">
+				    	<div class="container">
+				    		<div class="row mb-3">
+				    			<span style="color: blue">Confirm duplicate of the current development.</span>
+				    		</div>
+			    		</div>
+			    		</div>
+			    		<div class="modal-footer">
+				    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				    	<button type="button" class="btn btn-primary" id="confirmDuplicate" data-bs-dismiss="modal">Confirm</button>
+				    </div>
+				 </div>
+			</div>
+	</div>
+
 	<div class="modal fade" id="expModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="expModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">

@@ -48,11 +48,17 @@ public class TrackerService extends HttpServlet{
 		        int totalItems = developments.size();
 		        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
 
-		        // Get the current page from request (default to 1 if not set)
-		        int currentPage = Integer.parseInt(request.getParameter("page") != null ? request.getParameter("page") : "1");
+		        // Get the current page from request (default to 1 if not set or invalid)
+		        int currentPage;
+		        try {
+		        	currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+		        } catch (NumberFormatException e) {
+		        	currentPage = 1;
+		        }
+		        currentPage = Math.max(1, Math.min(currentPage, Math.max(1, totalPages)));
 
 		        // Calculate the starting index for the sublist
-		        int startIndex = (currentPage - 1) * itemsPerPage;
+		        int startIndex = Math.min((currentPage - 1) * itemsPerPage, totalItems);
 		        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
 		        // Get the sublist for the current page

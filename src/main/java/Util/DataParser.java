@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,18 +18,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DataParser implements Runnable {
-	private static String driver = "com.mysql.cj.jdbc.Driver";
-	private static String url = Constant.DBUrl;
-	private static String user = Constant.DBUserName;
-	private static String password = Constant.DBPassword;
-	static Connection conn = null;
-	
+	private static final int CONNECT_TIMEOUT_MS = 10_000;
+	private static final int READ_TIMEOUT_MS = 30_000;
+
 	public DataParser() {}
-	
+
 	public static void ParseJSONmat(String[] args) throws IOException, JSONException {
 		try {
 			URL u = new URL("http://218.75.78.226:9000/zhongya_eos/ajax/ZY/dataMaterial24");
 			HttpURLConnection hr = (HttpURLConnection) u.openConnection();
+			hr.setConnectTimeout(CONNECT_TIMEOUT_MS);
+			hr.setReadTimeout(READ_TIMEOUT_MS);
 			if (hr.getResponseCode()==200) {
 				InputStream is = hr.getInputStream();
 				StringBuffer sb = new StringBuffer();
@@ -89,6 +87,8 @@ public class DataParser implements Runnable {
 		try {
 			URL u = new URL("http://218.75.78.226:9000/zhongya_eos/ajax/ZY/dataProductList");
 			HttpURLConnection hr = (HttpURLConnection) u.openConnection();
+			hr.setConnectTimeout(CONNECT_TIMEOUT_MS);
+			hr.setReadTimeout(READ_TIMEOUT_MS);
 			if (hr.getResponseCode()==200) {
 				InputStream is = hr.getInputStream();
 				StringBuffer sb = new StringBuffer();
@@ -167,7 +167,8 @@ public class DataParser implements Runnable {
 		}
 	}
 	
-	private static double parseSafeDouble(JSONObject o, String key) {
+	// package-private (not private) so unit tests in this package can exercise it directly
+	static double parseSafeDouble(JSONObject o, String key) {
 	    String raw = o.optString(key, "").trim();
 	    if (raw.isEmpty()) {
 	        // missing or empty
@@ -181,7 +182,7 @@ public class DataParser implements Runnable {
 	    }
 	}
 	
-	private static String checkProductType(String key) {
+	static String checkProductType(String key) {
 		if (key.contains("平板布")) {
 			return "Base";
 		} else if (key.contains("花布")) {
@@ -191,7 +192,7 @@ public class DataParser implements Runnable {
 		}
 	}
 	
-	private static String checkFinishingType(String key) {
+	static String checkFinishingType(String key) {
 		String finishing = "";
 		if (key.contains("涂层")) {
 			finishing += "KC,";
@@ -236,42 +237,20 @@ public class DataParser implements Runnable {
 		return finishing;
 	}
 	
-	public static void getConn() {
-		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(  
-					url, user, password);
-		}
-		catch(SQLException e) {
-			
-		}
-		catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static void truncateMats() {
-		try {
-			getConn();
-			String sql = "TRUNCATE TABLE MijuPrice.mats;";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+		String sql = "TRUNCATE TABLE MijuPrice.mats;";
+		try (Connection conn = DbUtil.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.executeUpdate();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
-	
+
 	public static void insertMats(String mtrename, String mtrtype, double countgu, double countzhi, double prprice, double colorprice, double drprice, double whiteprice, double dyeprice, double whiteloss, double warploss, double colorloss, String mtrid, int material_id) {
-		try {
-			getConn();
-			String sql = "INSERT INTO MijuPrice.mats(mtrename, mtrtype, countgu, countzhi, prprice, colorprice, drprice, whiteprice, dyeprice, whiteloss, warploss, colorloss, mtrid, material_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+		String sql = "INSERT INTO MijuPrice.mats(mtrename, mtrtype, countgu, countzhi, prprice, colorprice, drprice, whiteprice, dyeprice, whiteloss, warploss, colorloss, mtrid, material_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		try (Connection conn = DbUtil.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, mtrename);
 			stmt.setString(2, mtrtype);
 			stmt.setDouble(3, countgu);
@@ -287,14 +266,8 @@ public class DataParser implements Runnable {
 			stmt.setString(13, mtrid);
 			stmt.setInt(14, material_id);
 			stmt.executeUpdate();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

@@ -1,6 +1,5 @@
 package Util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +29,15 @@ public class NewDevService extends HttpServlet{
 			} else {
 				String action = request.getParameter("action");
 			    String username = (String) session.getAttribute("userName");
-			    request.setAttribute("user", username);
+			    request.setAttribute("user", JsonUtil.toScriptSafeJson(username));
 			    int devId = 0;
 			    if (!"create".equals(action)) {
-			    	devId = Integer.parseInt(request.getParameter("devId"));
+			    	try {
+			    		devId = Integer.parseInt(request.getParameter("devId"));
+			    	} catch (NumberFormatException e) {
+			    		request.getRequestDispatcher("/TrackerService").forward(request, response);
+			    		return;
+			    	}
 				    request.setAttribute("devid", devId);
 			    }
 
@@ -65,11 +69,10 @@ public class NewDevService extends HttpServlet{
 			    List<Log> showLogs = logs.subList(0, Math.min(logs.size(), 13));
 
 			    // Convert objects to JSON
-			    ObjectMapper objectMapper = new ObjectMapper();
-			    String devJson = objectMapper.writeValueAsString(dev);
-			    String commentJson = objectMapper.writeValueAsString(comments);
-			    String logJson = objectMapper.writeValueAsString(showLogs);
-			    String fullLogJson = objectMapper.writeValueAsString(logs);
+			    String devJson = JsonUtil.toScriptSafeJson(dev);
+			    String commentJson = JsonUtil.toScriptSafeJson(comments);
+			    String logJson = JsonUtil.toScriptSafeJson(showLogs);
+			    String fullLogJson = JsonUtil.toScriptSafeJson(logs);
 
 			    // Set common attributes
 			    request.setAttribute("dev", devJson);
