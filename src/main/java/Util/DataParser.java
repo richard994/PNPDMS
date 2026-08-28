@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -176,7 +177,8 @@ public class DataParser implements Runnable {
 			if (hr.getResponseCode()==200) {
 				InputStream is = hr.getInputStream();
 				StringBuffer sb = new StringBuffer();
-				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+				// add by fage  解决中文乱码  2026年8月28日
+				BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 				String line = br.readLine();
 				while (line != null) {
 					sb.append(line);
@@ -196,8 +198,9 @@ public class DataParser implements Runnable {
 					boolean ext = false;
 					for(int j=0;j<mts.size();j++){
 						//mts.get(j).compare();
-						if(mts.get(i).getColoridx().equals(item.getString("coloridx")) &&
-							mts.get(i).getMaterialtypestruc().equals(item.getString("materialtypestruc"))
+						// 组合主键判断重复fix,循环取值 i 改 j
+						if(mts.get(j).getColoridx().equals(item.getString("coloridx")) &&
+							mts.get(j).getMaterialtypestruc().equals(item.getString("materialtypestruc"))
 						){
 							ext = true;
 							break;

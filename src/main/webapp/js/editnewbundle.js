@@ -501,7 +501,26 @@ function populateAllInputs() {
 					}
 				} else {
 					if (val !== '' && val !== null) {
-						alert(`In Yarn Type row, sel ${j} cannot be empty because previous sel columns have been filled. Please fill in order, do not skip empties.`);
+						alert(`In Yarn Type row, sel ${j} is filled, so columns before sel ${j} must also be filled.`);
+						return;
+					}
+				}
+			}
+		}
+		// ============================================================
+		// 【新增】此处替换为纵向校验代码
+		// ============================================================
+		for (let col = 1; col <= 12; col++) {
+			const yarnInput = document.getElementById('yarn_sel' + col);
+			if (!yarnInput) continue;
+			const yarnVal = yarnInput.value.trim();
+			if (yarnVal !== '') {
+				const colInputs = document.querySelectorAll(`#wtablerow tr[id^="row"] input[id^="sel${col}_"]`);
+				for (let i = 0; i < colInputs.length; i++) {
+					const colInput = colInputs[i];
+					if (colInput.value.trim() === '') {
+						const rowIdx = colInput.id.replace(`sel${col}_`, '');
+						alert(`In column sel ${col}, all rows must have values because Yarn Type is selected. Please check row ${rowIdx}.`);
 						return;
 					}
 				}
