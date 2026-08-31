@@ -17,7 +17,8 @@
 	        <li class="nav-item mr-5"><a href="PricingService" class="nav-link" id="Pricing" style="${activePage == 'Pricing' ? 'color: #4D73FF' : ''}">Pricing</a></li>
 	        <li class="nav-item mr-5"><a href="MatService" class="nav-link" id="Material" style="${activePage == 'Material' ? 'color: #4D73FF' : ''}">Material</a></li>
 	        <li class="nav-item mr-5"><a href="TrackerService" class="nav-link" id="Tracker" style="${activePage == 'Tracker' ? 'color: #4D73FF' : ''}">Tracker</a></li>
-	        <c:choose>
+			<li class="nav-item mr-5"><a href="BundlePatternService" class="nav-link" id="Bundle" style="${activePage == 'Bundle' ? 'color: #4D73FF' : ''}">Bundle</a></li>
+			  <c:choose>
 	          <c:when test="${accountVariant == 'plain'}">
 	            <li class="nav-item mr-5"><a href="auth.jsp" class="nav-link" id="Account" style="${activePage == 'Account' ? 'color: #4D73FF' : ''}">Account</a></li>
 	          </c:when>

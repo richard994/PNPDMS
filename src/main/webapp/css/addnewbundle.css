@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+body {
+    font-family: 'Inter', sans-serif !important;
+    background-color: #f8f9fa;
+    overflow-x: hidden !important;
+}
+
+/* 加宽核心容器并【修复双滚动条】 */
+#constraint, #displayqp {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    box-sizing: border-box;
+    overflow: visible !important;
+}
+
+#displayqp {
+    background-color: #4D73FF;
+    color: white;
+}
+
+#submitpd {
+    background-color: #4D73FF;
+    color: white;
+    width: 25%;
+}
+
+#headbar {
+    font-size: calc( 12px + (20 - 16) * (100vw - 400px) / (800 - 400) );
+    font-weight: 300;
+}
+
+#home::before { content: url(home.png) !important; }
+.breadcrumb-item::before { content: url(discount.png) !important; padding-right: 5px !important; }
+.breadcrumb-item::after { content: ">"; padding-left: 10px; }
+.breadcrumb-item:last-child::after { content: ""; }
+.breadcrumb-item:last-child { opacity: 1.0; }
+.breadcrumb-item { opacity: 0.5; }
+.nav-link { color: black; }
+
+/* ============================================================
+   表格布局（列宽由 JSP 中的 <colgroup> 接管）
+   ============================================================ */
+#wtable {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    table-layout: fixed !important; /* 必须配合 colgroup */
+    overflow: visible !important;
+}
+
+#wtable th, #wtable td {
+    padding: 3px !important;
+    vertical-align: middle !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+}
+
+/* 唯一需要保留的列对齐：确保 # 列文字居中 */
+#wtable th:nth-child(1), #wtable td:nth-child(1) {
+    text-align: center !important;
+}
+
+
+
+#wtable select {
+    width: 100% !important;
+    min-width: 50px !important;
+}
+
+/* ============================================================
+   第15列 Option 列样式控制（防止按钮溢出）
+   ============================================================ */
+#wtable td:last-child {
+    text-align: center !important;
+    white-space: nowrap !important; /* 强制不换行 */
+}
+#wtable td:last-child .btn-link {
+    padding: 0 4px !important;
+    font-size: 14px !important;
+    display: inline-block !important;
+}
+#wtable td:last-child .text-danger {
+    margin-left: 6px !important; /* 让DELETE和COPY之间留出一点间距 */
+}
+
+/* ============================================================
+   Choices.js 下拉样式（自适应右对齐）
+   ============================================================ */
+.choices {
+    position: relative !important;
+    width: 100% !important;
+}
+.choices__inner {
+    width: 100% !important;
+    background-color: #f8f9fa !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 4px 6px !important;
+}
+/* 针对 Yarn Type 行的 sel11 和 sel12 列，暴力拉回左上方 */
+#row_yarn td:nth-last-child(3) .choices__list--dropdown,
+#row_yarn td:nth-last-child(2) .choices__list--dropdown {
+    margin-left: -300px !important;
+}
+/* ============================================================
+   Choices.js 下拉样式（左侧默认，位置由 JS 动态监测调整）
+   ============================================================ */
+.choices__list--dropdown {
+    position: absolute !important;
+    z-index: 99999 !important;
+    width: max-content !important;
+    /* 【终极安全锁】最大宽度绝不超过屏幕宽度的 90%，消灭横向滚动条 */
+    max-width: 90vw !important;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15) !important;
+    border: 1px solid #ced4da !important;
+    background-color: #ffffff !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: 300px !important;
+}
+
+.choices__list--dropdown .choices__item {
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+}
+.choices__input { background-color: #fff !important; font-size: 14px !important; }

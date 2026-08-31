@@ -17,6 +17,7 @@ public class Mats {
 	private String matColor; 
 	private String matMemo;
 	private double usePercent;
+	private String mtrid;
 	
 	public Mats() {}
 	
@@ -42,6 +43,14 @@ public class Mats {
 		setMatColor(matColor);
 		setMatMemo(matMemo);
 		setUsePercent(usePercent);
+	}
+
+	public String getMtrid() {
+		return mtrid;
+	}
+
+	public void setMtrid(String mtrid) {
+		this.mtrid = mtrid;
 	}
 
 	public String getName() {

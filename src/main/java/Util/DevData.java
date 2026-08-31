@@ -98,6 +98,44 @@ public class DevData {
 		return 0;
 	}
 
+	public int insertMtrColor(String materialtypestrucname, String materialtypestruc, String colorid,
+	                          String coloridx) {
+		Connection conn = null;
+		try {
+			conn = DbUtil.getConnection();
+			String sql = "INSERT INTO MijuPrice.mtrcolor(materialtypestrucname, materialtypestruc, colorid, coloridx) "
+					+ "VALUES (?,?,?,?);";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, materialtypestrucname);
+			stmt.setString(2, materialtypestruc);
+			stmt.setString(3, colorid);
+			stmt.setString(4, coloridx);
+			int affectedRows = stmt.executeUpdate();
+			ResultSet generatedKeys = null;
+			// Check if the insert was successful and retrieve the generated keys
+			if (affectedRows > 0) {
+				// Get the generated keys (auto-incremented ID)
+				generatedKeys = stmt.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					// Retrieve the generated ID (assuming it's the first column in the ResultSet)
+					int generatedID = generatedKeys.getInt(1);
+					return generatedID;
+				}
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+            try {
+                if (conn!=null && !conn.isClosed()){
+					conn.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+		return 0;
+	}
+
 	public int insertDevelopment(String code, String color, double cost,
 			boolean IsParagonClean, boolean Is400hrFCL, boolean IsPieceDyed, boolean NeedFeedback,
 			boolean IsSDY, boolean IsChenille, String fabric_type, String design_type, String colorist, String finishing_used,
@@ -357,7 +395,26 @@ public class DevData {
 	private boolean isBlank(String s) {
 		return s == null || s.isEmpty();
 	}
+	public ArrayList<MtrColors> getMtrColors() {
 
+		ArrayList<MtrColors> developments = new ArrayList<MtrColors>();
+		String devQuery = "SELECT * FROM mtrcolor";
+		try (Connection conn = DbUtil.getConnection();PreparedStatement devStmt = conn.prepareStatement(devQuery);) {
+			ResultSet rs = devStmt.executeQuery();
+			while (rs.next()) {
+				String materialtypestrucname = rs.getString("materialtypestrucname");
+				String materialtypestruc = rs.getString("materialtypestruc");
+				String colorid = rs.getString("colorid");
+				String coloridx = rs.getString("coloridx");
+
+				developments.add(new MtrColors(materialtypestrucname,materialtypestruc,colorid,coloridx));
+			}
+			return developments;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return developments;
+		}
+	}
 	public Developments getDevelopmentById(int id) {
 		Developments development = new Developments();
 		String devQuery = "SELECT * FROM development WHERE development_id = ?";

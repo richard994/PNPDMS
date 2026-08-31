@@ -1,0 +1,185 @@
+@charset "UTF-8";
+
+body {
+	font-family: 'Inter', sans-serif !important;
+}
+
+/* ----- 核心布局对齐：左侧 165px 留白，右侧自适应 ----- */
+.main-wrapper {
+	max-width: 1650px;
+	margin-left: 165px;
+	padding-right: 20px;
+	padding-top: 10px;
+}
+
+/* ----- 查询表单区域样式 ----- */
+.filter-area .form-label {
+	font-size: 14px;
+	color: #666;
+}
+.filter-area .form-control,
+.filter-area .form-select {
+	border-radius: 4px;
+}
+
+/* ----- 表格包裹层修复 ----- */
+.table-wrapper {
+	overflow: hidden; /* 隐藏溢出 */
+}
+
+/* ----- DataTables 的表头固定、无横向滚动条 ----- */
+#quotedprices_wrapper .dataTables_scroll {
+	overflow: hidden !important;
+}
+/* 【修改点】移除 scrollY 相关的 max-height 和滚动控制，交给分页处理 */
+#quotedprices_wrapper .dataTables_scrollBody {
+	overflow-x: hidden !important; /* 彻底消除横向滚动条 */
+}
+#quotedprices_wrapper .dataTables_scrollBody {
+	max-height: 410px !important;
+	overflow-y: auto !important;
+	overflow-x: hidden !important; /* 彻底消除横向滚动条 */
+}
+
+/* 表头固定 */
+#quotedprices thead th {
+	position: sticky;
+	top: 0;
+	background-color: #e9ecef !important;
+	z-index: 10;
+	border-bottom: 2px solid #dee2e6 !important;
+	font-weight: 600 !important;
+}
+
+/* ----- 表格行与单元格精细调整 ----- */
+#quotedprices td {
+	vertical-align: middle !important;
+	padding: 8px 6px !important;
+}
+/* 【新增修复】确保 # 号列（使用 th 标签）始终上下左右居中 */
+#quotedprices tbody tr th {
+	text-align: center !important;
+	vertical-align: middle !important;
+	padding: 8px 6px !important;
+}
+#quotedprices tbody tr:hover {
+	background-color: #f8f9fa !important;
+}
+
+/* ----- 单选框对齐 ----- */
+#quotedprices td input[type="radio"] {
+	width: 16px !important;
+	height: 16px !important;
+	margin: 0 auto;
+	display: block;
+	cursor: pointer;
+}
+/* 强行控制 DataTables 的滚动体，禁止产生多余的横向滚动条 */
+div.dataTables_scrollBody {
+	overflow-x: hidden !important;
+}
+/* 修改 `#quotedprices` 或直接追加到 CSS 最下方 */
+#quotedprices {
+	width: 100% !important;
+	table-layout: fixed !important;  /* 【关键】强制开启固定列宽布局 */
+}
+/* ----- 分页区域样式（与 pricing.jsp 保持一致） ----- */
+.info {
+	width: 50% !important;
+	margin: auto !important;
+}
+.length {
+	width: 5% !important;
+	margin: auto !important;
+	white-space: nowrap !important;
+}
+.page {
+	width: 45% !important;
+	margin: auto !important;
+	margin-top: 5px !important;
+}
+div.dataTables_length select {
+	width: 50px !important;
+}
+/* 分页按钮样式（可选微调） */
+.pagination .page-item .page-link {
+	font-size: 14px !important;
+	padding: 2px 10px !important;
+}
+/* ============================================================
+   1. 强制锁定第1列（40px）和第2列（50px）的宽度！
+   ============================================================ */
+#quotedprices th:nth-child(1), #quotedprices td:nth-child(1) {
+	width: 40px !important;
+	min-width: 40px !important;
+	max-width: 40px !important;
+	text-align: center !important;
+	padding: 4px 2px !important; /* 缩减内边距防止撑开 */
+	overflow: hidden !important;
+}
+#quotedprices th:nth-child(2), #quotedprices td:nth-child(2) {
+	width: 50px !important;
+	min-width: 50px !important;
+	max-width: 50px !important;
+	text-align: center !important;
+	padding: 4px 2px !important;
+	overflow: hidden !important;
+}
+
+/* ----- 分页区域样式（彻底修复大小高度不一致） ----- */
+.bottom-wrapper {
+	width: 100% !important;
+	height: 50px !important;
+	display: flex !important;
+	align-items: center !important; /* 核心：强制内部所有元素垂直居中 */
+	justify-content: flex-end !important;
+	background-color: white !important;
+	margin-top: 10px !important;
+	padding: 0 5px !important;
+	box-sizing: border-box !important;
+}
+
+.info {
+	width: auto !important;
+	margin-right: auto !important; /* 让信息文字占满左侧 */
+	text-align: left !important;
+}
+
+.length {
+	width: auto !important;
+	white-space: nowrap !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	margin-right: 15px !important;
+}
+
+.page {
+	width: auto !important;
+	display: inline-flex !important;
+	align-items: center !important;
+}
+
+/* 【核心修复】强制“Show X Entries”下拉框的高度 */
+#quotedprices_length select {
+	width: 50px !important;
+	height: 34px !important; /* 设置统一高度 */
+	padding: 0 5px !important;
+	line-height: 1.5 !important;
+	margin: 0 4px !important;
+	vertical-align: middle !important;
+}
+
+/* 【核心修复】强制分页按钮的高度和大小，去除之前过小的 padding */
+#quotedprices_paginate .pagination .page-link {
+	font-size: 14px !important;
+	padding: 4px 12px !important; /* 恢复标准的内边距 */
+	height: 34px !important; /* 强制与下拉框高度保持一致 */
+	line-height: 1.4 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	border-radius: 4px !important; /* 让按钮边框显得一致 */
+}
+.mt-3{
+	margin-bottom: 1rem!important;
+}

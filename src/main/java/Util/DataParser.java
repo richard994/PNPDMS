@@ -166,8 +166,76 @@ public class DataParser implements Runnable {
 			System.out.println(e);
 		}
 	}
-	
-	// package-private (not private) so unit tests in this package can exercise it directly
+
+	public static void ParseJSONColor(String[] args) throws IOException,JSONException
+	{
+
+		try {
+			URL u = new URL("http://218.75.78.226:9000/zhongya_eos/ajax/ZY/dataMtrColor");
+			HttpURLConnection hr = (HttpURLConnection) u.openConnection();
+			if (hr.getResponseCode()==200) {
+				InputStream is = hr.getInputStream();
+				StringBuffer sb = new StringBuffer();
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+				String line = br.readLine();
+				while (line != null) {
+					sb.append(line);
+					line = br.readLine();
+				}
+				JSONArray arr = new JSONArray(sb.toString());
+
+				//从中亚erp中获取包袱样所需要的原料色号  需要解决单个更新问题 以materialtypestruc和coloridx为关键词判断更新
+				//将获取的数据保存到mtrcolor表中
+				//上述过程需要单独实现
+				DevData data = new DevData();
+				ArrayList<MtrColors> mts = data.getMtrColors();
+
+				//处理增加
+				for(int i=0;i<arr.length();i++){
+					JSONObject item = arr.getJSONObject(i);
+					boolean ext = false;
+					for(int j=0;j<mts.size();j++){
+						//mts.get(j).compare();
+						if(mts.get(i).getColoridx().equals(item.getString("coloridx")) &&
+							mts.get(i).getMaterialtypestruc().equals(item.getString("materialtypestruc"))
+						){
+							ext = true;
+							break;
+						}
+					}
+					if(!ext){
+						data.insertMtrColor(item.getString("materialtypestrucname"),
+								item.getString("materialtypestruc"),
+								item.getString("colorid"),
+								item.getString("coloridx"));
+					}
+				}
+
+				//处理删除
+//				for(int i=0;i<mts.size();i++){
+//					boolean ext = false;
+//					for(int j=0;j<arr.length();j++){
+//						JSONObject item = arr.getJSONObject(j);
+//						if(mts.get(i).getColoridx().equals(item.getString("coloridx")) &&
+//								mts.get(i).getMaterialtypestruc().equals(item.getString("materialtypestruc"))
+//						){
+//							ext = true;
+//							break;
+//						}
+//					}
+//					if(!ext){
+//						data.deleteMtrColor(mts.get(i).getMaterialtypestruc(),mts.get(i).getColoridx());
+//					}
+//				}
+
+
+			}
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
 	static double parseSafeDouble(JSONObject o, String key) {
 	    String raw = o.optString(key, "").trim();
 	    if (raw.isEmpty()) {
@@ -276,6 +344,7 @@ public class DataParser implements Runnable {
 		try {
 			ParseJSONmat(null);
 			ParseJSONdev(null);
+			ParseJSONColor(null);
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		} 

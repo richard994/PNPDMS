@@ -68,6 +68,7 @@ public class PriceData {
 				double wloss = rs.getDouble("warploss");
 				String key = rs.getString("mtrid").substring(0,1);
 				Mats mat = new Mats(name, whitePrice, dyePrice, colorPrice, drPrice, prPrice, countgu, countzhi, mtrtype, wloss, key);
+				mat.setMtrid(rs.getString("mtrid"));
 				mats.add(mat);
 			}
 			return mats;
