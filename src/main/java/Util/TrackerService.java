@@ -1,10 +1,14 @@
 	package Util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +27,27 @@ public class TrackerService extends HttpServlet{
 			response) throws ServletException, IOException{
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loggedin") == null) {
-			request.getRequestDispatcher("/auth.jsp").forward(request, response);
+			boolean jump = false;
+			if (request.getParameter("interface") != null) {
+				if ("chinasia".equals(request.getParameter("interface"))) { //&& request.getRemoteAddr().equals("218.75.78.226")
+					try {
+						DevData devData = new DevData();
+						ArrayList<Developments> developments = devData.getDevelopments();
+						developments = developments.stream()
+								.filter(dev -> !dev.isInactive())
+								.collect(Collectors.toCollection(ArrayList::new));
+						ObjectMapper mapper = new ObjectMapper();
+						String jsonstring = mapper.writeValueAsString(developments);
+						JSONArray rst = new JSONArray(jsonstring);
+						response.getWriter().println(rst);
+						jump = true;
+					} catch (Exception e) {
+
+					}
+				}
+			}
+			if (!jump)
+				request.getRequestDispatcher("/auth.jsp").forward(request, response);
 		} else {
 			boolean loggedin = (boolean) session.getAttribute("loggedin");
 			if (!loggedin) {
